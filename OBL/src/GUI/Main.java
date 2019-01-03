@@ -1,6 +1,6 @@
 package GUI;
 	
-import GUI.RegistrationController;
+import GUI.RegistrationGUI;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
