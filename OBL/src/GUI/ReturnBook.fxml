@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="928.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ReturnBookController">
+   <children>
+      <Label layoutX="354.0" layoutY="14.0" prefHeight="30.0" prefWidth="122.0" text="Return book" underline="true" AnchorPane.leftAnchor="354.0">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="107.0" layoutY="137.0" text="Book name:" />
+      <TextField fx:id="txtBook_Name" layoutX="205.0" layoutY="132.0" text="Harry potter" />
+      <Label layoutX="411.0" layoutY="137.0" text="Card status:" />
+      <TextField fx:id="txtFirst_Name" layoutX="517.0" layoutY="177.0" text="Lior" />
+      <Label layoutX="107.0" layoutY="94.0" text="Book ID:" />
+      <TextField fx:id="txtBook_ID" layoutX="205.0" layoutY="89.0" text="123" />
+      <Label layoutX="411.0" layoutY="182.0" text="First name:" />
+      <TextField fx:id="txtCard_Status" layoutX="517.0" layoutY="132.0" text="Active" />
+      <Label layoutX="412.0" layoutY="230.0" text="Last name:" />
+      <TextField fx:id="txtLast_name" editable="false" layoutX="517.0" layoutY="225.0" text="Ben hamo" />
+      <Button fx:id="btnReturn" layoutX="151.0" layoutY="318.0" mnemonicParsing="false" text="Return">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="177.0" fitWidth="194.0" layoutX="328.0" layoutY="381.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Pictures/bookreturn_decal_d.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="411.0" layoutY="94.0" text="Reader ID:" />
+      <TextField fx:id="txtReader_ID" layoutX="517.0" layoutY="89.0" text="123456" />
+      <Label layoutX="108.0" layoutY="182.0" text="Retun date:" />
+      <TextField fx:id="txtReturn_Date" layoutX="205.0" layoutY="177.0" text="12/13/2018" />
+   </children>
+</AnchorPane>
