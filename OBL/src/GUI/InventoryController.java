@@ -8,7 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 
 public class InventoryController {
-	// this is the one
+	// this is the one fdjnghfdngjfdgfdgdf
 	 @FXML
 	    private AnchorPane MainPane;
 	 
