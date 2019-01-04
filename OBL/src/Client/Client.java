@@ -67,7 +67,19 @@ public class Client extends AbstractClient
 	 */
 	public void handleMessageFromServer(Object msg) 
 	{
-
+		System.out.println("Message received: " + msg + " from " + client);
+		ArrayList<String> arrayObject = (ArrayList<String>)msg; //casting msg-Object to arraylist
+		switch (((arrayObject).get(1)) {
+		case "Login":
+			try {
+				RegistrationController.loginResult(arrayObject);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			break;
+			}
+		}
 	}
 
 	/**
