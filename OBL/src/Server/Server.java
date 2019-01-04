@@ -5,6 +5,7 @@ package Server;
 //license found at www.lloseng.com 
 
 import java.sql.*;
+import java.util.ArrayList;
 
 import ocsf.server.*;
 
@@ -49,7 +50,6 @@ public class Server extends AbstractServer
 	 */
 	public void handleMessageFromClient (Object msg, ConnectionToClient client) {
 		System.out.println("Message received: " + msg + " from " + client);
-<<<<<<< HEAD
 		ArrayList<String> arrayObject = (ArrayList<String>)msg; //casting msg-Object to arraylist
 		switch (((ArrayList<String>)msg).get(1)) {
 		case "Registration":
@@ -63,18 +63,17 @@ public class Server extends AbstractServer
 		case "Login":
 			try {
 				int menu = DBController.getInstance().login((ArrayList<String>) msg);
-				arrayObject.add(Integer.ParseInt(menu));
+				arrayObject.add(Integer.toString(menu));
 				client.sendToClient(arrayObject);
-			} catch (SQLException e) {
+			}
+			catch (Exception e) {
+				// TODO: handle exception
 				e.printStackTrace();
 			}
 			break;
-
 		default:
 			break;
 		}
-=======
->>>>>>> parent of fd305f5... Merge branch 'master' of https://github.com/lior203/obl-12
 
 
 		this.sendToAllClients(msg);
