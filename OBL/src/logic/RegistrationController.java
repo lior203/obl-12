@@ -10,7 +10,8 @@ public class RegistrationController {
 
 	public  static void registration(String phoneNumber,String id,String lastName,String firstName,String Email, String password)
 	{
-		System.out.println(phoneNumber);
+		client= new Client(, port)
+				System.out.println(phoneNumber);
 		ArrayList<String> registrationData = new ArrayList<>();
 		registrationData.add("Registration");
 		registrationData.add(phoneNumber);
