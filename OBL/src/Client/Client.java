@@ -8,6 +8,10 @@ package Client;
 import ocsf.client.*;
 
 import java.io.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import logic.RegistrationController;
 
 
 
@@ -36,7 +40,7 @@ public Client(String host, int port) {
 //	ClientGuiController clientUI; 
 
 
-<<<<<<< HEAD
+
 	/**
 	 * This method handles all data that comes in from the server.
 	 *
@@ -58,7 +62,7 @@ public Client(String host, int port) {
 			}
 		}
 	}
-=======
+
 //Constructors ****************************************************
 
 /**
@@ -83,11 +87,7 @@ public Client(String host, int port) {
 *
 * @param msg The message from the server.
 */
-public void handleMessageFromServer(Object msg) 
-{
- 
-}
->>>>>>> parent of fd305f5... Merge branch 'master' of https://github.com/lior203/obl-12
+
 
 /**
 * This method handles all data coming from the UI            

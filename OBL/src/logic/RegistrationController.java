@@ -2,8 +2,8 @@ package logic;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 import Client.Client;
+import GUI.OBLcontroller;
 
 public class RegistrationController {
 
