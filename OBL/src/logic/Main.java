@@ -1,7 +1,7 @@
 package logic;
 
 import GUI.OBLcontroller;
-import GUI.RegistrationGUI;
+import GUI.RegistrationController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;

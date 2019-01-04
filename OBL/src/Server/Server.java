@@ -49,12 +49,8 @@ public class Server extends AbstractServer
 	 */
 	public void handleMessageFromClient (Object msg, ConnectionToClient client) {
 		System.out.println("Message received: " + msg + " from " + client);
-<<<<<<< HEAD
 		ArrayList<String> arrayObject = (ArrayList<String>)msg; //casting msg-Object to arraylist
 		switch (((ArrayList<String>)msg).get(1)) {
-=======
-		switch (((ArrayList<String>)msg).get(0)) {
->>>>>>> branch 'master' of https://github.com/lior203/obl-12
 		case "Registration":
 			try {
 				DBController.getInstance().registretion((ArrayList<String>) msg);
