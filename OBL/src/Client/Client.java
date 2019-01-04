@@ -40,10 +40,6 @@ public class Client extends AbstractClient
 	//	ClientGuiController clientUI; 
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 	/**
 	 * This method handles all data that comes in from the server.
 	 *
@@ -58,11 +54,7 @@ public class Client extends AbstractClient
 			RegistrationController.loginResult(arrayObject);
 		break;
 	}
-<<<<<<< HEAD
-
-=======
 }
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 //Constructors ****************************************************
 
 /**
@@ -81,16 +73,6 @@ public class Client extends AbstractClient
 
 
 //Instance methods ************************************************
-<<<<<<< HEAD
- 
-/**
-* This method handles all data that comes in from the server.
-*
-* @param msg The message from the server.
-*/
-
-=======
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 
 /**
  * This method handles all data that comes in from the server.
