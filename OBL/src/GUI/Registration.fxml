@@ -10,14 +10,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Registration" minHeight="0.0" minWidth="0.0" prefHeight="928.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.RegistrationController">
+<AnchorPane fx:id="Registration" minHeight="0.0" minWidth="0.0" prefHeight="928.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.RegistrationGUI">
    <children>
       <Label alignment="CENTER" layoutX="565.0" layoutY="26.0" text="Registration" textAlignment="CENTER" underline="true">
          <font>
             <Font name="System Bold" size="23.0" />
          </font>
       </Label>
-      <Button fx:id="btnSave" layoutX="846.0" layoutY="596.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="150.0" text="Save" />
+      <Button fx:id="btnSave" layoutX="846.0" layoutY="596.0" mnemonicParsing="false" onAction="#onSaveClick" prefHeight="79.0" prefWidth="150.0" text="Save" />
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="846.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../Pictures/Registration.png" />
@@ -73,22 +73,6 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </Label>
-            <Label text="Birth date:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-            </Label>
-            <Label text="Address:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-            </Label>
          </children>
       </VBox>
       <TextField fx:id="txtPhone_number" layoutX="246.0" layoutY="312.0" />
@@ -96,8 +80,6 @@
       <TextField fx:id="txtLast_name" layoutX="246.0" layoutY="218.0" />
       <TextField fx:id="txtFirst_name" layoutX="246.0" layoutY="171.0" />
       <TextField fx:id="txtEmail" layoutX="246.0" layoutY="360.0" />
-      <TextField layoutX="246.0" layoutY="408.0" />
-      <TextField fx:id="txtBirth_date" layoutX="246.0" layoutY="454.0" />
-      <TextField fx:id="txtAddress" layoutX="246.0" layoutY="503.0" />
+      <TextField fx:id="txtPassword" layoutX="246.0" layoutY="408.0" />
    </children>
 </AnchorPane>
