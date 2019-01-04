@@ -57,7 +57,7 @@ public class OBLcontroller  {
 
 		
 		    public void login(ActionEvent event) throws IOException {
-		    	RegistrationController.login(txtUserName.getText(),txtPassword.getText());
+		    	RegistrationGUI.login(txtUserName.getText(),txtPassword.getText());
 		    	
 			/* ((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
 				Stage primaryStage = new Stage();

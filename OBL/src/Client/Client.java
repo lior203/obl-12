@@ -8,35 +8,38 @@ package Client;
 import ocsf.client.*;
 
 import java.io.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import logic.RegistrationController;
 
 
 
 /**
-* This class overrides some of the methods defined in the abstract
-* superclass in order to give more functionality to the client.
-*
-* @author Dr Timothy C. Lethbridge
-* @author Dr Robert Lagani&egrave;
-* @author Fran&ccedil;ois B&eacute;langer
-* @version July 2000
-*/
+ * This class overrides some of the methods defined in the abstract
+ * superclass in order to give more functionality to the client.
+ *
+ * @author Dr Timothy C. Lethbridge
+ * @author Dr Robert Lagani&egrave;
+ * @author Fran&ccedil;ois B&eacute;langer
+ * @version July 2000
+ */
 public class Client extends AbstractClient
 {
-public Client(String host, int port) {
+	public Client(String host, int port) {
 		super(host, port);
 		// TODO Auto-generated constructor stub
 	}
 
-//Instance variables **********************************************
+	//Instance variables **********************************************
 
-/**
-* The interface type variable.  It allows the implementation of 
-* the display method in the client.
-*/
-//	ClientGuiController clientUI; 
+	/**
+	 * The interface type variable.  It allows the implementation of 
+	 * the display method in the client.
+	 */
+	//	ClientGuiController clientUI; 
 
 
-<<<<<<< HEAD
 	/**
 	 * This method handles all data that comes in from the server.
 	 *
@@ -44,30 +47,23 @@ public Client(String host, int port) {
 	 */
 	public void handleMessageFromServer(Object msg) 
 	{
-		System.out.println("Message received: " + msg + " from " + client);
+		System.out.println("Message received: " + msg);
 		ArrayList<String> arrayObject = (ArrayList<String>)msg; //casting msg-Object to arraylist
-		switch (((arrayObject).get(1)) {
+		switch (((arrayObject).get(1))) {
 		case "Login":
-			try {
-				RegistrationController.loginResult(arrayObject);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			break;
-			}
-		}
+			RegistrationController.loginResult(arrayObject);
+		break;
 	}
-=======
+}
 //Constructors ****************************************************
 
 /**
-* Constructs an instance of the chat client.
-*
-* @param host The server to connect to.
-* @param port The port number to connect on.
-* @param clientUI The interface type variable.
-*/
+ * Constructs an instance of the chat client.
+ *
+ * @param host The server to connect to.
+ * @param port The port number to connect on.
+ * @param clientUI The interface type variable.
+ */
 
 //public Client(String host, int port, ClientGuiController clientUI) throws IOException {
 // super(host, port); //Call the superclass constructor
@@ -77,57 +73,53 @@ public Client(String host, int port) {
 
 
 //Instance methods ************************************************
- 
-/**
-* This method handles all data that comes in from the server.
-*
-* @param msg The message from the server.
-*/
-public void handleMessageFromServer(Object msg) 
-{
- 
-}
->>>>>>> parent of fd305f5... Merge branch 'master' of https://github.com/lior203/obl-12
 
 /**
-* This method handles all data coming from the UI            
-*
-* @param message The message from the UI.    
-*/
+ * This method handles all data that comes in from the server.
+ *
+ * @param msg The message from the server.
+ */
+
+
+/**
+ * This method handles all data coming from the UI            
+ *
+ * @param message The message from the UI.    
+ */
 public void handleMessageFromClientUI(Object message)  
 {
-	  if(message.equals("getInfo")) {
-		  try {
-		    	sendToServer(message);
-		  }
-		    catch(IOException e) {
-//		    	clientUI.showAlert("Could not send message to server. Terminating client.");
-		    	quit();
-		    }
-	  }
-	  
-////	  if(message instanceof Student) {
-//		  try {
-//		    	sendToServer(message);
-//		  }
-//		    catch(IOException e) {
-////		    	clientUI.showAlert("Could not send message to server. Terminating client.");
-//		    	quit();
-//		    }
-//	  }
+	if(message.equals("getInfo")) {
+		try {
+			sendToServer(message);
+		}
+		catch(IOException e) {
+			//		    	clientUI.showAlert("Could not send message to server. Terminating client.");
+			quit();
+		}
+	}
+
+	////	  if(message instanceof Student) {
+	//		  try {
+	//		    	sendToServer(message);
+	//		  }
+	//		    catch(IOException e) {
+	////		    	clientUI.showAlert("Could not send message to server. Terminating client.");
+	//		    	quit();
+	//		    }
+	//	  }
 }
 
 /**
-* This method terminates the client.
-*/
+ * This method terminates the client.
+ */
 public void quit()
 {
- try
- {
-   closeConnection();
- }
- catch(IOException e) {}
- System.exit(0);
+	try
+	{
+		closeConnection();
+	}
+	catch(IOException e) {}
+	System.exit(0);
 }
 }
 //End of Client class

@@ -3,10 +3,10 @@ package Server;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.mysql.fabric.xmlrpc.base.Data;
 
 public class DBController {
 	
@@ -28,15 +28,16 @@ public class DBController {
 	
 	public static void registretion(ArrayList<String> data) throws SQLException
 	{
-		PreparedStatement insert = conn.prepareStatement("INSERT INTO members(PhoneNumber,MemberID,LastName,FirstName,Email,Password,Status) VALUES (?,?,?,?,?,?,?,?)");
+		System.out.println(data);
+		PreparedStatement insert = conn.prepareStatement("insert into members values(?,?,?,?,?,?,?,?)");
 		insert.setString(1, data.get(2));
-		insert.setString(2, data.get(3));
-		insert.setString(3, data.get(4));
-		insert.setString(4, data.get(5));
-		insert.setString(5, data.get(6));
-		insert.setString(6, data.get(7));
-		insert.setString(7, data.get(8));
-		insert.setString(8, "Active");
+		insert.setString(2, data.get(1));
+		insert.setString(3, data.get(5));
+		insert.setString(4, data.get(6));
+		insert.setString(5, data.get(4));
+		insert.setString(6, data.get(3));
+		insert.setString(7, "Active");
+		insert.setString(8, "empty");
 		insert.executeUpdate();
 	}
 	
