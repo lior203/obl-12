@@ -12,48 +12,31 @@ import java.io.*;
 
 
 /**
- * This class overrides some of the methods defined in the abstract
- * superclass in order to give more functionality to the client.
- *
- * @author Dr Timothy C. Lethbridge
- * @author Dr Robert Lagani&egrave;
- * @author Fran&ccedil;ois B&eacute;langer
- * @version July 2000
- */
+* This class overrides some of the methods defined in the abstract
+* superclass in order to give more functionality to the client.
+*
+* @author Dr Timothy C. Lethbridge
+* @author Dr Robert Lagani&egrave;
+* @author Fran&ccedil;ois B&eacute;langer
+* @version July 2000
+*/
 public class Client extends AbstractClient
 {
-	public Client(String host, int port) {
+public Client(String host, int port) {
 		super(host, port);
+		// TODO Auto-generated constructor stub
 	}
 
-	//Instance variables **********************************************
+//Instance variables **********************************************
 
-	/**
-	 * The interface type variable.  It allows the implementation of 
-	 * the display method in the client.
-	 */
-	//	ClientGuiController clientUI; 
-
-
-	//Constructors ****************************************************
-
-	/**
-	 * Constructs an instance of the chat client.
-	 *
-	 * @param host The server to connect to.
-	 * @param port The port number to connect on.
-	 * @param clientUI The interface type variable.
-	 */
-
-	//public Client(String host, int port, ClientGuiController clientUI) throws IOException {
-	// super(host, port); //Call the superclass constructor
-	//// this.clientUI = clientUI;
-	// openConnection();
-	//}
+/**
+* The interface type variable.  It allows the implementation of 
+* the display method in the client.
+*/
+//	ClientGuiController clientUI; 
 
 
-	//Instance methods ************************************************
-
+<<<<<<< HEAD
 	/**
 	 * This method handles all data that comes in from the server.
 	 *
@@ -75,46 +58,76 @@ public class Client extends AbstractClient
 			}
 		}
 	}
+=======
+//Constructors ****************************************************
 
-	/**
-	 * This method handles all data coming from the UI            
-	 *
-	 * @param message The message from the UI.    
-	 */
-	public void handleMessageFromClientUI(Object message)  
-	{
-		if(message.equals("getInfo")) {
-			try {
-				sendToServer(message);
-			}
-			catch(IOException e) {
-				//		    	clientUI.showAlert("Could not send message to server. Terminating client.");
-				quit();
-			}
-		}
+/**
+* Constructs an instance of the chat client.
+*
+* @param host The server to connect to.
+* @param port The port number to connect on.
+* @param clientUI The interface type variable.
+*/
 
-		////	  if(message instanceof Student) {
-		//		  try {
-		//		    	sendToServer(message);
-		//		  }
-		//		    catch(IOException e) {
-		////		    	clientUI.showAlert("Could not send message to server. Terminating client.");
-		//		    	quit();
-		//		    }
-		//	  }
-	}
+//public Client(String host, int port, ClientGuiController clientUI) throws IOException {
+// super(host, port); //Call the superclass constructor
+//// this.clientUI = clientUI;
+// openConnection();
+//}
 
-	/**
-	 * This method terminates the client.
-	 */
-	public void quit()
-	{
-		try
-		{
-			closeConnection();
-		}
-		catch(IOException e) {}
-		System.exit(0);
-	}
+
+//Instance methods ************************************************
+ 
+/**
+* This method handles all data that comes in from the server.
+*
+* @param msg The message from the server.
+*/
+public void handleMessageFromServer(Object msg) 
+{
+ 
+}
+>>>>>>> parent of fd305f5... Merge branch 'master' of https://github.com/lior203/obl-12
+
+/**
+* This method handles all data coming from the UI            
+*
+* @param message The message from the UI.    
+*/
+public void handleMessageFromClientUI(Object message)  
+{
+	  if(message.equals("getInfo")) {
+		  try {
+		    	sendToServer(message);
+		  }
+		    catch(IOException e) {
+//		    	clientUI.showAlert("Could not send message to server. Terminating client.");
+		    	quit();
+		    }
+	  }
+	  
+////	  if(message instanceof Student) {
+//		  try {
+//		    	sendToServer(message);
+//		  }
+//		    catch(IOException e) {
+////		    	clientUI.showAlert("Could not send message to server. Terminating client.");
+//		    	quit();
+//		    }
+//	  }
+}
+
+/**
+* This method terminates the client.
+*/
+public void quit()
+{
+ try
+ {
+   closeConnection();
+ }
+ catch(IOException e) {}
+ System.exit(0);
+}
 }
 //End of Client class

@@ -5,7 +5,6 @@ package Server;
 //license found at www.lloseng.com 
 
 import java.sql.*;
-import java.util.ArrayList;
 
 import ocsf.server.*;
 
@@ -27,6 +26,7 @@ public class Server extends AbstractServer
 	 * The default port to listen on.
 	 */
 	final public static int DEFAULT_PORT = 5555;
+	public static Connection conn;
 	//Constructors ****************************************************
 
 	/**
@@ -49,6 +49,7 @@ public class Server extends AbstractServer
 	 */
 	public void handleMessageFromClient (Object msg, ConnectionToClient client) {
 		System.out.println("Message received: " + msg + " from " + client);
+<<<<<<< HEAD
 		ArrayList<String> arrayObject = (ArrayList<String>)msg; //casting msg-Object to arraylist
 		switch (((ArrayList<String>)msg).get(1)) {
 		case "Registration":
@@ -72,6 +73,8 @@ public class Server extends AbstractServer
 		default:
 			break;
 		}
+=======
+>>>>>>> parent of fd305f5... Merge branch 'master' of https://github.com/lior203/obl-12
 
 
 		this.sendToAllClients(msg);
@@ -108,7 +111,25 @@ public class Server extends AbstractServer
 	 *          if no argument is entered.
 	 */
 
+	private Connection connectToDatabase() {
+		try 
+		{
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+		} catch (Exception ex) {/* handle the error*/}
 
+		try 
+		{
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/obl","root","Aa123456");
+			System.out.println("SQL connection succeed");
+			return conn;
+		} catch (SQLException ex) 
+		{	/* handle any errors*/
+			System.out.println("SQLException: " + ex.getMessage());
+			System.out.println("SQLState: " + ex.getSQLState());
+			System.out.println("VendorError: " + ex.getErrorCode());
+		}
+		return null;
+	}
 
 	public static void main(String[] args) 
 	{
@@ -123,7 +144,7 @@ public class Server extends AbstractServer
 			port = DEFAULT_PORT; //Set port to 5555
 		}	
 		Server sv = new Server(port);
-//		conn = sv.connectToDatabase();
+		conn = sv.connectToDatabase();
 		try 
 		{
 			sv.listen(); //Start listening for connections

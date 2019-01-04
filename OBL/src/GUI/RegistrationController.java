@@ -6,9 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import logic.RegistrationController;
 
-public class RegistrationGUI {
+public class RegistrationController {
 	@FXML
     private AnchorPane Registration;
 
@@ -29,15 +28,11 @@ public class RegistrationGUI {
 
     @FXML
     private TextField txtEmail;
-    
-    @FXML
-    private TextField txtPassword;
 
-    
     @FXML
-    void onSaveClick(ActionEvent event) {
-    	RegistrationController.registration(txtPhone_number.getText(),txtID.getText(),txtLast_name.getText(),txtFirst_name.getText(),txtEmail.getText(),txtPassword.getText());
+    private TextField txtBirth_date;
 
-    }
+    @FXML
+    private TextField txtAddress;
 
 }
