@@ -49,10 +49,21 @@ public class Server extends AbstractServer
 	 */
 	public void handleMessageFromClient (Object msg, ConnectionToClient client) {
 		System.out.println("Message received: " + msg + " from " + client);
+		ArrayList<String> arrayObject = (ArrayList<String>)msg; //casting msg-Object to arraylist
 		switch (((ArrayList<String>)msg).get(1)) {
 		case "Registration":
 			try {
 				DBController.getInstance().registretion((ArrayList<String>) msg);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			break;
+			
+		case "Login":
+			try {
+				int menu = DBController.getInstance().login((ArrayList<String>) msg);
+				arrayObject.add(Integer.ParseInt(menu));
+				client.sendToClient(arrayObject);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

@@ -40,6 +40,39 @@ public class DBController {
 		insert.executeUpdate();
 	}
 	
+	public static int login(ArrayList<String> data) throws SQLException
+	{
+		PreparedStatement login;
+		ResultSet rs;
+		
+		login = conn.prepareStatement("SELECT LibrarianID,Password FROM librarian WHERE LibrarianID=? AND Password=?)");
+		login.setString(1,data.get(1));
+		login.setString(2,data.get(2));
+		
+		rs = login.executeQuery();
+		
+		if(rs != null) {
+			//////////////////Enter librarian menu
+			return 1;
+		}
+		
+		else {
+			login = conn.prepareStatement("SELECT MemberID,Password FROM members WHERE MemberID=? AND Password=?)");
+			login.setString(1,data.get(2));
+			login.setString(2,data.get(3));
+			
+			rs = login.executeQuery();
+			if(rs != null) {
+				/////////////////////Enter subscriber menu
+				return 2;
+			}
+			else {
+				System.out.println("The User doesn't exists");
+				return 0;
+			}	
+		}
+	}
+	
 	private static Connection connectToDatabase() {
 		try 
 		{

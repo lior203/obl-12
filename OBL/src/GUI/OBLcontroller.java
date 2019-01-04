@@ -57,24 +57,41 @@ public class OBLcontroller  {
 
 		
 		    public void login(ActionEvent event) throws IOException {
-			 ((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
+		    	RegistrationController.login(txtUserName.getText(),txtPassword.getText());
+		    	
+			/* ((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
 				Stage primaryStage = new Stage();
 				FXMLLoader loader = new FXMLLoader();
 				SplitPane root = loader.load(getClass().getResource("/GUI/LibrarianMenu.fxml").openStream());
 				//LibrarianMenuController studentFormController = loader.getController();
 				Scene scene = new Scene(root);	
 				primaryStage.setScene(scene);		
-				primaryStage.show();
+				primaryStage.show();*/
 		    }
 		    
 		    public void forgot(MouseEvent  event) throws IOException {
-				 ((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
+				 
+			    }
+		    
+		    public void openLibrarianMenuScreen() {
+		    	 ((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
 					Stage primaryStage = new Stage();
 					FXMLLoader loader = new FXMLLoader();
-					SplitPane root = loader.load(getClass().getResource("/GUI/ReaderMenu.fxml").openStream());
+					SplitPane root = loader.load(getClass().getResource("/GUI/LibrarianMenu.fxml").openStream());
 					//LibrarianMenuController studentFormController = loader.getController();
 					Scene scene = new Scene(root);	
 					primaryStage.setScene(scene);		
 					primaryStage.show();
-			    }
+		    }
+		    
+		    public void openMemberMenuScreen() {
+		    	((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
+				Stage primaryStage = new Stage();
+				FXMLLoader loader = new FXMLLoader();
+				SplitPane root = loader.load(getClass().getResource("/GUI/ReaderMenu.fxml").openStream());
+				//LibrarianMenuController studentFormController = loader.getController();
+				Scene scene = new Scene(root);	
+				primaryStage.setScene(scene);		
+				primaryStage.show();
+		    }
 }
