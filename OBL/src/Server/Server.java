@@ -49,7 +49,7 @@ public class Server extends AbstractServer
 	 */
 	public void handleMessageFromClient (Object msg, ConnectionToClient client) {
 		System.out.println("Message received: " + msg + " from " + client);
-		switch (((ArrayList<String>)msg).get(1)) {
+		switch (((ArrayList<String>)msg).get(0)) {
 		case "Registration":
 			try {
 				DBController.getInstance().registretion((ArrayList<String>) msg);
