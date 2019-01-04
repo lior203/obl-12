@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import logic.RegistrationController;
 
 public class RegistrationGUI {
 	@FXML
@@ -35,7 +36,7 @@ public class RegistrationGUI {
     
     @FXML
     void onSaveClick(ActionEvent event) {
-//    	(txtPhone_number.getText(),txtID.getText(),txtLast_name,txtFirst_name.getText(),txtEmail.getText(),txtPassword.getText())
+    	RegistrationController.registration(txtPhone_number.getText(),txtID.getText(),txtLast_name.getText(),txtFirst_name.getText(),txtEmail.getText(),txtPassword.getText());
 
     }
 
