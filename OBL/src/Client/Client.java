@@ -24,12 +24,6 @@ public class Client extends AbstractClient
 {
 	public Client(String host, int port) {
 		super(host, port);
-		try {
-			openConnection();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	//Instance variables **********************************************
@@ -89,8 +83,14 @@ public class Client extends AbstractClient
 	 */
 	public void handleMessageFromClientUI(Object message)  
 	{
+		if(message.equals("getInfo")) {
+			try {
+				sendToServer(message);
+			}
+			catch(IOException e) {
 				//		    	clientUI.showAlert("Could not send message to server. Terminating client.");
-				
+				quit();
+			}
 		}
 
 		////	  if(message instanceof Student) {
@@ -102,7 +102,7 @@ public class Client extends AbstractClient
 		//		    	quit();
 		//		    }
 		//	  }
-	
+	}
 
 	/**
 	 * This method terminates the client.
