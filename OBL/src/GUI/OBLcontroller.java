@@ -92,7 +92,7 @@ public class OBLcontroller implements Initializable, GuiInterface {
 		System.out.println("member");
 //		((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
 		Stage primaryStage = new Stage();
-		System.out.println("lior");
+		System.out.println("liorjhvgvhgcvg");
 		FXMLLoader loader = new FXMLLoader();
 		SplitPane root = loader.load(getClass().getResource("/GUI/ReaderMenu.fxml").openStream());
 		Scene scene = new Scene(root);			
