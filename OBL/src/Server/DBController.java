@@ -12,11 +12,10 @@ import Client.Client;
 import Common.Book;
 import Common.InventoryBook;
 import jdk.nashorn.internal.ir.LoopNode;
-<<<<<<< HEAD
+
 //now
-=======
 //mosadfasf
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
+
 
 public class DBController {
 	
