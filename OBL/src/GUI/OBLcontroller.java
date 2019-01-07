@@ -2,10 +2,18 @@ package GUI;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import GUI.LibrarianMenuController;
+import javax.lang.model.type.PrimitiveType;
+
+import Client.Client;
+import Common.GuiInterface;
+import GUI.LibrarianMenuGUI;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,77 +29,137 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import logic.Main;
+import logic.RegistrationController;
 
-public class OBLcontroller  {
+public class OBLcontroller implements Initializable, GuiInterface {
+
+	@FXML
+	private ImageView imag;
+
+	@FXML
+	private Pane pane;
+
+	@FXML
+	private Button btnLogin;
+
+	@FXML
+	private Button btnSearchBook;
+
+	@FXML
+	private Label lblForgot;
+
+	@FXML
+	private TextField txtUserName;
+
+	@FXML
+	private TextField txtPassword;
+
+	private Stage stage;
+
+	public Stage getStage() {
+		return stage;
+	}
+
+
+	public void setStage(Stage stage) {
+		this.stage = stage;
+	}
+
+
+//	public void start(Stage primaryStage) throws Exception {
+//		setStage(primaryStage);
+//		Parent root = FXMLLoader.load(getClass().getResource("/GUI/OBL-openScreen.fxml"));
+//		Scene scene = new Scene(root);
+//		primaryStage.setTitle("OBL System");
+//		primaryStage.setScene(scene);
+//		primaryStage.setResizable(false);
+//		primaryStage.show();				
+//	}
+
+
+	public void login(ActionEvent event) throws IOException {
+		RegistrationController.login(txtUserName.getText(),txtPassword.getText());
+	}
+
+
+	public void forgot(MouseEvent  event) throws IOException {
+	}
+
+
+
+	public void openMemberMenuScreen() throws IOException {
+		System.out.println("member");
+//		((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
+		Stage primaryStage = new Stage();
+		System.out.println("lior");
+		FXMLLoader loader = new FXMLLoader();
+		SplitPane root = loader.load(getClass().getResource("/GUI/ReaderMenu.fxml").openStream());
+		Scene scene = new Scene(root);			
+//		scene.getStylesheets().add(getClass().getResource("/gui/StudentForm.css").toExternalForm());
+		primaryStage.setScene(scene);		
+		primaryStage.show();		
+	}
 	
- // i am lior
-	    @FXML
-	    private ImageView imag;
+	public void openLibrarianMenuScreen() throws IOException {
+		System.out.println("librairan");
+//		((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
+		Stage primaryStage = new Stage();
+		FXMLLoader loader = new FXMLLoader();
+		SplitPane root = loader.load(getClass().getResource("/GUI/LibrarianMenu.fxml").openStream());
+		Scene scene = new Scene(root);			
+//		scene.getStylesheets().add(getClass().getResource("/gui/StudentForm.css").toExternalForm());
+		primaryStage.setScene(scene);		
+		primaryStage.show();		
+	}
 
-	    @FXML
-	    private Pane pane;
 
-	    @FXML
-	    private Button btnLogin;
 
-	    @FXML
-	    private Button btnSearchBook;
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		Client.clientUI=this;
 
-	    @FXML
-	    private Label lblForgot;
+	}
 
-	    @FXML
-	    private TextField txtUserName;
 
-	    @FXML
-	    private TextField txtPassword;
-	    
-	    public void start(Stage primaryStage) throws Exception {	
-	    	Parent root = FXMLLoader.load(getClass().getResource("/GUI/OBL-openScreen.fxml"));
-			Scene scene = new Scene(root);
-			primaryStage.setTitle("OBL System");
-			primaryStage.setScene(scene);
-			primaryStage.setResizable(false);
-			primaryStage.show();				
+	@Override
+	public void display(Object msg) {
+		System.out.println(msg.toString());
+		if(((ArrayList<String>)msg).get(3).equals("1")) {
+			System.out.println("librian2");
+			Platform.runLater(()->{
+			    try {
+//					openLibrarianMenuScreen();
+			    	openMemberMenuScreen();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			});
 		}
+		else if(((ArrayList<String>)msg).get(3).equals("2")) {
+			Platform.runLater(()->{
+			    try {
+			    	openLibrarianMenuScreen();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			});
+		}
+	}
 
-		
-		    public void login(ActionEvent event) throws IOException {
-		    	RegistrationGUI.login(txtUserName.getText(),txtPassword.getText());
-		    	
-			/* ((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
-				Stage primaryStage = new Stage();
-				FXMLLoader loader = new FXMLLoader();
-				SplitPane root = loader.load(getClass().getResource("/GUI/LibrarianMenu.fxml").openStream());
-				//LibrarianMenuController studentFormController = loader.getController();
-				Scene scene = new Scene(root);	
-				primaryStage.setScene(scene);		
-				primaryStage.show();*/
-		    }
-		    
-		    public void forgot(MouseEvent  event) throws IOException {
-				 
-			    }
-		    
-		    public void openLibrarianMenuScreen() {
-		    	 ((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
-					Stage primaryStage = new Stage();
-					FXMLLoader loader = new FXMLLoader();
-					SplitPane root = loader.load(getClass().getResource("/GUI/LibrarianMenu.fxml").openStream());
-					//LibrarianMenuController studentFormController = loader.getController();
-					Scene scene = new Scene(root);	
-					primaryStage.setScene(scene);		
-					primaryStage.show();
-		    }
-		    
-		    public void openMemberMenuScreen() {
-		    	((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
-				Stage primaryStage = new Stage();
-				FXMLLoader loader = new FXMLLoader();
-				SplitPane root = loader.load(getClass().getResource("/GUI/ReaderMenu.fxml").openStream());
-				//LibrarianMenuController studentFormController = loader.getController();
-				Scene scene = new Scene(root);	
-				primaryStage.setScene(scene);		
-				primaryStage.show();
-		    }
+
+	@Override
+	public void showSuccess() {
+		// TODO Auto-generated method stub
+
+	}
+
+
+	@Override
+	public void showFaild(String message) {
+		// TODO Auto-generated method stub
+
+	}
 }

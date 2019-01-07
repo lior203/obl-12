@@ -11,8 +11,13 @@ import java.io.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import Common.GuiInterface;
+import Common.InventoryBook;
+import GUI.InventoryRemoveGUI;
+import GUI.OBLcontroller;
+import javafx.event.ActionEvent;
+import logic.InventoryController;
 import logic.RegistrationController;
-
 
 
 /**
@@ -26,9 +31,17 @@ import logic.RegistrationController;
  */
 public class Client extends AbstractClient
 {
-	public Client(String host, int port) {
+	public static GuiInterface clientUI;
+
+	public Client(String host, int port,GuiInterface clientUI) {
 		super(host, port);
-		// TODO Auto-generated constructor stub
+		this.clientUI=clientUI;
+		try {
+			openConnection();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	//Instance variables **********************************************
@@ -47,79 +60,72 @@ public class Client extends AbstractClient
 	 */
 	public void handleMessageFromServer(Object msg) 
 	{
-		System.out.println("Message received: " + msg);
+		System.out.println("Message received: " + msg+" receive on the client side");
 		ArrayList<String> arrayObject = (ArrayList<String>)msg; //casting msg-Object to arraylist
-		switch (((arrayObject).get(1))) {
+		switch ((((ArrayList<String>) msg).get(0))) {
+		case "AddBook":
+//			InventoryController.returnvalue(msg);
+			break;
+		case "RemoveBook":
+			clientUI.showSuccess();
+			break;
+		case "InventorySearchBook":
+			clientUI.display((ArrayList<String>) msg);
+			break;
 		case "Login":
-			RegistrationController.loginResult(arrayObject);
-		break;
-	}
-}
-//Constructors ****************************************************
-
-/**
- * Constructs an instance of the chat client.
- *
- * @param host The server to connect to.
- * @param port The port number to connect on.
- * @param clientUI The interface type variable.
- */
-
-//public Client(String host, int port, ClientGuiController clientUI) throws IOException {
-// super(host, port); //Call the superclass constructor
-//// this.clientUI = clientUI;
-// openConnection();
-//}
-
-
-//Instance methods ************************************************
-
-/**
- * This method handles all data that comes in from the server.
- *
- * @param msg The message from the server.
- */
-
-
-/**
- * This method handles all data coming from the UI            
- *
- * @param message The message from the UI.    
- */
-public void handleMessageFromClientUI(Object message)  
-{
-	if(message.equals("getInfo")) {
-		try {
-			sendToServer(message);
-		}
-		catch(IOException e) {
-			//		    	clientUI.showAlert("Could not send message to server. Terminating client.");
-			quit();
+			clientUI.display((ArrayList<String>) msg);
+			break;
+		default:
+			break;
 		}
 	}
+	//Constructors ****************************************************
 
-	////	  if(message instanceof Student) {
-	//		  try {
-	//		    	sendToServer(message);
-	//		  }
-	//		    catch(IOException e) {
-	////		    	clientUI.showAlert("Could not send message to server. Terminating client.");
-	//		    	quit();
-	//		    }
-	//	  }
-}
+	/**
+	 * Constructs an instance of the chat client.
+	 *
+	 * @param host The server to connect to.
+	 * @param port The port number to connect on.
+	 * @param clientUI The interface type variable.
+	 */
 
-/**
- * This method terminates the client.
- */
-public void quit()
-{
-	try
+
+
+	//Instance methods ************************************************
+
+	/**
+	 * This method handles all data that comes in from the server.
+	 *
+	 * @param msg The message from the server.
+	 */
+
+
+	/**
+	 * This method handles all data coming from the UI            
+	 *
+	 * @param message The message from the UI.    
+	 */
+	public void handleMessageFromClientUI(Object message)  
+	  {
+		  try {
+		  	sendToServer(message);
+		  } catch(IOException e) {
+			  	clientUI.showFaild("Could not send message to server. Terminating client.");
+			  	quit();
+		  }
+	  }
+
+	/**
+	 * This method terminates the client.
+	 */
+	public void quit()
 	{
-		closeConnection();
+		try
+		{
+			closeConnection();
+		}
+		catch(IOException e) {}
+		System.exit(0);
 	}
-	catch(IOException e) {}
-	System.exit(0);
-}
 }
 //End of Client class

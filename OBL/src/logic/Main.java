@@ -1,5 +1,7 @@
 package logic;
 
+import Client.Client;
+import Common.GuiInterface;
 import GUI.OBLcontroller;
 import GUI.RegistrationGUI;
 import javafx.application.Application;
@@ -7,14 +9,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 
 
-public class Main extends Application {
+public class Main extends Application implements GuiInterface {
 
 	final public static int DEFAULT_PORT = 5555;
 	public static String host;
-
+	public static Client client;
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		try {
@@ -23,11 +27,38 @@ public class Main extends Application {
 		catch(Exception e) {
 			this.host = "localhost";
 		}
-		OBLcontroller obl=new OBLcontroller();
-		obl.start(primaryStage);
+		client=new Client(host,DEFAULT_PORT,this);
+		Parent root = FXMLLoader.load(getClass().getResource("/GUI/OBL-openScreen.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setTitle("OBL System");
+		primaryStage.setScene(scene);
+		primaryStage.setResizable(false);
+		primaryStage.show();	
 	}
 
 	public static void main(String[] args) {
 		launch(args);
+	}
+
+
+	@Override
+	public void showFaild(String message) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText("An error occurred");
+		alert.setContentText(message);
+		alert.showAndWait();
+	}
+
+	@Override
+	public void display(Object obj) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void showSuccess() {
+		// TODO Auto-generated method stub
+
 	}
 }

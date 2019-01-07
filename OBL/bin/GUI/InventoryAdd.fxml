@@ -4,53 +4,48 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="928.0" prefWidth="1232.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="MainPane" prefHeight="928.0" prefWidth="1232.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.InventoryAddGUI">
    <children>
-      <ImageView fitHeight="928.0" fitWidth="1232.0" opacity="0.62" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../Pictures/05-72.jpg" />
-         </image>
-      </ImageView>
       <Label alignment="CENTER" contentDisplay="TOP" layoutX="309.0" layoutY="29.0" prefHeight="40.0" prefWidth="187.0" text="Inventory-Add" textAlignment="CENTER" underline="true" wrapText="true">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button layoutX="232.0" layoutY="429.0" mnemonicParsing="false" prefHeight="81.0" prefWidth="124.0" text="Add">
+      <Button layoutX="226.0" layoutY="459.0" mnemonicParsing="false" onAction="#AddBook" prefHeight="81.0" prefWidth="124.0" text="Add">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Button>
       <Label layoutX="83.0" layoutY="135.0" text="Book name:" />
-      <TextField layoutX="207.0" layoutY="131.0" promptText="fill and click &quot;Enter&quot;" />
-      <TextField layoutX="207.0" layoutY="179.0" />
+      <TextField fx:id="txtBook_Name" layoutX="207.0" layoutY="131.0" />
+      <TextField fx:id="txtEdition" layoutX="207.0" layoutY="179.0" />
       <Label layoutX="83.0" layoutY="183.0" text="Edition:" />
-      <TextField layoutX="207.0" layoutY="225.0" />
+      <TextField fx:id="txtTheme" layoutX="207.0" layoutY="225.0" />
       <Label layoutX="83.0" layoutY="229.0" text="Theme:" />
-      <TextField layoutX="529.0" layoutY="131.0" />
+      <TextField fx:id="txtAuthor" layoutX="529.0" layoutY="131.0" />
       <Label layoutX="412.0" layoutY="136.0" text="Author:" />
-      <TextField layoutX="529.0" layoutY="179.0" />
+      <TextField fx:id="txtPrint_Date" layoutX="529.0" layoutY="179.0" />
       <Label layoutX="412.0" layoutY="184.0" text="Print date:" />
-      <TextField layoutX="529.0" layoutY="225.0" />
+      <TextField fx:id="txtCatlog_Number" layoutX="529.0" layoutY="225.0" />
       <Label layoutX="412.0" layoutY="230.0" text="Catalog number:" />
       <Label layoutX="83.0" layoutY="276.0" text="Copies:" />
-      <TextField layoutX="207.0" layoutY="272.0" />
+      <TextField fx:id="txtCopies" layoutX="207.0" layoutY="272.0" />
       <Label layoutX="412.0" layoutY="277.0" text="purchase date:" />
-      <TextField layoutX="529.0" layoutY="272.0" />
-      <TextField layoutX="207.0" layoutY="321.0" />
+      <TextField fx:id="txtPurchase_Date" layoutX="529.0" layoutY="272.0" />
+      <TextField fx:id="txtShelf_Location" layoutX="207.0" layoutY="321.0" />
       <Label layoutX="83.0" layoutY="325.0" text="Shelf location:" />
       <Label layoutX="412.0" layoutY="326.0" text="Desciption:" />
-      <TextArea layoutX="529.0" layoutY="320.0" prefHeight="81.0" prefWidth="187.0" />
-      <Button layoutX="496.0" layoutY="447.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="85.0" text="Back">
+      <TextArea fx:id="txtDescription" layoutX="529.0" layoutY="320.0" prefHeight="81.0" prefWidth="187.0" />
+      <Button layoutX="509.0" layoutY="477.0" mnemonicParsing="false" onAction="#BackToInventory" prefHeight="45.0" prefWidth="85.0" text="Back">
          <font>
             <Font size="21.0" />
          </font></Button>
       <Button layoutX="364.0" layoutY="368.0" mnemonicParsing="false" text="..." />
       <Label layoutX="83.0" layoutY="373.0" text="Table of Contents:" />
-      <TextField layoutX="209.0" layoutY="368.0" prefHeight="31.0" prefWidth="158.0" />
+      <TextField fx:id="txtTable_Of_Content" layoutX="209.0" layoutY="368.0" prefHeight="31.0" prefWidth="158.0" />
+      <Label layoutX="83.0" layoutY="414.0" text="Wanted:" />
+      <TextField fx:id="txtWanted" layoutX="207.0" layoutY="409.0" />
    </children>
 </AnchorPane>

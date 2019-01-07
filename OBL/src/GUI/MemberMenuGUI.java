@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
@@ -17,7 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class ReaderMenuController implements Initializable{
+public class MemberMenuGUI implements Initializable{
 	
 	 @FXML
 	    private SplitPane mainSplitPane;
@@ -33,6 +34,19 @@ public class ReaderMenuController implements Initializable{
 
 	    @FXML
 	    private AnchorPane rightPane;
+	    
+	    public void Display() throws IOException {
+	    	System.out.println("1");
+	    	Stage primaryStage=new Stage();
+	    	System.out.println("2");
+			Parent root = FXMLLoader.load(getClass().getResource("/GUI/ReaderMenu.fxml"));
+			System.out.println("3");
+			Scene scene = new Scene(root);
+			primaryStage.setTitle("Member Menu");
+			primaryStage.setScene(scene);
+			primaryStage.setResizable(false);
+			primaryStage.show();
+	    }
 	    
 	    public void init() throws IOException {
 	    	leftPane.maxWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));

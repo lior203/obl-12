@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,7 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class LibrarianMenuController implements Initializable{
+public class LibrarianMenuGUI implements Initializable{
 
 	@FXML
     private SplitPane mainSplitPane;
@@ -56,6 +57,15 @@ public class LibrarianMenuController implements Initializable{
     @FXML
     private ImageView asd;
 
+    public void Display() throws IOException {
+    	Stage primaryStage=new Stage();
+		Parent root = FXMLLoader.load(getClass().getResource("/GUI/ReaderMenu.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setTitle("Member Menu");
+		primaryStage.setScene(scene);
+		primaryStage.setResizable(false);
+		primaryStage.show();				
+    }
     
     public void init() throws IOException {
     	leftPane.maxWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));

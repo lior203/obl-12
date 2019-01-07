@@ -3,7 +3,7 @@ package GUI;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
-public class SearchBookController {
+public class SearchBookGUI {
 	@FXML
     private TextField txtBook_Name;
 

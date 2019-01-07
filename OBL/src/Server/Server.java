@@ -1,5 +1,7 @@
 package Server;
 
+import java.io.IOException;
+
 //This file contains material supporting section 3.7 of the textbook:
 //"Object Oriented Software Engineering" and is issued under the open-source
 //license found at www.lloseng.com 
@@ -7,6 +9,7 @@ package Server;
 import java.sql.*;
 import java.util.ArrayList;
 
+import Common.InventoryBook;
 import ocsf.server.*;
 
 /**
@@ -27,7 +30,6 @@ public class Server extends AbstractServer
 	 * The default port to listen on.
 	 */
 	final public static int DEFAULT_PORT = 5555;
-	public static Connection conn;
 	//Constructors ****************************************************
 
 	/**
@@ -51,7 +53,7 @@ public class Server extends AbstractServer
 	public void handleMessageFromClient (Object msg, ConnectionToClient client) {
 		System.out.println("Message received: " + msg + " from " + client);
 		ArrayList<String> arrayObject = (ArrayList<String>)msg; //casting msg-Object to arraylist
-		switch (((ArrayList<String>)msg).get(1)) {
+		switch (((ArrayList<String>)msg).get(0)) {
 		case "Registration":
 			try {
 				DBController.getInstance().registretion((ArrayList<String>) msg);
@@ -59,7 +61,7 @@ public class Server extends AbstractServer
 				e.printStackTrace();
 			}
 			break;
-			
+
 		case "Login":
 			try {
 				int menu = DBController.getInstance().login((ArrayList<String>) msg);
@@ -71,12 +73,39 @@ public class Server extends AbstractServer
 				e.printStackTrace();
 			}
 			break;
+
+		case "AddBook":
+			try {
+				int menu=DBController.getInstance().AddBook((ArrayList<String>) msg);
+				((ArrayList<String>)msg).add(Integer.toString(menu));
+				client.sendToClient((ArrayList<String>)msg);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+
+		case "RemoveBook":
+			try {
+				int menu=DBController.getInstance().RemoveBook((ArrayList<String>) msg);
+				((ArrayList<String>) msg).add(Integer.toString(menu));
+				client.sendToClient((ArrayList<String>)msg);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+
+		case "InventorySearchBook":
+			try {
+				client.sendToClient(DBController.getInstance().SearchBook((ArrayList<String>) msg));
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("error");
+			}
+			break;
+
 		default:
 			break;
 		}
-
-
-		this.sendToAllClients(msg);
 	}
 
 
@@ -110,25 +139,7 @@ public class Server extends AbstractServer
 	 *          if no argument is entered.
 	 */
 
-	private Connection connectToDatabase() {
-		try 
-		{
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-		} catch (Exception ex) {/* handle the error*/}
 
-		try 
-		{
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/obl","root","Aa123456");
-			System.out.println("SQL connection succeed");
-			return conn;
-		} catch (SQLException ex) 
-		{	/* handle any errors*/
-			System.out.println("SQLException: " + ex.getMessage());
-			System.out.println("SQLState: " + ex.getSQLState());
-			System.out.println("VendorError: " + ex.getErrorCode());
-		}
-		return null;
-	}
 
 	public static void main(String[] args) 
 	{
@@ -143,7 +154,6 @@ public class Server extends AbstractServer
 			port = DEFAULT_PORT; //Set port to 5555
 		}	
 		Server sv = new Server(port);
-		conn = sv.connectToDatabase();
 		try 
 		{
 			sv.listen(); //Start listening for connections
@@ -153,7 +163,7 @@ public class Server extends AbstractServer
 			System.out.println("ERROR - Could not listen for clients!");
 		}
 
-		
+
 	}
 }
 

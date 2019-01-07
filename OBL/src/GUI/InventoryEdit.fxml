@@ -4,44 +4,37 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="928.0" prefWidth="1232.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="928.0" fitWidth="1232.0" opacity="0.62" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../Pictures/05-72.jpg" />
-         </image>
-      </ImageView>
       <Label alignment="CENTER" contentDisplay="TOP" layoutX="309.0" layoutY="29.0" prefHeight="40.0" prefWidth="187.0" text="Inventory-Edit" textAlignment="CENTER" underline="true" wrapText="true">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button layoutX="232.0" layoutY="429.0" mnemonicParsing="false" prefHeight="81.0" prefWidth="124.0" text="Edit">
+      <Button layoutX="232.0" layoutY="452.0" mnemonicParsing="false" prefHeight="81.0" prefWidth="124.0" text="Edit">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Button>
       <Label layoutX="83.0" layoutY="136.0" text="Book name:" />
-      <TextField layoutX="207.0" layoutY="131.0" promptText="fill and click &quot;Enter&quot;" text="Harry potter" />
-      <TextField layoutX="207.0" layoutY="179.0" text="123" />
+      <TextField layoutX="207.0" layoutY="131.0" promptText="fill and click &quot;Enter&quot;" />
+      <TextField layoutX="207.0" layoutY="179.0" />
       <Label layoutX="83.0" layoutY="184.0" text="Edition:" />
-      <TextField layoutX="207.0" layoutY="225.0" text="Fantasy,Fiction" />
+      <TextField layoutX="207.0" layoutY="225.0" />
       <Label layoutX="83.0" layoutY="230.0" text="Theme:" />
-      <TextField layoutX="529.0" layoutY="131.0" text="J.K rowling" />
+      <TextField layoutX="529.0" layoutY="131.0" />
       <Label layoutX="412.0" layoutY="136.0" text="Author:" />
-      <TextField layoutX="529.0" layoutY="179.0" text="12/12/2000" />
+      <TextField layoutX="529.0" layoutY="179.0" />
       <Label layoutX="412.0" layoutY="184.0" text="Print date:" />
-      <TextField layoutX="529.0" layoutY="225.0" text="123" />
+      <TextField layoutX="529.0" layoutY="225.0" />
       <Label layoutX="412.0" layoutY="230.0" text="Catalog number:" />
       <Label layoutX="83.0" layoutY="277.0" text="Copies:" />
-      <TextField layoutX="207.0" layoutY="272.0" text="5" />
+      <TextField layoutX="207.0" layoutY="272.0" />
       <Label layoutX="412.0" layoutY="277.0" text="purchase date:" />
-      <TextField layoutX="529.0" layoutY="272.0" text="12/12/2000" />
-      <TextField layoutX="207.0" layoutY="321.0" text="A-12" />
+      <TextField layoutX="529.0" layoutY="272.0" />
+      <TextField layoutX="207.0" layoutY="321.0" />
       <Label layoutX="83.0" layoutY="326.0" text="Shelf location:" />
       <Label layoutX="412.0" layoutY="326.0" text="Desciption:" />
       <TextArea layoutX="529.0" layoutY="320.0" prefHeight="63.0" prefWidth="187.0" />
@@ -49,8 +42,10 @@
          <font>
             <Font size="21.0" />
          </font></Button>
-      <TextField layoutX="205.0" layoutY="368.0" prefHeight="31.0" prefWidth="162.0" text="C:\Users\lior\Pictures\asd" />
+      <TextField layoutX="205.0" layoutY="368.0" prefHeight="31.0" prefWidth="162.0" />
       <Label layoutX="83.0" layoutY="373.0" text="Table of Contents:" />
       <Button layoutX="364.0" layoutY="368.0" mnemonicParsing="false" text="..." />
+      <Label layoutX="83.0" layoutY="412.0" text="Wanted:" />
+      <TextField fx:id="txtWanted" layoutX="207.0" layoutY="407.0" />
    </children>
 </AnchorPane>
