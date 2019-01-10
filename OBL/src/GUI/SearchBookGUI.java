@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -60,6 +61,21 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 	@FXML
 	private Button btnSearch;
+	
+    @FXML
+    private Button btnBack;
+
+    @FXML
+    void onBackClick(ActionEvent event) throws IOException {
+    	((Node)event.getSource()).getScene().getWindow().hide(); 
+ 		Parent root = FXMLLoader.load(getClass().getResource("/GUI/OBL-openScreen.fxml"));
+		Scene scene = new Scene(root);
+		Stage stage = new Stage();
+		stage.setTitle("OBL System");
+		stage.setScene(scene);
+		stage.setResizable(false);
+		stage.show();
+    }
 
 	@FXML
 	void onSearchClick(ActionEvent event) {
@@ -204,10 +220,7 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
 			primaryStage.showAndWait();
-		
-			
-	//		ListResultGUI listResultGUI=new ListResultGUI();
-	//		listResultGUI.display(obj);
+
 		});
 
 	}
