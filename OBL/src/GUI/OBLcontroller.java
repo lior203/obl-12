@@ -55,17 +55,6 @@ public class OBLcontroller implements Initializable, GuiInterface {
 	@FXML
 	private TextField txtPassword;
 
-	private Stage stage;
-
-	public Stage getStage() {
-		return stage;
-	}
-
-
-	public void setStage(Stage stage) {
-		this.stage = stage;
-	}
-
 
 //	public void start(Stage primaryStage) throws Exception {
 //		setStage(primaryStage);
@@ -80,6 +69,7 @@ public class OBLcontroller implements Initializable, GuiInterface {
 
 	public void login(ActionEvent event) throws IOException {
 		RegistrationController.login(txtUserName.getText(),txtPassword.getText());
+		
 	}
 
 
@@ -89,10 +79,9 @@ public class OBLcontroller implements Initializable, GuiInterface {
 
 
 	public void openMemberMenuScreen() throws IOException {
-		System.out.println("member");
+		Main.primary.hide();
 //		((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
 		Stage primaryStage = new Stage();
-		System.out.println("liorjhvgvhgcvg");
 		FXMLLoader loader = new FXMLLoader();
 		SplitPane root = loader.load(getClass().getResource("/GUI/ReaderMenu.fxml").openStream());
 		Scene scene = new Scene(root);			
@@ -102,7 +91,7 @@ public class OBLcontroller implements Initializable, GuiInterface {
 	}
 	
 	public void openLibrarianMenuScreen() throws IOException {
-		System.out.println("librairan");
+		Main.primary.hide();
 //		((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
 		Stage primaryStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
@@ -124,13 +113,10 @@ public class OBLcontroller implements Initializable, GuiInterface {
 
 	@Override
 	public void display(Object msg) {
-		System.out.println(msg.toString());
 		if(((ArrayList<String>)msg).get(3).equals("1")) {
-			System.out.println("librian2");
 			Platform.runLater(()->{
 			    try {
-//					openLibrarianMenuScreen();
-			    	openMemberMenuScreen();
+					openLibrarianMenuScreen();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -140,7 +126,7 @@ public class OBLcontroller implements Initializable, GuiInterface {
 		else if(((ArrayList<String>)msg).get(3).equals("2")) {
 			Platform.runLater(()->{
 			    try {
-			    	openLibrarianMenuScreen();
+			    	openMemberMenuScreen();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -151,14 +137,14 @@ public class OBLcontroller implements Initializable, GuiInterface {
 
 
 	@Override
-	public void showSuccess() {
+	public void showSuccess(String message) {
 		// TODO Auto-generated method stub
 
 	}
 
 
 	@Override
-	public void showFaild(String message) {
+	public void showFailed(String message) {
 		// TODO Auto-generated method stub
 
 	}

@@ -62,18 +62,18 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 	private TextField txtWanted;
 
 	@FXML
-	void RemoveBook(ActionEvent event) {
-		InventoryController.RemoveBook(txtCatalog_Number.getText());
+	void RemoveCopy(ActionEvent event) {
+		InventoryController.RemoveCopy(txtCatalog_Number.getText());
 	}
 
-	@FXML
-	void PressEnter(KeyEvent event) {
-		if (event.getCode()==KeyCode.ENTER) {
-			System.out.println("i press enter");
-			InventoryController.SearchBook(txtCatalog_Number.getText());
-			enable();
-		}
-	}
+//	@FXML
+//	void PressEnter(KeyEvent event) {
+//		if (event.getCode()==KeyCode.ENTER) {
+//			System.out.println("i press enter");
+//			InventoryController.(txtCatalog_Number.getText());
+//			enable();
+//		}
+//	}
 
 	@FXML
 	void BackToInventory(ActionEvent event) throws IOException {
@@ -118,13 +118,13 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 	}
 
 	@Override
-	public void showSuccess() {
+	public void showFailed(String message) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void showFaild(String message) {
+	public void showSuccess(String string) {
 		// TODO Auto-generated method stub
 		
 	}

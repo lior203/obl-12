@@ -8,13 +8,13 @@ package Client;
 import ocsf.client.*;
 
 import java.io.*;
-import java.sql.SQLException;
 import java.util.ArrayList;
-
+import Common.Copy;
 import Common.GuiInterface;
 import Common.InventoryBook;
 import GUI.InventoryRemoveGUI;
 import GUI.OBLcontroller;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import logic.InventoryController;
 import logic.RegistrationController;
@@ -60,20 +60,61 @@ public class Client extends AbstractClient
 	 */
 	public void handleMessageFromServer(Object msg) 
 	{
+		int size;
 		System.out.println("Message received: " + msg+" receive on the client side");
 		ArrayList<String> arrayObject = (ArrayList<String>)msg; //casting msg-Object to arraylist
 		switch ((((ArrayList<String>) msg).get(0))) {
 		case "AddBook":
-//			InventoryController.returnvalue(msg);
+			System.out.println("clint");
+			size=((ArrayList<String>) msg).size();
+			if (((ArrayList<String>) msg).get(size-1).equals("1")) {
+				Platform.runLater(()->{
+					clientUI.showSuccess("Add successfull");
+				});
+			}else {
+				Platform.runLater(()->{
+					clientUI.showFailed("Add successfull");
+				});
+			}
 			break;
 		case "RemoveBook":
-			clientUI.showSuccess();
+			//			clientUI.showSuccess();
 			break;
-		case "InventorySearchBook":
-			clientUI.display((ArrayList<String>) msg);
+		case "InventoryCheckExistense":
+			size=((ArrayList<String>) msg).size();
+			if (((ArrayList<String>) msg).get(size-1).equals("not exist")) {
+				Platform.runLater(()->{
+					clientUI.showFailed("book not exist. pls fill the missing details to add the book.");
+				});
+			}
+			else clientUI.display((ArrayList<String>) msg);
+
 			break;
 		case "Login":
 			clientUI.display((ArrayList<String>) msg);
+			break;
+		case "Check Member Existence":
+			clientUI.display((ArrayList<String>)msg);
+			break;
+		case "Check Copy Loan Status":
+			if(((ArrayList<String>)msg).size() == 1) {
+				Platform.runLater(() -> {
+					clientUI.showFailed("Copy isn't loan yet");
+				});
+			}
+			else {
+				clientUI.display((ArrayList<String>)msg);
+			}
+			break;
+		case "Check Copy ID Existence":
+			if(((ArrayList<String>)msg).size() == 1) {
+				Platform.runLater(() -> {
+					clientUI.showFailed("Copy doesn't exist");
+				});
+			}
+			else {
+				clientUI.display((ArrayList<String>)msg);
+			}
 			break;
 		default:
 			break;
@@ -106,14 +147,14 @@ public class Client extends AbstractClient
 	 * @param message The message from the UI.    
 	 */
 	public void handleMessageFromClientUI(Object message)  
-	  {
-		  try {
-		  	sendToServer(message);
-		  } catch(IOException e) {
-			  	clientUI.showFaild("Could not send message to server. Terminating client.");
-			  	quit();
-		  }
-	  }
+	{
+		try {
+			sendToServer(message);
+		} catch(IOException e) {
+			clientUI.showFailed("Could not send message to server. Terminating client.");
+			quit();
+		}
+	}
 
 	/**
 	 * This method terminates the client.

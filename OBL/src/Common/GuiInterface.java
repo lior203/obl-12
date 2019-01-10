@@ -1,7 +1,7 @@
 package Common;
 
 public interface GuiInterface {
-		public void showSuccess();
+		public void showSuccess(String string);
 		public void display(Object obj);
-		void showFaild(String message);
+		void showFailed(String message);
 }

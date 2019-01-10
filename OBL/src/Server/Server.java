@@ -76,7 +76,8 @@ public class Server extends AbstractServer
 
 		case "AddBook":
 			try {
-				int menu=DBController.getInstance().AddBook((ArrayList<String>) msg);
+				System.out.println("Server");
+				int menu=DBController.getInstance().addBookToInventory((ArrayList<String>) msg);
 				((ArrayList<String>)msg).add(Integer.toString(menu));
 				client.sendToClient((ArrayList<String>)msg);
 			} catch (Exception e) {
@@ -84,9 +85,9 @@ public class Server extends AbstractServer
 			}
 			break;
 
-		case "RemoveBook":
+		case "RemoveCopy":
 			try {
-				int menu=DBController.getInstance().RemoveBook((ArrayList<String>) msg);
+				int menu=DBController.getInstance().RemoveCopy((ArrayList<String>) msg);
 				((ArrayList<String>) msg).add(Integer.toString(menu));
 				client.sendToClient((ArrayList<String>)msg);
 			} catch (Exception e) {
@@ -94,12 +95,36 @@ public class Server extends AbstractServer
 			}
 			break;
 
-		case "InventorySearchBook":
+		case "InventoryCheckExistense":
 			try {
-				client.sendToClient(DBController.getInstance().SearchBook((ArrayList<String>) msg));
+				client.sendToClient(DBController.getInstance().inventoryCheckExistence((ArrayList<String>) msg));
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("error");
+			}
+			break;
+		case "Check Member Existence":
+			try {
+				client.sendToClient(DBController.getInstance().isMemberExist((ArrayList<String>)msg));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+
+		case "Check Copy Loan Status":
+			try {
+				client.sendToClient(DBController.getInstance().isCopyLoaned((ArrayList<String>)msg));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+
+
+		case "Check Copy ID Existence":
+			try {
+				client.sendToClient(DBController.getInstance().isCopyExist((ArrayList<String>)msg));
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 			break;
 
