@@ -98,8 +98,11 @@ public class Client extends AbstractClient
 			{
 				clientUI.showFailed("not found");
 			}
-			if (((ArrayList<String>) msg).get(3).equals("1"))
+			else if (((ArrayList<String>) msg).get(3).equals("1"))
+			{
 				clientUI.display(msg);
+			}
+			break;
 		case "Check Member Existence":
 			clientUI.display((ArrayList<String>)msg);
 			break;

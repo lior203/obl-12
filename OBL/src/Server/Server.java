@@ -135,6 +135,7 @@ public class Server extends AbstractServer
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
+			break;
 
 		default:
 			break;

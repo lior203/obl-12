@@ -88,10 +88,12 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 	}
 
 	@FXML
-	void openAndCloseFields(ActionEvent event) {
+	void openAndCloseFields(ActionEvent event) 
+	{
 
 		if (choice.getSelectedToggle().equals(radio_btn_book_name))
 		{
+			clearFields();
 			txtBook_Name.setDisable(false);
 			txtAuthor_Name.setDisable(true);
 			txtBook_Theme.setDisable(true);
@@ -100,6 +102,7 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 		if(choice.getSelectedToggle().equals(radio_btn_authors_name))
 		{
+			clearFields();
 			txtAuthor_Name.setDisable(false);
 			txtBook_Name.setDisable(true);
 			txtBook_Theme.setDisable(true);
@@ -108,6 +111,7 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 		if(choice.getSelectedToggle().equals(radio_btn_book_theme))
 		{
+			clearFields();
 			txtBook_Theme.setDisable(false);
 			txtAuthor_Name.setDisable(true);
 			txtBook_Name.setDisable(true);
@@ -116,12 +120,20 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 		if(choice.getSelectedToggle().equals(radio_btn_free_text))
 		{
+			clearFields();
 			txtFree_Text.setDisable(false);
 			txtBook_Theme.setDisable(true);
 			txtAuthor_Name.setDisable(true);
 			txtBook_Name.setDisable(true);
 		}
 
+	}
+	
+	public  void clearFields() {
+		txtBook_Name.clear();
+		txtAuthor_Name.clear();
+		txtBook_Theme.clear();
+		txtFree_Text.clear();
 	}
 
 	public void displayNotFound() 
