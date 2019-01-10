@@ -1,5 +1,6 @@
-/GUI/
-/logic/
-/Server/
 /Client/
 /Common/
+/GUI/
+/Server/
+/logic/
+/ocsf/

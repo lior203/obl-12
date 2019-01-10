@@ -3,10 +3,10 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.InnerShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -23,22 +23,22 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="678.0">
                <children>
-                  <Label text="Book name:">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </Label>
-                  <TextField fx:id="txtBook_Name">
+                  <RadioButton fx:id="radio_btn_book_name" mnemonicParsing="false" onAction="#openAndCloseFields" text="Book name">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="choice" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <TextField fx:id="txtBook_Name" disable="true">
                      <HBox.margin>
                         <Insets left="30.0" />
                      </HBox.margin>
                   </TextField>
-                  <Label text="Author's name:">
-                     <HBox.margin>
-                        <Insets left="30.0" />
-                     </HBox.margin>
-                  </Label>
-                  <TextField fx:id="txtAuthor_Name">
+                  <RadioButton fx:id="radio_btn_authors_name" mnemonicParsing="false" onAction="#openAndCloseFields" text="Author's name:" toggleGroup="$choice">
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </RadioButton>
+                  <TextField fx:id="txtAuthor_Name" disable="true">
                      <HBox.margin>
                         <Insets left="25.0" />
                      </HBox.margin>
@@ -47,31 +47,27 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="678.0">
                <children>
-                  <Label text="Book theme:">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </Label>
-                  <TextField fx:id="txtBook_Name">
+                  <RadioButton fx:id="radio_btn_book_theme" mnemonicParsing="false" onAction="#openAndCloseFields" text="Book theme:" toggleGroup="$choice" />
+                  <TextField fx:id="txtBook_Theme" disable="true">
                      <HBox.margin>
                         <Insets left="25.0" />
                      </HBox.margin>
                   </TextField>
-                  <Label text="Free text:">
+                  <RadioButton fx:id="radio_btn_free_text" mnemonicParsing="false" onAction="#openAndCloseFields" text="Free text:" toggleGroup="$choice">
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </RadioButton>
+                  <TextField fx:id="txtFree_Text" disable="true">
                      <HBox.margin>
-                        <Insets left="30.0" />
-                     </HBox.margin>
-                  </Label>
-                  <TextField fx:id="txtFree_Text">
-                     <HBox.margin>
-                        <Insets left="65.0" />
+                        <Insets left="55.0" />
                      </HBox.margin>
                   </TextField>
                </children>
             </HBox>
          </children>
       </VBox>
-      <Button alignment="CENTER" layoutX="157.0" layoutY="358.0" mnemonicParsing="false" prefHeight="99.0" prefWidth="206.0" text="Search">
+      <Button fx:id="btnSearch" alignment="CENTER" layoutX="157.0" layoutY="358.0" mnemonicParsing="false" onAction="#onSearchClick" prefHeight="99.0" prefWidth="206.0" text="Search">
          <font>
             <Font name="System Bold" size="28.0" />
          </font>
@@ -79,10 +75,5 @@
             <InnerShadow />
          </effect>
       </Button>
-      <ImageView fitHeight="40.0" fitWidth="41.0" layoutX="309.0" layoutY="399.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../Pictures/magnifying-glass-189254_960_720.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>

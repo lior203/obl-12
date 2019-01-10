@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import javax.lang.model.type.PrimitiveType;
 
 import Client.Client;
 import Common.GuiInterface;
@@ -56,15 +55,15 @@ public class OBLcontroller implements Initializable, GuiInterface {
 	private TextField txtPassword;
 
 
-//	public void start(Stage primaryStage) throws Exception {
-//		setStage(primaryStage);
-//		Parent root = FXMLLoader.load(getClass().getResource("/GUI/OBL-openScreen.fxml"));
-//		Scene scene = new Scene(root);
-//		primaryStage.setTitle("OBL System");
-//		primaryStage.setScene(scene);
-//		primaryStage.setResizable(false);
-//		primaryStage.show();				
-//	}
+	//	public void start(Stage primaryStage) throws Exception {
+	//		setStage(primaryStage);
+	//		Parent root = FXMLLoader.load(getClass().getResource("/GUI/OBL-openScreen.fxml"));
+	//		Scene scene = new Scene(root);
+	//		primaryStage.setTitle("OBL System");
+	//		primaryStage.setScene(scene);
+	//		primaryStage.setResizable(false);
+	//		primaryStage.show();				
+	//	}
 
 
 	public void login(ActionEvent event) throws IOException {
@@ -79,27 +78,41 @@ public class OBLcontroller implements Initializable, GuiInterface {
 
 
 	public void openMemberMenuScreen() throws IOException {
+		System.out.println("member");
+		//		((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
 		Main.primary.hide();
 //		((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
 		Stage primaryStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
 		SplitPane root = loader.load(getClass().getResource("/GUI/ReaderMenu.fxml").openStream());
 		Scene scene = new Scene(root);			
-//		scene.getStylesheets().add(getClass().getResource("/gui/StudentForm.css").toExternalForm());
+		//		scene.getStylesheets().add(getClass().getResource("/gui/StudentForm.css").toExternalForm());
 		primaryStage.setScene(scene);		
 		primaryStage.show();		
 	}
-	
+
 	public void openLibrarianMenuScreen() throws IOException {
+		System.out.println("librairan");
+		//		((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
 		Main.primary.hide();
 //		((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
 		Stage primaryStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
 		SplitPane root = loader.load(getClass().getResource("/GUI/LibrarianMenu.fxml").openStream());
 		Scene scene = new Scene(root);			
-//		scene.getStylesheets().add(getClass().getResource("/gui/StudentForm.css").toExternalForm());
+		//		scene.getStylesheets().add(getClass().getResource("/gui/StudentForm.css").toExternalForm());
 		primaryStage.setScene(scene);		
 		primaryStage.show();		
+	}
+
+	public void searchBook(ActionEvent event) throws IOException {
+		((Node)event.getSource()).getScene().getWindow().hide();
+		Stage primaryStage = new Stage();
+		FXMLLoader loader = new FXMLLoader();
+		AnchorPane root = loader.load(getClass().getResource("/GUI/SearchBook.fxml").openStream());
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);		
+		primaryStage.show();
 	}
 
 

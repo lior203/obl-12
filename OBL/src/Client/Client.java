@@ -94,6 +94,16 @@ public class Client extends AbstractClient
 		case "Login":
 			clientUI.display((ArrayList<String>) msg);
 			break;
+		case "Search book":
+			if (((ArrayList<String>) msg).get(3).equals("-1"))
+			{
+				clientUI.showFailed("not found");
+			}
+			else if (((ArrayList<String>) msg).get(3).equals("1"))
+			{
+				clientUI.display(msg);
+			}
+			break;
 		case "Check Member Existence":
 			clientUI.display((ArrayList<String>)msg);
 			break;
