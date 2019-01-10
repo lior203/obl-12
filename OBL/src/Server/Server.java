@@ -103,6 +103,14 @@ public class Server extends AbstractServer
 			}
 			break;
 
+		case "Search book":
+			try {
+				ArrayList<String> answer = DBController.getInstance().searchBook((ArrayList<String>) msg);
+				client.sendToClient(answer);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+
 		default:
 			break;
 		}

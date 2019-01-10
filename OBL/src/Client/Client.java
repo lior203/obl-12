@@ -75,6 +75,13 @@ public class Client extends AbstractClient
 		case "Login":
 			clientUI.display((ArrayList<String>) msg);
 			break;
+		case "Search book":
+			if (((ArrayList<String>) msg).get(3).equals("-1"))
+			{
+				clientUI.showFaild("not found");
+			}
+			if (((ArrayList<String>) msg).get(3).equals("1"))
+				clientUI.display(msg);
 		default:
 			break;
 		}
