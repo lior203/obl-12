@@ -27,7 +27,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import logic.BookController;
+import logic.SearchBookController;
 import logic.Main;
 
 public class SearchBookGUI implements Initializable, GuiInterface{
@@ -68,22 +68,22 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 		if (choice.getSelectedToggle().equals(radio_btn_book_name))
 		{
 			searchPick = "Book Name";
-			BookController.searchBook(searchPick,txtBook_Name.getText());
+			SearchBookController.searchBook(searchPick,txtBook_Name.getText());
 		}
 		else if (choice.getSelectedToggle().equals(radio_btn_authors_name))
 		{
 			searchPick = "Authors Name";
-			BookController.searchBook(searchPick,txtAuthor_Name.getText());
+			SearchBookController.searchBook(searchPick,txtAuthor_Name.getText());
 		}
 		else if (choice.getSelectedToggle().equals(radio_btn_book_theme))
 		{
 			searchPick = "Book Theme";
-			BookController.searchBook(searchPick,txtBook_Theme.getText());
+			SearchBookController.searchBook(searchPick,txtBook_Theme.getText());
 		}
 		else if (choice.getSelectedToggle().equals(radio_btn_free_text))
 		{
 			searchPick = "Free text";
-			BookController.searchBook(searchPick, txtFree_Text.getText());	
+			SearchBookController.searchBook(searchPick, txtFree_Text.getText());	
 		}
 	}
 

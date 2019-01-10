@@ -2,7 +2,7 @@ package logic;
 
 import java.util.ArrayList;
 
-public class BookController  {
+public class SearchBookController  {
 
 
 	public static void searchBook(String searchPick,String data)
