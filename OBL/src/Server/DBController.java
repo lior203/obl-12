@@ -180,7 +180,6 @@ public class DBController {
 			}	
 		}
 	}
-<<<<<<< HEAD
 	
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	
@@ -294,7 +293,6 @@ public class DBController {
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-=======
 
 	public static ArrayList<String> isMemberExist(ArrayList<String> data) throws SQLException {
 		ArrayList<String> checkMemberExistence = new ArrayList<>();
@@ -365,7 +363,6 @@ public class DBController {
 		return checkCopyLoanStatus;
 	}
 
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 	private static Connection connectToDatabase() {
 		try 
 		{

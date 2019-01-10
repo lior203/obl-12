@@ -141,7 +141,7 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 	}
 
 	@Override
-	public void showSuccess() {
+	public void showSuccess(String string) {
 		// TODO Auto-generated method stub
 
 	}
@@ -202,7 +202,7 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 	}
 
 	@Override
-	public void showFaild(String message) {
+	public void showFailed(String message) {
 		if (message.equals("not found"))
 		{
 			Platform.runLater(() -> {

@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import javax.lang.model.type.PrimitiveType;
 
 import Client.Client;
 import Common.GuiInterface;
@@ -79,13 +78,10 @@ public class OBLcontroller implements Initializable, GuiInterface {
 
 
 	public void openMemberMenuScreen() throws IOException {
-<<<<<<< HEAD
 		System.out.println("member");
 		//		((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
-=======
 		Main.primary.hide();
 //		((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 		Stage primaryStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
 		SplitPane root = loader.load(getClass().getResource("/GUI/ReaderMenu.fxml").openStream());
@@ -96,13 +92,10 @@ public class OBLcontroller implements Initializable, GuiInterface {
 	}
 
 	public void openLibrarianMenuScreen() throws IOException {
-<<<<<<< HEAD
 		System.out.println("librairan");
 		//		((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
-=======
 		Main.primary.hide();
 //		((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 		Stage primaryStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
 		SplitPane root = loader.load(getClass().getResource("/GUI/LibrarianMenu.fxml").openStream());
@@ -135,14 +128,8 @@ public class OBLcontroller implements Initializable, GuiInterface {
 	public void display(Object msg) {
 		if(((ArrayList<String>)msg).get(3).equals("1")) {
 			Platform.runLater(()->{
-<<<<<<< HEAD
-				try {
-					//					openLibrarianMenuScreen();
-					openMemberMenuScreen();
-=======
 			    try {
 					openLibrarianMenuScreen();
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -151,13 +138,8 @@ public class OBLcontroller implements Initializable, GuiInterface {
 		}
 		else if(((ArrayList<String>)msg).get(3).equals("2")) {
 			Platform.runLater(()->{
-<<<<<<< HEAD
-				try {
-					openLibrarianMenuScreen();
-=======
 			    try {
 			    	openMemberMenuScreen();
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

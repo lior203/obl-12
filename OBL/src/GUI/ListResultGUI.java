@@ -27,7 +27,7 @@ public class ListResultGUI implements Initializable, GuiInterface {
     private VBox vbox12;
 
 	@Override
-	public void showSuccess() {
+	public void showSuccess(String string) {
 		// TODO Auto-generated method stub
 
 	}
@@ -51,7 +51,7 @@ public class ListResultGUI implements Initializable, GuiInterface {
 	}
 
 	@Override
-	public void showFaild(String message) {
+	public void showFailed(String message) {
 		// TODO Auto-generated method stub
 
 	}
