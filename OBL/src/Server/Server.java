@@ -76,7 +76,6 @@ public class Server extends AbstractServer
 
 		case "AddBook":
 			try {
-				System.out.println("Server");
 				int menu=DBController.getInstance().addBookToInventory((ArrayList<String>) msg);
 				((ArrayList<String>)msg).add(Integer.toString(menu));
 				client.sendToClient((ArrayList<String>)msg);

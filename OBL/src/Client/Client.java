@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import Common.Copy;
 import Common.GuiInterface;
 import Common.InventoryBook;
+import GUI.InventoryAddGUI;
 import GUI.InventoryRemoveGUI;
 import GUI.OBLcontroller;
 import javafx.application.Platform;
@@ -65,7 +66,6 @@ public class Client extends AbstractClient
 		ArrayList<String> arrayObject = (ArrayList<String>)msg; //casting msg-Object to arraylist
 		switch ((((ArrayList<String>) msg).get(0))) {
 		case "AddBook":
-			System.out.println("clint");
 			size=((ArrayList<String>) msg).size();
 			if (((ArrayList<String>) msg).get(size-1).equals("1")) {
 				Platform.runLater(()->{
@@ -85,6 +85,7 @@ public class Client extends AbstractClient
 			if (((ArrayList<String>) msg).get(size-1).equals("not exist")) {
 				Platform.runLater(()->{
 					clientUI.showFailed("book not exist. pls fill the missing details to add the book.");
+					clientUI.freshStart();
 				});
 			}
 			else clientUI.display((ArrayList<String>) msg);

@@ -56,7 +56,6 @@ public class DBController {
 
 	//add book to inventory database
 	public static int addBookToInventory(ArrayList<String> data) throws SQLException{
-		System.out.println("db control");
 		int Result,maxBookID=0;
 		String string = "SELECT MAX(BookID) FROM book";
 		PreparedStatement getMaxID = conn.prepareStatement(string);
@@ -85,7 +84,6 @@ public class DBController {
 	}
 
 	public static void addCopyToInventory(ArrayList<String> data) throws SQLException{
-		System.out.println("db control  2");
 		int maxCopyID=0;
 		PreparedStatement getCopyID = conn.prepareStatement("SELECT MAX(CopyID) FROM copies WHERE BookID = ?");
 		getCopyID.setString(1, data.get(data.size()-1));
@@ -145,6 +143,15 @@ public class DBController {
 		}
 		rs.close();
 		checkExistence.close();
+		String string1 = "SELECT ShelfLocation FROM copies WHERE BookID=?";
+		PreparedStatement getcopyloaction = conn.prepareStatement(string1);
+		getcopyloaction.setString(1, newData.get(1));
+		ResultSet rs1 = getcopyloaction.executeQuery();
+		if(rs1.next()) {
+			newData.add(rs1.getString(1));
+		}
+		rs1.close();
+		getcopyloaction.close();
 		System.out.println(newData);
 		return newData;
 	}

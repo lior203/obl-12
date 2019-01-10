@@ -128,5 +128,11 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void freshStart() {
+		// TODO Auto-generated method stub
+		
+	}
 }
 

@@ -18,7 +18,6 @@ public class InventoryController {
 
 	public  static void addBook(String bookname,String edition,String theme,String author,String printdate, String copies, String purchasedate, String shelflocation, String wanted, String description)
 	{
-		System.out.println("2");
 		ArrayList<String> inventoryData = new ArrayList<>();
 		inventoryData.add("AddBook");
 		inventoryData.add(bookname);

@@ -63,4 +63,10 @@ public class Main extends Application implements GuiInterface {
 		// TODO Auto-generated method stub
 
 	}
+
+	@Override
+	public void freshStart() {
+		// TODO Auto-generated method stub
+		
+	}
 }

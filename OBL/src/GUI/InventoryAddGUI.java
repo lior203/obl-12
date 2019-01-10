@@ -66,21 +66,21 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		if (checkfields())
 			showFailed("Fill all the dields");
 		else {
-			System.out.println("GUI");
 			InventoryController.addBook(txtBook_Name.getText(), txtEdition.getText(), txtTheme.getText(), txtAuthor.getText(), txtPrint_Date.getText(),txtCopies.getText(),txtPurchase_Date.getText(),txtShelf_Location.getText(),txtWanted.getText(),txtDescription.getText());
+			Enablefields(false);
 		}
 	}
 
-	public void Enablefields() {
-		txtEdition.setDisable(false);
-		txtTheme.setDisable(false);
-		txtPrint_Date.setDisable(false);
-		txtPurchase_Date.setDisable(false);
-		txtShelf_Location.setDisable(false);
-		txtDescription.setDisable(false);
-		txtTable_Of_Content.setDisable(false);
-		txtWanted.setDisable(false);
-		btnAdd.setDisable(false);
+	public void Enablefields(boolean status) {
+		txtEdition.setDisable(status);
+		txtTheme.setDisable(status);
+		txtPrint_Date.setDisable(status);
+		txtPurchase_Date.setDisable(status);
+		txtShelf_Location.setDisable(status);
+		txtDescription.setDisable(status);
+		txtTable_Of_Content.setDisable(status);
+		txtWanted.setDisable(status);
+		btnAdd.setDisable(status);
 	}
 
 	@FXML
@@ -92,7 +92,6 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 	@FXML
 	void CheckExistense(ActionEvent event) {
 		InventoryController.checkExistence(txtBook_Name.getText(),txtAuthor.getText());
-		Enablefields();
 	}
 
 	public boolean checkfields() {
@@ -139,6 +138,8 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		this.txtTheme.setText(msg.get(8));
 		this.txtDescription.setText(msg.get(9));
 		this.txtPurchase_Date.setText(msg.get(10));
+		this.txtShelf_Location.setText(msg.get(12));
+		Enablefields(true);
 	}
 
 	@Override
@@ -146,6 +147,19 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Message");
 		alert.setHeaderText(string);
-		alert.showAndWait();		
+		alert.showAndWait();
+	}
+
+	@Override
+	public void freshStart() {
+		this.txtCopies.setText("");
+		this.txtWanted.setText("");
+		this.txtEdition.setText("");
+		this.txtPrint_Date.setText("");
+		this.txtTheme.setText("");
+		this.txtDescription.setText("");
+		this.txtPurchase_Date.setText("");
+		this.txtShelf_Location.setText("");
+		Enablefields(false);
 	}
 }
