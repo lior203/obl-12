@@ -19,17 +19,19 @@ public class Main extends Application implements GuiInterface {
 	final public static int DEFAULT_PORT = 5555;
 	public static String host;
 	public static Client client;
+	public static Stage primary;
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		try {
-			this.host = getParameters().getRaw().get(0);
+			Main.host = getParameters().getRaw().get(0);
 		}
 		catch(Exception e) {
-			this.host = "localhost";
+			Main.host = "localhost";
 		}
 		client=new Client(host,DEFAULT_PORT,this);
-		Parent root = FXMLLoader.load(getClass().getResource("/GUI/OBL-openScreen.fxml"));
+ 		Parent root = FXMLLoader.load(getClass().getResource("/GUI/OBL-openScreen.fxml"));
 		Scene scene = new Scene(root);
+		primary=primaryStage;
 		primaryStage.setTitle("OBL System");
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
@@ -42,7 +44,7 @@ public class Main extends Application implements GuiInterface {
 
 
 	@Override
-	public void showFaild(String message) {
+	public void showFailed(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Error");
 		alert.setHeaderText("An error occurred");
@@ -57,7 +59,7 @@ public class Main extends Application implements GuiInterface {
 	}
 
 	@Override
-	public void showSuccess() {
+	public void showSuccess(String message) {
 		// TODO Auto-generated method stub
 
 	}

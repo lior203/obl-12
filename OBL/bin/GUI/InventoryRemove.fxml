@@ -14,12 +14,12 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="btnRemove" disable="true" layoutX="239.0" layoutY="482.0" mnemonicParsing="false" onAction="#RemoveBook" prefHeight="81.0" prefWidth="124.0" text="Remove">
+      <Button fx:id="btnRemove" disable="true" layoutX="239.0" layoutY="482.0" mnemonicParsing="false" onAction="#RemoveBook" prefHeight="81.0" prefWidth="201.0" text="Remove Copy">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Button>
       <Label disable="true" layoutX="412.0" layoutY="137.0" text="Book name:" />
-      <TextField fx:id="txtBook_Name" disable="true" layoutX="529.0" layoutY="133.0" promptText="fill and click &quot;Enter&quot;" />
+      <TextField fx:id="txtBook_Name" disable="true" layoutX="529.0" layoutY="133.0" />
       <TextField fx:id="txtEdition" disable="true" layoutX="207.0" layoutY="179.0" />
       <Label disable="true" layoutX="83.0" layoutY="183.0" text="Edition:" />
       <TextField fx:id="txtTheme" disable="true" layoutX="207.0" layoutY="225.0" />
@@ -28,8 +28,8 @@
       <Label disable="true" layoutX="416.0" layoutY="185.0" text="Author:" />
       <TextField fx:id="txtPrint_Date" disable="true" layoutX="529.0" layoutY="224.0" />
       <Label disable="true" layoutX="412.0" layoutY="229.0" text="Print date:" />
-      <TextField fx:id="txtCatalog_Number" layoutX="208.0" layoutY="132.0" onKeyPressed="#PressEnter" />
-      <Label disable="true" layoutX="83.0" layoutY="138.0" text="Catalog number:" />
+      <TextField fx:id="txtCatalog_Number" layoutX="208.0" layoutY="132.0" onKeyPressed="#PressEnter" promptText="Enter and click &quot;Enter&quot;" />
+      <Label layoutX="83.0" layoutY="138.0" text="Copy ID:" />
       <Label disable="true" layoutX="83.0" layoutY="276.0" text="Copies:" />
       <TextField fx:id="txtCopies" disable="true" layoutX="207.0" layoutY="272.0" />
       <Label disable="true" layoutX="412.0" layoutY="277.0" text="purchase date:" />

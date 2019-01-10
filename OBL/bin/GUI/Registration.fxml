@@ -68,10 +68,10 @@
             </Label>
          </children>
       </VBox>
-      <TextField fx:id="txtPhone_number" layoutX="246.0" layoutY="312.0" />
-      <TextField fx:id="txtID" layoutX="246.0" layoutY="262.0" />
-      <TextField fx:id="txtLast_name" layoutX="246.0" layoutY="218.0" />
       <TextField fx:id="txtFirst_name" layoutX="246.0" layoutY="171.0" />
+      <TextField fx:id="txtLast_name" layoutX="246.0" layoutY="218.0" />
+      <TextField fx:id="txtID" layoutX="246.0" layoutY="262.0" />
+      <TextField fx:id="txtPhone_number" layoutX="246.0" layoutY="312.0" />
       <TextField fx:id="txtEmail" layoutX="246.0" layoutY="360.0" />
       <TextField fx:id="txtPassword" layoutX="246.0" layoutY="408.0" />
    </children>

@@ -50,6 +50,9 @@ public class LibrarianMenuGUI implements Initializable{
 
     @FXML
     private Button btnLog_out;
+    
+    @FXML
+    private Button btnShow_Report;
 
     @FXML
     private Label lblUser_name;
@@ -111,6 +114,12 @@ public class LibrarianMenuGUI implements Initializable{
 
     @FXML
     void SearchReaderScreen(ActionEvent event) throws IOException {
+    	AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/ReaderCard.fxml"));
+    	rightPane.getChildren().setAll(pane);
+    }
+    
+    @FXML
+    void ShowReportScreen(ActionEvent event) throws IOException {
     	AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/ReaderCard.fxml"));
     	rightPane.getChildren().setAll(pane);
     }
