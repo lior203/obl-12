@@ -60,6 +60,12 @@ public class ListResultGUI implements Initializable, GuiInterface {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Main.client.clientUI = this;
 	}
+
+	@Override
+	public void freshStart() {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
 

@@ -20,4 +20,11 @@ public class BookHandlerController {
 		copyData.add(copyID);
 		Main.client.handleMessageFromClientUI(copyData);
 	}
+	
+	public static void returnBook(String copyID) {	
+		ArrayList<String> copyData = new ArrayList<>();
+		copyData.add("Return Book");
+		copyData.add(copyID);
+		Main.client.handleMessageFromClientUI(copyData);
+	}
 }

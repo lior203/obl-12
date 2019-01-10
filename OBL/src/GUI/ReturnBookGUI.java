@@ -9,6 +9,7 @@ import org.w3c.dom.css.Counter;
 import Client.Client;
 import Common.GuiInterface;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -18,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import logic.BookHandlerController;
+import logic.InventoryController;
 import logic.Main;
 import logic.RegistrationController;
 
@@ -46,6 +48,8 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 
 	@FXML
 	private TextField txtReturn_Date;
+	
+	private String copyID;
 
 	//	@FXML
 	//	void memberKeyPressed(KeyEvent event) {
@@ -69,6 +73,22 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 		}
 	}
 
+	@FXML
+	void clickReturnButton(ActionEvent event) {
+		if(txtMember_Status.getText().equals("Active")) {
+			if(txtCopy_ID.getText().equals(copyID)) {
+				BookHandlerController.returnBook(txtCopy_ID.getText());
+			}
+			else {
+				Platform.runLater(() -> {
+					showFailed("You changed the Copy ID field, to continue click enter in Copy ID field");
+				});
+			}
+		}
+		else {
+			
+		}
+	}
 
 	@Override
 	public void display(Object obj) {
@@ -79,6 +99,7 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 			txtFirst_Name.setText(msg.get(5));
 			txtLast_name.setText(msg.get(6));
 			btnReturn.setDisable(false);
+			copyID = txtCopy_ID.getText();
 			break;
 
 		case "Check Copy Loan Status":
@@ -101,6 +122,13 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 			}
 			break;
 			
+		case "Return Book":
+				txtReturn_Date.setText(msg.get(1));
+				Platform.runLater(() -> {
+					showSuccess("Copy of the book " + txtBook_Name.getText() + " Returned successfully");
+				});
+			break;
+
 		default:
 			break;
 		}
@@ -108,23 +136,14 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 
 	@Override
 	public void showFailed(String message) {
-		clearFieldsOnError();
+		freshStart();
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Error");
 		alert.setHeaderText("An error occurred");
 		alert.setContentText(message);
 		alert.showAndWait();
 	}
-	
-	public void clearFieldsOnError() {
-		txtMember_ID.setText("");
-		txtMember_Status.setText("");
-		txtFirst_Name.setText("");
-		txtLast_name.setText("");
-		txtReturn_Date.setText("");
-		txtBook_Name.setText("");
-	}
-	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Main.client.clientUI = this;
@@ -132,15 +151,22 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 	}
 
 	@Override
-	public void showSuccess(String string) {
-		// TODO Auto-generated method stub
-
+	public void showSuccess(String message) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Success");
+		alert.setHeaderText("An successful operation");
+		alert.setContentText(message);
+		alert.showAndWait();
 	}
-
 
 	@Override
 	public void freshStart() {
-		// TODO Auto-generated method stub
-		
+		txtMember_ID.setText("");
+		txtMember_Status.setText("");
+		txtFirst_Name.setText("");
+		txtLast_name.setText("");
+		txtReturn_Date.setText("");
+		txtBook_Name.setText("");
+		btnReturn.setDisable(true);		
 	}
 }

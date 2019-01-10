@@ -227,4 +227,10 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 		Main.client.clientUI = this;
 
 	}
+
+	@Override
+	public void freshStart() {
+		// TODO Auto-generated method stub
+		
+	}
 }

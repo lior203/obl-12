@@ -135,6 +135,14 @@ public class Server extends AbstractServer
 				e.printStackTrace();
 			}
 			break;
+			
+		case "Return Book":
+			try {
+				client.sendToClient(DBController.getInstance().returnBook((ArrayList<String>)msg));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
 
 		default:
 			break;

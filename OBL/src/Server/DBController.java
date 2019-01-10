@@ -369,7 +369,28 @@ public class DBController {
 		}
 		return checkCopyLoanStatus;
 	}
-
+	
+	public static ArrayList<String> returnBook(ArrayList<String> data) throws SQLException {
+		java.util.Date dt = new java.util.Date();
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String currentTime = sdf.format(dt);
+		ArrayList<String> returnBook = new ArrayList<>();
+		returnBook.add("Return Book");
+		PreparedStatement ps = conn.prepareStatement("UPDATE copies SET isLoaned = ?, ActualReturnDate = ? WHERE CopyID = ?");
+		ps.setString(1, "false");
+		ps.setString(2, currentTime);
+		ps.setString(3, data.get(1));
+		PreparedStatement ps1 = conn.prepareStatement("UPDATE loanbook SET isReturned = ?, ActualReturnDate = ? WHERE CopyID = ? AND isReturned = ?");
+		ps1.setString(1, "true");
+		ps1.setString(2, currentTime);
+		ps1.setString(3, data.get(1));
+		ps1.setString(4, "false");
+		if(ps.executeUpdate() != 0 && ps1.executeUpdate() != 0) {
+			returnBook.add(currentTime);
+		}
+		return returnBook;
+	}
+	
 	private static Connection connectToDatabase() {
 		try 
 		{

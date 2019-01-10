@@ -127,6 +127,16 @@ public class Client extends AbstractClient
 				clientUI.display((ArrayList<String>)msg);
 			}
 			break;
+		case "Return Book":
+			if(((ArrayList<String>)msg).size() == 1) {
+				Platform.runLater(() -> {
+					clientUI.showFailed("Book return was unsuccessful!");
+				});
+			}
+			else {
+				clientUI.display((ArrayList<String>)msg);
+			}
+			break;
 		default:
 			break;
 		}
