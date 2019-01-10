@@ -108,7 +108,7 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 		if (choice.getSelectedToggle().equals(radio_btn_book_name))
 		{
-			clearFields();
+			freshStart();
 			txtBook_Name.setDisable(false);
 			txtAuthor_Name.setDisable(true);
 			txtBook_Theme.setDisable(true);
@@ -117,7 +117,7 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 		if(choice.getSelectedToggle().equals(radio_btn_authors_name))
 		{
-			clearFields();
+			freshStart();
 			txtAuthor_Name.setDisable(false);
 			txtBook_Name.setDisable(true);
 			txtBook_Theme.setDisable(true);
@@ -126,7 +126,7 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 		if(choice.getSelectedToggle().equals(radio_btn_book_theme))
 		{
-			clearFields();
+			freshStart();
 			txtBook_Theme.setDisable(false);
 			txtAuthor_Name.setDisable(true);
 			txtBook_Name.setDisable(true);
@@ -135,7 +135,7 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 		if(choice.getSelectedToggle().equals(radio_btn_free_text))
 		{
-			clearFields();
+			freshStart();
 			txtFree_Text.setDisable(false);
 			txtBook_Theme.setDisable(true);
 			txtAuthor_Name.setDisable(true);
@@ -144,13 +144,6 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 	}
 	
-	public  void clearFields() {
-		txtBook_Name.clear();
-		txtAuthor_Name.clear();
-		txtBook_Theme.clear();
-		txtFree_Text.clear();
-	}
-
 	public void displayNotFound() 
 	{
 		Stage primaryStage = new Stage();
@@ -243,7 +236,9 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 	@Override
 	public void freshStart() {
-		// TODO Auto-generated method stub
-		
+		txtBook_Name.clear();
+		txtAuthor_Name.clear();
+		txtBook_Theme.clear();
+		txtFree_Text.clear();
 	}
 }
