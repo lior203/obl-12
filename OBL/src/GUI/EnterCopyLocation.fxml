@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="228.0" prefWidth="372.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.CopyLocationGUI">
+   <children>
+      <TextField fx:id="txtCopy_Location" layoutX="146.0" layoutY="99.0" />
+      <Label layoutX="21.0" layoutY="104.0" text="Enter Location:" />
+      <Button defaultButton="true" layoutX="154.0" layoutY="159.0" mnemonicParsing="false" onAction="#Confirm" prefHeight="39.0" prefWidth="64.0" text="OK">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Label layoutX="146.0" layoutY="14.0" text="Location" underline="true">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

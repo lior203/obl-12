@@ -83,7 +83,7 @@ public class DBController {
 		return Result;
 	}
 
-	public static void addCopyToInventory(ArrayList<String> data) throws SQLException{
+	public static boolean addCopyToInventory(ArrayList<String> data) throws SQLException{
 		int maxCopyID=0;
 		PreparedStatement getCopyID = conn.prepareStatement("SELECT MAX(CopyID) FROM copies WHERE BookID = ?");
 		getCopyID.setString(1, data.get(data.size()-1));
@@ -94,7 +94,6 @@ public class DBController {
 				maxCopyID=Integer.parseInt(rs.getString(1));
 			}
 		}
-
 		PreparedStatement insert = conn.prepareStatement("insert into copies values(?,?,?,?,?,?)");
 		insert.setString(1, (data.get(data.size()-1)) + " - " + Integer.toString(++maxCopyID));
 		insert.setString(2, data.get(1));
@@ -103,6 +102,7 @@ public class DBController {
 		insert.setString(5, data.get(data.size()-1));
 		insert.setString(6, "null");
 		insert.executeUpdate();
+		return true;
 	}
 
 	public static int RemoveCopy(ArrayList<String> data) throws SQLException{
@@ -111,7 +111,7 @@ public class DBController {
 		removestmt.setString(1, data.get(1));
 		int res=removestmt.executeUpdate();
 		removestmt.close();
-//		conn.close();
+		//		conn.close();
 		return res;
 
 	}
@@ -187,9 +187,9 @@ public class DBController {
 			}	
 		}
 	}
-	
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-	
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+
 	public static ArrayList<String> searchBook(ArrayList<String> searchData) throws SQLException
 	{
 		PreparedStatement searchBook;
@@ -275,31 +275,31 @@ public class DBController {
 		return searchData;
 	}
 
-			
-//			searchCopy = conn.prepareStatement("SELECT * FROM copies WHERE CopyName=? AND ISLoan = 'No'");
-//			searchCopy.setString(1,searchData.get(2));
-//			rsCopy = searchCopy.executeQuery();
-//			
-//			if (rsCopy != null)
-//			{								// have copy in the library, handle with this...
-//				while (rsCopy.next())
-//				{
-//					
-//				}
-//								
-//			}
-//			
-//			searchCopy = conn.prepareStatement("SELECT * DISTINCT () FROM copies WHERE CopyName=? AND ISLoan = 'Yes' And ReturnDate > NOW() ORDER BY ReturnDate");
-//			searchCopy.setString(1,searchData.get(2)); 	// fix the query distinct on what? , who to get the nearest date to all different books?
-//			rsCopy = searchCopy.executeQuery();
-//			
-//			while(rsCopy.next())
-//			{
-//			
-//			}
+
+	//			searchCopy = conn.prepareStatement("SELECT * FROM copies WHERE CopyName=? AND ISLoan = 'No'");
+	//			searchCopy.setString(1,searchData.get(2));
+	//			rsCopy = searchCopy.executeQuery();
+	//			
+	//			if (rsCopy != null)
+	//			{								// have copy in the library, handle with this...
+	//				while (rsCopy.next())
+	//				{
+	//					
+	//				}
+	//								
+	//			}
+	//			
+	//			searchCopy = conn.prepareStatement("SELECT * DISTINCT () FROM copies WHERE CopyName=? AND ISLoan = 'Yes' And ReturnDate > NOW() ORDER BY ReturnDate");
+	//			searchCopy.setString(1,searchData.get(2)); 	// fix the query distinct on what? , who to get the nearest date to all different books?
+	//			rsCopy = searchCopy.executeQuery();
+	//			
+	//			while(rsCopy.next())
+	//			{
+	//			
+	//			}
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
 	public static ArrayList<String> isMemberExist(ArrayList<String> data) throws SQLException {
 		ArrayList<String> checkMemberExistence = new ArrayList<>();
@@ -369,7 +369,7 @@ public class DBController {
 		}
 		return checkCopyLoanStatus;
 	}
-	
+
 	public static ArrayList<String> returnBook(ArrayList<String> data) throws SQLException {
 		java.util.Date dt = new java.util.Date();
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -390,7 +390,7 @@ public class DBController {
 		}
 		return returnBook;
 	}
-	
+
 	private static Connection connectToDatabase() {
 		try 
 		{

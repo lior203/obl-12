@@ -51,16 +51,6 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 	
 	private String copyID;
 
-	//	@FXML
-	//	void memberKeyPressed(KeyEvent event) {
-	//		if (event.getCode()==KeyCode.ENTER) {
-	//			try {
-	//				RegistrationController.checkMemberExistence(txtMember_ID.getText());
-	//			} catch (Exception e) {
-	//				showFailed(e.getMessage());
-	//			}
-	//		}
-	//	}
 
 	@FXML
 	void copyKeyPressed(KeyEvent event) {

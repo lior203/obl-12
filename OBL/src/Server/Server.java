@@ -143,7 +143,13 @@ public class Server extends AbstractServer
 				e.printStackTrace();
 			}
 			break;
-
+		case "AddCopy":
+			try {
+				client.sendToClient(DBController.getInstance().addCopyToInventory((ArrayList<String>)msg));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
 		default:
 			break;
 		}

@@ -11,16 +11,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import logic.InventoryController;
 import logic.Main;
 
 public class InventoryAddGUI implements GuiInterface,Initializable{
+	static String Location;
 	@FXML
 	private AnchorPane MainPane;
 
@@ -39,7 +43,6 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 	@FXML
 	private TextField txtPrint_Date;
 
-
 	@FXML
 	private TextField txtCopies;
 
@@ -57,10 +60,22 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 
 	@FXML
 	private TextField txtWanted;
+	
+    @FXML
+    private TextField txtCatlog_Number;
 
 	@FXML
 	private Button btnAdd;
+	
+	@FXML
+    private Button btnCopy;
 
+	@FXML
+    void AddCopy(ActionEvent event) {
+		showLocationScreen();
+		InventoryController.addCopy(Location, txtCatlog_Number.getText());
+    }
+	
 	@FXML
 	void AddBook(ActionEvent event) {
 		if (checkfields())
@@ -114,6 +129,20 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		return false;
 	}
 
+	public void showLocationScreen() {
+		Stage primaryStage = new Stage();
+		primaryStage.initModality(Modality.APPLICATION_MODAL);
+		FXMLLoader loader = new FXMLLoader();
+		AnchorPane root;
+		try {
+			root = loader.load(getClass().getResource("/GUI/EnterCopyLocation.fxml").openStream());
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.showAndWait();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Main.client.clientUI=this;		
@@ -140,6 +169,7 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		this.txtPurchase_Date.setText(msg.get(10));
 		this.txtShelf_Location.setText(msg.get(12));
 		Enablefields(true);
+		btnCopy.setDisable(false);
 	}
 
 	@Override

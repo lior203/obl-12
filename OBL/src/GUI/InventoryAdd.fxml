@@ -14,7 +14,7 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="btnAdd" disable="true" layoutX="424.0" layoutY="472.0" mnemonicParsing="false" onAction="#AddBook" prefHeight="81.0" prefWidth="124.0" text="Add">
+      <Button fx:id="btnAdd" disable="true" layoutX="449.0" layoutY="497.0" mnemonicParsing="false" onAction="#AddBook" prefHeight="81.0" prefWidth="124.0" text="Add">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Button>
@@ -39,7 +39,7 @@
       <Label layoutX="83.0" layoutY="325.0" text="Shelf location:" />
       <Label layoutX="412.0" layoutY="326.0" text="Desciption:" />
       <TextArea fx:id="txtDescription" disable="true" layoutX="529.0" layoutY="320.0" prefHeight="81.0" prefWidth="187.0" />
-      <Button layoutX="716.0" layoutY="483.0" mnemonicParsing="false" onAction="#BackToInventory" prefHeight="45.0" prefWidth="85.0" text="Back">
+      <Button layoutX="730.0" layoutY="515.0" mnemonicParsing="false" onAction="#BackToInventory" prefHeight="45.0" prefWidth="85.0" text="Back">
          <font>
             <Font size="21.0" />
          </font></Button>
@@ -48,5 +48,10 @@
       <TextField fx:id="txtTable_Of_Content" disable="true" layoutX="209.0" layoutY="368.0" prefHeight="31.0" prefWidth="158.0" />
       <Label layoutX="83.0" layoutY="414.0" text="Wanted:" />
       <Button layoutX="746.0" layoutY="131.0" mnemonicParsing="false" onAction="#CheckExistense" prefHeight="61.0" prefWidth="137.0" text="Check exsitens" />
+      <Button fx:id="btnCopy" disable="true" layoutX="230.0" layoutY="497.0" mnemonicParsing="false" onAction="#AddCopy" prefHeight="81.0" prefWidth="150.0" text="Add Copy">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

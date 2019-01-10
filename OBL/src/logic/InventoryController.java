@@ -32,6 +32,14 @@ public class InventoryController {
 		inventoryData.add(shelflocation);
 		Main.client.handleMessageFromClientUI(inventoryData);
 	}
+	
+	public static void addCopy(String bookname,String copylocation) {
+		ArrayList<String> inventoryData = new ArrayList<>();
+		inventoryData.add("AddCopy");
+		inventoryData.add(bookname);
+		inventoryData.add(copylocation);
+		Main.client.handleMessageFromClientUI(inventoryData);
+	}
 
 	public  static void RemoveCopy(String catalognumber)
 	{
