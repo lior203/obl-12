@@ -2,11 +2,15 @@ package GUI;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import Client.Client;
 import Common.GuiInterface;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,11 +21,15 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.converter.LocalDateStringConverter;
+import javafx.util.converter.LocalDateTimeStringConverter;
 import logic.InventoryController;
 import logic.Main;
+import sun.applet.resources.MsgAppletViewer;
 
 public class InventoryAddGUI implements GuiInterface,Initializable{
 	static String Location;
@@ -41,13 +49,10 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 	private TextField txtAuthor;
 
 	@FXML
-	private TextField txtPrint_Date;
+	private DatePicker txtPrint_Date;
 
 	@FXML
 	private TextField txtCopies;
-
-	@FXML
-	private TextField txtPurchase_Date;
 
 	@FXML
 	private TextField txtShelf_Location;
@@ -60,28 +65,41 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 
 	@FXML
 	private TextField txtWanted;
-	
-    @FXML
-    private TextField txtCatlog_Number;
+
+	@FXML
+	private TextField txtCatlog_Number;
 
 	@FXML
 	private Button btnAdd;
-	
-	@FXML
-    private Button btnCopy;
 
 	@FXML
-    void AddCopy(ActionEvent event) {
+	private Button btnCopy;
+
+	@FXML
+	private DatePicker txtPurchase_Date;
+
+	@FXML
+	private TextField txtCopy_Location;
+
+	@FXML
+	void Confirm(ActionEvent event) {
+		Location=txtCopy_Location.getText();
+		InventoryController.addCopy(txtBook_Name.getText(),Location, txtCatlog_Number.getText());
+	}
+
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+	@FXML
+	void AddCopy(ActionEvent event) {
 		showLocationScreen();
-		InventoryController.addCopy(Location, txtCatlog_Number.getText());
-    }
-	
+	}
+
 	@FXML
 	void AddBook(ActionEvent event) {
 		if (checkfields())
 			showFailed("Fill all the dields");
 		else {
-			InventoryController.addBook(txtBook_Name.getText(), txtEdition.getText(), txtTheme.getText(), txtAuthor.getText(), txtPrint_Date.getText(),txtCopies.getText(),txtPurchase_Date.getText(),txtShelf_Location.getText(),txtWanted.getText(),txtDescription.getText());
+			InventoryController.addBook(txtBook_Name.getText(), txtEdition.getText(), txtTheme.getText(), txtAuthor.getText(), txtPrint_Date.getValue().format(formatter).toString(),txtCopies.getText(),txtPurchase_Date.getValue().toString(),txtShelf_Location.getText(),txtWanted.getText(),txtDescription.getText());
 			Enablefields(false);
 		}
 	}
@@ -107,6 +125,8 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 	@FXML
 	void CheckExistense(ActionEvent event) {
 		InventoryController.checkExistence(txtBook_Name.getText(),txtAuthor.getText());
+		txtPrint_Date.setDisable(false);
+		txtPurchase_Date.setDisable(false);
 	}
 
 	public boolean checkfields() {
@@ -114,9 +134,9 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 			return true;
 		if ((txtTheme.getText()).equals(""))
 			return true;
-		if ((txtPrint_Date.getText()).equals(""))
+		if (txtPrint_Date.getValue()==null)
 			return true;
-		if ((txtPurchase_Date.getText()).equals(""))
+		if (txtPurchase_Date.getValue()==null)
 			return true;
 		if ((txtShelf_Location.getText()).equals(""))
 			return true;
@@ -159,17 +179,26 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 
 	@Override
 	public void display(Object obj) {
-		ArrayList<String> msg = (ArrayList<String>)obj;
-		this.txtCopies.setText(msg.get(3));
-		this.txtWanted.setText(msg.get(4));
-		this.txtEdition.setText(msg.get(6));
-		this.txtPrint_Date.setText(msg.get(7));
-		this.txtTheme.setText(msg.get(8));
-		this.txtDescription.setText(msg.get(9));
-		this.txtPurchase_Date.setText(msg.get(10));
-		this.txtShelf_Location.setText(msg.get(12));
-		Enablefields(true);
-		btnCopy.setDisable(false);
+		Platform.runLater(()->{
+			ArrayList<String> msg = (ArrayList<String>)obj;
+			String day=(String) msg.get(10).subSequence(8, 10);
+			System.out.println(day);
+			String year=(String) msg.get(10).subSequence(0, 4);;
+			System.out.println(year);
+			this.txtCatlog_Number.setText(msg.get(1));
+			this.txtCopies.setText(msg.get(3));
+			this.txtWanted.setText(msg.get(4));
+			this.txtEdition.setText(msg.get(6));
+			this.txtPrint_Date.setPromptText(msg.get(7));
+			this.txtTheme.setText(msg.get(8));
+			this.txtDescription.setText(msg.get(9));
+			this.txtPurchase_Date.setPromptText(msg.get(10));
+			this.txtShelf_Location.setText(msg.get(12));
+			Enablefields(true);
+			btnCopy.setDisable(false);
+			txtPrint_Date.setEditable(false);
+			txtPurchase_Date.setEditable(false);
+		});
 	}
 
 	@Override
@@ -185,10 +214,10 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		this.txtCopies.setText("");
 		this.txtWanted.setText("");
 		this.txtEdition.setText("");
-		this.txtPrint_Date.setText("");
+		this.txtPrint_Date.setValue(null);
 		this.txtTheme.setText("");
 		this.txtDescription.setText("");
-		this.txtPurchase_Date.setText("");
+		this.txtPurchase_Date.setValue(null);//purchasedate.fromString(msg.get(10)));
 		this.txtShelf_Location.setText("");
 		Enablefields(false);
 	}

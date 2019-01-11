@@ -33,7 +33,8 @@ import logic.RegistrationController;
 public class Client extends AbstractClient
 {
 	public static GuiInterface clientUI;
-
+	public static  ArrayList<String> arrayUser=new ArrayList<String>();
+	
 	public Client(String host, int port,GuiInterface clientUI) {
 		super(host, port);
 		this.clientUI=clientUI;
@@ -73,7 +74,7 @@ public class Client extends AbstractClient
 				});
 			}else {
 				Platform.runLater(()->{
-					clientUI.showFailed("Add successfull");
+					clientUI.showFailed("Add failed");
 				});
 			}
 			break;
@@ -88,11 +89,28 @@ public class Client extends AbstractClient
 					clientUI.freshStart();
 				});
 			}
-			else clientUI.display((ArrayList<String>) msg);
-
+			else
+					clientUI.display((ArrayList<String>) msg);
 			break;
 		case "Login":
+			arrayUser.add(((ArrayList<String>)msg).get(1));
+			arrayUser.add(((ArrayList<String>)msg).get(2));
+			arrayUser.add(((ArrayList<String>)msg).get(3));
+			System.out.println((ArrayList<String>)msg);
 			clientUI.display((ArrayList<String>) msg);
+			break;
+		case "SearchMember":
+			if (((ArrayList<String>) msg).get(1).equals("NotExist")) {
+			    Platform.runLater(() -> {					
+				clientUI.showFailed("Member does not exist in the system");
+			});
+			}
+			else
+			{
+			    Platform.runLater(() -> {					
+				clientUI.display((ArrayList<String>) msg);
+			});
+			}
 			break;
 		case "Search book":
 			if (((ArrayList<String>) msg).get(3).equals("-1"))

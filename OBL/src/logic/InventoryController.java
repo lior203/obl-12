@@ -21,7 +21,7 @@ public class InventoryController {
 		ArrayList<String> inventoryData = new ArrayList<>();
 		inventoryData.add("AddBook");
 		inventoryData.add(bookname);
-		inventoryData.add(copies);
+		inventoryData.add(shelflocation);
 		inventoryData.add(wanted);
 		inventoryData.add(author);
 		inventoryData.add(edition);
@@ -29,15 +29,16 @@ public class InventoryController {
 		inventoryData.add(theme);
 		inventoryData.add(description);
 		inventoryData.add(purchasedate);
-		inventoryData.add(shelflocation);
+//		inventoryData.add(copies);
 		Main.client.handleMessageFromClientUI(inventoryData);
 	}
-	
-	public static void addCopy(String bookname,String copylocation) {
+
+	public static void addCopy(String bookname,String copylocation,String bookid) {
 		ArrayList<String> inventoryData = new ArrayList<>();
 		inventoryData.add("AddCopy");
 		inventoryData.add(bookname);
 		inventoryData.add(copylocation);
+		inventoryData.add(bookid);
 		Main.client.handleMessageFromClientUI(inventoryData);
 	}
 

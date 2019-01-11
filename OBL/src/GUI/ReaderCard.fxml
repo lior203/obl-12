@@ -10,28 +10,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="928.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MemberCardGUI">
+<AnchorPane prefHeight="928.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MemberCardGUI">
    <children>
-      <ImageView fitHeight="959.0" fitWidth="1232.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../Pictures/1a.jpg" />
-         </image>
-      </ImageView>
       <Label layoutX="339.0" layoutY="18.0" text="Search Reader's card" underline="true">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="83.0" layoutY="117.0" text="Card ID:">
+      <Label layoutX="83.0" layoutY="117.0" text="Member ID:">
          <font>
             <Font size="19.0" />
          </font></Label>
-      <TextField fx:id="txtCardID" disable="true" layoutX="226.0" layoutY="116.0" prefHeight="31.0" prefWidth="223.0" text="123456789" />
+      <TextField fx:id="txtMember_ID" layoutX="226.0" layoutY="116.0" onKeyPressed="#searchMember" prefHeight="31.0" prefWidth="223.0" promptText="Insert ID and press 'Enter'" />
       <Label layoutX="83.0" layoutY="159.0" text="First name:">
          <font>
             <Font size="19.0" />
          </font></Label>
-      <TextField fx:id="txtFirst_Name" disable="true" layoutX="226.0" layoutY="158.0" prefHeight="31.0" prefWidth="223.0" text="lior" />
+      <TextField fx:id="txtFirst_Name" disable="true" layoutX="226.0" layoutY="158.0" prefHeight="31.0" prefWidth="223.0" />
       <Label layoutX="465.0" layoutY="119.0" text="Status:">
          <font>
             <Font size="19.0" />
@@ -40,41 +35,35 @@
          <font>
             <Font size="19.0" />
          </font></Label>
-      <TextField fx:id="txtLast_Name" disable="true" layoutX="570.0" layoutY="158.0" text="ben-hamo" />
+      <TextField fx:id="txtLast_Name" disable="true" layoutX="570.0" layoutY="158.0" />
       <Label layoutX="85.0" layoutY="201.0" text="Phone number:">
          <font>
             <Font size="19.0" />
          </font></Label>
-      <TextField fx:id="txtPhone_Number" layoutX="226.0" layoutY="200.0" prefHeight="31.0" prefWidth="223.0" text="0523799523" />
-      <TextField fx:id="txtEmail" layoutX="570.0" layoutY="200.0" text="lior.20@gmail.com" />
+      <TextField fx:id="txtPhone_Number" disable="true" layoutX="226.0" layoutY="200.0" prefHeight="31.0" prefWidth="223.0" />
+      <TextField fx:id="txtEmail" disable="true" layoutX="570.0" layoutY="200.0" />
       <Label layoutX="469.0" layoutY="202.0" text="Email:">
          <font>
             <Font size="19.0" />
          </font></Label>
-      <Label layoutX="85.0" layoutY="248.0" text="Birth date:">
+      <Label layoutX="85.0" layoutY="248.0">
          <font>
             <Font size="19.0" />
          </font></Label>
-      <TextField fx:id="txtBirth_Date" disable="true" layoutX="226.0" layoutY="249.0" prefHeight="31.0" prefWidth="223.0" text="20.03.1993" />
-      <Label layoutX="465.0" layoutY="248.0" text="Address:">
-         <font>
-            <Font size="19.0" />
-         </font></Label>
-      <TextField fx:id="txtAddress" disable="true" layoutX="570.0" layoutY="247.0" text="Hagefen 17 qiryat atta" />
-      <Button fx:id="btnHistory" layoutX="518.0" layoutY="300.0" mnemonicParsing="false" text="History of loan" />
-      <Button fx:id="btnLates_Lostbook" layoutX="226.0" layoutY="299.0" mnemonicParsing="false" text="Lates/Lost book" />
-      <TextArea fx:id="txtArea_Notes" layoutX="477.0" layoutY="393.0" prefHeight="217.0" prefWidth="331.0" text="very good student not a &quot;child&quot;" />
+      <Button fx:id="btnHistory" disable="true" layoutX="518.0" layoutY="300.0" mnemonicParsing="false" text="History of loan" />
+      <Button fx:id="btnLates_Lostbook" disable="true" layoutX="226.0" layoutY="299.0" mnemonicParsing="false" text="Lates/Lost book" />
+      <TextArea fx:id="txtArea_Notes" disable="true" layoutX="477.0" layoutY="393.0" prefHeight="217.0" prefWidth="331.0" />
       <Label layoutX="479.0" layoutY="372.0" text="Notes:" />
-      <ImageView disable="true" fitHeight="28.0" fitWidth="27.0" layoutX="456.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fitHeight="28.0" fitWidth="27.0" layoutX="456.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../../../../Pictures/Magnifire-512.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnSave" layoutX="107.0" layoutY="437.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="129.0" text="Save">
+      <Button fx:id="btnSave" disable="true" layoutX="107.0" layoutY="437.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="129.0" text="Save">
          <font>
             <Font name="System Bold" size="32.0" />
          </font>
       </Button>
-      <ComboBox fx:id="cmbStatus" layoutX="568.0" layoutY="118.0" prefHeight="31.0" prefWidth="187.0" promptText="active" />
+      <ComboBox fx:id="cmbStatus" disable="true" layoutX="568.0" layoutY="118.0" prefHeight="31.0" prefWidth="187.0" />
    </children>
 </AnchorPane>

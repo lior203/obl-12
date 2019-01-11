@@ -64,12 +64,10 @@ public class Server extends AbstractServer
 
 		case "Login":
 			try {
-				int menu = DBController.getInstance().login((ArrayList<String>) msg);
-				arrayObject.add(Integer.toString(menu));
-				client.sendToClient(arrayObject);
+				ArrayList<String> userDetails = DBController.getInstance().login((ArrayList<String>) msg);
+				client.sendToClient(userDetails);
 			}
 			catch (Exception e) {
-				// TODO: handle exception
 				e.printStackTrace();
 			}
 			break;
@@ -135,7 +133,7 @@ public class Server extends AbstractServer
 				e.printStackTrace();
 			}
 			break;
-			
+
 		case "Return Book":
 			try {
 				client.sendToClient(DBController.getInstance().returnBook((ArrayList<String>)msg));
@@ -147,6 +145,35 @@ public class Server extends AbstractServer
 			try {
 				client.sendToClient(DBController.getInstance().addCopyToInventory((ArrayList<String>)msg));
 			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+		case "SearchMember":
+			try {
+				ArrayList<String>member;
+				member=(ArrayList<String>) DBController.getInstance().memberSearch((ArrayList<String>) msg);
+				if (member!=null) {//found an existing member
+					try {
+						client.sendToClient(member);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}	
+				}
+				else {
+					//Could not found any existing member
+					member=new ArrayList<String>();
+					member.add("SearchMember");
+					member.add("NotExist");
+					System.out.println("did not found any memberID");
+					try {
+						client.sendToClient(member);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}	
+				}
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 			break;

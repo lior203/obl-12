@@ -55,17 +55,6 @@ public class OBLcontroller implements Initializable, GuiInterface {
 	private TextField txtPassword;
 
 
-	//	public void start(Stage primaryStage) throws Exception {
-	//		setStage(primaryStage);
-	//		Parent root = FXMLLoader.load(getClass().getResource("/GUI/OBL-openScreen.fxml"));
-	//		Scene scene = new Scene(root);
-	//		primaryStage.setTitle("OBL System");
-	//		primaryStage.setScene(scene);
-	//		primaryStage.setResizable(false);
-	//		primaryStage.show();				
-	//	}
-
-
 	public void login(ActionEvent event) throws IOException {
 		RegistrationController.login(txtUserName.getText(),txtPassword.getText());
 		
@@ -78,10 +67,7 @@ public class OBLcontroller implements Initializable, GuiInterface {
 
 
 	public void openMemberMenuScreen() throws IOException {
-		System.out.println("member");
-		//		((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
-		Main.primary.hide();
-//		((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
+		Main.primary.close();
 		Stage primaryStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
 		SplitPane root = loader.load(getClass().getResource("/GUI/ReaderMenu.fxml").openStream());
@@ -92,10 +78,7 @@ public class OBLcontroller implements Initializable, GuiInterface {
 	}
 
 	public void openLibrarianMenuScreen() throws IOException {
-		System.out.println("librairan");
-		//		((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
-		Main.primary.hide();
-//		((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
+		Main.primary.close();
 		Stage primaryStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
 		SplitPane root = loader.load(getClass().getResource("/GUI/LibrarianMenu.fxml").openStream());
@@ -126,7 +109,8 @@ public class OBLcontroller implements Initializable, GuiInterface {
 
 	@Override
 	public void display(Object msg) {
-		if(((ArrayList<String>)msg).get(3).equals("1")) {
+		System.out.println(msg.toString());
+		if(((ArrayList<String>)msg).get(4).equals("1")) {
 			Platform.runLater(()->{
 			    try {
 					openLibrarianMenuScreen();
@@ -136,11 +120,11 @@ public class OBLcontroller implements Initializable, GuiInterface {
 				}
 			});
 		}
-		else if(((ArrayList<String>)msg).get(3).equals("2")) {
+		else if(((ArrayList<String>)msg).get(4).equals("2")) {
 			Platform.runLater(()->{
 			    try {
 			    	openMemberMenuScreen();
-				} catch (IOException e) {
+			    	} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}

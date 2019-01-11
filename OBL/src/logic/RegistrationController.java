@@ -6,7 +6,7 @@ import Client.Client;
 import GUI.OBLcontroller;
 
 public class RegistrationController {
-	
+
 	private static final int ID_SIZE = 9;
 
 	public  static void registration(String phoneNumber,String id,String lastName,String firstName,String Email, String password)
@@ -31,33 +31,28 @@ public class RegistrationController {
 		loginData.add(password);
 		Main.client.handleMessageFromClientUI(loginData);
 	}
-	
+
 	public static boolean checkMemberExistence(String memberID) throws Exception {
-		
+
 		if(memberID.length() == 0) {
 			throw new Exception("Member ID field can't be empty");
 		}	
 		if(memberID.length() != ID_SIZE) {
 			throw new Exception("Wrong ID size");
 		}
-		
+
 		ArrayList<String> checkMemberExistence = new ArrayList<>();
 		checkMemberExistence.add("Check Member Existence");
 		checkMemberExistence.add(memberID);
-		
+
 		Main.client.handleMessageFromClientUI(checkMemberExistence);
 		return false;
 	}
 
-//	public  static void loginResult(ArrayList<String> arrayObject)
-//	{
-//		//			if(arrayObject.get(3).equals("1")) {
-//		//				OBLcontroller.openLibrarianMenuScreen();
-//		//			}
-//		//			else if(arrayObject.get(3).equals("2")) {
-//		//				OBLcontroller.openLibrarianMenuScreen();
-//		//			}
-//
-//	}
-
+	public static void searchMember(String memberID) {
+		ArrayList<String> searchData=new ArrayList<>();
+		searchData.add("SearchMember");
+		searchData.add(memberID);
+		Main.client.handleMessageFromClientUI(searchData);
+	}
 }

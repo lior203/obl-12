@@ -66,17 +66,17 @@ public class DBController {
 			}
 		}
 		PreparedStatement insert = conn.prepareStatement("insert into book values(?,?,?,?,?,?,?,?,?,?,?)");
-		insert.setString(1, Integer.toString(++maxBookID));
-		insert.setString(2, data.get(1));
-		insert.setString(3, "1");
-		insert.setString(4, data.get(3));
-		insert.setString(5, data.get(4));
-		insert.setString(6, data.get(5));
-		insert.setString(7, data.get(6));
-		insert.setString(8, data.get(7));
-		insert.setString(9, data.get(8));
-		insert.setString(10, data.get(9));
-		insert.setString(11, "pdf");
+		insert.setString(1, Integer.toString(++maxBookID));// book id
+		insert.setString(2, data.get(1));//book name
+		insert.setString(3, "1");//copies
+		insert.setString(4, data.get(3));//wanted
+		insert.setString(5, data.get(4));//author name
+		insert.setString(6, data.get(5));//edition
+		insert.setString(7, data.get(6));//print date
+		insert.setString(8, data.get(7));//book genre
+		insert.setString(9, data.get(8));//description
+		insert.setString(10, data.get(9));//purchase date
+		insert.setString(11, "pdf");//pdf
 		Result=insert.executeUpdate();
 		data.add(Integer.toString(maxBookID));
 		addCopyToInventory(data);
@@ -95,12 +95,12 @@ public class DBController {
 			}
 		}
 		PreparedStatement insert = conn.prepareStatement("insert into copies values(?,?,?,?,?,?)");
-		insert.setString(1, (data.get(data.size()-1)) + " - " + Integer.toString(++maxCopyID));
+		insert.setString(1, (data.get(data.size()-1)) + "-" + Integer.toString(++maxCopyID));
 		insert.setString(2, data.get(1));
 		insert.setString(3, "false");
-		insert.setString(4, data.get(10));
+		insert.setString(4, data.get(2));
 		insert.setString(5, data.get(data.size()-1));
-		insert.setString(6, "null");
+		insert.setString(6, null);
 		insert.executeUpdate();
 		return true;
 	}
@@ -156,39 +156,58 @@ public class DBController {
 		return newData;
 	}
 
-	public static int login(ArrayList<String> data) throws SQLException
+	public static ArrayList<String>  login(ArrayList<String> data) throws SQLException
 	{
+		ArrayList<String> userDetails = null;
 		PreparedStatement login;
 		ResultSet rs;
-
-		login = conn.prepareStatement("SELECT LibrarianID,Password FROM librarian WHERE LibrarianID=? AND Password=?");
-		//		login = conn.prepareStatement("SELECT LibrarianID FROM librarian WHERE LibrarianID=? ");
+		login = conn.prepareStatement("SELECT LibrarianID,Password,FirstName,LastName,IsLoggedIn  FROM librarian WHERE LibrarianID=? AND Password=?");
 		login.setString(1,data.get(1));
 		login.setString(2,data.get(2));
 		rs = login.executeQuery();
 
 		if(rs.next()) {
+			userDetails=new ArrayList<String>();
+			userDetails.add("Login");
+			userDetails.add(rs.getString(1));
+			userDetails.add(rs.getString(3));
+			userDetails.add(rs.getString(4));
+			System.out.println(userDetails+"userDetails");
 			//////////////////Enter librarian menu
-			return 1;
+			if(rs.getString(5).equals("true")) { //check if user is connected from another device
+				System.out.println("librarian is already connceted from another device");
+				userDetails.add("0");
+				return userDetails;
+			}
+			userDetails.add("1");
+			return userDetails;
 		}
 
 		else {
-			login = conn.prepareStatement("SELECT MemberID,Password FROM members WHERE MemberID=? AND Password=?");
+			userDetails=new ArrayList<String>();
+			login = conn.prepareStatement("SELECT * FROM members WHERE MemberID=? AND Password=?");
 			login.setString(1,data.get(1));
 			login.setString(2,data.get(2));
 			rs = login.executeQuery();
 			if(rs.next()) {
-				/////////////////////Enter subscriber menu
-				return 2;
+				userDetails.add("Login");
+				userDetails.add(rs.getString(1));
+				userDetails.add(rs.getString(5));
+				userDetails.add(rs.getString(6));
+				if(rs.getString(10).equals("true")) { //check if user is connected from another device
+					System.out.println("librarian is already connceted from another device");
+					userDetails.add("0");
+					return userDetails;
+				}
+				userDetails.add("2");
+				return userDetails;
 			}
 			else {
 				System.out.println("The User doesn't exists");
-				return 0;
+				return userDetails;
 			}	
 		}
 	}
-
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
 	public static ArrayList<String> searchBook(ArrayList<String> searchData) throws SQLException
 	{
@@ -267,7 +286,6 @@ public class DBController {
 				}
 				return searchData;
 			}	
-
 		default:
 			searchData.add("-1");
 			break;
@@ -275,31 +293,32 @@ public class DBController {
 		return searchData;
 	}
 
+	public static Object memberSearch(ArrayList<String> stu) throws SQLException
+	{
+		PreparedStatement execute;
+		ResultSet rs;
+		ArrayList<String>member=new ArrayList<String>();
 
-	//			searchCopy = conn.prepareStatement("SELECT * FROM copies WHERE CopyName=? AND ISLoan = 'No'");
-	//			searchCopy.setString(1,searchData.get(2));
-	//			rsCopy = searchCopy.executeQuery();
-	//			
-	//			if (rsCopy != null)
-	//			{								// have copy in the library, handle with this...
-	//				while (rsCopy.next())
-	//				{
-	//					
-	//				}
-	//								
-	//			}
-	//			
-	//			searchCopy = conn.prepareStatement("SELECT * DISTINCT () FROM copies WHERE CopyName=? AND ISLoan = 'Yes' And ReturnDate > NOW() ORDER BY ReturnDate");
-	//			searchCopy.setString(1,searchData.get(2)); 	// fix the query distinct on what? , who to get the nearest date to all different books?
-	//			rsCopy = searchCopy.executeQuery();
-	//			
-	//			while(rsCopy.next())
-	//			{
-	//			
-	//			}
-
-
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+		execute = conn.prepareStatement("SELECT * FROM members WHERE MemberID=?");
+		execute.setString(1,stu.get(1));
+		rs = execute.executeQuery();
+		if(rs.next()) { 
+			member.add("SearchMember");
+			member.add(rs.getString(1));
+			member.add(rs.getString(2));
+			member.add(rs.getString(3));
+			member.add(rs.getString(4));
+			member.add(rs.getString(5));
+			member.add(rs.getString(6));
+			member.add(rs.getString(7));
+			member.add(rs.getString(8));
+			member.add(rs.getString(9));
+			System.out.println(member);
+			return member;
+		}
+		else
+			return null;
+	}
 
 	public static ArrayList<String> isMemberExist(ArrayList<String> data) throws SQLException {
 		ArrayList<String> checkMemberExistence = new ArrayList<>();
