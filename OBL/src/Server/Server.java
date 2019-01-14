@@ -177,6 +177,15 @@ public class Server extends AbstractServer
 				e.printStackTrace();
 			}
 			break;
+		case "checkExistenceByCopy":
+			try {
+				System.out.println(DBController.getInstance().checkExistenceByCopy((ArrayList<String>) msg));
+				client.sendToClient(DBController.getInstance().checkExistenceByCopy((ArrayList<String>) msg));
+			} catch (SQLException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
 		default:
 			break;
 		}

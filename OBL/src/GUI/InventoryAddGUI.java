@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
@@ -32,7 +33,9 @@ import logic.Main;
 import sun.applet.resources.MsgAppletViewer;
 
 public class InventoryAddGUI implements GuiInterface,Initializable{
-	static String Location;
+	public static String Location;
+	public static String bookname;
+	public static String bookid;
 	@FXML
 	private AnchorPane MainPane;
 
@@ -82,16 +85,13 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 	private TextField txtCopy_Location;
 
 	@FXML
-	void Confirm(ActionEvent event) {
-		Location=txtCopy_Location.getText();
-		InventoryController.addCopy(txtBook_Name.getText(),Location, txtCatlog_Number.getText());
-	}
+	private Button btnCopy_Location_Confirm;
 
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
 	@FXML
 	void AddCopy(ActionEvent event) {
-		showLocationScreen();
+		InventoryController.addCopy(Location,bookname,bookid);
 	}
 
 	@FXML
@@ -100,7 +100,6 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 			showFailed("Fill all the dields");
 		else {
 			InventoryController.addBook(txtBook_Name.getText(), txtEdition.getText(), txtTheme.getText(), txtAuthor.getText(), txtPrint_Date.getValue().format(formatter).toString(),txtCopies.getText(),txtPurchase_Date.getValue().toString(),txtShelf_Location.getText(),txtWanted.getText(),txtDescription.getText());
-			Enablefields(false);
 		}
 	}
 
@@ -124,9 +123,14 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 
 	@FXML
 	void CheckExistense(ActionEvent event) {
-		InventoryController.checkExistence(txtBook_Name.getText(),txtAuthor.getText());
-		txtPrint_Date.setDisable(false);
-		txtPurchase_Date.setDisable(false);
+		if (txtBook_Name.getText().isEmpty()||txtAuthor.getText().isEmpty())
+			showFailed("fields mising");
+		else{
+			InventoryController.checkExistence(txtBook_Name.getText(),txtAuthor.getText());
+			txtPrint_Date.setDisable(false);
+			txtPurchase_Date.setDisable(false);
+			btnCopy.setDisable(true);
+		}
 	}
 
 	public boolean checkfields() {
@@ -149,20 +153,6 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		return false;
 	}
 
-	public void showLocationScreen() {
-		Stage primaryStage = new Stage();
-		primaryStage.initModality(Modality.APPLICATION_MODAL);
-		FXMLLoader loader = new FXMLLoader();
-		AnchorPane root;
-		try {
-			root = loader.load(getClass().getResource("/GUI/EnterCopyLocation.fxml").openStream());
-			Scene scene = new Scene(root);
-			primaryStage.setScene(scene);
-			primaryStage.showAndWait();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Main.client.clientUI=this;		
@@ -174,18 +164,18 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		alert.setTitle("Confirm");
 		alert.setHeaderText(string);
 		alert.showAndWait();	
-		btnAdd.setDisable(true);
 	}
 
 	@Override
 	public void display(Object obj) {
 		Platform.runLater(()->{
 			ArrayList<String> msg = (ArrayList<String>)obj;
-			String day=(String) msg.get(10).subSequence(8, 10);
-			System.out.println(day);
-			String year=(String) msg.get(10).subSequence(0, 4);;
-			System.out.println(year);
+			//			String day=(String) msg.get(10).subSequence(8, 10);
+			//			String year=(String) msg.get(10).subSequence(0, 4);//  option to print the date in the field like    dd mm yyyy
 			this.txtCatlog_Number.setText(msg.get(1));
+			bookid=msg.get(1);
+			bookname=msg.get(2);
+			Location=msg.get(12);
 			this.txtCopies.setText(msg.get(3));
 			this.txtWanted.setText(msg.get(4));
 			this.txtEdition.setText(msg.get(6));
@@ -195,9 +185,10 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 			this.txtPurchase_Date.setPromptText(msg.get(10));
 			this.txtShelf_Location.setText(msg.get(12));
 			Enablefields(true);
+			txtBook_Name.setDisable(true);
+			txtAuthor.setDisable(true);
 			btnCopy.setDisable(false);
-			txtPrint_Date.setEditable(false);
-			txtPurchase_Date.setEditable(false);
+			btnAdd.setDisable(true);
 		});
 	}
 
@@ -207,18 +198,21 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		alert.setTitle("Message");
 		alert.setHeaderText(string);
 		alert.showAndWait();
+		txtBook_Name.setEditable(false);
+		txtAuthor.setEditable(false);
 	}
 
 	@Override
 	public void freshStart() {
-		this.txtCopies.setText("");
-		this.txtWanted.setText("");
-		this.txtEdition.setText("");
-		this.txtPrint_Date.setValue(null);
-		this.txtTheme.setText("");
-		this.txtDescription.setText("");
-		this.txtPurchase_Date.setValue(null);//purchasedate.fromString(msg.get(10)));
-		this.txtShelf_Location.setText("");
+		this.txtCopies.clear();
+		this.txtWanted.clear();
+		this.txtEdition.clear();
+		this.txtPrint_Date.setPromptText(null);
+		this.txtTheme.clear();
+		this.txtDescription.clear();
+		this.txtPurchase_Date.setPromptText(null);//purchasedate.fromString(msg.get(10)));
+		this.txtShelf_Location.clear();
 		Enablefields(false);
+		txtCatlog_Number.clear();		
 	}
 }

@@ -14,7 +14,7 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="btnRemove" disable="true" layoutX="239.0" layoutY="482.0" mnemonicParsing="false" onAction="#RemoveBook" prefHeight="81.0" prefWidth="201.0" text="Remove Copy">
+      <Button fx:id="btnRemove" disable="true" layoutX="239.0" layoutY="482.0" mnemonicParsing="false" onAction="#RemoveCopy" prefHeight="81.0" prefWidth="201.0" text="Remove Copy">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Button>

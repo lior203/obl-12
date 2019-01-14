@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.mysql.fabric.xmlrpc.base.Data;
+import com.mysql.jdbc.UpdatableResultSet;
 import com.sun.glass.ui.TouchInputSupport;
 import Client.Client;
 import Common.Book;
@@ -65,10 +66,10 @@ public class DBController {
 				maxBookID=Integer.parseInt(rs.getString(1));
 			}
 		}
-		PreparedStatement insert = conn.prepareStatement("insert into book values(?,?,?,?,?,?,?,?,?,?,?)");
+		PreparedStatement insert = conn.prepareStatement("insert into book values(?,?,?,?,?,?,?,?,?,?,?,?)");
 		insert.setString(1, Integer.toString(++maxBookID));// book id
 		insert.setString(2, data.get(1));//book name
-		insert.setString(3, "1");//copies
+		insert.setString(3, "0");//copies
 		insert.setString(4, data.get(3));//wanted
 		insert.setString(5, data.get(4));//author name
 		insert.setString(6, data.get(5));//edition
@@ -77,44 +78,135 @@ public class DBController {
 		insert.setString(9, data.get(8));//description
 		insert.setString(10, data.get(9));//purchase date
 		insert.setString(11, "pdf");//pdf
+		insert.setString(12, data.get(2));//shelf location
 		Result=insert.executeUpdate();
 		data.add(Integer.toString(maxBookID));
 		addCopyToInventory(data);
 		return Result;
 	}
 
-	public static boolean addCopyToInventory(ArrayList<String> data) throws SQLException{
+	public static ArrayList<String> addCopyToInventory(ArrayList<String> data) throws SQLException{
 		int maxCopyID=0;
-		PreparedStatement getCopyID = conn.prepareStatement("SELECT MAX(CopyID) FROM copies WHERE BookID = ?");
-		getCopyID.setString(1, data.get(data.size()-1));
-		ResultSet rs = getCopyID.executeQuery();
+		String copyid,bookid;
+		bookid=data.get(data.size()-1);
+		PreparedStatement stmt = conn.prepareStatement("SELECT MAX(CopyID) FROM copies WHERE BookID = ?");
+		stmt.setString(1, bookid);
+		ResultSet rs = stmt.executeQuery();
 
 		if(rs.next()) {
 			if (rs.getString(1)!=null) {
-				maxCopyID=Integer.parseInt(rs.getString(1));
+				maxCopyID=Integer.parseInt(rs.getString(1).substring((rs.getString(1).indexOf("-"))+1));
 			}
 		}
 		PreparedStatement insert = conn.prepareStatement("insert into copies values(?,?,?,?,?,?)");
-		insert.setString(1, (data.get(data.size()-1)) + "-" + Integer.toString(++maxCopyID));
+		copyid=(data.get(data.size()-1)) + "-" + Integer.toString(++maxCopyID);
+		insert.setString(1, copyid);
 		insert.setString(2, data.get(1));
 		insert.setString(3, "false");
 		insert.setString(4, data.get(2));
 		insert.setString(5, data.get(data.size()-1));
 		insert.setString(6, null);
 		insert.executeUpdate();
-		return true;
+		data.add(copyid);
+		data.add("success");
+		updatecopyamount("increase",bookid);
+		return data;
 	}
 
+	public static void updatecopyamount(String action,String bookid) throws SQLException {
+		int amountcopies=0;
+		switch (action) {
+		case "increase":
+			PreparedStatement increse=conn.prepareStatement("UPDATE book SET copies=copies+1 WHERE bookID=?");
+			increse.setString(1, bookid);
+			increse.executeUpdate();
+			break;
+		case "decrease":
+			PreparedStatement decrease=conn.prepareStatement("UPDATE book SET copies=copies-1 WHERE bookID=?");
+			decrease.setString(1, bookid);
+			decrease.executeUpdate();
+			break;
+		default:
+			break;
+		}
+
+	}
+
+
 	public static int RemoveCopy(ArrayList<String> data) throws SQLException{
+		String bookID;
+		PreparedStatement getbookid = conn.prepareStatement("SELECT BookID FROM copies WHERE CopyID=?");
+		getbookid.setString(1, data.get(1));
+		ResultSet rs = getbookid.executeQuery();
+		if(rs.next()) {
+			bookID=rs.getString(1);
+		}
+		else return 0;
 		String deleteSQL = "DELETE FROM copies WHERE CopyID = ?";
 		PreparedStatement removestmt = conn.prepareStatement(deleteSQL);
 		removestmt.setString(1, data.get(1));
 		int res=removestmt.executeUpdate();
-		removestmt.close();
-		//		conn.close();
+		if (res==1) {
+			updatecopyamount("decrease",bookID);
+		}
 		return res;
-
 	}
+
+	public static ArrayList<String> checkExistenceByCopy(ArrayList<String> msg) throws SQLException {
+		String bookid,location;
+		ArrayList<String> result=new ArrayList<String>();
+		result.add("checkExistenceByCopy");
+		PreparedStatement getbook = conn.prepareStatement("SELECT BookID,ShelfLocation FROM copies WHERE CopyID=?");
+		getbook.setString(1, msg.get(1));
+		ResultSet rs = getbook.executeQuery();
+		if(rs.next()) {
+			bookid=(rs.getString(1));
+			location=rs.getString(2);
+		}
+		else
+			return result;
+		PreparedStatement getbookdetails=conn.prepareStatement("SELECT * FROM book WHERE bookID=?");
+		getbookdetails.setString(1, bookid);
+		ResultSet rs1=getbookdetails.executeQuery();
+		if(rs1.next()) {
+			result.add(location);
+			result.add(rs1.getString(1));
+			result.add(rs1.getString(2));
+			result.add(rs1.getString(3));
+			result.add(rs1.getString(4));
+			result.add(rs1.getString(5));
+			result.add(rs1.getString(6));
+			result.add(rs1.getString(7));
+			result.add(rs1.getString(8));
+			result.add(rs1.getString(9));
+			result.add(rs1.getString(10));
+			result.add(rs1.getString(11));
+		}
+		else
+			return result;
+		result.add("1");
+		return result;
+	}
+	//		ArrayList<String> data=new ArrayList<String>();
+	//		ArrayList<String> data1=new ArrayList<String>();
+	//		String BookName=null;
+	//		String AuthorsName=null;
+	//		data1=isCopyExist(msg);// return all the details of copy
+	//		PreparedStatement getbookdetails = conn.prepareStatement("SELECT BookName,AuthorsName FROM book WHERE BookID=? ");
+	//		getbookdetails.setString(1, data1.get(5));
+	//		ResultSet rs = getbookdetails.executeQuery();
+	//		if(rs.next()) {
+	//			BookName=rs.getString(1);
+	//			AuthorsName=rs.getString(2);
+	//		}
+	//		data.add("checkExistenceByCopy");
+	//		data.add(1, BookName);
+	//		data.add(2,AuthorsName);
+	//		data1.clear();
+	//		data1= inventoryCheckExistence(data);
+	//		return data1;
+	//	}
+
 	//search book on inventory database
 	public static ArrayList<String> inventoryCheckExistence(ArrayList<String> data) throws SQLException{
 		ArrayList<String> newData = new ArrayList<>();
@@ -152,7 +244,6 @@ public class DBController {
 		}
 		rs1.close();
 		getcopyloaction.close();
-		System.out.println(newData);
 		return newData;
 	}
 

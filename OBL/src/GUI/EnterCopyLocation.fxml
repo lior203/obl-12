@@ -10,7 +10,7 @@
    <children>
       <TextField fx:id="txtCopy_Location" layoutX="146.0" layoutY="99.0" />
       <Label layoutX="21.0" layoutY="104.0" text="Enter Location:" />
-      <Button defaultButton="true" layoutX="154.0" layoutY="159.0" mnemonicParsing="false" onAction="#Confirm" prefHeight="39.0" prefWidth="64.0" text="OK">
+      <Button fx:id="btnCopy_Location_Confirm" defaultButton="true" layoutX="154.0" layoutY="159.0" mnemonicParsing="false" onAction="#Confirm" prefHeight="39.0" prefWidth="64.0" text="OK">
          <font>
             <Font size="14.0" />
          </font>

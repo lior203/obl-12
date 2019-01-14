@@ -16,6 +16,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -27,6 +28,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import logic.Main;
 import logic.RegistrationController;
@@ -57,7 +59,7 @@ public class OBLcontroller implements Initializable, GuiInterface {
 
 	public void login(ActionEvent event) throws IOException {
 		RegistrationController.login(txtUserName.getText(),txtPassword.getText());
-		
+
 	}
 
 
@@ -73,7 +75,12 @@ public class OBLcontroller implements Initializable, GuiInterface {
 		SplitPane root = loader.load(getClass().getResource("/GUI/ReaderMenu.fxml").openStream());
 		Scene scene = new Scene(root);			
 		//		scene.getStylesheets().add(getClass().getResource("/gui/StudentForm.css").toExternalForm());
-		primaryStage.setScene(scene);		
+		primaryStage.setScene(scene);	
+//		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+//		primaryStage.setX(primaryScreenBounds.getMinX());
+//		primaryStage.setY(primaryScreenBounds.getMinY());
+//		primaryStage.setWidth(primaryScreenBounds.getWidth());
+//		primaryStage.setHeight(primaryScreenBounds.getHeight());
 		primaryStage.show();		
 	}
 
@@ -84,7 +91,12 @@ public class OBLcontroller implements Initializable, GuiInterface {
 		SplitPane root = loader.load(getClass().getResource("/GUI/LibrarianMenu.fxml").openStream());
 		Scene scene = new Scene(root);			
 		//		scene.getStylesheets().add(getClass().getResource("/gui/StudentForm.css").toExternalForm());
-		primaryStage.setScene(scene);		
+		primaryStage.setScene(scene);	
+//		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+//		primaryStage.setX(primaryScreenBounds.getMinX());
+//		primaryStage.setY(primaryScreenBounds.getMinY());
+//		primaryStage.setWidth(primaryScreenBounds.getWidth());
+//		primaryStage.setHeight(primaryScreenBounds.getHeight());
 		primaryStage.show();		
 	}
 
@@ -112,7 +124,7 @@ public class OBLcontroller implements Initializable, GuiInterface {
 		System.out.println(msg.toString());
 		if(((ArrayList<String>)msg).get(4).equals("1")) {
 			Platform.runLater(()->{
-			    try {
+				try {
 					openLibrarianMenuScreen();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -122,9 +134,9 @@ public class OBLcontroller implements Initializable, GuiInterface {
 		}
 		else if(((ArrayList<String>)msg).get(4).equals("2")) {
 			Platform.runLater(()->{
-			    try {
-			    	openMemberMenuScreen();
-			    	} catch (IOException e) {
+				try {
+					openMemberMenuScreen();
+				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -150,6 +162,6 @@ public class OBLcontroller implements Initializable, GuiInterface {
 	@Override
 	public void freshStart() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

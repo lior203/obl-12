@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import logic.InventoryController;
 
 public class CopyLocationGUI {
 
@@ -18,9 +19,10 @@ public class CopyLocationGUI {
 	@FXML
 	private TextField txtCopy_Location;
 
-	@FXML
-	void Confirm(ActionEvent event) {
-		InventoryAddGUI.Location=txtCopy_Location.getText();
-	}
+//	@FXML
+//	void Confirm(ActionEvent event) {
+//		((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
+//		InventoryController.addCopy(txtBook_Name.getText(),Location, txtCatlog_Number.getText());
+//	}
 
 }

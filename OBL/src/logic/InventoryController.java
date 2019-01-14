@@ -29,17 +29,17 @@ public class InventoryController {
 		inventoryData.add(theme);
 		inventoryData.add(description);
 		inventoryData.add(purchasedate);
-//		inventoryData.add(copies);
 		Main.client.handleMessageFromClientUI(inventoryData);
 	}
 
-	public static void addCopy(String bookname,String copylocation,String bookid) {
-		ArrayList<String> inventoryData = new ArrayList<>();
-		inventoryData.add("AddCopy");
-		inventoryData.add(bookname);
-		inventoryData.add(copylocation);
-		inventoryData.add(bookid);
-		Main.client.handleMessageFromClientUI(inventoryData);
+	public static void addCopy(String copylocation,String bookname,String bookid) 
+	{
+			ArrayList<String> inventoryData = new ArrayList<>();
+			inventoryData.add("AddCopy");
+			inventoryData.add(bookname);
+			inventoryData.add(copylocation);
+			inventoryData.add(bookid);
+			Main.client.handleMessageFromClientUI(inventoryData);
 	}
 
 	public  static void RemoveCopy(String catalognumber)
@@ -56,6 +56,14 @@ public class InventoryController {
 		inventoryData.add("InventoryCheckExistense");
 		inventoryData.add(bookname);
 		inventoryData.add(authorname);
+		Main.client.handleMessageFromClientUI(inventoryData);
+	}	
+	
+	public  static void checkExistenceByCopy(String bookid)
+	{
+		ArrayList<String> inventoryData = new ArrayList<>();
+		inventoryData.add("checkExistenceByCopy");
+		inventoryData.add(bookid);
 		Main.client.handleMessageFromClientUI(inventoryData);
 	}	
 }

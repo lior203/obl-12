@@ -9,6 +9,9 @@ import ocsf.client.*;
 
 import java.io.*;
 import java.util.ArrayList;
+
+import com.sun.corba.se.impl.protocol.AddressingDispositionException;
+
 import Common.Copy;
 import Common.GuiInterface;
 import Common.InventoryBook;
@@ -34,7 +37,8 @@ public class Client extends AbstractClient
 {
 	public static GuiInterface clientUI;
 	public static  ArrayList<String> arrayUser=new ArrayList<String>();
-	
+
+
 	public Client(String host, int port,GuiInterface clientUI) {
 		super(host, port);
 		this.clientUI=clientUI;
@@ -62,35 +66,38 @@ public class Client extends AbstractClient
 	 */
 	public void handleMessageFromServer(Object msg) 
 	{
-		int size;
 		System.out.println("Message received: " + msg+" receive on the client side");
 		ArrayList<String> arrayObject = (ArrayList<String>)msg; //casting msg-Object to arraylist
 		switch ((((ArrayList<String>) msg).get(0))) {
 		case "AddBook":
-			size=((ArrayList<String>) msg).size();
-			if (((ArrayList<String>) msg).get(size-1).equals("1")) {
-				Platform.runLater(()->{
-					clientUI.showSuccess("Add successfull");
-				});
-			}else {
-				Platform.runLater(()->{
+			Platform.runLater(()->{
+				if (((ArrayList<String>) msg).get(arrayObject.size()-1).equals("1")) {
+					clientUI.showSuccess("Book Added successfull. \n copy id is: "+((ArrayList<String>) msg).get(arrayObject.size()-3).toString());
+					clientUI.freshStart();
+				}
+				else 
 					clientUI.showFailed("Add failed");
-				});
-			}
+			});
 			break;
-		case "RemoveBook":
-			//			clientUI.showSuccess();
+		case "RemoveCopy":
+			Platform.runLater(()->{
+				if (arrayObject.get(arrayObject.size()-1).equals("1"))
+					clientUI.showSuccess("Copy Remove successfully");
+				else
+					clientUI.showFailed("remove failed.");
+			});
 			break;
 		case "InventoryCheckExistense":
-			size=((ArrayList<String>) msg).size();
-			if (((ArrayList<String>) msg).get(size-1).equals("not exist")) {
+			if (((ArrayList<String>) msg).get(arrayObject.size()-1).equals("not exist")) {
 				Platform.runLater(()->{
 					clientUI.showFailed("book not exist. pls fill the missing details to add the book.");
 					clientUI.freshStart();
 				});
 			}
 			else
+				Platform.runLater(()->{
 					clientUI.display((ArrayList<String>) msg);
+				});
 			break;
 		case "Login":
 			arrayUser.add(((ArrayList<String>)msg).get(1));
@@ -101,15 +108,15 @@ public class Client extends AbstractClient
 			break;
 		case "SearchMember":
 			if (((ArrayList<String>) msg).get(1).equals("NotExist")) {
-			    Platform.runLater(() -> {					
-				clientUI.showFailed("Member does not exist in the system");
-			});
+				Platform.runLater(() -> {					
+					clientUI.showFailed("Member does not exist in the system");
+				});
 			}
 			else
 			{
-			    Platform.runLater(() -> {					
-				clientUI.display((ArrayList<String>) msg);
-			});
+				Platform.runLater(() -> {					
+					clientUI.display((ArrayList<String>) msg);
+				});
 			}
 			break;
 		case "Search book":
@@ -154,6 +161,22 @@ public class Client extends AbstractClient
 			else {
 				clientUI.display((ArrayList<String>)msg);
 			}
+			break;
+		case "AddCopy":
+			if (((ArrayList<String>) msg).get(arrayObject.size()-1).equals("success")) {
+				Platform.runLater(()->{
+					clientUI.showSuccess("Copy Added successfuly.   copy id is: "+((ArrayList<String>) msg).get(arrayObject.size()-2).toString());
+				});
+			}else
+				clientUI.showFailed("failed to add copy");
+			break;
+		case "checkExistenceByCopy":
+			Platform.runLater(()->{
+				if (((ArrayList<String>) msg).get(arrayObject.size()-1).equals("1"))
+					clientUI.display(msg);
+				else 
+					clientUI.showFailed("copy not exist.");
+			});
 			break;
 		default:
 			break;
