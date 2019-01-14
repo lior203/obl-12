@@ -56,8 +56,10 @@ public class Server extends AbstractServer
 		switch (((ArrayList<String>)msg).get(0)) {
 		case "Registration":
 			try {
-				DBController.getInstance().registretion((ArrayList<String>) msg);
-			} catch (SQLException e) {
+				int registrationSuccess = DBController.getInstance().registretion((ArrayList<String>) msg);
+				((ArrayList<String>) msg).add(Integer.toString(registrationSuccess));
+				client.sendToClient(msg);
+			} catch (SQLException | IOException e) {
 				e.printStackTrace();
 			}
 			break;

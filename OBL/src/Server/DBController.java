@@ -39,9 +39,36 @@ public class DBController {
 	}
 
 	// register new user in database
-	public static void registretion(ArrayList<String> data) throws SQLException
+	public static int registretion(ArrayList<String> data) throws SQLException
 	{
-		PreparedStatement insert = conn.prepareStatement("insert into members values(?,?,?,?,?,?,?,?,?)");
+		PreparedStatement preparedRegistretion;
+		ResultSet rsRegistretion;
+		
+		preparedRegistretion = conn.prepareStatement("SELECT  * FROM members WHERE MemberID=? ");
+		preparedRegistretion.setString(1, data.get(2));
+		rsRegistretion = preparedRegistretion.executeQuery();
+		if ((rsRegistretion.isBeforeFirst()))
+		{
+			return 0;
+		}
+		
+		preparedRegistretion = conn.prepareStatement("SELECT  * FROM members WHERE PhoneNumber=? ");
+		preparedRegistretion.setString(1, data.get(1));
+		rsRegistretion = preparedRegistretion.executeQuery();
+		if ((rsRegistretion.isBeforeFirst()))
+		{
+			return 0;
+		}
+		
+		preparedRegistretion = conn.prepareStatement("SELECT  * FROM librarian WHERE LibrarianID=? ");
+		preparedRegistretion.setString(1, data.get(2));
+		rsRegistretion = preparedRegistretion.executeQuery();
+		if ((rsRegistretion.isBeforeFirst()))
+		{
+			return 0;
+		}
+		
+		PreparedStatement insert = conn.prepareStatement("insert into members values(?,?,?,?,?,?,?,?,?,?)");
 		insert.setString(1, data.get(2));
 		insert.setString(2, data.get(1));
 		insert.setString(3, data.get(5));
@@ -50,8 +77,10 @@ public class DBController {
 		insert.setString(6, data.get(3));
 		insert.setString(7, "Active");
 		insert.setString(8, "empty");
-		insert.setString(9, null);
+		insert.setString(9, "0");
+		insert.setString(10, "false");
 		insert.executeUpdate();
+		return 1;
 	}
 
 	//add book to inventory database

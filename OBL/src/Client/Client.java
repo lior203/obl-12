@@ -137,6 +137,20 @@ public class Client extends AbstractClient
 				clientUI.display((ArrayList<String>)msg);
 			}
 			break;
+		case "Registration":
+			System.out.println(msg);
+			if(((ArrayList<String>)msg).get(7).equals("0"))
+			{
+			Platform.runLater(() -> {
+			 clientUI.showFailed("Some user have this ID or this phone number");
+			});
+			}
+			else {
+				Platform.runLater(() -> {
+					clientUI.showSuccess("The user have been added successfully");
+				});
+			}
+			break;
 		default:
 			break;
 		}
