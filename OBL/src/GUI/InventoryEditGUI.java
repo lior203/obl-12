@@ -99,7 +99,7 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 	void EnterBook_Name(KeyEvent event) {
 		 if (event.getCode() == KeyCode.ENTER){
 			 if (txtBook_Name.getText().isEmpty()||txtAuthors.getText().isEmpty()) {
-				
+			showFailed("fill book");	
 			}
 			 System.out.println("lior");
 		 }
