@@ -9,9 +9,6 @@ import ocsf.client.*;
 
 import java.io.*;
 import java.util.ArrayList;
-
-import com.sun.corba.se.impl.protocol.AddressingDispositionException;
-
 import Common.Copy;
 import Common.GuiInterface;
 import Common.InventoryBook;
@@ -162,7 +159,6 @@ public class Client extends AbstractClient
 				clientUI.display((ArrayList<String>)msg);
 			}
 			break;
-<<<<<<< HEAD
 		case "Registration":
 			System.out.println(msg);
 			if(((ArrayList<String>)msg).get(7).equals("0"))
@@ -176,7 +172,6 @@ public class Client extends AbstractClient
 					clientUI.showSuccess("The user have been added successfully");
 				});
 			}
-=======
 		case "AddCopy":
 			if (((ArrayList<String>) msg).get(arrayObject.size()-1).equals("success")) {
 				Platform.runLater(()->{
@@ -192,7 +187,6 @@ public class Client extends AbstractClient
 				else 
 					clientUI.showFailed("copy not exist.");
 			});
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 			break;
 		default:
 			break;
