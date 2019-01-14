@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.mysql.fabric.xmlrpc.base.Data;
+import com.mysql.jdbc.UpdatableResultSet;
 import com.sun.glass.ui.TouchInputSupport;
 import Client.Client;
 import Common.Book;
@@ -94,56 +95,147 @@ public class DBController {
 				maxBookID=Integer.parseInt(rs.getString(1));
 			}
 		}
-		PreparedStatement insert = conn.prepareStatement("insert into book values(?,?,?,?,?,?,?,?,?,?,?)");
-		insert.setString(1, Integer.toString(++maxBookID));
-		insert.setString(2, data.get(1));
-		insert.setString(3, "1");
-		insert.setString(4, data.get(3));
-		insert.setString(5, data.get(4));
-		insert.setString(6, data.get(5));
-		insert.setString(7, data.get(6));
-		insert.setString(8, data.get(7));
-		insert.setString(9, data.get(8));
-		insert.setString(10, data.get(9));
-		insert.setString(11, "pdf");
+		PreparedStatement insert = conn.prepareStatement("insert into book values(?,?,?,?,?,?,?,?,?,?,?,?)");
+		insert.setString(1, Integer.toString(++maxBookID));// book id
+		insert.setString(2, data.get(1));//book name
+		insert.setString(3, "0");//copies
+		insert.setString(4, data.get(3));//wanted
+		insert.setString(5, data.get(4));//author name
+		insert.setString(6, data.get(5));//edition
+		insert.setString(7, data.get(6));//print date
+		insert.setString(8, data.get(7));//book genre
+		insert.setString(9, data.get(8));//description
+		insert.setString(10, data.get(9));//purchase date
+		insert.setString(11, "pdf");//pdf
+		insert.setString(12, data.get(2));//shelf location
 		Result=insert.executeUpdate();
 		data.add(Integer.toString(maxBookID));
 		addCopyToInventory(data);
 		return Result;
 	}
 
-	public static void addCopyToInventory(ArrayList<String> data) throws SQLException{
+	public static ArrayList<String> addCopyToInventory(ArrayList<String> data) throws SQLException{
 		int maxCopyID=0;
-		PreparedStatement getCopyID = conn.prepareStatement("SELECT MAX(CopyID) FROM copies WHERE BookID = ?");
-		getCopyID.setString(1, data.get(data.size()-1));
-		ResultSet rs = getCopyID.executeQuery();
+		String copyid,bookid;
+		bookid=data.get(data.size()-1);
+		PreparedStatement stmt = conn.prepareStatement("SELECT MAX(CopyID) FROM copies WHERE BookID = ?");
+		stmt.setString(1, bookid);
+		ResultSet rs = stmt.executeQuery();
 
 		if(rs.next()) {
 			if (rs.getString(1)!=null) {
-				maxCopyID=Integer.parseInt(rs.getString(1));
+				maxCopyID=Integer.parseInt(rs.getString(1).substring((rs.getString(1).indexOf("-"))+1));
 			}
 		}
-
 		PreparedStatement insert = conn.prepareStatement("insert into copies values(?,?,?,?,?,?)");
-		insert.setString(1, (data.get(data.size()-1)) + " - " + Integer.toString(++maxCopyID));
+		copyid=(data.get(data.size()-1)) + "-" + Integer.toString(++maxCopyID);
+		insert.setString(1, copyid);
 		insert.setString(2, data.get(1));
 		insert.setString(3, "false");
-		insert.setString(4, data.get(10));
+		insert.setString(4, data.get(2));
 		insert.setString(5, data.get(data.size()-1));
-		insert.setString(6, "null");
+		insert.setString(6, null);
 		insert.executeUpdate();
+		data.add(copyid);
+		data.add("success");
+		updatecopyamount("increase",bookid);
+		return data;
 	}
 
+	public static void updatecopyamount(String action,String bookid) throws SQLException {
+		int amountcopies=0;
+		switch (action) {
+		case "increase":
+			PreparedStatement increse=conn.prepareStatement("UPDATE book SET copies=copies+1 WHERE bookID=?");
+			increse.setString(1, bookid);
+			increse.executeUpdate();
+			break;
+		case "decrease":
+			PreparedStatement decrease=conn.prepareStatement("UPDATE book SET copies=copies-1 WHERE bookID=?");
+			decrease.setString(1, bookid);
+			decrease.executeUpdate();
+			break;
+		default:
+			break;
+		}
+
+	}
+
+
 	public static int RemoveCopy(ArrayList<String> data) throws SQLException{
+		String bookID;
+		PreparedStatement getbookid = conn.prepareStatement("SELECT BookID FROM copies WHERE CopyID=?");
+		getbookid.setString(1, data.get(1));
+		ResultSet rs = getbookid.executeQuery();
+		if(rs.next()) {
+			bookID=rs.getString(1);
+		}
+		else return 0;
 		String deleteSQL = "DELETE FROM copies WHERE CopyID = ?";
 		PreparedStatement removestmt = conn.prepareStatement(deleteSQL);
 		removestmt.setString(1, data.get(1));
 		int res=removestmt.executeUpdate();
-		removestmt.close();
-//		conn.close();
+		if (res==1) {
+			updatecopyamount("decrease",bookID);
+		}
 		return res;
-
 	}
+
+	public static ArrayList<String> checkExistenceByCopy(ArrayList<String> msg) throws SQLException {
+		String bookid,location;
+		ArrayList<String> result=new ArrayList<String>();
+		result.add("checkExistenceByCopy");
+		PreparedStatement getbook = conn.prepareStatement("SELECT BookID,ShelfLocation FROM copies WHERE CopyID=?");
+		getbook.setString(1, msg.get(1));
+		ResultSet rs = getbook.executeQuery();
+		if(rs.next()) {
+			bookid=(rs.getString(1));
+			location=rs.getString(2);
+		}
+		else
+			return result;
+		PreparedStatement getbookdetails=conn.prepareStatement("SELECT * FROM book WHERE bookID=?");
+		getbookdetails.setString(1, bookid);
+		ResultSet rs1=getbookdetails.executeQuery();
+		if(rs1.next()) {
+			result.add(location);
+			result.add(rs1.getString(1));
+			result.add(rs1.getString(2));
+			result.add(rs1.getString(3));
+			result.add(rs1.getString(4));
+			result.add(rs1.getString(5));
+			result.add(rs1.getString(6));
+			result.add(rs1.getString(7));
+			result.add(rs1.getString(8));
+			result.add(rs1.getString(9));
+			result.add(rs1.getString(10));
+			result.add(rs1.getString(11));
+		}
+		else
+			return result;
+		result.add("1");
+		return result;
+	}
+	//		ArrayList<String> data=new ArrayList<String>();
+	//		ArrayList<String> data1=new ArrayList<String>();
+	//		String BookName=null;
+	//		String AuthorsName=null;
+	//		data1=isCopyExist(msg);// return all the details of copy
+	//		PreparedStatement getbookdetails = conn.prepareStatement("SELECT BookName,AuthorsName FROM book WHERE BookID=? ");
+	//		getbookdetails.setString(1, data1.get(5));
+	//		ResultSet rs = getbookdetails.executeQuery();
+	//		if(rs.next()) {
+	//			BookName=rs.getString(1);
+	//			AuthorsName=rs.getString(2);
+	//		}
+	//		data.add("checkExistenceByCopy");
+	//		data.add(1, BookName);
+	//		data.add(2,AuthorsName);
+	//		data1.clear();
+	//		data1= inventoryCheckExistence(data);
+	//		return data1;
+	//	}
+
 	//search book on inventory database
 	public static ArrayList<String> inventoryCheckExistence(ArrayList<String> data) throws SQLException{
 		ArrayList<String> newData = new ArrayList<>();
@@ -181,44 +273,62 @@ public class DBController {
 		}
 		rs1.close();
 		getcopyloaction.close();
-		System.out.println(newData);
 		return newData;
 	}
 
-	public static int login(ArrayList<String> data) throws SQLException
+	public static ArrayList<String>  login(ArrayList<String> data) throws SQLException
 	{
+		ArrayList<String> userDetails = null;
 		PreparedStatement login;
 		ResultSet rs;
-
-		login = conn.prepareStatement("SELECT LibrarianID,Password FROM librarian WHERE LibrarianID=? AND Password=?");
-		//		login = conn.prepareStatement("SELECT LibrarianID FROM librarian WHERE LibrarianID=? ");
+		login = conn.prepareStatement("SELECT LibrarianID,Password,FirstName,LastName,IsLoggedIn  FROM librarian WHERE LibrarianID=? AND Password=?");
 		login.setString(1,data.get(1));
 		login.setString(2,data.get(2));
 		rs = login.executeQuery();
 
 		if(rs.next()) {
+			userDetails=new ArrayList<String>();
+			userDetails.add("Login");
+			userDetails.add(rs.getString(1));
+			userDetails.add(rs.getString(3));
+			userDetails.add(rs.getString(4));
+			System.out.println(userDetails+"userDetails");
 			//////////////////Enter librarian menu
-			return 1;
+			if(rs.getString(5).equals("true")) { //check if user is connected from another device
+				System.out.println("librarian is already connceted from another device");
+				userDetails.add("0");
+				return userDetails;
+			}
+			userDetails.add("1");
+			return userDetails;
 		}
 
 		else {
-			login = conn.prepareStatement("SELECT MemberID,Password FROM members WHERE MemberID=? AND Password=?");
+			userDetails=new ArrayList<String>();
+			login = conn.prepareStatement("SELECT * FROM members WHERE MemberID=? AND Password=?");
 			login.setString(1,data.get(1));
 			login.setString(2,data.get(2));
 			rs = login.executeQuery();
 			if(rs.next()) {
-				/////////////////////Enter subscriber menu
-				return 2;
+				userDetails.add("Login");
+				userDetails.add(rs.getString(1));
+				userDetails.add(rs.getString(5));
+				userDetails.add(rs.getString(6));
+				if(rs.getString(10).equals("true")) { //check if user is connected from another device
+					System.out.println("librarian is already connceted from another device");
+					userDetails.add("0");
+					return userDetails;
+				}
+				userDetails.add("2");
+				return userDetails;
 			}
 			else {
 				System.out.println("The User doesn't exists");
-				return 0;
+				return userDetails;
 			}	
 		}
 	}
-	
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-	
+
 	public static ArrayList<String> searchBook(ArrayList<String> searchData) throws SQLException
 	{
 		PreparedStatement searchBook;
@@ -296,7 +406,6 @@ public class DBController {
 				}
 				return searchData;
 			}	
-
 		default:
 			searchData.add("-1");
 			break;
@@ -304,31 +413,32 @@ public class DBController {
 		return searchData;
 	}
 
-			
-//			searchCopy = conn.prepareStatement("SELECT * FROM copies WHERE CopyName=? AND ISLoan = 'No'");
-//			searchCopy.setString(1,searchData.get(2));
-//			rsCopy = searchCopy.executeQuery();
-//			
-//			if (rsCopy != null)
-//			{								// have copy in the library, handle with this...
-//				while (rsCopy.next())
-//				{
-//					
-//				}
-//								
-//			}
-//			
-//			searchCopy = conn.prepareStatement("SELECT * DISTINCT () FROM copies WHERE CopyName=? AND ISLoan = 'Yes' And ReturnDate > NOW() ORDER BY ReturnDate");
-//			searchCopy.setString(1,searchData.get(2)); 	// fix the query distinct on what? , who to get the nearest date to all different books?
-//			rsCopy = searchCopy.executeQuery();
-//			
-//			while(rsCopy.next())
-//			{
-//			
-//			}
+	public static Object memberSearch(ArrayList<String> stu) throws SQLException
+	{
+		PreparedStatement execute;
+		ResultSet rs;
+		ArrayList<String>member=new ArrayList<String>();
 
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+		execute = conn.prepareStatement("SELECT * FROM members WHERE MemberID=?");
+		execute.setString(1,stu.get(1));
+		rs = execute.executeQuery();
+		if(rs.next()) { 
+			member.add("SearchMember");
+			member.add(rs.getString(1));
+			member.add(rs.getString(2));
+			member.add(rs.getString(3));
+			member.add(rs.getString(4));
+			member.add(rs.getString(5));
+			member.add(rs.getString(6));
+			member.add(rs.getString(7));
+			member.add(rs.getString(8));
+			member.add(rs.getString(9));
+			System.out.println(member);
+			return member;
+		}
+		else
+			return null;
+	}
 
 	public static ArrayList<String> isMemberExist(ArrayList<String> data) throws SQLException {
 		ArrayList<String> checkMemberExistence = new ArrayList<>();
@@ -398,7 +508,7 @@ public class DBController {
 		}
 		return checkCopyLoanStatus;
 	}
-	
+
 	public static ArrayList<String> returnBook(ArrayList<String> data) throws SQLException {
 		java.util.Date dt = new java.util.Date();
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -419,7 +529,7 @@ public class DBController {
 		}
 		return returnBook;
 	}
-	
+
 	private static Connection connectToDatabase() {
 		try 
 		{

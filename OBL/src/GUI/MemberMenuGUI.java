@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import Client.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,86 +18,82 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import logic.Main;
 
 public class MemberMenuGUI implements Initializable{
-	
-	 @FXML
-	    private SplitPane mainSplitPane;
 
-	    @FXML
-	    private AnchorPane leftPane;
+	@FXML
+	private SplitPane mainSplitPane;
 
-	    @FXML
-	    private Label lblUser_name;
+	@FXML
+	private AnchorPane leftPane;
 
-	    @FXML
-	    private ImageView asd;
+	@FXML
+	private Label lblUser_name;
 
-	    @FXML
-	    private AnchorPane rightPane;
-	    
-	    public void Display() throws IOException {
-	    	System.out.println("1");
-	    	Stage primaryStage=new Stage();
-	    	System.out.println("2");
-			Parent root = FXMLLoader.load(getClass().getResource("/GUI/ReaderMenu.fxml"));
-			System.out.println("3");
-			Scene scene = new Scene(root);
-			primaryStage.setTitle("Member Menu");
-			primaryStage.setScene(scene);
-			primaryStage.setResizable(false);
-			primaryStage.show();
-	    }
-	    
-	    public void init() throws IOException {
-	    	leftPane.maxWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));
-	    	leftPane.minWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));
-	    	AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/ReaderPersonalData.fxml"));
-	    	rightPane.getChildren().setAll(pane);
-	    }
-	    
-	    @Override
-		public void initialize(URL arg0, ResourceBundle arg1) {	
-				try {
-					init();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}	
-		}
-	    
-	    public void Logout(ActionEvent event) throws IOException {
-			 ((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
-				Stage primaryStage = new Stage();
-				FXMLLoader loader = new FXMLLoader();
-				AnchorPane root = loader.load(getClass().getResource("/GUI/OBL-openScreen.fxml").openStream());
-				//LibrarianMenuController studentFormController = loader.getController();
-				Scene scene = new Scene(root);	
-				primaryStage.setScene(scene);		
-				primaryStage.show();
-		    }
-	
-	 @FXML
-	    void HistoryActivitiesScreen(ActionEvent event) {
+	@FXML
+	private ImageView asd;
 
-	    }
+	@FXML
+	private AnchorPane rightPane;
 
-	    @FXML
-	    void OrderBookScreen(ActionEvent event) throws IOException {
-	    	AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/Orderbook.fxml"));
-	    	rightPane.getChildren().setAll(pane);
-	    }
+	public void Display() throws IOException {
+		System.out.println("1");
+		Stage primaryStage=new Stage();
+		System.out.println("2");
+		Parent root = FXMLLoader.load(getClass().getResource("/GUI/ReaderMenu.fxml"));
+		System.out.println("3");
+		Scene scene = new Scene(root);
+		primaryStage.setTitle("Member Menu");
+		primaryStage.setScene(scene);
+		primaryStage.setResizable(false);
+		primaryStage.show();
+	}
 
-	    @FXML
-	    void PersonalDataScreen(ActionEvent event) throws IOException {
-	    	AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/ReaderPersonalData.fxml"));
-	    	rightPane.getChildren().setAll(pane);
-	    }
+	public void init() throws IOException {
+		leftPane.maxWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));
+		leftPane.minWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));
+		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/ReaderPersonalData.fxml"));
+		lblUser_name.setText(Client.arrayUser.get(1)+" "+Client.arrayUser.get(2));
+		rightPane.getChildren().setAll(pane);
+	}
 
-	    @FXML
-	    void SearchScreen(ActionEvent event) throws IOException {
-	    	AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/SearchBook.fxml"));
-	    	rightPane.getChildren().setAll(pane);
-	    }
-	  
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {	
+		try {
+			init();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
+
+	public void Logout(ActionEvent event) throws IOException {
+		((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
+		Main.primary.show();
+	}
+
+	@FXML
+	void HistoryActivitiesScreen(ActionEvent event) {
+
+	}
+
+	@FXML
+	void OrderBookScreen(ActionEvent event) throws IOException {
+		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/Orderbook.fxml"));
+		rightPane.getChildren().setAll(pane);
+	}
+
+	@FXML
+	void PersonalDataScreen(ActionEvent event) throws IOException {
+		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/ReaderPersonalData.fxml"));
+		rightPane.getChildren().setAll(pane);
+	}
+
+	@FXML
+	void SearchScreen(ActionEvent event) throws IOException {
+		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/SearchBook.fxml"));
+		rightPane.getChildren().setAll(pane);
+	}
+
 }

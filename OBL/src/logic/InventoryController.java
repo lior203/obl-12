@@ -21,7 +21,7 @@ public class InventoryController {
 		ArrayList<String> inventoryData = new ArrayList<>();
 		inventoryData.add("AddBook");
 		inventoryData.add(bookname);
-		inventoryData.add(copies);
+		inventoryData.add(shelflocation);
 		inventoryData.add(wanted);
 		inventoryData.add(author);
 		inventoryData.add(edition);
@@ -29,8 +29,17 @@ public class InventoryController {
 		inventoryData.add(theme);
 		inventoryData.add(description);
 		inventoryData.add(purchasedate);
-		inventoryData.add(shelflocation);
 		Main.client.handleMessageFromClientUI(inventoryData);
+	}
+
+	public static void addCopy(String copylocation,String bookname,String bookid) 
+	{
+			ArrayList<String> inventoryData = new ArrayList<>();
+			inventoryData.add("AddCopy");
+			inventoryData.add(bookname);
+			inventoryData.add(copylocation);
+			inventoryData.add(bookid);
+			Main.client.handleMessageFromClientUI(inventoryData);
 	}
 
 	public  static void RemoveCopy(String catalognumber)
@@ -47,6 +56,14 @@ public class InventoryController {
 		inventoryData.add("InventoryCheckExistense");
 		inventoryData.add(bookname);
 		inventoryData.add(authorname);
+		Main.client.handleMessageFromClientUI(inventoryData);
+	}	
+	
+	public  static void checkExistenceByCopy(String bookid)
+	{
+		ArrayList<String> inventoryData = new ArrayList<>();
+		inventoryData.add("checkExistenceByCopy");
+		inventoryData.add(bookid);
 		Main.client.handleMessageFromClientUI(inventoryData);
 	}	
 }

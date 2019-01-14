@@ -24,9 +24,9 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 
 	@FXML
 	private AnchorPane MainPane;
-	
+
 	@FXML
-    private Button btnRemove;
+	private Button btnRemove;
 
 	@FXML
 	private TextField txtBook_Name;
@@ -61,19 +61,18 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 	@FXML
 	private TextField txtWanted;
 
+
 	@FXML
 	void RemoveCopy(ActionEvent event) {
 		InventoryController.RemoveCopy(txtCatalog_Number.getText());
 	}
 
-//	@FXML
-//	void PressEnter(KeyEvent event) {
-//		if (event.getCode()==KeyCode.ENTER) {
-//			System.out.println("i press enter");
-//			InventoryController.(txtCatalog_Number.getText());
-//			enable();
-//		}
-//	}
+	@FXML
+	void PressEnter(KeyEvent event) {
+		if (event.getCode()==KeyCode.ENTER) {
+			InventoryController.checkExistenceByCopy(txtCatalog_Number.getText());
+		}
+	}
 
 	@FXML
 	void BackToInventory(ActionEvent event) throws IOException {
@@ -81,58 +80,73 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 		MainPane.getChildren().setAll(pane);
 	}
 
-	public void enable() {
-		this.txtBook_Name.setDisable(false);
-		this.txtEdition.setDisable(false);
-		this.txtTheme.setDisable(false);
-		this.txtAuthor.setDisable(false);
-		this.txtPrint_Date.setDisable(false);
-		this.txtCopies.setDisable(false);
-		this.txtPurchase_Date.setDisable(false);
-		this.txtShelf_Location.setDisable(false);
-		this.txtDescription.setDisable(false);
-		this.txtWanted.setDisable(false);
-		this.btnRemove.setDisable(false);
+	public void enable(boolean choice) {
+		this.txtBook_Name.setDisable(choice);
+		this.txtEdition.setDisable(choice);
+		this.txtTheme.setDisable(choice);
+		this.txtAuthor.setDisable(choice);
+		this.txtPrint_Date.setDisable(choice);
+		this.txtCopies.setDisable(choice);
+		this.txtPurchase_Date.setDisable(choice);
+		this.txtShelf_Location.setDisable(choice);
+		this.txtDescription.setDisable(choice);
+		this.txtWanted.setDisable(choice);
+		this.btnRemove.setDisable(choice);
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Client.clientUI=this;
-		
+
 	}
 
 
 	@Override
 	public void display(Object msg) {
-		this.txtBook_Name.setText(((ArrayList<String>) msg).get(2));
-		this.txtCopies.setText(((ArrayList<String>) msg).get(3));
-		this.txtWanted.setText(((ArrayList<String>) msg).get(4));
-		this.txtAuthor.setText(((ArrayList<String>) msg).get(5));
-		this.txtEdition.setText(((ArrayList<String>) msg).get(6));
-		this.txtPrint_Date.setText(((ArrayList<String>) msg).get(7));
-		this.txtTheme.setText(((ArrayList<String>) msg).get(8));
-		this.txtDescription.setText(((ArrayList<String>) msg).get(9));
-		this.txtPurchase_Date.setText(((ArrayList<String>) msg).get(10));
-		this.txtShelf_Location.setText(((ArrayList<String>) msg).get(11));
-		
+		this.txtBook_Name.setText(((ArrayList<String>) msg).get(3));
+		this.txtCopies.setText(((ArrayList<String>) msg).get(4));
+		this.txtWanted.setText(((ArrayList<String>) msg).get(5));
+		this.txtAuthor.setText(((ArrayList<String>) msg).get(6));
+		this.txtEdition.setText(((ArrayList<String>) msg).get(7));
+		this.txtPrint_Date.setText(((ArrayList<String>) msg).get(8));
+		this.txtTheme.setText(((ArrayList<String>) msg).get(9));
+		this.txtDescription.setText(((ArrayList<String>) msg).get(10));
+		this.txtPurchase_Date.setText(((ArrayList<String>) msg).get(11));
+		this.txtShelf_Location.setText(((ArrayList<String>) msg).get(1));
+		btnRemove.setDisable(false);
 	}
 
 	@Override
 	public void showFailed(String message) {
-		// TODO Auto-generated method stub
-		
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText(message);
+		alert.showAndWait();	
+		freshStart();
 	}
 
 	@Override
-	public void showSuccess(String string) {
-		// TODO Auto-generated method stub
-		
+	public void showSuccess(String message) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Confirm");
+		alert.setHeaderText(message);
+		alert.showAndWait();	
+		freshStart();
 	}
 
 	@Override
 	public void freshStart() {
-		// TODO Auto-generated method stub
-		
+		this.txtBook_Name.clear();
+		this.txtCopies.clear();
+		this.txtWanted.clear();
+		this.txtAuthor.clear();
+		this.txtEdition.clear();
+		this.txtPrint_Date.clear();
+		this.txtTheme.clear();
+		this.txtDescription.clear();
+		this.txtPurchase_Date.clear();
+		this.txtShelf_Location.clear();
+		btnRemove.setDisable(true);
 	}
 }
 
