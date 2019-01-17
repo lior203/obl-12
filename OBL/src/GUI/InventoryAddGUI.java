@@ -30,7 +30,6 @@ import javafx.util.converter.LocalDateStringConverter;
 import javafx.util.converter.LocalDateTimeStringConverter;
 import logic.InventoryController;
 import logic.Main;
-import sun.applet.resources.MsgAppletViewer;
 
 public class InventoryAddGUI implements GuiInterface,Initializable{
 	public static String Location;
@@ -123,8 +122,11 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 
 	@FXML
 	void CheckExistense(ActionEvent event) {
-		if (txtBook_Name.getText().isEmpty()||txtAuthor.getText().isEmpty())
-			showFailed("fields mising");
+		if (txtBook_Name.getText().isEmpty()||txtAuthor.getText().isEmpty()) {
+			showFailed("fill the missing fields.");
+			txtBook_Name.setEditable(true);
+			txtAuthor.setEditable(true);
+		}
 		else{
 			InventoryController.checkExistence(txtBook_Name.getText(),txtAuthor.getText());
 			txtPrint_Date.setDisable(false);
@@ -207,10 +209,10 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		this.txtCopies.clear();
 		this.txtWanted.clear();
 		this.txtEdition.clear();
-		this.txtPrint_Date.setPromptText(null);
+		this.txtPrint_Date.setValue(null);
 		this.txtTheme.clear();
 		this.txtDescription.clear();
-		this.txtPurchase_Date.setPromptText(null);//purchasedate.fromString(msg.get(10)));
+		this.txtPurchase_Date.setValue(null);//purchasedate.fromString(msg.get(10)));
 		this.txtShelf_Location.clear();
 		Enablefields(false);
 		txtCatlog_Number.clear();		

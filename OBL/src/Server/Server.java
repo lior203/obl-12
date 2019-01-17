@@ -188,6 +188,42 @@ public class Server extends AbstractServer
 				e.printStackTrace();
 			}
 			break;
+		case "Logout":
+			try {
+				System.out.println("inside server - logout");
+				System.out.println(msg);
+				/*client.sendToClient*/DBController.getInstance().logout((ArrayList<String>) msg);
+
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+				
+//			case "Check If Copy Is Late":
+//			try {
+//				client.sendToClient(DBController.getInstance().isCopyLate((ArrayList<String>)msg));
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			break;
+			
+		case "Check If Member Is Late On Return":
+			try {
+				client.sendToClient(DBController.getInstance().isMemberLateOnReturn((ArrayList<String>)msg));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+			
+		case "Change Member Status":
+			try {
+				client.sendToClient(DBController.getInstance().changeMemberStatus((ArrayList<String>)msg));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+			
 		default:
 			break;
 		}

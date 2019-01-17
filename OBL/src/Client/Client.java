@@ -18,6 +18,7 @@ import GUI.OBLcontroller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import logic.InventoryController;
+import logic.Main;
 import logic.RegistrationController;
 
 
@@ -73,21 +74,24 @@ public class Client extends AbstractClient
 					clientUI.freshStart();
 				}
 				else 
-					clientUI.showFailed("Add failed");
+					clientUI.showFailed("Add failed.");
 			});
 			break;
 		case "RemoveCopy":
 			Platform.runLater(()->{
 				if (arrayObject.get(arrayObject.size()-1).equals("1"))
 					clientUI.showSuccess("Copy Remove successfully");
-				else
+				if (arrayObject.get(arrayObject.size()-1).equals("2"))
+					clientUI.showSuccess("book Remove from librariy successfully");
+				if (!arrayObject.get(arrayObject.size()-1).equals("2")&&!arrayObject.get(arrayObject.size()-1).equals("1")) {
 					clientUI.showFailed("remove failed.");
+				}
 			});
 			break;
 		case "InventoryCheckExistense":
 			if (((ArrayList<String>) msg).get(arrayObject.size()-1).equals("not exist")) {
 				Platform.runLater(()->{
-					clientUI.showFailed("book not exist. pls fill the missing details to add the book.");
+					clientUI.showFailed("book not exist. \n pls fill the missing details to add the book.");
 					clientUI.freshStart();
 				});
 			}
@@ -97,11 +101,16 @@ public class Client extends AbstractClient
 				});
 			break;
 		case "Login":
-			arrayUser.add(((ArrayList<String>)msg).get(1));
-			arrayUser.add(((ArrayList<String>)msg).get(2));
-			arrayUser.add(((ArrayList<String>)msg).get(3));
-			System.out.println((ArrayList<String>)msg);
+			arrayUser.add(((ArrayList<String>)msg).get(1));//User ID
+			arrayUser.add(((ArrayList<String>)msg).get(2));//Password
+			arrayUser.add(((ArrayList<String>)msg).get(3));//First Name
+			arrayUser.add(((ArrayList<String>)msg).get(4));//Last Name
+			//System.out.println((ArrayList<String>)msg+"inside Client - login");
+			Platform.runLater(()->{
+			//System.out.println(clientUI);
 			clientUI.display((ArrayList<String>) msg);
+			});
+
 			break;
 		case "SearchMember":
 			if (((ArrayList<String>) msg).get(1).equals("NotExist")) {
@@ -172,13 +181,17 @@ public class Client extends AbstractClient
 					clientUI.showSuccess("The user have been added successfully");
 				});
 			}
+			break;
 		case "AddCopy":
 			if (((ArrayList<String>) msg).get(arrayObject.size()-1).equals("success")) {
 				Platform.runLater(()->{
 					clientUI.showSuccess("Copy Added successfuly.   copy id is: "+((ArrayList<String>) msg).get(arrayObject.size()-2).toString());
 				});
 			}else
+				Platform.runLater(()->{
 				clientUI.showFailed("failed to add copy");
+				});
+
 			break;
 		case "checkExistenceByCopy":
 			Platform.runLater(()->{
@@ -188,6 +201,32 @@ public class Client extends AbstractClient
 					clientUI.showFailed("copy not exist.");
 			});
 			break;
+			
+//		case "Logout":
+//			Platform.runLater(()->{
+//				System.out.println("lioor");
+//				System.out.println(clientUI);
+//				clientUI.display(msg);
+//			});
+//			break;
+			
+//			case "Check If Copy Is Late":
+//			if(((ArrayList<String>)msg).size() == 1) {
+//
+//			}
+//			else {
+//
+//			}
+//			break;
+			
+		case "Check If Member Is Late On Return":
+			clientUI.display((ArrayList<String>)msg);
+			break;
+
+		case "Change Member Status":
+			clientUI.display((ArrayList<String>)msg);
+			break;
+
 		default:
 			break;
 		}

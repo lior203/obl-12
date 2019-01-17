@@ -103,17 +103,19 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 
 	@Override
 	public void display(Object msg) {
-		this.txtBook_Name.setText(((ArrayList<String>) msg).get(3));
-		this.txtCopies.setText(((ArrayList<String>) msg).get(4));
-		this.txtWanted.setText(((ArrayList<String>) msg).get(5));
-		this.txtAuthor.setText(((ArrayList<String>) msg).get(6));
-		this.txtEdition.setText(((ArrayList<String>) msg).get(7));
-		this.txtPrint_Date.setText(((ArrayList<String>) msg).get(8));
-		this.txtTheme.setText(((ArrayList<String>) msg).get(9));
-		this.txtDescription.setText(((ArrayList<String>) msg).get(10));
-		this.txtPurchase_Date.setText(((ArrayList<String>) msg).get(11));
-		this.txtShelf_Location.setText(((ArrayList<String>) msg).get(1));
+		System.out.println(((ArrayList<String>) msg));
+		this.txtBook_Name.setText(((ArrayList<String>) msg).get(2));
+		this.txtCopies.setText(((ArrayList<String>) msg).get(3));
+		this.txtWanted.setText(((ArrayList<String>) msg).get(4));
+		this.txtAuthor.setText(((ArrayList<String>) msg).get(5));
+		this.txtEdition.setText(((ArrayList<String>) msg).get(6));
+		this.txtPrint_Date.setText(((ArrayList<String>) msg).get(7));
+		this.txtTheme.setText(((ArrayList<String>) msg).get(8));
+		this.txtDescription.setText(((ArrayList<String>) msg).get(9));
+		this.txtPurchase_Date.setText(((ArrayList<String>) msg).get(10));
+		this.txtShelf_Location.setText(((ArrayList<String>) msg).get(12));
 		btnRemove.setDisable(false);
+		txtCatalog_Number.setEditable(false);
 	}
 
 	@Override
