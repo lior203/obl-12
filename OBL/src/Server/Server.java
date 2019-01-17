@@ -246,8 +246,35 @@ public class Server extends AbstractServer
 				e.printStackTrace();
 			}
 			break;
+		case "librarianUpdateMember":
+			ArrayList<String>member=null;
+			ArrayList<String>notify=null;
+			try {
+
+				notify=new ArrayList<String>();
+				notify.add("searchMember");
+				member=(ArrayList<String>) DBController.getInstance().isMemberExist((ArrayList<String>) msg);
+				if (member!=null) {
+					DBController.getInstance().librarianUpdateMember((ArrayList<String>) msg);
+					notify.add("Exist");
+				}
+				else {
+					notify.add("NotExist");
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				client.sendToClient(notify);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
 		default:
 			break;
+			
 		}
 	}
 

@@ -724,6 +724,14 @@ public class DBController {
 		ps.setString(3, member.get(1));
 		ps.executeUpdate();
 }
+	public void librarianUpdateMember(ArrayList<String> member) throws SQLException {
+		PreparedStatement ps;
+			ps = conn.prepareStatement("UPDATE members SET Status = ?, Notes = ? WHERE MemberID = ?");
+		ps.setString(1, member.get(2));
+		ps.setString(2, member.get(3));
+		ps.setString(3, member.get(1));
+		ps.executeUpdate();
+	}
 	private static Connection connectToDatabase() {
 		try 
 		{

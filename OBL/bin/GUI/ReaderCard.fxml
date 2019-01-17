@@ -59,7 +59,7 @@
             <Image url="@../../../../Pictures/Magnifire-512.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnSave" disable="true" layoutX="107.0" layoutY="437.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="129.0" text="Save">
+      <Button fx:id="btnSave" disable="true" layoutX="107.0" layoutY="437.0" mnemonicParsing="false" onAction="#librarianUpdateMember" prefHeight="77.0" prefWidth="129.0" text="Save">
          <font>
             <Font name="System Bold" size="32.0" />
          </font>
