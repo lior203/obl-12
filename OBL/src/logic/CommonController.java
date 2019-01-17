@@ -29,4 +29,14 @@ public class CommonController {
 		memberData.add(status);
 		Main.client.handleMessageFromClientUI(memberData);
 	}
+	public static void checkManager(String ID) {
+		ArrayList<String> librarianData = new ArrayList<>();
+		librarianData.add("CheckLibrarianManager");
+		librarianData.add(ID);
+		Main.client.handleMessageFromClientUI(librarianData);
+	}
+
+	public static void librarianUpdateMember(String status, String ID, String notes, String isManager) {
+		/////////////send update to DB with these parameters
+	}
 }

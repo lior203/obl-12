@@ -223,7 +223,29 @@ public class Server extends AbstractServer
 				e.printStackTrace();
 			}
 			break;
-			
+		case "MemberUpdateMemberDetails":
+			 try {
+				DBController.getInstance().MemberUpdateMemberDetails((ArrayList<String>) msg);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 break;
+		case "CheckLibrarianManager":
+			ArrayList<String> librarianData=null;
+			try {
+				 librarianData=DBController.getInstance().CheckLibrarianManager((ArrayList<String>) msg);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				client.sendToClient(librarianData);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
 		default:
 			break;
 		}

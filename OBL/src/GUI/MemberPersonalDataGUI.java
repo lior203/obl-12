@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import Client.Client;
 import Common.GuiInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import logic.Main;
+import logic.RegistrationController;
 
 
 
@@ -37,7 +39,18 @@ public class MemberPersonalDataGUI implements Initializable,GuiInterface{
 	    private Button btnSave;
 	    @FXML
 	    void updateMemberDetails(ActionEvent event) {
-
+		    	boolean t=true;
+		    	if (txtPhone_Number.getText().length()==10){
+			    	if (txtEmail.getText().contains("@")){
+		    		RegistrationController.updateMemberDetails(txtID.getText(),txtPhone_Number.getText(), txtEmail.getText());
+			    	}
+			    	else 
+			    		showFailed("Wrong Email, please enter new parameters");
+			    }
+		    	else 
+		    		showFailed("Wrong phone number, please enter new parameters");
+		    	
+		    
 	    }
 	    @FXML
 	    void viewPersonalHistory(ActionEvent event) {
@@ -69,7 +82,7 @@ public class MemberPersonalDataGUI implements Initializable,GuiInterface{
 			init();
 		}
 		private void init() {
-			//here get the card reader data through the memberID
+			RegistrationController.searchMember(Client.arrayUser.get(0));
 		}
 		private void setEditableMember() {
 			txtFirst_Name.setEditable(false);

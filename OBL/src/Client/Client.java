@@ -226,7 +226,9 @@ public class Client extends AbstractClient
 		case "Change Member Status":
 			clientUI.display((ArrayList<String>)msg);
 			break;
-
+		case "CheckLibrarianManager":
+			clientUI.display((ArrayList<String>)msg);			
+			break;
 		default:
 			break;
 		}

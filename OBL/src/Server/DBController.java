@@ -701,7 +701,29 @@ public class DBController {
 		}
 		return changeStatus;
 	}
-
+	public static ArrayList<String> CheckLibrarianManager(ArrayList<String> msg) throws SQLException {
+		ArrayList<String> CheckLibrarianManager = new ArrayList<String>();
+		CheckLibrarianManager.add("CheckLibrarianManager");
+		ResultSet rs=null;
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM librarian WHERE LibrarianID = ?");
+		ps.setString(1,((String)msg.get(1)));
+		rs = ps.executeQuery();
+		if(rs.next()) {
+			CheckLibrarianManager.add(rs.getString(7));
+			System.out.println(CheckLibrarianManager);
+			return CheckLibrarianManager;
+			
+		}
+		else
+			return null;
+}
+	public void MemberUpdateMemberDetails(ArrayList<String> member) throws SQLException {
+		PreparedStatement ps = conn.prepareStatement("UPDATE members SET PhoneNumber = ?, Email = ? WHERE MemberID = ?");
+		ps.setString(1, member.get(2));
+		ps.setString(2, member.get(3));
+		ps.setString(3, member.get(1));
+		ps.executeUpdate();
+}
 	private static Connection connectToDatabase() {
 		try 
 		{
