@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import com.mysql.fabric.xmlrpc.base.Data;
 import com.mysql.jdbc.UpdatableResultSet;
@@ -738,6 +737,14 @@ public class DBController {
 	}
 	public void MemberUpdateMemberDetails(ArrayList<String> member) throws SQLException {
 		PreparedStatement ps = conn.prepareStatement("UPDATE members SET PhoneNumber = ?, Email = ? WHERE MemberID = ?");
+		ps.setString(1, member.get(2));
+		ps.setString(2, member.get(3));
+		ps.setString(3, member.get(1));
+		ps.executeUpdate();
+	}
+	public void librarianUpdateMember(ArrayList<String> member) throws SQLException {
+		PreparedStatement ps;
+			ps = conn.prepareStatement("UPDATE members SET Status = ?, Notes = ? WHERE MemberID = ?");
 		ps.setString(1, member.get(2));
 		ps.setString(2, member.get(3));
 		ps.setString(3, member.get(1));

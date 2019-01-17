@@ -37,6 +37,12 @@ public class CommonController {
 	}
 
 	public static void librarianUpdateMember(String status, String ID, String notes, String isManager) {
-		/////////////send update to DB with these parameters
+		ArrayList<String> memberData = new ArrayList<>();
+		memberData.add("librarianUpdateMember");
+		memberData.add(ID);
+		memberData.add(status);
+		memberData.add(notes);
+		memberData.add(isManager);
+		Main.client.handleMessageFromClientUI(memberData);
 	}
 }

@@ -83,21 +83,23 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 	public void display(Object obj) {
 		ArrayList<String>userData=(ArrayList<String>) obj;
 		if (userData.get(0).equals("CheckLibrarianManager")) {
-			isManager=userData.get(0);
-			if (userData.get(1).equals("false")) {
-				System.out.println("sdfsdfsdfs");
-				setEditableLibrarian();
-			}
-			else if (userData.get(1).equals("true")){
-				setEditableLibrarianManager();
-			}
+			isManager=userData.get(1);
+			setFields(true);
 		}
 		else if (userData.get(0).equals("SearchMember"))
 		{
-			setCardMember(userData);
-			//setFields(false);
+			if (userData.get(1).equals("NotExist")) {
+				
+				showFailed("Member does not exist");
+			}
+			if (isManager.equals("true")) {
+				setEditableLibrarianManager();
+			}
+			else {
+				setEditableLibrarian();
+			}
+		setCardMember(userData);
 		}
-
 	}///////////////////////////////////////////
 	private void setEditableLibrarian() {
 		txtFirst_Name.setEditable(false);
@@ -120,7 +122,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		txtPhone_Number.setEditable(false);
 		txtEmail.setEditable(false);
 		txtArea_Notes.setEditable(true);
-		cmbStatus.setEditable(true);
+		cmbStatus.setEditable(false);
 		txtArea_Notes.setDisable(false);
 		btnSave.setDisable(false);//librarian cannot edit details
 		cmbStatus.setDisable(false);
@@ -155,11 +157,11 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 	}
 	@Override
 	public void showFailed(String message) {
+		freshStart();
 		Alert alert=new Alert(AlertType.ERROR);
 		alert.setTitle("Error");
 		alert.setHeaderText(message);
 		alert.showAndWait();
-		resetField();
 		setFields(true);
 	}
 	private void setMsStatusComboBox() {
@@ -175,8 +177,12 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 
 	@Override
 	public void freshStart() {
-		// TODO Auto-generated method stub
-		
+		txtFirst_Name.setText("");
+		txtLast_Name.setText("");
+		txtPhone_Number.setText("");
+		txtEmail.setText("");
+		txtArea_Notes.setText("");
+		cmbStatus.setValue("");			
 	}
 	
 }
