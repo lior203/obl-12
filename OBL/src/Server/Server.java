@@ -246,7 +246,6 @@ public class Server extends AbstractServer
 				e.printStackTrace();
 			}
 			break;
-<<<<<<< HEAD
 		case "Edit":
 			 try {
 				client.sendToClient(DBController.getInstance().editBook((ArrayList<String>) msg));
@@ -254,8 +253,6 @@ public class Server extends AbstractServer
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
-=======
 		case "librarianUpdateMember":
 			ArrayList<String>member=null;
 			ArrayList<String>notify=null;
@@ -281,7 +278,6 @@ public class Server extends AbstractServer
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 			break;
 		default:
 			break;
