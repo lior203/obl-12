@@ -9,6 +9,7 @@ import javax.net.ssl.SSLException;
 
 import Client.Client;
 import Common.GuiInterface;
+import Common.User;
 import GUI.LibrarianMenuGUI;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -35,6 +36,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import logic.Main;
 import logic.RegistrationController;
+import sun.reflect.generics.tree.DoubleSignature;
 
 public class OBLcontroller implements Initializable, GuiInterface {
 
@@ -142,6 +144,9 @@ public class OBLcontroller implements Initializable, GuiInterface {
 	public void display(Object obj) {
 		ArrayList<String> msg = (ArrayList<String>)obj;
 		switch (msg.get(5)) {
+		case "-1":
+			showFailed("User doesnt exist in the system.");
+			break;
 		case "0":
 			showFailed("The user is already logged into the system!");
 			break;
@@ -164,27 +169,27 @@ public class OBLcontroller implements Initializable, GuiInterface {
 			break;
 		}
 
-//		//System.out.println(msg.toString()+"inside OBLcontroller");
-//		if(((ArrayList<String>)msg).get(5).equals("1")) {//Check if the user is a librarian (1)
-//			Platform.runLater(()->{
-//				try {
-//					openLibrarianMenuScreen();
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			});
-//		}
-//		else if(((ArrayList<String>)msg).get(5).equals("2")) {//Check if the user is a member (2)
-//			Platform.runLater(()->{
-//				try {
-//					openMemberMenuScreen();
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			});
-//		}
+		//		//System.out.println(msg.toString()+"inside OBLcontroller");
+		//		if(((ArrayList<String>)msg).get(5).equals("1")) {//Check if the user is a librarian (1)
+		//			Platform.runLater(()->{
+		//				try {
+		//					openLibrarianMenuScreen();
+		//				} catch (IOException e) {
+		//					// TODO Auto-generated catch block
+		//					e.printStackTrace();
+		//				}
+		//			});
+		//		}
+		//		else if(((ArrayList<String>)msg).get(5).equals("2")) {//Check if the user is a member (2)
+		//			Platform.runLater(()->{
+		//				try {
+		//					openMemberMenuScreen();
+		//				} catch (IOException e) {
+		//					// TODO Auto-generated catch block
+		//					e.printStackTrace();
+		//				}
+		//			});
+		//		}
 	}
 
 

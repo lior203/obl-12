@@ -246,6 +246,15 @@ public class Server extends AbstractServer
 				e.printStackTrace();
 			}
 			break;
+		case "Edit":
+			 try {
+				client.sendToClient(DBController.getInstance().editBook((ArrayList<String>) msg));
+			} catch (SQLException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			break;
 		default:
 			break;
 		}

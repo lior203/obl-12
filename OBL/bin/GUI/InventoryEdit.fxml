@@ -41,7 +41,7 @@
          <font>
             <Font size="21.0" />
          </font></Button>
-      <TextField disable="true" layoutX="343.0" layoutY="442.0" prefHeight="31.0" prefWidth="162.0" />
+      <TextField fx:id="txtPdf" disable="true" layoutX="343.0" layoutY="442.0" prefHeight="31.0" prefWidth="162.0" />
       <Label layoutX="187.0" layoutY="442.0" text="Table of Contents:" />
       <Button layoutX="506.0" layoutY="442.0" mnemonicParsing="false" text="..." />
       <Label layoutX="188.0" layoutY="481.0" text="Wanted:" />

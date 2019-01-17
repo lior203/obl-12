@@ -77,6 +77,9 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 
 	@FXML
 	private TextField txtBook_ID;
+	
+	@FXML
+    private TextField txtPdf;
 
 	@FXML
 	void BackToInventory(ActionEvent event) throws IOException {
@@ -122,7 +125,17 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 
 	@FXML
 	void Save(ActionEvent event) {
-
+		InventoryController.editCopy(txtBook_Name.getText(),
+									txtEdition.getText(),
+									txtTheme.getText(),
+									txtPdf.getText(),
+									txtAuthors.getText(),
+									txtLocation.getText(),
+									txtDescription.getText(),
+									txtWanted.getText(),
+									txtPurchase_Date.getValue().toString(),
+									txtPrint_date.getValue().toString(),
+									txtBook_ID.getText());
 	}
 
 	@Override

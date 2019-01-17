@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.mysql.fabric.xmlrpc.base.Data;
 import com.mysql.jdbc.UpdatableResultSet;
@@ -301,7 +302,7 @@ public class DBController {
 			userDetails.add(rs.getString(3));//Add FirstName
 			userDetails.add(rs.getString(4));//Add LastName
 			//System.out.println(userDetails+"userDetails");
-			
+
 
 			//////////////////Check if user (librarian) is connected from another device
 
@@ -334,7 +335,7 @@ public class DBController {
 				userDetails.add(rs.getString(4));//Add Password
 				userDetails.add(rs.getString(5));//Add FirstName
 				userDetails.add(rs.getString(6));//Add LastName
-				
+
 				//////////////////Check if user (member) is connected from another device
 
 				if(rs.getString(10).equals("true")) { 
@@ -347,7 +348,7 @@ public class DBController {
 					login.setString(1, data.get(1));
 					login.executeUpdate();
 				}
-				
+
 				if(rs.getString(12).equals("true")) { 
 					userDetails.add("3");
 					return userDetails;
@@ -356,11 +357,29 @@ public class DBController {
 				return userDetails;
 			}
 			else {
-				System.out.println("The User doesn't exists");
+				//Enter null values if the user doesn't exists
+				userDetails.add("Login");
+				userDetails.add(null);
+				userDetails.add(null);
+				userDetails.add(null);
+				userDetails.add(null);
+				userDetails.add("-1");
 				return userDetails;
 			}	
 		}
 	}
+
+	public static ArrayList<String> editBook(ArrayList<String> searchData) throws SQLException{
+		int answer;
+		PreparedStatement updatebook=conn.prepareStatement("UPDATE book SET BookName=?,EditionNumber=?,BookGenre=?,PDFLink=?,AuthorsName=?,ShelfLocation=?,Description=?,Wanted=?,PurchaseDate=?,PrintDate=? WHERE BookID=?");
+		for (int i = 1; i <= searchData.size(); i++) {
+			updatebook.setString(i, searchData.get(i));			
+		}
+		answer=updatebook.executeUpdate();
+		System.out.println(searchData);
+		return searchData;
+	}
+
 
 	public static ArrayList<String> searchBook(ArrayList<String> searchData) throws SQLException
 	{
@@ -712,18 +731,18 @@ public class DBController {
 			CheckLibrarianManager.add(rs.getString(7));
 			System.out.println(CheckLibrarianManager);
 			return CheckLibrarianManager;
-			
+
 		}
 		else
 			return null;
-}
+	}
 	public void MemberUpdateMemberDetails(ArrayList<String> member) throws SQLException {
 		PreparedStatement ps = conn.prepareStatement("UPDATE members SET PhoneNumber = ?, Email = ? WHERE MemberID = ?");
 		ps.setString(1, member.get(2));
 		ps.setString(2, member.get(3));
 		ps.setString(3, member.get(1));
 		ps.executeUpdate();
-}
+	}
 	private static Connection connectToDatabase() {
 		try 
 		{
