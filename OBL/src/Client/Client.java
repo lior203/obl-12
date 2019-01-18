@@ -227,6 +227,12 @@ public class Client extends AbstractClient
 				clientUI.display(msg);
 			});
 			break;
+		case "Check Copy Wanted Status":
+			clientUI.display((ArrayList<String>)msg);
+			break;
+		case "Loan Book":
+			clientUI.display((ArrayList<String>)msg);
+			break;
 
 		default:
 			break;

@@ -47,4 +47,21 @@ public class BookHandlerController {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public static void isCopyWanted(String bookID) {	
+		ArrayList<String> bookData = new ArrayList<>();
+		bookData.add("Check Copy Wanted Status");
+		bookData.add(bookID);
+		Main.client.handleMessageFromClientUI(bookData);
+	}
+	
+	public static void loanBook(String copyID,String bookStatus,String bookID,String memberID) {	
+		ArrayList<String> copyData = new ArrayList<>();
+		copyData.add("Loan Book");
+		copyData.add(copyID);
+		copyData.add(bookStatus);
+		copyData.add(bookID);
+		copyData.add(memberID);
+		Main.client.handleMessageFromClientUI(copyData);
+	}
 }

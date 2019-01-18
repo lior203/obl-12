@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import com.mysql.fabric.xmlrpc.base.Data;
 import com.mysql.jdbc.UpdatableResultSet;
@@ -68,7 +70,7 @@ public class DBController {
 			return 0;
 		}
 
-		PreparedStatement insert = conn.prepareStatement("insert into members values(?,?,?,?,?,?,?,?,?,?)");
+		PreparedStatement insert = conn.prepareStatement("insert into members values(?,?,?,?,?,?,?,?,?,?,?,?)");
 		insert.setString(1, data.get(2));
 		insert.setString(2, data.get(1));
 		insert.setString(3, data.get(5));
@@ -76,9 +78,11 @@ public class DBController {
 		insert.setString(5, data.get(4));
 		insert.setString(6, data.get(3));
 		insert.setString(7, "Active");
-		insert.setString(8, "empty");
+		insert.setString(8, null);
 		insert.setString(9, "0");
 		insert.setString(10, "false");
+		insert.setString(11, null);
+		insert.setString(12, "false");
 		insert.executeUpdate();
 		return 1;
 	}
@@ -809,6 +813,80 @@ public class DBController {
 		ps.setString(2, member.get(3));
 		ps.setString(3, member.get(1));
 		ps.executeUpdate();
+	}
+	
+	public static ArrayList<String> isCopyWanted(ArrayList<String> data) throws SQLException {
+		ArrayList<String> checkCopyWantedStatus = new ArrayList<>();
+		checkCopyWantedStatus.add("Check Copy Wanted Status");
+		ResultSet rs;
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM book WHERE BookID = ?");
+		ps.setString(1, data.get(1));
+		rs = ps.executeQuery();
+		if (!rs.isBeforeFirst() ) {    
+			return checkCopyWantedStatus;
+		}
+		if(rs.next()) {
+			checkCopyWantedStatus.add(rs.getString(1));
+			checkCopyWantedStatus.add(rs.getString(2));
+			checkCopyWantedStatus.add(rs.getString(3));
+			checkCopyWantedStatus.add(rs.getString(4));
+			checkCopyWantedStatus.add(rs.getString(5));
+			checkCopyWantedStatus.add(rs.getString(6));
+			checkCopyWantedStatus.add(rs.getString(7));
+			checkCopyWantedStatus.add(rs.getString(8));
+			checkCopyWantedStatus.add(rs.getString(9));
+			checkCopyWantedStatus.add(rs.getString(10));
+			checkCopyWantedStatus.add(rs.getString(11));
+			checkCopyWantedStatus.add(rs.getString(12));
+		}
+		return checkCopyWantedStatus;
+	}
+	
+	public static ArrayList<String> loanBook(ArrayList<String> data) throws SQLException {
+		java.util.Date dt = new java.util.Date();
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String currentTime = sdf.format(dt);
+		Calendar c = Calendar.getInstance();
+		try {
+			c.setTime(sdf.parse(currentTime));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		if(data.get(2).equals("true")) {
+			c.add(Calendar.DATE, 3);
+		}
+		else {
+			c.add(Calendar.DATE, 14);
+		}
+		
+		String returnDate = sdf.format(c.getTime());
+		ArrayList<String> loanBook = new ArrayList<>();
+		loanBook.add("Loan Book");
+		PreparedStatement ps = conn.prepareStatement("INSERT loanbook values(?,?,?,?,?,?,?,?)");
+		ps.setString(1, data.get(1));
+		ps.setString(2, returnDate);
+		ps.setString(3, null);
+		ps.setString(4, data.get(4));
+		ps.setString(5, data.get(3));
+		ps.setString(6,currentTime);
+		ps.setString(7,"false");
+		ps.setString(8,"false");
+		if(ps.executeUpdate() == 0) {
+			return loanBook;
+		}
+
+		PreparedStatement ps1 = conn.prepareStatement("UPDATE copies SET isLoaned = ? , ActualReturnDate = ? WHERE CopyID = ?");
+		ps1.setString(1, "true");
+		ps1.setString(2, null);
+		ps1.setString(3, data.get(1));
+		ps1.executeUpdate();
+		if(ps1.executeUpdate() == 0) {
+			return loanBook;
+		}
+		
+		loanBook.add(currentTime);
+		loanBook.add(returnDate);
+		return loanBook;
 	}
 
 	private static Connection connectToDatabase() {
