@@ -39,26 +39,27 @@ public class MemberMenuGUI implements Initializable,GuiInterface{
 	@FXML
 	private AnchorPane rightPane;
 
-	//	public void Display() throws IOException {
-	//		System.out.println("1");
-	//		Stage primaryStage=new Stage();
-	//		System.out.println("2");
-	//		Parent root = FXMLLoader.load(getClass().getResource("/GUI/ReaderMenu.fxml"));
-	//		System.out.println("3");
-	//		Scene scene = new Scene(root);
-	//		primaryStage.setTitle("Member Menu");
-	//		primaryStage.setScene(scene);
-	//		primaryStage.setResizable(false);
-	//		primaryStage.show();
-	//	}
+	public void Display() throws IOException {
+		System.out.println("1");
+		Stage primaryStage=new Stage();
+		System.out.println("2");
+		Parent root = FXMLLoader.load(getClass().getResource("/GUI/ReaderMenu.fxml"));
+		System.out.println("3");
+		Scene scene = new Scene(root);
+		primaryStage.setTitle("Member Menu");
+		primaryStage.setScene(scene);
+		primaryStage.setResizable(false);
+		primaryStage.show();
+	}
 
 	public void init() throws IOException {
+		Main.client.clientUI= this;
 		lblUser_name.setText(Client.arrayUser.get(2)+" "+Client.arrayUser.get(3));
 		leftPane.maxWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));
 		leftPane.minWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/ReaderPersonalData.fxml"));
+		lblUser_name.setText(Client.arrayUser.get(1)+" "+Client.arrayUser.get(2));
 		rightPane.getChildren().setAll(pane);
-		Main.client.clientUI= this;
 	}
 
 	@Override
@@ -72,7 +73,7 @@ public class MemberMenuGUI implements Initializable,GuiInterface{
 	}
 
 	public void Logout(ActionEvent event) throws IOException {
-		OBLcontroller.MemberStage.close();
+		OBLcontroller.memberStage.close();
 		RegistrationController.logout(Client.arrayUser.get(0),Client.arrayUser.get(1));
 		Client.arrayUser.clear();
 		Main.primary.show();
@@ -110,7 +111,6 @@ public class MemberMenuGUI implements Initializable,GuiInterface{
 	@Override
 	public void display(Object obj) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

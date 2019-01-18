@@ -42,4 +42,9 @@ public class BookHandlerController {
 		memberData.add(memberID);
 		Main.client.handleMessageFromClientUI(memberData);
 	}
+
+	public static void reserveBook(String bookID, String memberID) {
+		// TODO Auto-generated method stub
+		
+	}
 }

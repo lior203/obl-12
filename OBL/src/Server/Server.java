@@ -152,7 +152,7 @@ public class Server extends AbstractServer
 			break;
 		case "SearchMember":
 			try {
-				ArrayList<String>member;
+				ArrayList<String>member=new ArrayList<String>();
 				member=(ArrayList<String>) DBController.getInstance().memberSearch((ArrayList<String>) msg);
 				if (member!=null) {//found an existing member
 					try {
@@ -163,7 +163,6 @@ public class Server extends AbstractServer
 					}	
 				}
 				else {
-					//Could not found any existing member
 					member=new ArrayList<String>();
 					member.add("SearchMember");
 					member.add("NotExist");
@@ -188,7 +187,15 @@ public class Server extends AbstractServer
 				e.printStackTrace();
 			}
 			break;
-		case "Logout":
+		case "SearchBookDetailes":
+			try {
+				ArrayList<String> answer = DBController.getInstance().searchBookDetailes((ArrayList<String>) msg);
+				client.sendToClient(answer);
+			} catch (SQLException  | IOException e) {
+				e.printStackTrace();
+			}
+			break;
+			case "Logout":
 			try {
 				System.out.println("inside server - logout");
 				System.out.println(msg);
@@ -199,24 +206,14 @@ public class Server extends AbstractServer
 				e.printStackTrace();
 			}
 			break;
-				
-//			case "Check If Copy Is Late":
-//			try {
-//				client.sendToClient(DBController.getInstance().isCopyLate((ArrayList<String>)msg));
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//			break;
-			
-		case "Check If Member Is Late On Return":
+			case "Check If Member Is Late On Return":
 			try {
 				client.sendToClient(DBController.getInstance().isMemberLateOnReturn((ArrayList<String>)msg));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			break;
-			
-		case "Change Member Status":
+			case "Change Member Status":
 			try {
 				client.sendToClient(DBController.getInstance().changeMemberStatus((ArrayList<String>)msg));
 			} catch (Exception e) {
@@ -283,7 +280,6 @@ public class Server extends AbstractServer
 			break;
 		default:
 			break;
-			
 		}
 	}
 

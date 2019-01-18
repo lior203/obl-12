@@ -61,8 +61,10 @@ public class OBLcontroller implements Initializable, GuiInterface {
 	@FXML
 	private TextField txtPassword;
 
-	public static Stage LibrarianStage;
-	public static Stage MemberStage;
+	public static Stage librarianStage;
+	public static Stage memberStage;
+	public static Stage searchForReader;
+
 
 
 	public void login(ActionEvent event) throws IOException {
@@ -83,7 +85,7 @@ public class OBLcontroller implements Initializable, GuiInterface {
 
 
 	public void openMemberMenuScreen() throws IOException {
-		Main.primary.close();
+		Main.primary.hide();
 		Stage primaryStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
 		SplitPane root = loader.load(getClass().getResource("/GUI/ReaderMenu.fxml").openStream());
@@ -97,7 +99,7 @@ public class OBLcontroller implements Initializable, GuiInterface {
 				System.out.println("Stage is closing");
 			}
 		});
-		MemberStage=primaryStage;
+		memberStage=primaryStage;
 		primaryStage.show();		
 	}
 
@@ -117,7 +119,7 @@ public class OBLcontroller implements Initializable, GuiInterface {
 			}
 		});
 		primaryStage.setScene(scene);	
-		LibrarianStage=primaryStage;
+		librarianStage=primaryStage;
 		primaryStage.show();		
 	}
 
@@ -127,7 +129,8 @@ public class OBLcontroller implements Initializable, GuiInterface {
 		FXMLLoader loader = new FXMLLoader();
 		AnchorPane root = loader.load(getClass().getResource("/GUI/SearchBook.fxml").openStream());
 		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);		
+		primaryStage.setScene(scene);
+		searchForReader=primaryStage;
 		primaryStage.show();
 	}
 
@@ -168,28 +171,6 @@ public class OBLcontroller implements Initializable, GuiInterface {
 			showFailed("The member already graduated hence he can't login!");
 			break;
 		}
-
-		//		//System.out.println(msg.toString()+"inside OBLcontroller");
-		//		if(((ArrayList<String>)msg).get(5).equals("1")) {//Check if the user is a librarian (1)
-		//			Platform.runLater(()->{
-		//				try {
-		//					openLibrarianMenuScreen();
-		//				} catch (IOException e) {
-		//					// TODO Auto-generated catch block
-		//					e.printStackTrace();
-		//				}
-		//			});
-		//		}
-		//		else if(((ArrayList<String>)msg).get(5).equals("2")) {//Check if the user is a member (2)
-		//			Platform.runLater(()->{
-		//				try {
-		//					openMemberMenuScreen();
-		//				} catch (IOException e) {
-		//					// TODO Auto-generated catch block
-		//					e.printStackTrace();
-		//				}
-		//			});
-		//		}
 	}
 
 

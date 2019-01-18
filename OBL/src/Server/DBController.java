@@ -664,7 +664,60 @@ public class DBController {
 		return returnBook;
 	}
 
-	public static void logout(ArrayList<String> data) throws SQLException {
+	public ArrayList<String> searchBookDetailes(ArrayList<String> msg) throws SQLException{
+		ResultSet 	rs1,rs2,rs3;
+		String 		bookID   	  = null;
+		String		shelfLocation = null;
+		String		returnDate	  = null;
+		String		memberID	  = null;
+		PreparedStatement ps1 = conn.prepareStatement("SELECT BookID,ShelfLocation FROM book WHERE AuthorsName = ? AND BookName = ?");
+		ps1.setString(1, msg.get(2));
+		ps1.setString(2, msg.get(1));
+		rs1 = ps1.executeQuery();
+		System.out.println("111111111111111111111111111111111");
+		while(rs1.next()) {
+			bookID =rs1.getString(1);
+			System.out.println("1111111111111111111"+ bookID);
+			shelfLocation =rs1.getString(2);
+			System.out.println("1111111111111111111" + shelfLocation);
+		}
+		PreparedStatement ps2 = conn.prepareStatement("SELECT BookID FROM copies WHERE BookID = ? AND IsLoaned = ?");
+		ps2.setString(1, bookID);
+		ps2.setString(2, "false");
+		rs2 = ps2.executeQuery();
+		
+		if (!(rs2.isBeforeFirst()) ) // all the copies in loan
+		{
+			System.out.println("33333333333333");
+			java.util.Date date= new java.util.Date();
+			java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String currentTime = sdf.format(date);
+			System.out.println(currentTime);
+			PreparedStatement ps3 = conn.prepareStatement("SELECT ExpectedReturnDate,MemberID FROM loanbook WHERE ExpectedReturnDate > ? AND BookID = ? ORDER BY ExpectedReturnDate LIMIT 1");
+			ps3.setString(1, currentTime);
+			ps3.setString(2, bookID);
+			rs3 = ps3.executeQuery();
+			while(rs3.next()) {
+				returnDate = rs3.getString(1);
+				memberID = rs3.getString(2);
+				System.out.println("2222222222222222222" + returnDate);
+				System.out.println("2222222222222222222" + memberID);
+			}
+			msg.add("0");
+			msg.add(returnDate);
+			msg.add(memberID);
+			msg.add(bookID);
+		}
+		else {
+			System.out.println("7777777777");
+			msg.add("1");
+			msg.add(shelfLocation);
+		}
+		
+		return msg;
+	}
+
+	public static  void logout(ArrayList<String> data) throws SQLException {
 		ArrayList<String> result=new ArrayList<String>();
 		PreparedStatement login;
 		ResultSet rs;

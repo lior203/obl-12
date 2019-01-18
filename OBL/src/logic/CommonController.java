@@ -66,4 +66,11 @@ public class CommonController {
 		datearray.add(month3);
 		return datearray;
 	}
+
+	public static void viewPersonalHistory(String ID) {
+		ArrayList<String> memberData = new ArrayList<>();
+		memberData.add("ViewPersonalHisotry");
+		memberData.add(ID);
+		
+	}
 }
