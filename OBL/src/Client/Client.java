@@ -128,11 +128,15 @@ public class Client extends AbstractClient
 		case "Search book":
 			if (((ArrayList<String>) msg).get(3).equals("-1"))
 			{
-				clientUI.showFailed("not found");
+				Platform.runLater(() -> {
+					clientUI.showFailed("not found");
+				});
 			}
 			else if (((ArrayList<String>) msg).get(3).equals("1"))
 			{
-				clientUI.display(msg);
+				Platform.runLater(() -> {
+					clientUI.display(msg);
+				});
 			}
 			break;
 		case "Check Member Existence":
@@ -215,6 +219,11 @@ public class Client extends AbstractClient
 		case "Edit":
 			Platform.runLater(()->{
 				clientUI.showSuccess("details updated successfully in the system");
+			});
+			break;
+		case "SearchBookDetailes":
+			Platform.runLater(()->{
+				clientUI.display(msg);
 			});
 			break;
 		default:
