@@ -7,12 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
+import java.util.Date;
 import com.mysql.fabric.xmlrpc.base.Data;
 import com.mysql.jdbc.UpdatableResultSet;
 import Client.Client;
 import Common.Book;
 import Common.InventoryBook;
+import jdk.nashorn.internal.ir.LoopNode;
 
 
 
@@ -56,7 +57,7 @@ public class DBController {
 		rsRegistretion = preparedRegistretion.executeQuery();
 		if ((rsRegistretion.isBeforeFirst()))
 		{
-			return 0;
+			return 2;
 		}
 
 		preparedRegistretion = conn.prepareStatement("SELECT  * FROM librarian WHERE LibrarianID=? ");
@@ -231,54 +232,60 @@ public class DBController {
 		result.add("1");
 		return result;
 	}
-	//		ArrayList<String> data=new ArrayList<String>();
-	//		ArrayList<String> data1=new ArrayList<String>();
-	//		String BookName=null;
-	//		String AuthorsName=null;
-	//		data1=isCopyExist(msg);// return all the details of copy
-	//		PreparedStatement getbookdetails = conn.prepareStatement("SELECT BookName,AuthorsName FROM book WHERE BookID=? ");
-	//		getbookdetails.setString(1, data1.get(5));
-	//		ResultSet rs = getbookdetails.executeQuery();
-	//		if(rs.next()) {
-	//			BookName=rs.getString(1);
-	//			AuthorsName=rs.getString(2);
-	//		}
-	//		data.add("checkExistenceByCopy");
-	//		data.add(1, BookName);
-	//		data.add(2,AuthorsName);
-	//		data1.clear();
-	//		data1= inventoryCheckExistence(data);
-	//		return data1;
-	//	}
 
 	//search book on inventory database
 	public static ArrayList<String> inventoryCheckExistence(ArrayList<String> data) throws SQLException{
 		ArrayList<String> newData = new ArrayList<>();
 		newData.add("InventoryCheckExistense");
-		String string = "SELECT * FROM book WHERE BookName=? AND AuthorsName=?";
-		PreparedStatement checkExistence = conn.prepareStatement(string);
-		checkExistence.setString(1, data.get(1));
-		checkExistence.setString(2, data.get(2));
-		ResultSet rs = checkExistence.executeQuery();
+		if (data.size()==3) {
+			String string = "SELECT * FROM book WHERE BookName=? AND AuthorsName=?";
+			PreparedStatement checkExistence = conn.prepareStatement(string);
+			checkExistence.setString(1, data.get(1));
+			checkExistence.setString(2, data.get(2));
+			ResultSet rs = checkExistence.executeQuery();
 
-		if(rs.next()) {
-			newData.add(rs.getString(1));
-			newData.add(rs.getString(2));
-			newData.add(rs.getString(3));
-			newData.add(rs.getString(4));
-			newData.add(rs.getString(5));
-			newData.add(rs.getString(6));
-			newData.add(rs.getString(7));
-			newData.add(rs.getString(8));
-			newData.add(rs.getString(9));
-			newData.add(rs.getString(10));
-			newData.add(rs.getString(11));
-			newData.add(rs.getString(12));
+			if(rs.next()) {
+				newData.add(rs.getString(1));
+				newData.add(rs.getString(2));
+				newData.add(rs.getString(3));
+				newData.add(rs.getString(4));
+				newData.add(rs.getString(5));
+				newData.add(rs.getString(6));
+				newData.add(rs.getString(7));
+				newData.add(rs.getString(8));
+				newData.add(rs.getString(9));
+				newData.add(rs.getString(10));
+				newData.add(rs.getString(11));
+				newData.add(rs.getString(12));
+			}
+			else {
+				newData.add("not exist");
+			}
 		}
-		else {
-			newData.add("not exist");
+		else if (data.size()==2) {
+			String string = "SELECT * FROM book WHERE BookID=?";
+			PreparedStatement checkExistence = conn.prepareStatement(string);
+			checkExistence.setString(1, data.get(1));
+			ResultSet rs = checkExistence.executeQuery();
+			if(rs.next()) {
+				newData.add(rs.getString(1));
+				newData.add(rs.getString(2));
+				newData.add(rs.getString(3));
+				newData.add(rs.getString(4));
+				newData.add(rs.getString(5));
+				newData.add(rs.getString(6));
+				newData.add(rs.getString(7));
+				newData.add(rs.getString(8));
+				newData.add(rs.getString(9));
+				newData.add(rs.getString(10));
+				newData.add(rs.getString(11));
+				newData.add(rs.getString(12));
+			}
+			else {
+				newData.add("not exist");
+			}
 		}
-		return newData;
+			return newData;
 	}
 
 	public static ArrayList<String>  login(ArrayList<String> data) throws SQLException
@@ -301,7 +308,7 @@ public class DBController {
 			userDetails.add(rs.getString(3));//Add FirstName
 			userDetails.add(rs.getString(4));//Add LastName
 			//System.out.println(userDetails+"userDetails");
-			
+
 
 			//////////////////Check if user (librarian) is connected from another device
 
@@ -334,7 +341,7 @@ public class DBController {
 				userDetails.add(rs.getString(4));//Add Password
 				userDetails.add(rs.getString(5));//Add FirstName
 				userDetails.add(rs.getString(6));//Add LastName
-				
+
 				//////////////////Check if user (member) is connected from another device
 
 				if(rs.getString(10).equals("true")) { 
@@ -347,7 +354,7 @@ public class DBController {
 					login.setString(1, data.get(1));
 					login.executeUpdate();
 				}
-				
+
 				if(rs.getString(12).equals("true")) { 
 					userDetails.add("3");
 					return userDetails;
@@ -356,11 +363,29 @@ public class DBController {
 				return userDetails;
 			}
 			else {
-				System.out.println("The User doesn't exists");
+				//Enter null values if the user doesn't exists
+				userDetails.add("Login");
+				userDetails.add(null);
+				userDetails.add(null);
+				userDetails.add(null);
+				userDetails.add(null);
+				userDetails.add("-1");
 				return userDetails;
 			}	
 		}
 	}
+
+	public static ArrayList<String> editBook(ArrayList<String> searchData) throws SQLException{
+		int answer;
+		PreparedStatement updatebook=conn.prepareStatement("UPDATE book SET BookName=?,EditionNumber=?,BookGenre=?,PDFLink=?,AuthorsName=?,ShelfLocation=?,Description=?,Wanted=?,PurchaseDate=?,PrintDate=? WHERE BookID=?");
+		for (int i = 1; i <= searchData.size(); i++) {
+			updatebook.setString(i, searchData.get(i));			
+		}
+		answer=updatebook.executeUpdate();
+		System.out.println(searchData);
+		return searchData;
+	}
+
 
 	public static ArrayList<String> searchBook(ArrayList<String> searchData) throws SQLException
 	{
@@ -623,7 +648,60 @@ public class DBController {
 		return returnBook;
 	}
 
-	public static /*ArrayList<String>*/ void logout(ArrayList<String> data) throws SQLException {
+	public ArrayList<String> searchBookDetailes(ArrayList<String> msg) throws SQLException{
+		ResultSet 	rs1,rs2,rs3;
+		String 		bookID   	  = null;
+		String		shelfLocation = null;
+		String		returnDate	  = null;
+		String		memberID	  = null;
+		PreparedStatement ps1 = conn.prepareStatement("SELECT BookID,ShelfLocation FROM book WHERE AuthorsName = ? AND BookName = ?");
+		ps1.setString(1, msg.get(2));
+		ps1.setString(2, msg.get(1));
+		rs1 = ps1.executeQuery();
+		System.out.println("111111111111111111111111111111111");
+		while(rs1.next()) {
+			bookID =rs1.getString(1);
+			System.out.println("1111111111111111111"+ bookID);
+			shelfLocation =rs1.getString(2);
+			System.out.println("1111111111111111111" + shelfLocation);
+		}
+		PreparedStatement ps2 = conn.prepareStatement("SELECT BookID FROM copies WHERE BookID = ? AND IsLoan = ?");
+		ps2.setString(1, bookID);
+		ps2.setString(2, "false");
+		rs2 = ps2.executeQuery();
+		
+		if (!(rs2.isBeforeFirst()) ) // all the copies in loan
+		{
+			System.out.println("33333333333333");
+			java.util.Date date= new java.util.Date();
+			java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String currentTime = sdf.format(date);
+			System.out.println(currentTime);
+			PreparedStatement ps3 = conn.prepareStatement("SELECT ExpectedReturnDate,MemberID FROM loanbook WHERE ExpectedReturnDate > ? AND BookID = ? ORDER BY ExpectedReturnDate LIMIT 1");
+			ps3.setString(1, currentTime);
+			ps3.setString(2, bookID);
+			rs3 = ps3.executeQuery();
+			while(rs3.next()) {
+				returnDate = rs3.getString(1);
+				memberID = rs3.getString(2);
+				System.out.println("2222222222222222222" + returnDate);
+				System.out.println("2222222222222222222" + memberID);
+			}
+			msg.add("0");
+			msg.add(returnDate);
+			msg.add(memberID);
+			msg.add(bookID);
+		}
+		else {
+			System.out.println("7777777777");
+			msg.add("1");
+			msg.add(shelfLocation);
+		}
+		
+		return msg;
+	}
+
+	public static  void logout(ArrayList<String> data) throws SQLException {
 		ArrayList<String> result=new ArrayList<String>();
 		PreparedStatement login;
 		ResultSet rs;
@@ -714,26 +792,27 @@ public class DBController {
 			CheckLibrarianManager.add(rs.getString(7));
 			System.out.println(CheckLibrarianManager);
 			return CheckLibrarianManager;
-			
+
 		}
 		else
 			return null;
-}
+	}
 	public void MemberUpdateMemberDetails(ArrayList<String> member) throws SQLException {
 		PreparedStatement ps = conn.prepareStatement("UPDATE members SET PhoneNumber = ?, Email = ? WHERE MemberID = ?");
 		ps.setString(1, member.get(2));
 		ps.setString(2, member.get(3));
 		ps.setString(3, member.get(1));
 		ps.executeUpdate();
-}
+	}
 	public void librarianUpdateMember(ArrayList<String> member) throws SQLException {
 		PreparedStatement ps;
-			ps = conn.prepareStatement("UPDATE members SET Status = ?, Notes = ? WHERE MemberID = ?");
+		ps = conn.prepareStatement("UPDATE members SET Status = ?, Notes = ? WHERE MemberID = ?");
 		ps.setString(1, member.get(2));
 		ps.setString(2, member.get(3));
 		ps.setString(3, member.get(1));
 		ps.executeUpdate();
 	}
+
 	private static Connection connectToDatabase() {
 		try 
 		{
@@ -753,6 +832,7 @@ public class DBController {
 		}
 		return null;
 	}
+
 
 
 }

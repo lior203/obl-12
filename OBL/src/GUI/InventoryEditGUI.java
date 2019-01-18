@@ -4,6 +4,7 @@ package GUI;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -25,6 +26,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.converter.LocalDateStringConverter;
+import logic.CommonController;
 import logic.InventoryController;
 import logic.Main;
 
@@ -79,6 +82,9 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 	private TextField txtBook_ID;
 
 	@FXML
+	private TextField txtPdf;
+
+	@FXML
 	void BackToInventory(ActionEvent event) throws IOException {
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/Inventory.fxml"));
 		MainPane.getChildren().setAll(pane);
@@ -106,23 +112,40 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 	void EnterBook_Name(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER){
 			if (txtBook_Name.getText().isEmpty()||txtAuthors.getText().isEmpty()) {
-				showFailed("fill book");
+				showFailed("fill book.");
 			}
-			System.out.println("2");
-			InventoryController.checkExistence(txtBook_Name.getText(), txtAuthors.getText());
+			ArrayList<String> msg=new ArrayList<>();
+			msg.add(txtBook_Name.getText());
+			msg.add(txtAuthors.getText());
+			InventoryController.checkExistence((ArrayList<String>) msg);
 		}
 	}
 
 	@FXML
 	void Enter_BookID(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER){
-
+			if (txtBook_ID.getText().isEmpty()) {
+				showFailed("fill book ID.");
+			}
+			ArrayList<String> msg=new ArrayList<>();
+			msg.add(txtBook_ID.getText());
+			InventoryController.checkExistence((ArrayList<String>) msg);
 		}
 	}
 
 	@FXML
 	void Save(ActionEvent event) {
-
+		InventoryController.editCopy(txtBook_Name.getText(),
+				txtEdition.getText(),
+				txtTheme.getText(),
+				txtPdf.getText(),
+				txtAuthors.getText(),
+				txtLocation.getText(),
+				txtDescription.getText(),
+				txtWanted.getText(),
+				txtPurchase_Date.getValue().toString(),
+				txtPrint_date.getValue().toString(),
+				txtBook_ID.getText());
 	}
 
 	@Override
@@ -132,7 +155,7 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 	}
 
 	public void Disable(boolean choice) {
-//		rdioBook_ID.setText(details.get(1));
+		//		rdioBook_ID.setText(details.get(1));
 		txtEdition.setDisable(choice);
 		txtTheme.setDisable(choice);
 		txtCopies.setDisable(choice);
@@ -142,11 +165,14 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 		txtPurchase_Date.setDisable(choice);
 		txtDescription.setDisable(choice);
 	}
-	
+
 	@Override
 	public void display(Object obj) {
 		Disable(false);
 		ArrayList<String> details=(ArrayList<String>)obj;
+		ArrayList<Integer> datearray=new ArrayList<>();
+		datearray=CommonController.convertordate(details.get(7));
+		LocalDate date=LocalDate.of(datearray.get(0), datearray.get(2), datearray.get(1));
 		txtBook_ID.setText(details.get(1));
 		txtEdition.setText(details.get(6));
 		txtTheme.setText(details.get(8));
@@ -154,10 +180,17 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 		txtCopies.setDisable(true);
 		txtLocation.setText(details.get(12));
 		txtWanted.setText(details.get(4));
-		txtPrint_date.setPromptText(details.get(7));
+		txtPrint_date.setValue(date);
 		txtPurchase_Date.setPromptText(details.get(10));
 		txtDescription.setText(details.get(9));
+		btnSave.setDisable(false);
+		
+		
+//		txtPrint_date.setValue(date)
+//		System.out.println(date);
 	}
+	
+	
 
 	@Override
 	public void showFailed(String message) {
