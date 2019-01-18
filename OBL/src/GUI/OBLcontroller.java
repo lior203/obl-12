@@ -56,6 +56,12 @@ public class OBLcontroller implements Initializable, GuiInterface {
 	@FXML
 	private TextField txtPassword;
 
+	public static Stage librarianStage;
+
+	public static Stage memberStage;
+
+	public static Stage searchForReader;
+
 
 	public void login(ActionEvent event) throws IOException {
 		RegistrationController.login(txtUserName.getText(),txtPassword.getText());
@@ -71,38 +77,41 @@ public class OBLcontroller implements Initializable, GuiInterface {
 	public void openMemberMenuScreen() throws IOException {
 		Main.primary.close();
 		Stage primaryStage = new Stage();
+		memberStage = primaryStage;
 		FXMLLoader loader = new FXMLLoader();
 		SplitPane root = loader.load(getClass().getResource("/GUI/ReaderMenu.fxml").openStream());
 		Scene scene = new Scene(root);			
 		//		scene.getStylesheets().add(getClass().getResource("/gui/StudentForm.css").toExternalForm());
 		primaryStage.setScene(scene);	
-//		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-//		primaryStage.setX(primaryScreenBounds.getMinX());
-//		primaryStage.setY(primaryScreenBounds.getMinY());
-//		primaryStage.setWidth(primaryScreenBounds.getWidth());
-//		primaryStage.setHeight(primaryScreenBounds.getHeight());
+		//		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+		//		primaryStage.setX(primaryScreenBounds.getMinX());
+		//		primaryStage.setY(primaryScreenBounds.getMinY());
+		//		primaryStage.setWidth(primaryScreenBounds.getWidth());
+		//		primaryStage.setHeight(primaryScreenBounds.getHeight());
 		primaryStage.show();		
 	}
 
 	public void openLibrarianMenuScreen() throws IOException {
 		Main.primary.close();
 		Stage primaryStage = new Stage();
+		librarianStage =primaryStage;
 		FXMLLoader loader = new FXMLLoader();
 		SplitPane root = loader.load(getClass().getResource("/GUI/LibrarianMenu.fxml").openStream());
 		Scene scene = new Scene(root);			
 		//		scene.getStylesheets().add(getClass().getResource("/gui/StudentForm.css").toExternalForm());
 		primaryStage.setScene(scene);	
-//		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-//		primaryStage.setX(primaryScreenBounds.getMinX());
-//		primaryStage.setY(primaryScreenBounds.getMinY());
-//		primaryStage.setWidth(primaryScreenBounds.getWidth());
-//		primaryStage.setHeight(primaryScreenBounds.getHeight());
+		//		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+		//		primaryStage.setX(primaryScreenBounds.getMinX());
+		//		primaryStage.setY(primaryScreenBounds.getMinY());
+		//		primaryStage.setWidth(primaryScreenBounds.getWidth());
+		//		primaryStage.setHeight(primaryScreenBounds.getHeight());
 		primaryStage.show();		
 	}
 
 	public void searchBook(ActionEvent event) throws IOException {
-		((Node)event.getSource()).getScene().getWindow().hide();
+		Main.primary.close();
 		Stage primaryStage = new Stage();
+		searchForReader =primaryStage;
 		FXMLLoader loader = new FXMLLoader();
 		AnchorPane root = loader.load(getClass().getResource("/GUI/SearchBook.fxml").openStream());
 		Scene scene = new Scene(root);

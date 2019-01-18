@@ -61,15 +61,6 @@ public class LibrarianMenuGUI implements Initializable{
 	@FXML
 	private ImageView asd;
 
-	public void Display() throws IOException {
-		Stage primaryStage=new Stage();
-		Parent root = FXMLLoader.load(getClass().getResource("/GUI/ReaderMenu.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setTitle("Member Menu");
-		primaryStage.setScene(scene);
-		primaryStage.setResizable(false);
-		primaryStage.show();				
-	}
 
 	public void init() throws IOException {
 		leftPane.maxWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));
@@ -81,7 +72,7 @@ public class LibrarianMenuGUI implements Initializable{
 	}
 
 	public void Logout(ActionEvent event) throws IOException {
-		((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
+		OBLcontroller.librarianStage.close();
 		Main.primary.show();
 	}
 

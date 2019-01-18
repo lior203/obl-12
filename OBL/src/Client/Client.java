@@ -119,11 +119,15 @@ public class Client extends AbstractClient
 		case "Search book":
 			if (((ArrayList<String>) msg).get(3).equals("-1"))
 			{
-				clientUI.showFailed("not found");
+				Platform.runLater(() -> {
+					clientUI.showFailed("not found");
+				});
 			}
 			else if (((ArrayList<String>) msg).get(3).equals("1"))
 			{
-				clientUI.display(msg);
+				Platform.runLater(() -> {
+					clientUI.display(msg);
+				});
 			}
 			break;
 		case "Check Member Existence":
@@ -163,15 +167,23 @@ public class Client extends AbstractClient
 			System.out.println(msg);
 			if(((ArrayList<String>)msg).get(7).equals("0"))
 			{
-			Platform.runLater(() -> {
-			 clientUI.showFailed("Some user have this ID or this phone number");
-			});
+				Platform.runLater(() -> {
+					clientUI.showFailed("Some user have this ID");
+				});
 			}
-			else {
+			else  if (((ArrayList<String>)msg).get(7).equals("1"))
+			{
 				Platform.runLater(() -> {
 					clientUI.showSuccess("The user have been added successfully");
 				});
 			}
+			else if (((ArrayList<String>)msg).get(7).equals("2"))
+			{
+				Platform.runLater(() -> {
+					clientUI.showSuccess("Some user have this phone number");
+				});
+			}
+			break;
 		case "AddCopy":
 			if (((ArrayList<String>) msg).get(arrayObject.size()-1).equals("success")) {
 				Platform.runLater(()->{
@@ -188,6 +200,12 @@ public class Client extends AbstractClient
 					clientUI.showFailed("copy not exist.");
 			});
 			break;
+		case "SearchBookDetailes":
+			Platform.runLater(()->{
+				clientUI.display(msg);
+			});
+			break;
+
 		default:
 			break;
 		}

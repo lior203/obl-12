@@ -69,7 +69,7 @@ public class MemberMenuGUI implements Initializable{
 	}
 
 	public void Logout(ActionEvent event) throws IOException {
-		((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
+		OBLcontroller.memberStage.close();
 		Main.primary.show();
 	}
 

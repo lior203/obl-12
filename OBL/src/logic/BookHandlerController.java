@@ -27,4 +27,9 @@ public class BookHandlerController {
 		copyData.add(copyID);
 		Main.client.handleMessageFromClientUI(copyData);
 	}
+
+	public static void reserveBook(String bookID, String memberID) {
+		// TODO Auto-generated method stub
+		
+	}
 }

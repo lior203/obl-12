@@ -188,6 +188,14 @@ public class Server extends AbstractServer
 				e.printStackTrace();
 			}
 			break;
+		case "SearchBookDetailes":
+			try {
+				ArrayList<String> answer = DBController.getInstance().searchBookDetailes((ArrayList<String>) msg);
+				client.sendToClient(answer);
+			} catch (SQLException  | IOException e) {
+				e.printStackTrace();
+			}
+			break;
 		default:
 			break;
 		}
