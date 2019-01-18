@@ -733,26 +733,6 @@ public class DBController {
 		result.add("Logout");
 		//return result;
 	}
-
-	//	public static ArrayList<String> isCopyLate(ArrayList<String> data) throws SQLException {
-	//	ArrayList<String> checkCopyLate = new ArrayList<>();
-	//	checkCopyLate.add("Check If Copy Is Late");
-	//	ResultSet rs;
-	//	PreparedStatement ps = conn.prepareStatement("SELECT * FROM delayonreturn WHERE CopyID = ?");
-	//	ps.setString(1, data.get(1));
-	//	rs = ps.executeQuery();
-	//	if (!rs.isBeforeFirst() ) {    
-	//		return checkCopyLate;
-	//	}
-	//	if(rs.next()) {
-	//		checkCopyLate.add(rs.getString(1));
-	//		checkCopyLate.add(rs.getString(2));
-	//		checkCopyLate.add(rs.getString(3));
-	//		checkCopyLate.add(rs.getString(4));
-	//	}
-	//	return checkCopyLate;
-	//}
-
 	public static ArrayList<String> isMemberLateOnReturn(ArrayList<String> data) throws SQLException {
 		ArrayList<String> checkMemberReturns = new ArrayList<>();
 		checkMemberReturns.add("Check If Member Is Late On Return");
