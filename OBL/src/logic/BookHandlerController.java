@@ -21,11 +21,26 @@ public class BookHandlerController {
 		Main.client.handleMessageFromClientUI(copyData);
 	}
 	
-	public static void returnBook(String copyID) {	
-		ArrayList<String> copyData = new ArrayList<>();
-		copyData.add("Return Book");
-		copyData.add(copyID);
-		Main.client.handleMessageFromClientUI(copyData);
+	public static void returnBook(String copyID, String status) {	
+		ArrayList<String> memberData = new ArrayList<>();
+		memberData.add("Return Book");
+		memberData.add(copyID);
+		memberData.add(status);
+		Main.client.handleMessageFromClientUI(memberData);
+	}
+	
+//	public static void isCopyLate(String copyID) {	
+//		ArrayList<String> copyData = new ArrayList<>();
+//		copyData.add("Check If Copy Is Late");
+//		copyData.add(copyID);
+//		Main.client.handleMessageFromClientUI(copyData);
+//	}
+	
+	public static void isMemberLateOnReturn(String memberID) {	
+		ArrayList<String> memberData = new ArrayList<>();
+		memberData.add("Check If Member Is Late On Return");
+		memberData.add(memberID);
+		Main.client.handleMessageFromClientUI(memberData);
 	}
 
 	public static void reserveBook(String bookID, String memberID) {

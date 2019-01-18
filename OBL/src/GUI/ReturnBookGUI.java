@@ -8,6 +8,7 @@ import org.w3c.dom.css.Counter;
 
 import Client.Client;
 import Common.GuiInterface;
+import Common.Member;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import logic.BookHandlerController;
+import logic.CommonController;
 import logic.InventoryController;
 import logic.Main;
 import logic.RegistrationController;
@@ -48,9 +50,22 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 
 	@FXML
 	private TextField txtReturn_Date;
-	
-	private String copyID;
 
+	private String copyID;
+	private Member memb;
+	private String oldStatus;
+
+
+	//	@FXML
+	//	void memberKeyPressed(KeyEvent event) {
+	//		if (event.getCode()==KeyCode.ENTER) {
+	//			try {
+	//				RegistrationController.checkMemberExistence(txtMember_ID.getText());
+	//			} catch (Exception e) {
+	//				showFailed(e.getMessage());
+	//			}
+	//		}
+	//	}
 
 	@FXML
 	void copyKeyPressed(KeyEvent event) {
@@ -65,37 +80,49 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 
 	@FXML
 	void clickReturnButton(ActionEvent event) {
-		if(txtMember_Status.getText().equals("Active")) {
-			if(txtCopy_ID.getText().equals(copyID)) {
-				BookHandlerController.returnBook(txtCopy_ID.getText());
+		if(txtCopy_ID.getText().equals(copyID)) {
+			if(memb.getStatus().equals("Active")) {
+				BookHandlerController.returnBook(txtCopy_ID.getText(),memb.getStatus());
 			}
 			else {
-				Platform.runLater(() -> {
-					showFailed("You changed the Copy ID field, to continue click enter in Copy ID field");
-				});
+				
+				if(txtCopy_ID.getText().equals(memb.getFreezedOn())) {
+					BookHandlerController.isMemberLateOnReturn(memb.getId());
+				}
+				else {
+					BookHandlerController.returnBook(txtCopy_ID.getText(),memb.getStatus());
+				}
 			}
 		}
 		else {
-			
+			Platform.runLater(() -> {
+				showFailed("You changed the Copy ID field, to continue click enter in Copy ID field");
+				btnReturn.setDisable(true);
+			});
 		}
+		btnReturn.setDisable(true);
 	}
+
 
 	@Override
 	public void display(Object obj) {
 		ArrayList<String> msg = (ArrayList<String>)obj;
 		switch (msg.get(0)) {
 		case "Check Member Existence":
-			txtMember_Status.setText(msg.get(7));
-			txtFirst_Name.setText(msg.get(5));
-			txtLast_name.setText(msg.get(6));
+			memb = new Member(msg.get(1), msg.get(2), msg.get(3), msg.get(4), msg.get(5), 
+					msg.get(6),msg.get(7), msg.get(8), msg.get(9), msg.get(10), msg.get(11), msg.get(12));
+			txtMember_Status.setText(memb.getStatus());
+			txtFirst_Name.setText(memb.getFirstName());
+			txtLast_name.setText(memb.getLastName());
 			btnReturn.setDisable(false);
 			copyID = txtCopy_ID.getText();
+			oldStatus = memb.getStatus();
 			break;
 
 		case "Check Copy Loan Status":
 			txtMember_ID.setText(msg.get(4));
 			try {
-				RegistrationController.checkMemberExistence(msg.get(4));
+				CommonController.checkMemberExistence(msg.get(4));
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -105,18 +132,50 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 		case "Check Copy ID Existence":
 			try {
 				txtBook_Name.setText(msg.get(2));
-				txtReturn_Date.setText(msg.get(6));
+				txtReturn_Date.setText(msg.get(5));
 				BookHandlerController.isCopyLoaned(txtCopy_ID.getText());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			break;
-			
+
 		case "Return Book":
-				txtReturn_Date.setText(msg.get(1));
-				Platform.runLater(() -> {
-					showSuccess("Copy of the book " + txtBook_Name.getText() + " Returned successfully");
-				});
+			txtReturn_Date.setText(msg.get(1));
+			Platform.runLater(() -> {
+				if(oldStatus.equals(memb.getStatus())) {
+					showSuccess("Copy of the book " + txtBook_Name.getText() + " returned successfully");
+				}
+				else {
+					showSuccess("Copy of the book " + txtBook_Name.getText() + " returned successfully and the member status is now " + memb.getStatus());
+				}
+			});
+			break;
+
+		case "Check If Member Is Late On Return":
+			if(Integer.parseInt(((ArrayList<String>)msg).get(1)) == 1) {
+				if(memb.getIsGraduated().equals("true")) {
+					CommonController.changeMemberStatus(memb.getId(), "Locked");	
+
+				}
+				else {
+					CommonController.changeMemberStatus(memb.getId(), "Active");	
+				}
+				BookHandlerController.returnBook(txtCopy_ID.getText(),oldStatus);
+			}
+			else {
+				BookHandlerController.returnBook(txtCopy_ID.getText(),memb.getStatus());
+			}
+			break;
+
+		case "Change Member Status":
+			Platform.runLater(() -> {
+			if(msg.size() == 1) {
+					showFailed("Failed to change member status");
+			}
+			else {
+				memb.setStatus(msg.get(1));
+			}
+			});
 			break;
 
 		default:
@@ -132,6 +191,7 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 		alert.setHeaderText("An error occurred");
 		alert.setContentText(message);
 		alert.showAndWait();
+		
 	}
 
 	@Override

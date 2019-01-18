@@ -196,6 +196,87 @@ public class Server extends AbstractServer
 				e.printStackTrace();
 			}
 			break;
+			case "Logout":
+			try {
+				System.out.println("inside server - logout");
+				System.out.println(msg);
+				/*client.sendToClient*/DBController.getInstance().logout((ArrayList<String>) msg);
+
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+			case "Check If Member Is Late On Return":
+			try {
+				client.sendToClient(DBController.getInstance().isMemberLateOnReturn((ArrayList<String>)msg));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+			case "Change Member Status":
+			try {
+				client.sendToClient(DBController.getInstance().changeMemberStatus((ArrayList<String>)msg));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+		case "MemberUpdateMemberDetails":
+			 try {
+				DBController.getInstance().MemberUpdateMemberDetails((ArrayList<String>) msg);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 break;
+		case "CheckLibrarianManager":
+			ArrayList<String> librarianData=null;
+			try {
+				 librarianData=DBController.getInstance().CheckLibrarianManager((ArrayList<String>) msg);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				client.sendToClient(librarianData);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		case "Edit":
+			 try {
+				client.sendToClient(DBController.getInstance().editBook((ArrayList<String>) msg));
+			} catch (SQLException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		case "librarianUpdateMember":
+			ArrayList<String>member=null;
+			ArrayList<String>notify=null;
+			try {
+
+				notify=new ArrayList<String>();
+				notify.add("SearchMember");
+				member=(ArrayList<String>) DBController.getInstance().isMemberExist((ArrayList<String>) msg);
+				if (member!=null) {
+					DBController.getInstance().librarianUpdateMember((ArrayList<String>) msg);
+					notify.add("Exist");
+				}
+				else {
+					notify.add("NotExist");
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				client.sendToClient(notify);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
 		default:
 			break;
 		}

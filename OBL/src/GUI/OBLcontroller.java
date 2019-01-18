@@ -56,9 +56,9 @@ public class OBLcontroller implements Initializable, GuiInterface {
 	@FXML
 	private TextField txtPassword;
 
-	public static Stage librarianStage;
+	public static Stage LibrarianStage;
 
-	public static Stage memberStage;
+	public static Stage MemberStage;
 
 	public static Stage searchForReader;
 
@@ -83,11 +83,13 @@ public class OBLcontroller implements Initializable, GuiInterface {
 		Scene scene = new Scene(root);			
 		//		scene.getStylesheets().add(getClass().getResource("/gui/StudentForm.css").toExternalForm());
 		primaryStage.setScene(scene);	
-		//		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-		//		primaryStage.setX(primaryScreenBounds.getMinX());
-		//		primaryStage.setY(primaryScreenBounds.getMinY());
-		//		primaryStage.setWidth(primaryScreenBounds.getWidth());
-		//		primaryStage.setHeight(primaryScreenBounds.getHeight());
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			public void handle(WindowEvent we) {
+				RegistrationController.logout(Client.arrayUser.get(0),Client.arrayUser.get(1));
+				System.out.println("Stage is closing");
+			}
+		});
+		MemberStage=primaryStage;
 		primaryStage.show();		
 	}
 
@@ -100,11 +102,7 @@ public class OBLcontroller implements Initializable, GuiInterface {
 		Scene scene = new Scene(root);			
 		//		scene.getStylesheets().add(getClass().getResource("/gui/StudentForm.css").toExternalForm());
 		primaryStage.setScene(scene);	
-		//		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-		//		primaryStage.setX(primaryScreenBounds.getMinX());
-		//		primaryStage.setY(primaryScreenBounds.getMinY());
-		//		primaryStage.setWidth(primaryScreenBounds.getWidth());
-		//		primaryStage.setHeight(primaryScreenBounds.getHeight());
+		LibrarianStage=primaryStage;
 		primaryStage.show();		
 	}
 

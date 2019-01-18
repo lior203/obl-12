@@ -55,4 +55,24 @@ public class RegistrationController {
 		searchData.add(memberID);
 		Main.client.handleMessageFromClientUI(searchData);
 	}
+	
+	public  static void logout(String id,String password)
+	{
+		ArrayList<String> logoutData = new ArrayList<>();
+		logoutData.add("Logout");
+		logoutData.add(id);
+		logoutData.add(password);
+		System.out.println(logoutData+"inside registrationController");
+		Main.client.handleMessageFromClientUI(logoutData);
+	}
+	public  static void updateMemberDetails(String ID,String phoneNumber, String Email) {
+		ArrayList<String> updateData = new ArrayList<>();
+		
+		updateData.add("MemberUpdateMemberDetails");
+		updateData.add(ID);
+		updateData.add(phoneNumber);
+		updateData.add(Email);
+		Main.client.handleMessageFromClientUI(updateData);
+
+	}
 }

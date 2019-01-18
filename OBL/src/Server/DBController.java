@@ -11,12 +11,14 @@ import java.util.Date;
 
 import com.mysql.fabric.xmlrpc.base.Data;
 import com.mysql.jdbc.UpdatableResultSet;
-import com.sun.glass.ui.TouchInputSupport;
 import Client.Client;
 import Common.Book;
 import Common.InventoryBook;
+<<<<<<< HEAD
 import jdk.nashorn.internal.ir.LoopNode;
 import sun.applet.resources.MsgAppletViewer;
+=======
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 
 
 
@@ -129,14 +131,14 @@ public class DBController {
 				maxCopyID=Integer.parseInt(rs.getString(1).substring((rs.getString(1).indexOf("-"))+1));
 			}
 		}
-		PreparedStatement insert = conn.prepareStatement("insert into copies values(?,?,?,?,?,?)");
+		PreparedStatement insert = conn.prepareStatement("insert into copies values(?,?,?,?,?)");
 		copyid=(data.get(data.size()-1)) + "-" + Integer.toString(++maxCopyID);
 		insert.setString(1, copyid);
 		insert.setString(2, data.get(1));
 		insert.setString(3, "false");
-		insert.setString(4, data.get(2));
-		insert.setString(5, data.get(data.size()-1));
-		insert.setString(6, null);
+		//		insert.setString(4, data.get(2));
+		insert.setString(4, data.get(data.size()-1));
+		insert.setString(5, null);
 		insert.executeUpdate();
 		data.add(copyid);
 		data.add("success");
@@ -144,8 +146,8 @@ public class DBController {
 		return data;
 	}
 
-	public static void updatecopyamount(String action,String bookid) throws SQLException {
-		int amountcopies=0;
+	public static int updatecopyamount(String action,String bookid) throws SQLException {
+		int amountcopies=0,answer;
 		switch (action) {
 		case "increase":
 			PreparedStatement increse=conn.prepareStatement("UPDATE book SET copies=copies+1 WHERE bookID=?");
@@ -156,16 +158,28 @@ public class DBController {
 			PreparedStatement decrease=conn.prepareStatement("UPDATE book SET copies=copies-1 WHERE bookID=?");
 			decrease.setString(1, bookid);
 			decrease.executeUpdate();
+			PreparedStatement stmt = conn.prepareStatement("SELECT copies FROM book WHERE BookID = ?");
+			stmt.setString(1, bookid);
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()) {
+				if (rs.getString(1).equals("0")) {
+					PreparedStatement delete=conn.prepareStatement("DELETE FROM book WHERE bookID = ?");
+					delete.setString(1, bookid);
+					answer=delete.executeUpdate();
+					return answer;
+				}
+			}
 			break;
 		default:
 			break;
 		}
-
+		return 0;
 	}
 
 
 	public static int RemoveCopy(ArrayList<String> data) throws SQLException{
 		String bookID;
+		int answer=0;
 		PreparedStatement getbookid = conn.prepareStatement("SELECT BookID FROM copies WHERE CopyID=?");
 		getbookid.setString(1, data.get(1));
 		ResultSet rs = getbookid.executeQuery();
@@ -178,7 +192,10 @@ public class DBController {
 		removestmt.setString(1, data.get(1));
 		int res=removestmt.executeUpdate();
 		if (res==1) {
-			updatecopyamount("decrease",bookID);
+			answer=updatecopyamount("decrease",bookID);
+			if (answer==1) {
+				res=2;
+			}
 		}
 		return res;
 	}
@@ -187,12 +204,14 @@ public class DBController {
 		String bookid,location;
 		ArrayList<String> result=new ArrayList<String>();
 		result.add("checkExistenceByCopy");
-		PreparedStatement getbook = conn.prepareStatement("SELECT BookID,ShelfLocation FROM copies WHERE CopyID=?");
+		//		PreparedStatement getbook = conn.prepareStatement("SELECT BookID,ShelfLocation FROM copies WHERE CopyID=?");
+		PreparedStatement getbook = conn.prepareStatement("SELECT BookID FROM copies WHERE CopyID=?");
+
 		getbook.setString(1, msg.get(1));
 		ResultSet rs = getbook.executeQuery();
 		if(rs.next()) {
 			bookid=(rs.getString(1));
-			location=rs.getString(2);
+			//			location=rs.getString(2);
 		}
 		else
 			return result;
@@ -200,7 +219,6 @@ public class DBController {
 		getbookdetails.setString(1, bookid);
 		ResultSet rs1=getbookdetails.executeQuery();
 		if(rs1.next()) {
-			result.add(location);
 			result.add(rs1.getString(1));
 			result.add(rs1.getString(2));
 			result.add(rs1.getString(3));
@@ -212,6 +230,7 @@ public class DBController {
 			result.add(rs1.getString(9));
 			result.add(rs1.getString(10));
 			result.add(rs1.getString(11));
+			result.add(rs1.getString(12));
 		}
 		else
 			return result;
@@ -242,40 +261,55 @@ public class DBController {
 	public static ArrayList<String> inventoryCheckExistence(ArrayList<String> data) throws SQLException{
 		ArrayList<String> newData = new ArrayList<>();
 		newData.add("InventoryCheckExistense");
-		String string = "SELECT * FROM book WHERE BookName=? AND AuthorsName=?";
-		PreparedStatement checkExistence = conn.prepareStatement(string);
-		checkExistence.setString(1, data.get(1));
-		checkExistence.setString(2, data.get(2));
-		ResultSet rs = checkExistence.executeQuery();
+		if (data.size()==3) {
+			String string = "SELECT * FROM book WHERE BookName=? AND AuthorsName=?";
+			PreparedStatement checkExistence = conn.prepareStatement(string);
+			checkExistence.setString(1, data.get(1));
+			checkExistence.setString(2, data.get(2));
+			ResultSet rs = checkExistence.executeQuery();
 
-		if(rs.next()) {
-			newData.add(rs.getString(1));
-			newData.add(rs.getString(2));
-			newData.add(rs.getString(3));
-			newData.add(rs.getString(4));
-			newData.add(rs.getString(5));
-			newData.add(rs.getString(6));
-			newData.add(rs.getString(7));
-			newData.add(rs.getString(8));
-			newData.add(rs.getString(9));
-			newData.add(rs.getString(10));
-			newData.add(rs.getString(11));
+			if(rs.next()) {
+				newData.add(rs.getString(1));
+				newData.add(rs.getString(2));
+				newData.add(rs.getString(3));
+				newData.add(rs.getString(4));
+				newData.add(rs.getString(5));
+				newData.add(rs.getString(6));
+				newData.add(rs.getString(7));
+				newData.add(rs.getString(8));
+				newData.add(rs.getString(9));
+				newData.add(rs.getString(10));
+				newData.add(rs.getString(11));
+				newData.add(rs.getString(12));
+			}
+			else {
+				newData.add("not exist");
+			}
 		}
-		else {
-			newData.add("not exist");
+		else if (data.size()==2) {
+			String string = "SELECT * FROM book WHERE BookID=?";
+			PreparedStatement checkExistence = conn.prepareStatement(string);
+			checkExistence.setString(1, data.get(1));
+			ResultSet rs = checkExistence.executeQuery();
+			if(rs.next()) {
+				newData.add(rs.getString(1));
+				newData.add(rs.getString(2));
+				newData.add(rs.getString(3));
+				newData.add(rs.getString(4));
+				newData.add(rs.getString(5));
+				newData.add(rs.getString(6));
+				newData.add(rs.getString(7));
+				newData.add(rs.getString(8));
+				newData.add(rs.getString(9));
+				newData.add(rs.getString(10));
+				newData.add(rs.getString(11));
+				newData.add(rs.getString(12));
+			}
+			else {
+				newData.add("not exist");
+			}
 		}
-		rs.close();
-		checkExistence.close();
-		String string1 = "SELECT ShelfLocation FROM copies WHERE BookID=?";
-		PreparedStatement getcopyloaction = conn.prepareStatement(string1);
-		getcopyloaction.setString(1, newData.get(1));
-		ResultSet rs1 = getcopyloaction.executeQuery();
-		if(rs1.next()) {
-			newData.add(rs1.getString(1));
-		}
-		rs1.close();
-		getcopyloaction.close();
-		return newData;
+			return newData;
 	}
 
 	public static ArrayList<String>  login(ArrayList<String> data) throws SQLException
@@ -283,53 +317,99 @@ public class DBController {
 		ArrayList<String> userDetails = null;
 		PreparedStatement login;
 		ResultSet rs;
-		login = conn.prepareStatement("SELECT LibrarianID,Password,FirstName,LastName,IsLoggedIn  FROM librarian WHERE LibrarianID=? AND Password=?");
-		login.setString(1,data.get(1));
-		login.setString(2,data.get(2));
+		//First we search in librarian table if the user is librarian
+		login = conn.prepareStatement("SELECT LibrarianID,Password,FirstName,LastName,IsLoggedIn FROM librarian WHERE LibrarianID=? AND Password=?");
+		login.setString(1,data.get(1));//LibrarianID
+		login.setString(2,data.get(2));//Password
 		rs = login.executeQuery();
 
 		if(rs.next()) {
+			//If the user is a librarian
 			userDetails=new ArrayList<String>();
 			userDetails.add("Login");
-			userDetails.add(rs.getString(1));
-			userDetails.add(rs.getString(3));
-			userDetails.add(rs.getString(4));
-			System.out.println(userDetails+"userDetails");
-			//////////////////Enter librarian menu
-			if(rs.getString(5).equals("true")) { //check if user is connected from another device
-				System.out.println("librarian is already connceted from another device");
-				userDetails.add("0");
+			userDetails.add(rs.getString(1));//Add LibrarianID
+			userDetails.add(rs.getString(2));//Add Password
+			userDetails.add(rs.getString(3));//Add FirstName
+			userDetails.add(rs.getString(4));//Add LastName
+			//System.out.println(userDetails+"userDetails");
+
+
+			//////////////////Check if user (librarian) is connected from another device
+
+			if(rs.getString(5).equals("true")) { 
+				//System.out.println("librarian is already connceted from another device");
+				userDetails.add("0");//Add 0 to the arrayList to identify that the user is already connected
 				return userDetails;
 			}
-			userDetails.add("1");
+			else {
+				//If the librarian isn't connected - update IsLoggedIn to 'true' (connected)
+				login = conn.prepareStatement("UPDATE librarian SET IsLoggedIn='true' where LibrarianID=?");
+				login.setString(1, data.get(1));
+				login.executeUpdate();
+				//System.out.println("librarian connceted");
+			}
+			userDetails.add("1");//Add 1 to the arrayList to identify that the librarian is connected
 			return userDetails;
 		}
 
 		else {
+			//If the user is a member
 			userDetails=new ArrayList<String>();
 			login = conn.prepareStatement("SELECT * FROM members WHERE MemberID=? AND Password=?");
-			login.setString(1,data.get(1));
-			login.setString(2,data.get(2));
+			login.setString(1,data.get(1));//MemberID
+			login.setString(2,data.get(2));//Password
 			rs = login.executeQuery();
 			if(rs.next()) {
 				userDetails.add("Login");
-				userDetails.add(rs.getString(1));
-				userDetails.add(rs.getString(5));
-				userDetails.add(rs.getString(6));
-				if(rs.getString(10).equals("true")) { //check if user is connected from another device
-					System.out.println("librarian is already connceted from another device");
-					userDetails.add("0");
+				userDetails.add(rs.getString(1));//Add MemberID
+				userDetails.add(rs.getString(4));//Add Password
+				userDetails.add(rs.getString(5));//Add FirstName
+				userDetails.add(rs.getString(6));//Add LastName
+
+				//////////////////Check if user (member) is connected from another device
+
+				if(rs.getString(10).equals("true")) { 
+					//System.out.println("librarian is already connceted from another device");
+					userDetails.add("0");//Add 0 to the arrayList to identify that the member is already connected
 					return userDetails;
 				}
-				userDetails.add("2");
+				else {
+					login = conn.prepareStatement("UPDATE members SET IsLoggedIn='true' where MemberID=?");
+					login.setString(1, data.get(1));
+					login.executeUpdate();
+				}
+
+				if(rs.getString(12).equals("true")) { 
+					userDetails.add("3");
+					return userDetails;
+				}
+				userDetails.add("2");//Add 2 to the arrayList to identify that the member is connected
 				return userDetails;
 			}
 			else {
-				System.out.println("The User doesn't exists");
+				//Enter null values if the user doesn't exists
+				userDetails.add("Login");
+				userDetails.add(null);
+				userDetails.add(null);
+				userDetails.add(null);
+				userDetails.add(null);
+				userDetails.add("-1");
 				return userDetails;
 			}	
 		}
 	}
+
+	public static ArrayList<String> editBook(ArrayList<String> searchData) throws SQLException{
+		int answer;
+		PreparedStatement updatebook=conn.prepareStatement("UPDATE book SET BookName=?,EditionNumber=?,BookGenre=?,PDFLink=?,AuthorsName=?,ShelfLocation=?,Description=?,Wanted=?,PurchaseDate=?,PrintDate=? WHERE BookID=?");
+		for (int i = 1; i <= searchData.size(); i++) {
+			updatebook.setString(i, searchData.get(i));			
+		}
+		answer=updatebook.executeUpdate();
+		System.out.println(searchData);
+		return searchData;
+	}
+
 
 	public static ArrayList<String> searchBook(ArrayList<String> searchData) throws SQLException
 	{
@@ -442,6 +522,7 @@ public class DBController {
 			return null;
 	}
 
+
 	public static ArrayList<String> isMemberExist(ArrayList<String> data) throws SQLException {
 		ArrayList<String> checkMemberExistence = new ArrayList<>();
 		checkMemberExistence.add("Check Member Existence");
@@ -462,6 +543,9 @@ public class DBController {
 			checkMemberExistence.add(rs.getString(7));
 			checkMemberExistence.add(rs.getString(8));
 			checkMemberExistence.add(rs.getString(9));
+			checkMemberExistence.add(rs.getString(10));
+			checkMemberExistence.add(rs.getString(11));
+			checkMemberExistence.add(rs.getString(12));
 		}
 		return checkMemberExistence;
 	}
@@ -506,7 +590,6 @@ public class DBController {
 			checkCopyLoanStatus.add(rs.getString(3));
 			checkCopyLoanStatus.add(rs.getString(4));
 			checkCopyLoanStatus.add(rs.getString(5));
-			checkCopyLoanStatus.add(rs.getString(6));
 		}
 		return checkCopyLoanStatus;
 	}
@@ -526,12 +609,68 @@ public class DBController {
 		ps1.setString(2, currentTime);
 		ps1.setString(3, data.get(1));
 		ps1.setString(4, "false");
+
+
+		if(!data.get(2).equals("Active")) {
+			String memberID = null;
+			String copyID = null;
+			String newCopyID = null;
+			ResultSet rs;
+
+			PreparedStatement ps3 = conn.prepareStatement("SELECT MemberID from delayonreturn WHERE CopyID = ?");
+			ps3.setString(1, data.get(1));
+			rs = ps3.executeQuery();
+			if(rs.next()) {
+				memberID = rs.getString(1);
+			}
+
+			PreparedStatement ps4 = conn.prepareStatement("DELETE from delayonreturn WHERE CopyID = ?");
+			ps4.setString(1, data.get(1));
+			ps4.executeUpdate();
+
+			PreparedStatement ps5 = conn.prepareStatement("SELECT FreezedOn from members WHERE MemberID = ?");
+			ps5.setString(1, memberID);
+			rs = ps5.executeQuery();
+			if(rs.next()) {
+				copyID = rs.getString(1);
+			}
+
+			PreparedStatement ps6 = conn.prepareStatement("SELECT CopyID from delayonreturn WHERE MemberID = ?");
+			ps6.setString(1, memberID);
+			rs = ps6.executeQuery();
+			if (!rs.isBeforeFirst() ) {    
+				newCopyID = null;
+			}
+			else {
+				rs.next();
+				newCopyID = rs.getString(1);
+			}
+
+
+			if(data.get(1).equals(copyID) && newCopyID != null && memberID != null) {
+				PreparedStatement ps7 = conn.prepareStatement("UPDATE members SET FreezedOn = ? WHERE MemberID = ?");
+				ps7.setString(1, newCopyID);
+				ps7.setString(2, memberID);
+				ps7.executeUpdate();
+			}
+			else {
+				if(data.get(1).equals(copyID) && newCopyID == null && memberID != null) {
+					PreparedStatement ps8 = conn.prepareStatement("UPDATE members SET FreezedOn = ? WHERE MemberID = ?");
+					ps8.setString(1, newCopyID);
+					ps8.setString(2, memberID);
+					ps8.executeUpdate();
+				}
+			}
+		}
+
 		if(ps.executeUpdate() != 0 && ps1.executeUpdate() != 0) {
 			returnBook.add(currentTime);
 		}
+
 		return returnBook;
 	}
 
+<<<<<<< HEAD
 
 	public ArrayList<String> searchBookDetailes(ArrayList<String> msg) throws SQLException{
 		ResultSet 	rs1,rs2,rs3;
@@ -586,6 +725,119 @@ public class DBController {
 		return msg;
 	}
 
+=======
+	public static /*ArrayList<String>*/ void logout(ArrayList<String> data) throws SQLException {
+		ArrayList<String> result=new ArrayList<String>();
+		PreparedStatement login;
+		ResultSet rs;
+		login = conn.prepareStatement("SELECT LibrarianID,Password,FirstName,LastName,IsLoggedIn  FROM librarian WHERE LibrarianID=? AND Password=?");
+		login.setString(1,data.get(1));
+		login.setString(2,data.get(2));
+		rs = login.executeQuery();
+
+		if(rs.next()) {
+			System.out.println("inside DBcontroller - logout");
+			login = conn.prepareStatement("UPDATE librarian SET IsLoggedIn='false' where LibrarianID=?");
+			login.setString(1,data.get(1));
+			login.executeUpdate();
+			System.out.println("inside DBcontroller2 - librarian logged out");
+		}
+
+		else {
+			login = conn.prepareStatement("SELECT * FROM members WHERE MemberID=? AND Password=?");
+			login.setString(1,data.get(1));
+			login.setString(2,data.get(2));
+			rs = login.executeQuery();
+
+			if(rs.next()) {
+				login = conn.prepareStatement("UPDATE members SET IsLoggedIn='false' where MemberID=?");
+				login.setString(1,data.get(1));
+				login.executeUpdate();
+			}
+		}
+		result.add("Logout");
+		//return result;
+	}
+
+	//	public static ArrayList<String> isCopyLate(ArrayList<String> data) throws SQLException {
+	//	ArrayList<String> checkCopyLate = new ArrayList<>();
+	//	checkCopyLate.add("Check If Copy Is Late");
+	//	ResultSet rs;
+	//	PreparedStatement ps = conn.prepareStatement("SELECT * FROM delayonreturn WHERE CopyID = ?");
+	//	ps.setString(1, data.get(1));
+	//	rs = ps.executeQuery();
+	//	if (!rs.isBeforeFirst() ) {    
+	//		return checkCopyLate;
+	//	}
+	//	if(rs.next()) {
+	//		checkCopyLate.add(rs.getString(1));
+	//		checkCopyLate.add(rs.getString(2));
+	//		checkCopyLate.add(rs.getString(3));
+	//		checkCopyLate.add(rs.getString(4));
+	//	}
+	//	return checkCopyLate;
+	//}
+
+	public static ArrayList<String> isMemberLateOnReturn(ArrayList<String> data) throws SQLException {
+		ArrayList<String> checkMemberReturns = new ArrayList<>();
+		checkMemberReturns.add("Check If Member Is Late On Return");
+		ResultSet rs;
+		PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM delayonreturn WHERE MemberID = ?");
+		ps.setString(1, data.get(1));
+		rs = ps.executeQuery();
+		if (rs.next()) {
+			checkMemberReturns.add(Integer.toString(rs.getInt(1)));
+		}
+		else {
+			checkMemberReturns.add("0");
+		}
+		return checkMemberReturns;
+	}
+
+
+	public static ArrayList<String> changeMemberStatus(ArrayList<String> data) throws SQLException {
+		ArrayList<String> changeStatus = new ArrayList<>();
+		changeStatus.add("Change Member Status");
+		PreparedStatement ps = conn.prepareStatement("UPDATE members SET Status = ? WHERE MemberID = ?");
+		ps.setString(1, data.get(2));
+		ps.setString(2, data.get(1));
+		if(ps.executeUpdate() != 0) {
+			changeStatus.add(data.get(2));
+		}
+		return changeStatus;
+	}
+	public static ArrayList<String> CheckLibrarianManager(ArrayList<String> msg) throws SQLException {
+		ArrayList<String> CheckLibrarianManager = new ArrayList<String>();
+		CheckLibrarianManager.add("CheckLibrarianManager");
+		ResultSet rs=null;
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM librarian WHERE LibrarianID = ?");
+		ps.setString(1,((String)msg.get(1)));
+		rs = ps.executeQuery();
+		if(rs.next()) {
+			CheckLibrarianManager.add(rs.getString(7));
+			System.out.println(CheckLibrarianManager);
+			return CheckLibrarianManager;
+
+		}
+		else
+			return null;
+	}
+	public void MemberUpdateMemberDetails(ArrayList<String> member) throws SQLException {
+		PreparedStatement ps = conn.prepareStatement("UPDATE members SET PhoneNumber = ?, Email = ? WHERE MemberID = ?");
+		ps.setString(1, member.get(2));
+		ps.setString(2, member.get(3));
+		ps.setString(3, member.get(1));
+		ps.executeUpdate();
+	}
+	public void librarianUpdateMember(ArrayList<String> member) throws SQLException {
+		PreparedStatement ps;
+		ps = conn.prepareStatement("UPDATE members SET Status = ?, Notes = ? WHERE MemberID = ?");
+		ps.setString(1, member.get(2));
+		ps.setString(2, member.get(3));
+		ps.setString(3, member.get(1));
+		ps.executeUpdate();
+	}
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 	private static Connection connectToDatabase() {
 		try 
 		{

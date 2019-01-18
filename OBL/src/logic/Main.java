@@ -5,8 +5,10 @@ import Common.GuiInterface;
 import GUI.OBLcontroller;
 import GUI.RegistrationGUI;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -31,10 +33,15 @@ public class Main extends Application implements GuiInterface {
 		client=new Client(host,DEFAULT_PORT,this);
  		Parent root = FXMLLoader.load(getClass().getResource("/GUI/OBL-openScreen.fxml"));
 		Scene scene = new Scene(root);
-		primary=primaryStage;
 		primaryStage.setTitle("OBL System");
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+	          public void handle(WindowEvent we) {
+	              System.out.println("Stage is closing");
+	          }
+		});
+		primary=primaryStage;
 		primaryStage.show();	
 	}
 

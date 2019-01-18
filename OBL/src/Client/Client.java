@@ -170,6 +170,7 @@ public class Client extends AbstractClient
 				Platform.runLater(() -> {
 					clientUI.showFailed("Some user have this ID");
 				});
+
 			}
 			else  if (((ArrayList<String>)msg).get(7).equals("1"))
 			{

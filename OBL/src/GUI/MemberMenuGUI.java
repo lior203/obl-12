@@ -69,7 +69,9 @@ public class MemberMenuGUI implements Initializable{
 	}
 
 	public void Logout(ActionEvent event) throws IOException {
-		OBLcontroller.memberStage.close();
+		OBLcontroller.MemberStage.close();
+		RegistrationController.logout(Client.arrayUser.get(0),Client.arrayUser.get(1));
+		Client.arrayUser.clear();
 		Main.primary.show();
 	}
 

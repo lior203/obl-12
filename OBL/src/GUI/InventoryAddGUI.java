@@ -30,7 +30,6 @@ import javafx.util.converter.LocalDateStringConverter;
 import javafx.util.converter.LocalDateTimeStringConverter;
 import logic.InventoryController;
 import logic.Main;
-import sun.applet.resources.MsgAppletViewer;
 
 public class InventoryAddGUI implements GuiInterface,Initializable{
 	public static String Location;
@@ -99,7 +98,7 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		if (checkfields())
 			showFailed("Fill all the dields");
 		else {
-			InventoryController.addBook(txtBook_Name.getText(), txtEdition.getText(), txtTheme.getText(), txtAuthor.getText(), txtPrint_Date.getValue().format(formatter).toString(),txtCopies.getText(),txtPurchase_Date.getValue().toString(),txtShelf_Location.getText(),txtWanted.getText(),txtDescription.getText());
+			InventoryController.addBook(txtBook_Name.getText(), txtEdition.getText(), txtTheme.getText(), txtAuthor.getText(), txtPrint_Date.getValue().toString(),txtCopies.getText(),txtPurchase_Date.getValue().toString(),txtShelf_Location.getText(),txtWanted.getText(),txtDescription.getText());
 		}
 	}
 
@@ -123,10 +122,16 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 
 	@FXML
 	void CheckExistense(ActionEvent event) {
-		if (txtBook_Name.getText().isEmpty()||txtAuthor.getText().isEmpty())
-			showFailed("fields mising");
+		if (txtBook_Name.getText().isEmpty()||txtAuthor.getText().isEmpty()) {
+			showFailed("fill the missing fields.");
+			txtBook_Name.setEditable(true);
+			txtAuthor.setEditable(true);
+		}
 		else{
-			InventoryController.checkExistence(txtBook_Name.getText(),txtAuthor.getText());
+			ArrayList<String> msg=new ArrayList<>();
+			msg.add(txtBook_Name.getText());
+			msg.add(txtAuthor.getText());
+			InventoryController.checkExistence((ArrayList<String>) msg);
 			txtPrint_Date.setDisable(false);
 			txtPurchase_Date.setDisable(false);
 			btnCopy.setDisable(true);
@@ -164,6 +169,9 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		alert.setTitle("Confirm");
 		alert.setHeaderText(string);
 		alert.showAndWait();	
+		freshStart();
+		txtBook_Name.setEditable(true);
+		txtAuthor.setEditable(true);
 	}
 
 	@Override
@@ -207,12 +215,14 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		this.txtCopies.clear();
 		this.txtWanted.clear();
 		this.txtEdition.clear();
-		this.txtPrint_Date.setPromptText(null);
+		this.txtPrint_Date.setValue(null);
 		this.txtTheme.clear();
 		this.txtDescription.clear();
-		this.txtPurchase_Date.setPromptText(null);//purchasedate.fromString(msg.get(10)));
+		this.txtPurchase_Date.setValue(null);//purchasedate.fromString(msg.get(10)));
 		this.txtShelf_Location.clear();
+		txtAuthor.setEditable(true);
 		Enablefields(false);
-		txtCatlog_Number.clear();		
+		txtCatlog_Number.clear();
+		
 	}
 }

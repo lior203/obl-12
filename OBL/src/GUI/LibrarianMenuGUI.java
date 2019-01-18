@@ -73,6 +73,8 @@ public class LibrarianMenuGUI implements Initializable{
 
 	public void Logout(ActionEvent event) throws IOException {
 		OBLcontroller.librarianStage.close();
+		RegistrationController.logout(Client.arrayUser.get(0),Client.arrayUser.get(1));
+		Client.arrayUser.clear();
 		Main.primary.show();
 	}
 
