@@ -400,7 +400,7 @@ public class DBController {
 			updatebook.setString(i, searchData.get(i));			
 		}
 		answer=updatebook.executeUpdate();
-		System.out.println(searchData);
+		System.out.println(answer);
 		return searchData;
 	}
 
@@ -664,7 +664,7 @@ public class DBController {
 		return returnBook;
 	}
 
-	public static /*ArrayList<String>*/ void logout(ArrayList<String> data) throws SQLException {
+	public static void logout(ArrayList<String> data) throws SQLException {
 		ArrayList<String> result=new ArrayList<String>();
 		PreparedStatement login;
 		ResultSet rs;

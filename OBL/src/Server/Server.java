@@ -248,11 +248,13 @@ public class Server extends AbstractServer
 			break;
 		case "Edit":
 			 try {
-				client.sendToClient(DBController.getInstance().editBook((ArrayList<String>) msg));
-			} catch (SQLException | IOException e) {
+				 System.out.println(DBController.getInstance().editBook((ArrayList<String>) msg));
+//				client.sendToClient(DBController.getInstance().editBook((ArrayList<String>) msg));
+			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			 break;
 		case "librarianUpdateMember":
 			ArrayList<String>member=null;
 			ArrayList<String>notify=null;

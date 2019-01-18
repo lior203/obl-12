@@ -202,23 +202,6 @@ public class Client extends AbstractClient
 			});
 			break;
 
-			//		case "Logout":
-			//			Platform.runLater(()->{
-			//				System.out.println("lioor");
-			//				System.out.println(clientUI);
-			//				clientUI.display(msg);
-			//			});
-			//			break;
-
-			//			case "Check If Copy Is Late":
-			//			if(((ArrayList<String>)msg).size() == 1) {
-			//
-			//			}
-			//			else {
-			//
-			//			}
-			//			break;
-
 		case "Check If Member Is Late On Return":
 			clientUI.display((ArrayList<String>)msg);
 			break;
