@@ -480,12 +480,11 @@ public class DBController {
 		PreparedStatement execute;
 		ResultSet rs;
 		ArrayList<String>member=new ArrayList<String>();
-
+		member.add("SearchMember");
 		execute = conn.prepareStatement("SELECT * FROM members WHERE MemberID=?");
 		execute.setString(1,stu.get(1));
 		rs = execute.executeQuery();
 		if(rs.next()) { 
-			member.add("SearchMember");
 			member.add(rs.getString(1));
 			member.add(rs.getString(2));
 			member.add(rs.getString(3));
@@ -495,6 +494,9 @@ public class DBController {
 			member.add(rs.getString(7));
 			member.add(rs.getString(8));
 			member.add(rs.getString(9));
+			member.add(rs.getString(10));
+			member.add(rs.getString(11));
+			member.add(rs.getString(12));
 			System.out.println(member);
 			return member;
 		}
@@ -889,6 +891,19 @@ public class DBController {
 		return loanBook;
 	}
 
+	public void viewPersonalHistory(ArrayList<String> searchData) throws SQLException {
+		PreparedStatement searchLoan;
+		ResultSet rsLoan;
+		searchLoan = conn.prepareStatement("SELECT CopyID FROM loanbook WHERE MemberID=? ");
+		searchLoan.setString(1,searchData.get(2));
+		rsLoan = searchLoan.executeQuery();
+		if (!(rsLoan.isBeforeFirst()))
+		{
+			searchData.add("-1");	// the no loan were found, handle with this....
+			//return searchData; 		
+		}
+	}
+
 	private static Connection connectToDatabase() {
 		try 
 		{
@@ -908,6 +923,8 @@ public class DBController {
 		}
 		return null;
 	}
+
+
 
 
 

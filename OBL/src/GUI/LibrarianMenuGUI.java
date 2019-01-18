@@ -75,13 +75,12 @@ public class LibrarianMenuGUI implements Initializable,GuiInterface{
 	//	}
 
 	public void init() throws IOException {
+	Main.client.clientUI= this;
 		leftPane.maxWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));
 		leftPane.minWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/Registration.fxml"));
 		rightPane.getChildren().setAll(pane);
-		lblUser_name.setText(Client.arrayUser.get(2)+" "+Client.arrayUser.get(3)); 
-		//System.out.println(Client.arrayUser.get(2)+" "+Client.arrayUser.get(3));  
-		Main.client.clientUI= this;
+		lblUser_name.setText(Client.arrayUser.get(2)+" "+Client.arrayUser.get(3)); 		
 	}
 
 	public void Logout(ActionEvent event) throws IOException {

@@ -14,6 +14,7 @@ import Common.GuiInterface;
 import Common.InventoryBook;
 import GUI.InventoryAddGUI;
 import GUI.InventoryRemoveGUI;
+import GUI.MemberPersonalDataGUI;
 import GUI.OBLcontroller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -119,7 +120,8 @@ public class Client extends AbstractClient
 			}
 			else
 			{
-				Platform.runLater(() -> {					
+				Platform.runLater(() -> {	
+					System.out.println(clientUI);
 					clientUI.display((ArrayList<String>) msg);
 				});
 			}

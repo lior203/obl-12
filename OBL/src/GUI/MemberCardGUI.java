@@ -55,6 +55,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
     @FXML
     private ComboBox cmbStatus;
 	ObservableList<String> list;
+	boolean update=false;
     @FXML
     void searchMember(KeyEvent event) {
     	if (event.getCode()==KeyCode.ENTER) {
@@ -63,6 +64,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
     }
     @FXML
     void librarianUpdateMember(ActionEvent event) {
+    	update=true;
     	CommonController.librarianUpdateMember(cmbStatus.getValue().toString(),txtMember_ID.getText(),txtArea_Notes.getText(),isManager);
     }
     String isManager;
@@ -75,11 +77,13 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 
 	@Override
 	public void showSuccess(String string) {
-		// TODO Auto-generated method stub
-		
+		Alert alert=new Alert(AlertType.INFORMATION);
+		alert.setTitle("Success");
+		alert.setHeaderText(string);
+		alert.showAndWait();
 	}
 
-	@Override////////////////////////////////////
+	@Override
 	public void display(Object obj) {
 		ArrayList<String>userData=(ArrayList<String>) obj;
 		if (userData.get(0).equals("CheckLibrarianManager")) {
@@ -88,9 +92,18 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		}
 		else if (userData.get(0).equals("SearchMember"))
 		{
+			System.out.println(userData);
+			if (update==false) {
+				setCardMember(userData);
+			}
 			if (userData.get(1).equals("NotExist")) {
 				
 				showFailed("Member does not exist");
+			}
+			else {
+				if (update) {
+					showSuccess("Member updated successfully");
+				}
 			}
 			if (isManager.equals("true")) {
 				setEditableLibrarianManager();
@@ -98,9 +111,8 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 			else {
 				setEditableLibrarian();
 			}
-		setCardMember(userData);
 		}
-	}///////////////////////////////////////////
+	}
 	private void setEditableLibrarian() {
 		txtFirst_Name.setEditable(false);
 		txtLast_Name.setEditable(false);
@@ -128,12 +140,14 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		cmbStatus.setDisable(false);
 	}
 	private void setCardMember(ArrayList<String> memberData) {
+		txtMember_ID.setEditable(false);
 		txtFirst_Name.setText(memberData.get(5));
 		txtLast_Name.setText(memberData.get(6));
 		txtPhone_Number.setText(memberData.get(2));
 		txtEmail.setText(memberData.get(3));
 		cmbStatus.setValue(memberData.get(7));
 		txtArea_Notes.setText(memberData.get(8));
+
 	}
 
 	private void setFields(Boolean cond) {

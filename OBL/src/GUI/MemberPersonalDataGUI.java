@@ -4,13 +4,18 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import com.mysql.fabric.xmlrpc.base.Member;
+
 import Client.Client;
 import Common.GuiInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import logic.CommonController;
 import logic.Main;
 import logic.RegistrationController;
 
@@ -43,6 +48,7 @@ public class MemberPersonalDataGUI implements Initializable,GuiInterface{
 		    	if (txtPhone_Number.getText().length()==10){
 			    	if (txtEmail.getText().contains("@")){
 		    		RegistrationController.updateMemberDetails(txtID.getText(),txtPhone_Number.getText(), txtEmail.getText());
+		    		showSuccess("Details updated successfully");
 			    	}
 			    	else 
 			    		showFailed("Wrong Email, please enter new parameters");
@@ -54,26 +60,31 @@ public class MemberPersonalDataGUI implements Initializable,GuiInterface{
 	    }
 	    @FXML
 	    void viewPersonalHistory(ActionEvent event) {
-
+	    	CommonController.viewPersonalHistory(member);
 	    }
+	    Common.Member member;// object of Member details
 		@Override
 		public void showSuccess(String string) {
-			// TODO Auto-generated method stub
-			
+			Alert alert=new Alert(AlertType.INFORMATION);
+			alert.setTitle("Success");
+			alert.setHeaderText(string);
+			alert.showAndWait();			
 		}
 
 		@Override
 		public void display(Object obj) {
 			ArrayList<String>memberData=(ArrayList<String>) obj;
+			member=new Common.Member(memberData.get(1), memberData.get(2), memberData.get(3), memberData.get(4), memberData.get(5), memberData.get(6), memberData.get(7), memberData.get(8), memberData.get(9), memberData.get(10), memberData.get(11), memberData.get(12));
 			setCardMember(memberData);
 			setEditableMember();
-			//setFields(false);			
 		}
 
 		@Override
 		public void showFailed(String message) {
-			// TODO Auto-generated method stub
-			
+			Alert alert=new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText(message);
+			alert.showAndWait();			
 		}
 
 		@Override
@@ -92,6 +103,7 @@ public class MemberPersonalDataGUI implements Initializable,GuiInterface{
 			txtStatus.setEditable(false);
 		}
 		private void setCardMember(ArrayList<String> memberData) {
+			txtID.setText(memberData.get(1));
 			txtFirst_Name.setText(memberData.get(5));
 			txtLast_Name.setText(memberData.get(6));
 			txtPhone_Number.setText(memberData.get(2));
