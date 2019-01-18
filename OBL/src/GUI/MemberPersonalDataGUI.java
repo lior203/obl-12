@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import com.mysql.fabric.xmlrpc.base.Member;
+
 import Client.Client;
 import Common.GuiInterface;
 import javafx.event.ActionEvent;
@@ -13,6 +15,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import logic.CommonController;
 import logic.Main;
 import logic.RegistrationController;
 
@@ -57,7 +60,7 @@ public class MemberPersonalDataGUI implements Initializable,GuiInterface{
 	    }
 	    @FXML
 	    void viewPersonalHistory(ActionEvent event) {
-
+	    	CommonController.viewPersonalHistory(txtID.getText());
 	    }
 		@Override
 		public void showSuccess(String string) {
@@ -70,6 +73,7 @@ public class MemberPersonalDataGUI implements Initializable,GuiInterface{
 		@Override
 		public void display(Object obj) {
 			ArrayList<String>memberData=(ArrayList<String>) obj;
+			//Member member=new Common.Member(id, phoneNumber, email, password, firstName, lastName, status, notes, delayAmount, isLoggedIn, freezedOn, isGraduated)
 			setCardMember(memberData);
 			setEditableMember();
 			System.out.println(memberData);////////////////////////
