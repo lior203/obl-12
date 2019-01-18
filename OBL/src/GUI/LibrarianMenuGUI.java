@@ -69,7 +69,7 @@ public class LibrarianMenuGUI implements Initializable{
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/Registration.fxml"));
 		rightPane.getChildren().setAll(pane);
 		Client.arrayUser.get(1);
-		lblUser_name.setText(Client.arrayUser.get(1)+" "+Client.arrayUser.get(2));               
+		lblUser_name.setText(Client.arrayUser.get(2)+" "+Client.arrayUser.get(3));               
 	}
 
 	public void Logout(ActionEvent event) throws IOException {

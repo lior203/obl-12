@@ -58,7 +58,6 @@ public class MemberMenuGUI implements Initializable,GuiInterface{
 		leftPane.maxWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));
 		leftPane.minWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/ReaderPersonalData.fxml"));
-		lblUser_name.setText(Client.arrayUser.get(1)+" "+Client.arrayUser.get(2));
 		rightPane.getChildren().setAll(pane);
 	}
 

@@ -812,7 +812,18 @@ public class DBController {
 		ps.setString(3, member.get(1));
 		ps.executeUpdate();
 	}
-
+	public void viewPersonalHistory(ArrayList<String> searchData) throws SQLException {
+		PreparedStatement searchLoan;
+		ResultSet rsLoan;
+		searchLoan = conn.prepareStatement("SELECT CopyID FROM loanbook WHERE MemberID=? ");
+		searchLoan.setString(1,searchData.get(2));
+		rsLoan = searchLoan.executeQuery();
+		if (!(rsLoan.isBeforeFirst()))
+		{
+			searchData.add("-1");	// the no loan were found, handle with this....
+			//return searchData; 		
+		}
+	}
 	private static Connection connectToDatabase() {
 		try 
 		{
@@ -832,6 +843,8 @@ public class DBController {
 		}
 		return null;
 	}
+
+
 
 
 
