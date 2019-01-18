@@ -9,8 +9,10 @@ import Common.GuiInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import logic.Main;
 import logic.RegistrationController;
 
@@ -43,6 +45,7 @@ public class MemberPersonalDataGUI implements Initializable,GuiInterface{
 		    	if (txtPhone_Number.getText().length()==10){
 			    	if (txtEmail.getText().contains("@")){
 		    		RegistrationController.updateMemberDetails(txtID.getText(),txtPhone_Number.getText(), txtEmail.getText());
+		    		showSuccess("Details updated successfully");
 			    	}
 			    	else 
 			    		showFailed("Wrong Email, please enter new parameters");
@@ -58,8 +61,10 @@ public class MemberPersonalDataGUI implements Initializable,GuiInterface{
 	    }
 		@Override
 		public void showSuccess(String string) {
-			// TODO Auto-generated method stub
-			
+			Alert alert=new Alert(AlertType.INFORMATION);
+			alert.setTitle("Success");
+			alert.setHeaderText(string);
+			alert.showAndWait();			
 		}
 
 		@Override
@@ -67,13 +72,16 @@ public class MemberPersonalDataGUI implements Initializable,GuiInterface{
 			ArrayList<String>memberData=(ArrayList<String>) obj;
 			setCardMember(memberData);
 			setEditableMember();
+			System.out.println(memberData);////////////////////////
 			//setFields(false);			
 		}
 
 		@Override
 		public void showFailed(String message) {
-			// TODO Auto-generated method stub
-			
+			Alert alert=new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText(message);
+			alert.showAndWait();			
 		}
 
 		@Override
@@ -92,6 +100,7 @@ public class MemberPersonalDataGUI implements Initializable,GuiInterface{
 			txtStatus.setEditable(false);
 		}
 		private void setCardMember(ArrayList<String> memberData) {
+			txtID.setText(memberData.get(1));
 			txtFirst_Name.setText(memberData.get(5));
 			txtLast_Name.setText(memberData.get(6));
 			txtPhone_Number.setText(memberData.get(2));

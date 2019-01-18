@@ -53,12 +53,12 @@ public class MemberMenuGUI implements Initializable,GuiInterface{
 	//	}
 
 	public void init() throws IOException {
+		Main.client.clientUI= this;
 		lblUser_name.setText(Client.arrayUser.get(2)+" "+Client.arrayUser.get(3));
 		leftPane.maxWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));
 		leftPane.minWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/ReaderPersonalData.fxml"));
 		rightPane.getChildren().setAll(pane);
-		Main.client.clientUI= this;
 	}
 
 	@Override
@@ -110,7 +110,6 @@ public class MemberMenuGUI implements Initializable,GuiInterface{
 	@Override
 	public void display(Object obj) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

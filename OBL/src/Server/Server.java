@@ -152,7 +152,7 @@ public class Server extends AbstractServer
 			break;
 		case "SearchMember":
 			try {
-				ArrayList<String>member;
+				ArrayList<String>member=new ArrayList<String>();
 				member=(ArrayList<String>) DBController.getInstance().memberSearch((ArrayList<String>) msg);
 				if (member!=null) {//found an existing member
 					try {
@@ -163,7 +163,6 @@ public class Server extends AbstractServer
 					}	
 				}
 				else {
-					//Could not found any existing member
 					member=new ArrayList<String>();
 					member.add("SearchMember");
 					member.add("NotExist");
@@ -252,7 +251,7 @@ public class Server extends AbstractServer
 			try {
 
 				notify=new ArrayList<String>();
-				notify.add("searchMember");
+				notify.add("SearchMember");
 				member=(ArrayList<String>) DBController.getInstance().isMemberExist((ArrayList<String>) msg);
 				if (member!=null) {
 					DBController.getInstance().librarianUpdateMember((ArrayList<String>) msg);
