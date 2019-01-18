@@ -19,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import logic.Main;
+import logic.RegistrationController;
 
 public class MemberMenuGUI implements Initializable{
 
@@ -69,7 +70,7 @@ public class MemberMenuGUI implements Initializable{
 	}
 
 	public void Logout(ActionEvent event) throws IOException {
-		OBLcontroller.MemberStage.close();
+		OBLcontroller.memberStage.close();
 		RegistrationController.logout(Client.arrayUser.get(0),Client.arrayUser.get(1));
 		Client.arrayUser.clear();
 		Main.primary.show();

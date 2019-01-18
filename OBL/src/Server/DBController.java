@@ -8,17 +8,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
-
 import com.mysql.fabric.xmlrpc.base.Data;
 import com.mysql.jdbc.UpdatableResultSet;
 import Client.Client;
 import Common.Book;
 import Common.InventoryBook;
-<<<<<<< HEAD
 import jdk.nashorn.internal.ir.LoopNode;
-import sun.applet.resources.MsgAppletViewer;
-=======
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 
 
 
@@ -237,25 +232,6 @@ public class DBController {
 		result.add("1");
 		return result;
 	}
-	//		ArrayList<String> data=new ArrayList<String>();
-	//		ArrayList<String> data1=new ArrayList<String>();
-	//		String BookName=null;
-	//		String AuthorsName=null;
-	//		data1=isCopyExist(msg);// return all the details of copy
-	//		PreparedStatement getbookdetails = conn.prepareStatement("SELECT BookName,AuthorsName FROM book WHERE BookID=? ");
-	//		getbookdetails.setString(1, data1.get(5));
-	//		ResultSet rs = getbookdetails.executeQuery();
-	//		if(rs.next()) {
-	//			BookName=rs.getString(1);
-	//			AuthorsName=rs.getString(2);
-	//		}
-	//		data.add("checkExistenceByCopy");
-	//		data.add(1, BookName);
-	//		data.add(2,AuthorsName);
-	//		data1.clear();
-	//		data1= inventoryCheckExistence(data);
-	//		return data1;
-	//	}
 
 	//search book on inventory database
 	public static ArrayList<String> inventoryCheckExistence(ArrayList<String> data) throws SQLException{
@@ -670,8 +646,6 @@ public class DBController {
 		return returnBook;
 	}
 
-<<<<<<< HEAD
-
 	public ArrayList<String> searchBookDetailes(ArrayList<String> msg) throws SQLException{
 		ResultSet 	rs1,rs2,rs3;
 		String 		bookID   	  = null;
@@ -725,8 +699,7 @@ public class DBController {
 		return msg;
 	}
 
-=======
-	public static /*ArrayList<String>*/ void logout(ArrayList<String> data) throws SQLException {
+	public static  void logout(ArrayList<String> data) throws SQLException {
 		ArrayList<String> result=new ArrayList<String>();
 		PreparedStatement login;
 		ResultSet rs;
@@ -837,7 +810,7 @@ public class DBController {
 		ps.setString(3, member.get(1));
 		ps.executeUpdate();
 	}
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
+
 	private static Connection connectToDatabase() {
 		try 
 		{

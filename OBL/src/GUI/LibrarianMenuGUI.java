@@ -22,6 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import logic.Main;
+import logic.RegistrationController;
 
 public class LibrarianMenuGUI implements Initializable{
 

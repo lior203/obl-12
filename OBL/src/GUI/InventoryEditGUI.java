@@ -27,6 +27,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.converter.LocalDateStringConverter;
+import logic.CommonController;
 import logic.InventoryController;
 import logic.Main;
 
@@ -170,7 +171,7 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 		Disable(false);
 		ArrayList<String> details=(ArrayList<String>)obj;
 		ArrayList<Integer> datearray=new ArrayList<>();
-		datearray=convertordate(details.get(7));
+		datearray=CommonController.convertordate(details.get(7));
 		LocalDate date=LocalDate.of(datearray.get(0), datearray.get(2), datearray.get(1));
 		txtBook_ID.setText(details.get(1));
 		txtEdition.setText(details.get(6));

@@ -30,6 +30,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import logic.Main;
 import logic.RegistrationController;
 
@@ -56,9 +57,9 @@ public class OBLcontroller implements Initializable, GuiInterface {
 	@FXML
 	private TextField txtPassword;
 
-	public static Stage LibrarianStage;
+	public static Stage librarianStage;
 
-	public static Stage MemberStage;
+	public static Stage memberStage;
 
 	public static Stage searchForReader;
 
@@ -89,7 +90,7 @@ public class OBLcontroller implements Initializable, GuiInterface {
 				System.out.println("Stage is closing");
 			}
 		});
-		MemberStage=primaryStage;
+		memberStage=primaryStage;
 		primaryStage.show();		
 	}
 
@@ -102,7 +103,7 @@ public class OBLcontroller implements Initializable, GuiInterface {
 		Scene scene = new Scene(root);			
 		//		scene.getStylesheets().add(getClass().getResource("/gui/StudentForm.css").toExternalForm());
 		primaryStage.setScene(scene);	
-		LibrarianStage=primaryStage;
+		librarianStage=primaryStage;
 		primaryStage.show();		
 	}
 
