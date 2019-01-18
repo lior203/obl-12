@@ -107,8 +107,8 @@ public class Client extends AbstractClient
 			arrayUser.add(((ArrayList<String>)msg).get(4));//Last Name
 			//System.out.println((ArrayList<String>)msg+"inside Client - login");
 			Platform.runLater(()->{
-			//System.out.println(clientUI);
-			clientUI.display((ArrayList<String>) msg);
+				//System.out.println(clientUI);
+				clientUI.display((ArrayList<String>) msg);
 			});
 
 			break;
@@ -172,9 +172,9 @@ public class Client extends AbstractClient
 			System.out.println(msg);
 			if(((ArrayList<String>)msg).get(7).equals("0"))
 			{
-			Platform.runLater(() -> {
-			 clientUI.showFailed("Some user have this ID or this phone number");
-			});
+				Platform.runLater(() -> {
+					clientUI.showFailed("Some user have this ID or this phone number");
+				});
 			}
 			else {
 				Platform.runLater(() -> {
@@ -189,7 +189,7 @@ public class Client extends AbstractClient
 				});
 			}else
 				Platform.runLater(()->{
-				clientUI.showFailed("failed to add copy");
+					clientUI.showFailed("failed to add copy");
 				});
 
 			break;
@@ -201,24 +201,24 @@ public class Client extends AbstractClient
 					clientUI.showFailed("copy not exist.");
 			});
 			break;
-			
-//		case "Logout":
-//			Platform.runLater(()->{
-//				System.out.println("lioor");
-//				System.out.println(clientUI);
-//				clientUI.display(msg);
-//			});
-//			break;
-			
-//			case "Check If Copy Is Late":
-//			if(((ArrayList<String>)msg).size() == 1) {
-//
-//			}
-//			else {
-//
-//			}
-//			break;
-			
+
+			//		case "Logout":
+			//			Platform.runLater(()->{
+			//				System.out.println("lioor");
+			//				System.out.println(clientUI);
+			//				clientUI.display(msg);
+			//			});
+			//			break;
+
+			//			case "Check If Copy Is Late":
+			//			if(((ArrayList<String>)msg).size() == 1) {
+			//
+			//			}
+			//			else {
+			//
+			//			}
+			//			break;
+
 		case "Check If Member Is Late On Return":
 			clientUI.display((ArrayList<String>)msg);
 			break;
@@ -228,6 +228,11 @@ public class Client extends AbstractClient
 			break;
 		case "CheckLibrarianManager":
 			clientUI.display((ArrayList<String>)msg);			
+			break;
+		case "Edit":
+			Platform.runLater(()->{
+				clientUI.showSuccess("details updated successfully in the system");
+			});
 			break;
 		default:
 			break;

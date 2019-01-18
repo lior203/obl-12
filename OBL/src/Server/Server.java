@@ -259,7 +259,7 @@ public class Server extends AbstractServer
 			try {
 
 				notify=new ArrayList<String>();
-				notify.add("searchMember");
+				notify.add("SearchMember");
 				member=(ArrayList<String>) DBController.getInstance().isMemberExist((ArrayList<String>) msg);
 				if (member!=null) {
 					DBController.getInstance().librarianUpdateMember((ArrayList<String>) msg);

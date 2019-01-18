@@ -255,30 +255,55 @@ public class DBController {
 	public static ArrayList<String> inventoryCheckExistence(ArrayList<String> data) throws SQLException{
 		ArrayList<String> newData = new ArrayList<>();
 		newData.add("InventoryCheckExistense");
-		String string = "SELECT * FROM book WHERE BookName=? AND AuthorsName=?";
-		PreparedStatement checkExistence = conn.prepareStatement(string);
-		checkExistence.setString(1, data.get(1));
-		checkExistence.setString(2, data.get(2));
-		ResultSet rs = checkExistence.executeQuery();
+		if (data.size()==3) {
+			String string = "SELECT * FROM book WHERE BookName=? AND AuthorsName=?";
+			PreparedStatement checkExistence = conn.prepareStatement(string);
+			checkExistence.setString(1, data.get(1));
+			checkExistence.setString(2, data.get(2));
+			ResultSet rs = checkExistence.executeQuery();
 
-		if(rs.next()) {
-			newData.add(rs.getString(1));
-			newData.add(rs.getString(2));
-			newData.add(rs.getString(3));
-			newData.add(rs.getString(4));
-			newData.add(rs.getString(5));
-			newData.add(rs.getString(6));
-			newData.add(rs.getString(7));
-			newData.add(rs.getString(8));
-			newData.add(rs.getString(9));
-			newData.add(rs.getString(10));
-			newData.add(rs.getString(11));
-			newData.add(rs.getString(12));
+			if(rs.next()) {
+				newData.add(rs.getString(1));
+				newData.add(rs.getString(2));
+				newData.add(rs.getString(3));
+				newData.add(rs.getString(4));
+				newData.add(rs.getString(5));
+				newData.add(rs.getString(6));
+				newData.add(rs.getString(7));
+				newData.add(rs.getString(8));
+				newData.add(rs.getString(9));
+				newData.add(rs.getString(10));
+				newData.add(rs.getString(11));
+				newData.add(rs.getString(12));
+			}
+			else {
+				newData.add("not exist");
+			}
 		}
-		else {
-			newData.add("not exist");
+		else if (data.size()==2) {
+			String string = "SELECT * FROM book WHERE BookID=?";
+			PreparedStatement checkExistence = conn.prepareStatement(string);
+			checkExistence.setString(1, data.get(1));
+			ResultSet rs = checkExistence.executeQuery();
+			if(rs.next()) {
+				newData.add(rs.getString(1));
+				newData.add(rs.getString(2));
+				newData.add(rs.getString(3));
+				newData.add(rs.getString(4));
+				newData.add(rs.getString(5));
+				newData.add(rs.getString(6));
+				newData.add(rs.getString(7));
+				newData.add(rs.getString(8));
+				newData.add(rs.getString(9));
+				newData.add(rs.getString(10));
+				newData.add(rs.getString(11));
+				newData.add(rs.getString(12));
+			}
+			else {
+				newData.add("not exist");
+			}
 		}
-		return newData;
+			return newData;
 	}
 
 	public static ArrayList<String>  login(ArrayList<String> data) throws SQLException
@@ -744,7 +769,7 @@ public class DBController {
 	}
 	public void librarianUpdateMember(ArrayList<String> member) throws SQLException {
 		PreparedStatement ps;
-			ps = conn.prepareStatement("UPDATE members SET Status = ?, Notes = ? WHERE MemberID = ?");
+		ps = conn.prepareStatement("UPDATE members SET Status = ?, Notes = ? WHERE MemberID = ?");
 		ps.setString(1, member.get(2));
 		ps.setString(2, member.get(3));
 		ps.setString(3, member.get(1));

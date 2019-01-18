@@ -45,4 +45,25 @@ public class CommonController {
 		memberData.add(isManager);
 		Main.client.handleMessageFromClientUI(memberData);
 	}
+	
+	/**
+	 * get string of date and return arraylist of integer that contains the date as integer
+	 * @param date-
+	 * @return datearray[0]=year,datearray[1]=day,datearray[2]=month
+	 */
+	public static ArrayList<Integer> convertordate(String date) {     
+		String year=(String) date.subSequence(0, 4);
+		String day=(String) date.subSequence(8, 10);
+		String month=(String) date.subSequence(5, 7);
+		System.out.println("year-"+year +"day-"+day+"month-"+month);
+		int year1,day2,month3;
+		year1=Integer.parseInt(year);
+		day2=Integer.parseInt(day);
+		month3=Integer.parseInt(month);
+		ArrayList<Integer> datearray=new ArrayList<>();
+		datearray.add(year1);
+		datearray.add(day2);
+		datearray.add(month3);
+		return datearray;
+	}
 }

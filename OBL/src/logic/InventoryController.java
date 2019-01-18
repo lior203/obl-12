@@ -50,12 +50,11 @@ public class InventoryController {
 		Main.client.handleMessageFromClientUI(inventoryData);
 	}
 
-	public  static void checkExistence(String bookname, String authorname)
+	public  static void checkExistence(ArrayList<String> msg)
 	{
 		ArrayList<String> inventoryData = new ArrayList<>();
 		inventoryData.add("InventoryCheckExistense");
-		inventoryData.add(bookname);
-		inventoryData.add(authorname);
+		inventoryData.addAll(msg);
 		Main.client.handleMessageFromClientUI(inventoryData);
 	}	
 
