@@ -5,9 +5,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javax.net.ssl.SSLException;
 
 import Client.Client;
 import Common.GuiInterface;
+import Common.User;
 import GUI.LibrarianMenuGUI;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -16,10 +18,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
@@ -33,6 +36,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import logic.Main;
 import logic.RegistrationController;
+import sun.reflect.generics.tree.DoubleSignature;
 
 public class OBLcontroller implements Initializable, GuiInterface {
 
@@ -58,14 +62,19 @@ public class OBLcontroller implements Initializable, GuiInterface {
 	private TextField txtPassword;
 
 	public static Stage librarianStage;
-
 	public static Stage memberStage;
-
 	public static Stage searchForReader;
 
 
+
 	public void login(ActionEvent event) throws IOException {
-		RegistrationController.login(txtUserName.getText(),txtPassword.getText());
+		Main.client.clientUI=this;
+		if(!(txtUserName.getText().isEmpty()==false&&txtPassword.getText().isEmpty()==false))
+			showFailed("Some fields are empty");
+		else {
+			RegistrationController.login(txtUserName.getText(),txtPassword.getText());
+			freshStart();
+		}
 
 	}
 
@@ -78,12 +87,12 @@ public class OBLcontroller implements Initializable, GuiInterface {
 	public void openMemberMenuScreen() throws IOException {
 		Main.primary.hide();
 		Stage primaryStage = new Stage();
-		memberStage = primaryStage;
 		FXMLLoader loader = new FXMLLoader();
 		SplitPane root = loader.load(getClass().getResource("/GUI/ReaderMenu.fxml").openStream());
 		Scene scene = new Scene(root);			
 		//		scene.getStylesheets().add(getClass().getResource("/gui/StudentForm.css").toExternalForm());
 		primaryStage.setScene(scene);	
+		//Logout when pressed the "exit" button
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			public void handle(WindowEvent we) {
 				RegistrationController.logout(Client.arrayUser.get(0),Client.arrayUser.get(1));
@@ -95,26 +104,33 @@ public class OBLcontroller implements Initializable, GuiInterface {
 	}
 
 	public void openLibrarianMenuScreen() throws IOException {
-		Main.primary.close();
+		Main.primary.hide();
 		Stage primaryStage = new Stage();
-		librarianStage =primaryStage;
 		FXMLLoader loader = new FXMLLoader();
 		SplitPane root = loader.load(getClass().getResource("/GUI/LibrarianMenu.fxml").openStream());
 		Scene scene = new Scene(root);			
 		//		scene.getStylesheets().add(getClass().getResource("/gui/StudentForm.css").toExternalForm());
+		primaryStage.setScene(scene);
+		//Logout when pressed the "exit" button
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			public void handle(WindowEvent we) {
+				RegistrationController.logout(Client.arrayUser.get(0),Client.arrayUser.get(1));
+				System.out.println("Stage is closing");
+			}
+		});
 		primaryStage.setScene(scene);	
 		librarianStage=primaryStage;
 		primaryStage.show();		
 	}
 
 	public void searchBook(ActionEvent event) throws IOException {
-		Main.primary.close();
+		((Node)event.getSource()).getScene().getWindow().hide();
 		Stage primaryStage = new Stage();
-		searchForReader =primaryStage;
 		FXMLLoader loader = new FXMLLoader();
 		AnchorPane root = loader.load(getClass().getResource("/GUI/SearchBook.fxml").openStream());
 		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);		
+		primaryStage.setScene(scene);
+		searchForReader=primaryStage;
 		primaryStage.show();
 	}
 
@@ -122,33 +138,38 @@ public class OBLcontroller implements Initializable, GuiInterface {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		Client.clientUI=this;
-
+		Main.client.clientUI=this;
+		freshStart();
 	}
 
 
 	@Override
-	public void display(Object msg) {
-		System.out.println(msg.toString());
-		if(((ArrayList<String>)msg).get(4).equals("1")) {
-			Platform.runLater(()->{
-				try {
-					openLibrarianMenuScreen();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			});
-		}
-		else if(((ArrayList<String>)msg).get(4).equals("2")) {
-			Platform.runLater(()->{
-				try {
-					openMemberMenuScreen();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			});
+	public void display(Object obj) {
+		ArrayList<String> msg = (ArrayList<String>)obj;
+		switch (msg.get(5)) {
+		case "-1":
+			showFailed("User doesnt exist in the system.");
+			break;
+		case "0":
+			showFailed("The user is already logged into the system!");
+			break;
+		case "1":
+			try {
+				openLibrarianMenuScreen();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			break;
+		case "2":
+			try {
+				openMemberMenuScreen();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			break;
+		case "3":
+			showFailed("The member already graduated hence he can't login!");
+			break;
 		}
 	}
 
@@ -162,14 +183,19 @@ public class OBLcontroller implements Initializable, GuiInterface {
 
 	@Override
 	public void showFailed(String message) {
-		// TODO Auto-generated method stub
+		Alert alert=new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText(message);
+		alert.showAndWait();
+		freshStart();
+		//		setFields(true);
 
 	}
 
 
 	@Override
 	public void freshStart() {
-		// TODO Auto-generated method stub
-
+		txtUserName.clear();
+		txtPassword.clear();
 	}
 }

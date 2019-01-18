@@ -665,7 +665,7 @@ public class DBController {
 			shelfLocation =rs1.getString(2);
 			System.out.println("1111111111111111111" + shelfLocation);
 		}
-		PreparedStatement ps2 = conn.prepareStatement("SELECT BookID FROM copies WHERE BookID = ? AND IsLoan = ?");
+		PreparedStatement ps2 = conn.prepareStatement("SELECT BookID FROM copies WHERE BookID = ? AND IsLoaned = ?");
 		ps2.setString(1, bookID);
 		ps2.setString(2, "false");
 		rs2 = ps2.executeQuery();
