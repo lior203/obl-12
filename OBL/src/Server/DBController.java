@@ -303,7 +303,7 @@ public class DBController {
 				newData.add("not exist");
 			}
 		}
-			return newData;
+		return newData;
 	}
 
 	public static ArrayList<String>  login(ArrayList<String> data) throws SQLException
@@ -685,7 +685,7 @@ public class DBController {
 		ps2.setString(1, bookID);
 		ps2.setString(2, "false");
 		rs2 = ps2.executeQuery();
-		
+
 		if (!(rs2.isBeforeFirst()) ) // all the copies in loan
 		{
 			System.out.println("33333333333333");
@@ -713,7 +713,7 @@ public class DBController {
 			msg.add("1");
 			msg.add(shelfLocation);
 		}
-		
+
 		return msg;
 	}
 
@@ -828,8 +828,6 @@ public class DBController {
 		ps.setString(3, member.get(1));
 		ps.executeUpdate();
 	}
-<<<<<<< HEAD
-=======
 	public void viewPersonalHistory(ArrayList<String> searchData) throws SQLException {
 		PreparedStatement searchLoan;
 		ResultSet rsLoan;
@@ -842,7 +840,7 @@ public class DBController {
 			//return searchData; 		
 		}
 	}
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
+
 	private static Connection connectToDatabase() {
 		try 
 		{
@@ -862,12 +860,4 @@ public class DBController {
 		}
 		return null;
 	}
-
-
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 }
