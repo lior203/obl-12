@@ -828,6 +828,21 @@ public class DBController {
 		ps.setString(3, member.get(1));
 		ps.executeUpdate();
 	}
+<<<<<<< HEAD
+=======
+	public void viewPersonalHistory(ArrayList<String> searchData) throws SQLException {
+		PreparedStatement searchLoan;
+		ResultSet rsLoan;
+		searchLoan = conn.prepareStatement("SELECT CopyID FROM loanbook WHERE MemberID=? ");
+		searchLoan.setString(1,searchData.get(2));
+		rsLoan = searchLoan.executeQuery();
+		if (!(rsLoan.isBeforeFirst()))
+		{
+			searchData.add("-1");	// the no loan were found, handle with this....
+			//return searchData; 		
+		}
+	}
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 	private static Connection connectToDatabase() {
 		try 
 		{
@@ -849,4 +864,10 @@ public class DBController {
 	}
 
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 }

@@ -60,8 +60,9 @@ public class MemberPersonalDataGUI implements Initializable,GuiInterface{
 	    }
 	    @FXML
 	    void viewPersonalHistory(ActionEvent event) {
-	    	CommonController.viewPersonalHistory(txtID.getText());
+	    	CommonController.viewPersonalHistory(member);
 	    }
+	    Common.Member member;// object of Member details
 		@Override
 		public void showSuccess(String string) {
 			Alert alert=new Alert(AlertType.INFORMATION);
@@ -73,11 +74,9 @@ public class MemberPersonalDataGUI implements Initializable,GuiInterface{
 		@Override
 		public void display(Object obj) {
 			ArrayList<String>memberData=(ArrayList<String>) obj;
-			//Member member=new Common.Member(id, phoneNumber, email, password, firstName, lastName, status, notes, delayAmount, isLoggedIn, freezedOn, isGraduated)
+			member=new Common.Member(memberData.get(1), memberData.get(2), memberData.get(3), memberData.get(4), memberData.get(5), memberData.get(6), memberData.get(7), memberData.get(8), memberData.get(9), memberData.get(10), memberData.get(11), memberData.get(12));
 			setCardMember(memberData);
 			setEditableMember();
-			System.out.println(memberData);////////////////////////
-			//setFields(false);			
 		}
 
 		@Override

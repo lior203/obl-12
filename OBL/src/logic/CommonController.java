@@ -2,6 +2,8 @@ package logic;
 
 import java.util.ArrayList;
 
+import Common.Member;
+
 public class CommonController {
 	
 	private static final int ID_SIZE = 9;
@@ -67,10 +69,9 @@ public class CommonController {
 		return datearray;
 	}
 
-	public static void viewPersonalHistory(String ID) {
+	public static void viewPersonalHistory(Member member) {
 		ArrayList<String> memberData = new ArrayList<>();
 		memberData.add("ViewPersonalHisotry");
-		memberData.add(ID);
-		
+		memberData.add(member.getId());
 	}
 }
