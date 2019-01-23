@@ -50,7 +50,7 @@
          <font>
             <Font size="19.0" />
          </font></Label>
-      <Button fx:id="btnHistory" disable="true" layoutX="518.0" layoutY="300.0" mnemonicParsing="false" text="History of loan" />
+      <Button fx:id="btnHistory" disable="true" layoutX="518.0" layoutY="300.0" mnemonicParsing="false" onAction="#viewPersonalHistory" text="History of loan" />
       <Button fx:id="btnLates_Lostbook" disable="true" layoutX="226.0" layoutY="299.0" mnemonicParsing="false" text="Lates/Lost book" />
       <TextArea fx:id="txtArea_Notes" disable="true" layoutX="477.0" layoutY="393.0" prefHeight="217.0" prefWidth="331.0" />
       <Label layoutX="479.0" layoutY="372.0" text="Notes:" />

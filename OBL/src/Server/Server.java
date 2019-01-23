@@ -293,13 +293,6 @@ public class Server extends AbstractServer
 				e.printStackTrace();
 			}
 			break;
-		case "viewPersonalHistory:":
-			try {
-				DBController.getInstance().viewPersonalHistory((ArrayList<String>) msg);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			break;
 		case "Reserve":
 			try {
 				client.sendToClient(DBController.getInstance().reserveBook((ArrayList<String>) msg));
@@ -313,14 +306,12 @@ public class Server extends AbstractServer
 			try {
 				ArrayList<String>loanDetails;
 				loanDetails=(ArrayList<String>) DBController.getInstance().viewPersonalHistory((ArrayList<String>) msg);
-				if ((loanDetails.get(1).equals("NotExist"))==false) {
 					try {
 						client.sendToClient(loanDetails);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-				}
 
 			} catch (SQLException e) {
 				e.printStackTrace();

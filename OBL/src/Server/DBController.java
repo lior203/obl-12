@@ -981,7 +981,14 @@ public class DBController {
 				loanDetails.add(rsBook.getString(1));//BookName
 			}
 		}
-		return loanDetails;
+		if (loanDetails.size()==1) {
+			loanDetails.add("NotExist");
+			System.out.println("Member not exist");
+			return loanDetails;
+		}
+		else {
+			return loanDetails;
+		}
 	}
 
 	public ArrayList<String> reserveBook(ArrayList<String> bookdata) throws SQLException {
