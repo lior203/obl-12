@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import com.mysql.fabric.xmlrpc.base.Member;
-
 import Client.Client;
 import Common.GuiInterface;
 import javafx.event.ActionEvent;

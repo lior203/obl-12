@@ -321,7 +321,7 @@ public class Server extends AbstractServer
 						e.printStackTrace();
 					}
 				}
-				
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

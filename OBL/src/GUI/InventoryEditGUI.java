@@ -7,9 +7,6 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import com.sun.javafx.sg.prism.NGEllipse;
-
 import Common.GuiInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
