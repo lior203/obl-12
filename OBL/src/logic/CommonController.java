@@ -69,10 +69,12 @@ public class CommonController {
 		return datearray;
 	}
 
-	public static void viewPersonalHistory(Member member) {
-		ArrayList<String> memberData = new ArrayList<>();
-		memberData.add("ViewPersonalHisotry");
-		memberData.add(member.getId());
+	public static void viewPersonalHistory(String memberID) {
+			ArrayList<String> memberData = new ArrayList<>();
+			memberData.add("ViewPersonalHistory");
+			memberData.add(memberID);
+			System.out.println(memberID);
+			Main.client.handleMessageFromClientUI(memberData);
 	}
 	
 	public static String getCurrentTime() {

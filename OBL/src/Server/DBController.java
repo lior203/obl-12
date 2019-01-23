@@ -883,6 +883,7 @@ public class DBController {
 		ps.setString(3, member.get(1));
 		ps.executeUpdate();
 	}
+<<<<<<< HEAD
 
 	public static ArrayList<String> isCopyWanted(ArrayList<String> data) throws SQLException {
 		ArrayList<String> checkCopyWantedStatus = new ArrayList<>();
@@ -959,16 +960,31 @@ public class DBController {
 	}
 
 	public void viewPersonalHistory(ArrayList<String> searchData) throws SQLException {
+=======
+	public Object viewPersonalHistory(ArrayList<String> searchData) throws SQLException {
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 		PreparedStatement searchLoan;
+		PreparedStatement searchBookName;
 		ResultSet rsLoan;
-		searchLoan = conn.prepareStatement("SELECT CopyID FROM loanbook WHERE MemberID=? ");
-		searchLoan.setString(1,searchData.get(2));
+		ResultSet rsBook;
+		searchLoan = conn.prepareStatement("SELECT CopyID,LoanDate,BookID FROM loanbook WHERE MemberID=? ");
+		searchBookName = conn.prepareStatement("SELECT BookName FROM book WHERE BookID=? ");
+		ArrayList<String> loanDetails = new ArrayList<String>();
+		searchLoan.setString(1,searchData.get(1));
 		rsLoan = searchLoan.executeQuery();
-		if (!(rsLoan.isBeforeFirst()))
-		{
-			searchData.add("-1");	// the no loan were found, handle with this....
-			//return searchData; 		
+		loanDetails.add("ViewPersonalHistory");
+		while(rsLoan.next()) {
+			loanDetails.add(rsLoan.getString(1));//CopyID
+			loanDetails.add(rsLoan.getString(2));//LoanDate
+			ArrayList<String> BookID =new ArrayList<String>();
+			BookID.add(rsLoan.getString(3));//BookID
+			searchBookName.setString(1,BookID.get(0));
+			rsBook = searchBookName.executeQuery();
+			if (rsBook.next()) {
+				loanDetails.add(rsBook.getString(1));//BookName
+			}
 		}
+		return loanDetails;
 	}
 
 <<<<<<< HEAD

@@ -230,6 +230,14 @@ public class Client extends AbstractClient
 					clientUI.showFailed("cannot order, all the copies allready reserved.");
 			});
 			break;
+<<<<<<< HEAD
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
+=======
+		case "ViewPersonalHistory":
+			Platform.runLater(()->{
+				clientUI.display(msg);
+			});
+			break;
 >>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 		default:
 			break;
