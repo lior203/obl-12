@@ -81,7 +81,7 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 			BookName = new TableColumn<>("Book name");
 			CopyID = new TableColumn<>("Copy ID");
 			LoanDate = new TableColumn<>("Loan Date");
-			ActualReturnDate = new TableColumn<>("Actual Return Date");
+			ActualReturnDate = new TableColumn<>("Actual return date");
 
 			//set up size
 			BookName.setMinWidth(200);
@@ -94,7 +94,7 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 			LoanDate.setSortType(TableColumn.SortType.DESCENDING);
 			ActualReturnDate.setSortType(TableColumn.SortType.DESCENDING);
 			//Set upSet property
-			TableViewLoanHistory.getColumns().setAll(BookName,CopyID,LoanDate);//attach the columns to the table view (personTable)
+			TableViewLoanHistory.getColumns().setAll(BookName,CopyID,LoanDate,ActualReturnDate);//attach the columns to the table view (personTable)
 			BookName.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("bookName"));
 			CopyID.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("copyID"));
 			LoanDate.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("LoanDate"));
@@ -107,8 +107,8 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 			ArrayList<LoanDetails> list2 = null;
 			 LoanDetails loanTemp;
 			 while(rowCounter<loanRowSize) {
-				 System.out.println(loanList.get(arrayJump+2)+ loanList.get(arrayJump)+ loanList.get(arrayJump+1)+loanList.get(arrayJump+3));
 				 loanTemp = new LoanDetails(loanList.get(arrayJump+2), loanList.get(arrayJump), loanList.get(arrayJump+1),loanList.get(arrayJump+3));//create a new object by LoanDetails
+				 
 				 //j+2 Book name ; //j CopyID ; //J+1 Loan Date
 				 rowCounter++;
 				 arrayJump+=4;

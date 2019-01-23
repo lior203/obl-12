@@ -82,10 +82,10 @@ public class MemberCardGUI implements Initializable,GuiInterface{
     	Scene scene=new Scene(parent);
     	Stage stage=new Stage();
     	stage.setScene(scene);
-    	stage.setMaxHeight(578);
-    	stage.setMinHeight(578);
-    	stage.setMinWidth(845);
-    	stage.setMaxWidth(845);
+//    	stage.setMaxHeight(578);
+//    	stage.setMinHeight(578);
+//    	stage.setMinWidth(950);
+//    	stage.setMaxWidth(950);
     	stage.show();
     }
 

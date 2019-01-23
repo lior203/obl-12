@@ -16,6 +16,7 @@ public class LoanDetails {
 		this.bookName="";
 		this.copyID="";
 		this.loanDate="";
+		this.actualReturnDate="";
 	}
 	public String getBookName() {
 		return bookName;
@@ -39,7 +40,7 @@ public class LoanDetails {
 		return actualReturnDate;
 	}
 	public void setActualReturnDate(String actualReturnDate) {
-		actualReturnDate = actualReturnDate;
+		this.actualReturnDate = actualReturnDate;
 	}
 	
 }
