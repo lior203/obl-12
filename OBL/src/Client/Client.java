@@ -144,34 +144,13 @@ public class Client extends AbstractClient
 			clientUI.display((ArrayList<String>)msg);
 			break;
 		case "Check Copy Loan Status":
-			if(((ArrayList<String>)msg).size() == 1) {
-				Platform.runLater(() -> {
-					clientUI.showFailed("Copy isn't loan yet");
-				});
-			}
-			else {
-				clientUI.display((ArrayList<String>)msg);
-			}
+			clientUI.display((ArrayList<String>)msg);
 			break;
 		case "Check Copy ID Existence":
-			if(((ArrayList<String>)msg).size() == 1) {
-				Platform.runLater(() -> {
-					clientUI.showFailed("Copy doesn't exist");
-				});
-			}
-			else {
-				clientUI.display((ArrayList<String>)msg);
-			}
+			clientUI.display((ArrayList<String>)msg);
 			break;
 		case "Return Book":
-			if(((ArrayList<String>)msg).size() == 1) {
-				Platform.runLater(() -> {
-					clientUI.showFailed("Book return was unsuccessful!");
-				});
-			}
-			else {
-				clientUI.display((ArrayList<String>)msg);
-			}
+			clientUI.display((ArrayList<String>)msg);
 			break;
 		case "Registration":
 			if(((ArrayList<String>)msg).get(7).equals("0"))
@@ -185,6 +164,7 @@ public class Client extends AbstractClient
 			{
 				Platform.runLater(() -> {
 					clientUI.showSuccess("The user have been added successfully");
+					clientUI.freshStart();
 				});
 			}
 			else if (((ArrayList<String>)msg).get(7).equals("2"))

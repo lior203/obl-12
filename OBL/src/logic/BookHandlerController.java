@@ -43,9 +43,7 @@ public class BookHandlerController {
 		Main.client.handleMessageFromClientUI(memberData);
 	}
 
-	public static void reserveBook(String bookID, String memberID) {
-		// TODO Auto-generated method stub
-		
+	public static void reserveBook(String bookID, String memberID , String copyID) {
 	}
 	
 	public static void isCopyWanted(String bookID) {	

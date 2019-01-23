@@ -289,7 +289,7 @@ public class DBController {
 				newData.add("not exist");
 			}
 		}
-			return newData;
+		return newData;
 	}
 
 	public static ArrayList<String>  login(ArrayList<String> data) throws SQLException
@@ -395,9 +395,10 @@ public class DBController {
 	{
 		PreparedStatement searchBook;
 		ResultSet rsBook;
+		String bookID = null;
 		switch (searchData.get(1)) {
 		case "Book Name":
-			searchBook = conn.prepareStatement("SELECT BookName,AuthorsName FROM book WHERE BookName=? ");
+			searchBook = conn.prepareStatement("SELECT BookName,AuthorsName,BookGenre,Description,BookID,Copies,Wanted,ShelfLocation FROM book WHERE BookName=? ");
 			searchBook.setString(1,searchData.get(2));
 			rsBook = searchBook.executeQuery();
 			if (!(rsBook.isBeforeFirst()))
@@ -411,11 +412,17 @@ public class DBController {
 				{
 					searchData.add(rsBook.getString(1));
 					searchData.add(rsBook.getString(2));
+					searchData.add(rsBook.getString(3));
+					searchData.add(rsBook.getString(4));
+					searchData.add(rsBook.getString(5));
+					searchData.add(rsBook.getString(6));
+					searchData.add(rsBook.getString(7));
+					searchData.add(rsBook.getString(8));
 				}
 				return searchData;
 			}
 		case "Authors Name":
-			searchBook = conn.prepareStatement("SELECT BookName,AuthorsName FROM book WHERE AuthorsName=? ");
+			searchBook = conn.prepareStatement("SELECT BookName,AuthorsName,BookGenre,Description,BookID,Copies,Wanted,ShelfLocation FROM book WHERE AuthorsName=? ");
 			searchBook.setString(1,searchData.get(2));
 			rsBook = searchBook.executeQuery();
 			if (!(rsBook.isBeforeFirst()))
@@ -429,11 +436,17 @@ public class DBController {
 				{
 					searchData.add(rsBook.getString(1));
 					searchData.add(rsBook.getString(2));
+					searchData.add(rsBook.getString(3));
+					searchData.add(rsBook.getString(4));
+					searchData.add(rsBook.getString(5));
+					searchData.add(rsBook.getString(6));
+					searchData.add(rsBook.getString(7));
+					searchData.add(rsBook.getString(8));
 				}
 				return searchData;
 			}
 		case "Book Theme":
-			searchBook = conn.prepareStatement("SELECT BookName,AuthorsName FROM book WHERE BookGenre=? ");
+			searchBook = conn.prepareStatement("SELECT BookName,AuthorsName,BookGenre,Description,BookID,Copies,Wanted,ShelfLocation FROM book WHERE BookGenre=? ");
 			searchBook.setString(1,searchData.get(2));
 			rsBook = searchBook.executeQuery();
 			if (!(rsBook.isBeforeFirst()))
@@ -447,11 +460,17 @@ public class DBController {
 				{
 					searchData.add(rsBook.getString(1));
 					searchData.add(rsBook.getString(2));
+					searchData.add(rsBook.getString(3));
+					searchData.add(rsBook.getString(4));
+					searchData.add(rsBook.getString(5));
+					searchData.add(rsBook.getString(6));
+					searchData.add(rsBook.getString(7));
+					searchData.add(rsBook.getString(8));
 				}
 				return searchData;
 			}	
 		case "Free text":
-			searchBook = conn.prepareStatement("SELECT BookName,AuthorsName FROM book WHERE Description=? ");
+			searchBook = conn.prepareStatement("SELECT BookName,AuthorsName,BookGenre,Description,BookID,Copies,Wanted,ShelfLocation FROM book WHERE Description=? ");
 			searchBook.setString(1,searchData.get(2));
 			rsBook = searchBook.executeQuery();
 			if (!(rsBook.isBeforeFirst()))
@@ -465,9 +484,47 @@ public class DBController {
 				{
 					searchData.add(rsBook.getString(1));
 					searchData.add(rsBook.getString(2));
+					searchData.add(rsBook.getString(3));
+					searchData.add(rsBook.getString(4));
+					searchData.add(rsBook.getString(5));
+					searchData.add(rsBook.getString(6));
+					searchData.add(rsBook.getString(7));
+					searchData.add(rsBook.getString(8));
 				}
 				return searchData;
-			}	
+			}
+		case "Copy ID":
+			searchBook = conn.prepareStatement("SELECT BookID FROM copies WHERE CopyID=? ");
+			searchBook.setString(1,searchData.get(2));
+			rsBook = searchBook.executeQuery();
+			if (!(rsBook.isBeforeFirst()))
+			{
+				searchData.add("-1");
+				return searchData; 		// the book not found, handle with this....
+			}
+			else {
+				while(rsBook.next())
+				{
+					bookID =rsBook.getString(1);
+				}
+				searchBook = conn.prepareStatement("SELECT BookName,AuthorsName,BookGenre,Description,BookID,Copies,Wanted,ShelfLocation FROM book WHERE BookID=? ");
+				searchBook.setString(1,bookID);
+				rsBook = searchBook.executeQuery();
+				searchData.add("1");
+				while(rsBook.next())
+				{
+					searchData.add(rsBook.getString(1));
+					searchData.add(rsBook.getString(2));
+					searchData.add(rsBook.getString(3));
+					searchData.add(rsBook.getString(4));
+					searchData.add(rsBook.getString(5));
+					searchData.add(rsBook.getString(6));
+					searchData.add(rsBook.getString(7));
+					searchData.add(rsBook.getString(8));
+				}
+				return searchData;
+			}
+
 		default:
 			searchData.add("-1");
 			break;
@@ -537,12 +594,14 @@ public class DBController {
 		ArrayList<String> checkCopyLoanStatus = new ArrayList<>();
 		checkCopyLoanStatus.add("Check Copy Loan Status");
 		ResultSet rs;
-		PreparedStatement ps = conn.prepareStatement("SELECT * FROM loanbook WHERE CopyID = ?");
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM loanbook WHERE CopyID = ? AND IsReturned = ?");
 		ps.setString(1, data.get(1));
+		ps.setString(2, "false");
 		rs = ps.executeQuery();
 		if (!rs.isBeforeFirst() ) {    
 			return checkCopyLoanStatus;
 		}
+
 		if(rs.next()) {
 			checkCopyLoanStatus.add(rs.getString(1));
 			checkCopyLoanStatus.add(rs.getString(2));
@@ -658,6 +717,7 @@ public class DBController {
 		String		shelfLocation = null;
 		String		returnDate	  = null;
 		String		memberID	  = null;
+		String		copyID	 	  = null;
 		PreparedStatement ps1 = conn.prepareStatement("SELECT BookID,ShelfLocation FROM book WHERE AuthorsName = ? AND BookName = ?");
 		ps1.setString(1, msg.get(2));
 		ps1.setString(2, msg.get(1));
@@ -673,7 +733,7 @@ public class DBController {
 		ps2.setString(1, bookID);
 		ps2.setString(2, "false");
 		rs2 = ps2.executeQuery();
-		
+
 		if (!(rs2.isBeforeFirst()) ) // all the copies in loan
 		{
 			System.out.println("33333333333333");
@@ -681,27 +741,31 @@ public class DBController {
 			java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String currentTime = sdf.format(date);
 			System.out.println(currentTime);
-			PreparedStatement ps3 = conn.prepareStatement("SELECT ExpectedReturnDate,MemberID FROM loanbook WHERE ExpectedReturnDate > ? AND BookID = ? ORDER BY ExpectedReturnDate LIMIT 1");
+			PreparedStatement ps3 = conn.prepareStatement("SELECT ExpectedReturnDate,MemberID,CopyID FROM loanbook WHERE ExpectedReturnDate > ? AND BookID = ? AND IsReturned = ? ORDER BY ExpectedReturnDate LIMIT 1");
 			ps3.setString(1, currentTime);
 			ps3.setString(2, bookID);
+			ps3.setString(3, "false");
 			rs3 = ps3.executeQuery();
 			while(rs3.next()) {
 				returnDate = rs3.getString(1);
 				memberID = rs3.getString(2);
+				copyID = rs3.getString(3);
 				System.out.println("2222222222222222222" + returnDate);
 				System.out.println("2222222222222222222" + memberID);
+				System.out.println("2222222222222222222" + copyID);
 			}
 			msg.add("0");
 			msg.add(returnDate);
 			msg.add(memberID);
 			msg.add(bookID);
+			msg.add(copyID);
 		}
 		else {
 			System.out.println("7777777777");
 			msg.add("1");
 			msg.add(shelfLocation);
 		}
-		
+
 		return msg;
 	}
 
@@ -816,7 +880,7 @@ public class DBController {
 		ps.setString(3, member.get(1));
 		ps.executeUpdate();
 	}
-	
+
 	public static ArrayList<String> isCopyWanted(ArrayList<String> data) throws SQLException {
 		ArrayList<String> checkCopyWantedStatus = new ArrayList<>();
 		checkCopyWantedStatus.add("Check Copy Wanted Status");
@@ -843,7 +907,7 @@ public class DBController {
 		}
 		return checkCopyWantedStatus;
 	}
-	
+
 	public static ArrayList<String> loanBook(ArrayList<String> data) throws SQLException {
 		java.util.Date dt = new java.util.Date();
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -860,7 +924,7 @@ public class DBController {
 		else {
 			c.add(Calendar.DATE, 14);
 		}
-		
+
 		String returnDate = sdf.format(c.getTime());
 		ArrayList<String> loanBook = new ArrayList<>();
 		loanBook.add("Loan Book");
@@ -885,7 +949,7 @@ public class DBController {
 		if(ps1.executeUpdate() == 0) {
 			return loanBook;
 		}
-		
+
 		loanBook.add(currentTime);
 		loanBook.add(returnDate);
 		return loanBook;

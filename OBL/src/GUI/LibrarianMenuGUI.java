@@ -114,7 +114,7 @@ public class LibrarianMenuGUI implements Initializable,GuiInterface{
 
 	@FXML
 	void SearchBookScreen(ActionEvent event) throws IOException {
-		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/LibrarianSearch.fxml"));
+		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/LibrarianBookSearch.fxml"));
 		rightPane.getChildren().setAll(pane);
 	}
 
