@@ -41,7 +41,8 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 
     @FXML
     private TableColumn<LoanDetails, String> CopyID;
-
+    @FXML
+    private TableColumn<LoanDetails, String> ActualReturnDate;
     @FXML
     private TableColumn<LoanDetails, String> LoanDate;
     @FXML
@@ -49,16 +50,16 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 	Stage window;
 	VBox vBox;
 	String memberID;
-	public ObservableList<LoanDetails> getLoanDetails(){
-		ObservableList<LoanDetails> loanDetails=FXCollections.observableArrayList();
-		LoanDetails l1=new LoanDetails("Harry Potter","1-1","1.1.19");
-		LoanDetails l2=new LoanDetails("Sod","2-1","1.1.19");
-		LoanDetails l3=new LoanDetails("Da-vinci-code","3-1","1.1.19");
-		loanDetails.addAll(l1);
-		loanDetails.addAll(l2);
-		loanDetails.addAll(l3);
-		return loanDetails;
-	}
+//	public ObservableList<LoanDetails> getLoanDetails(){
+////		ObservableList<LoanDetails> loanDetails=FXCollections.observableArrayList();
+////		LoanDetails l1=new LoanDetails("Harry Potter","1-1","1.1.19");
+////		LoanDetails l2=new LoanDetails("Sod","2-1","1.1.19");
+////		LoanDetails l3=new LoanDetails("Da-vinci-code","3-1","1.1.19");
+////		loanDetails.addAll(l1);
+////		loanDetails.addAll(l2);
+////		loanDetails.addAll(l3);
+////		return loanDetails;
+//	}
 	@Override
 	public void showSuccess(String string) {
 		// TODO Auto-generated method stub
@@ -66,10 +67,10 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 	}
 	@Override
 	public void display(Object obj) {
-		int numberOfColumns=3;
+		int numberOfColumns=4;
 		int nonRelevantString=1;
 		ArrayList<String> loanList = (ArrayList<String>)obj;
-		System.out.println(loanList.toString());
+		System.out.println(loanList.toString()+"in historyGUI");
 		if (loanList.get(1).equals("NotExist")) {
 			showFailed("There is no loan history for this member");
 		}
@@ -80,20 +81,25 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 			BookName = new TableColumn<>("Book name");
 			CopyID = new TableColumn<>("Copy ID");
 			LoanDate = new TableColumn<>("Loan Date");
+			ActualReturnDate = new TableColumn<>("Actual Return Date");
+
 			//set up size
 			BookName.setMinWidth(200);
 			CopyID.setMinWidth(200);
 			LoanDate.setMinWidth(200);
+			ActualReturnDate.setMinWidth(200);
 			//set up order descending
 			BookName.setSortType(TableColumn.SortType.DESCENDING);
 			CopyID.setSortType(TableColumn.SortType.DESCENDING);
 			LoanDate.setSortType(TableColumn.SortType.DESCENDING);
+			ActualReturnDate.setSortType(TableColumn.SortType.DESCENDING);
 			//Set upSet property
 			TableViewLoanHistory.getColumns().setAll(BookName,CopyID,LoanDate);//attach the columns to the table view (personTable)
 			BookName.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("bookName"));
 			CopyID.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("copyID"));
 			LoanDate.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("LoanDate"));
-			
+			ActualReturnDate.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("ActualReturnDate"));
+
 			
 			ObservableList<LoanDetails> loanDetails=FXCollections.observableArrayList();
 			int loanRowSize = (loanList.size()-nonRelevantString)/numberOfColumns;
@@ -101,10 +107,11 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 			ArrayList<LoanDetails> list2 = null;
 			 LoanDetails loanTemp;
 			 while(rowCounter<loanRowSize) {
-				 loanTemp = new LoanDetails(loanList.get(arrayJump+2), loanList.get(arrayJump), loanList.get(arrayJump+1));//create a new object by LoanDetails
+				 System.out.println(loanList.get(arrayJump+2)+ loanList.get(arrayJump)+ loanList.get(arrayJump+1)+loanList.get(arrayJump+3));
+				 loanTemp = new LoanDetails(loanList.get(arrayJump+2), loanList.get(arrayJump), loanList.get(arrayJump+1),loanList.get(arrayJump+3));//create a new object by LoanDetails
 				 //j+2 Book name ; //j CopyID ; //J+1 Loan Date
 				 rowCounter++;
-				 arrayJump+=3;
+				 arrayJump+=4;
 				 loanDetails.add(loanTemp);
 			 }
 			 TableViewLoanHistory.setItems(loanDetails);
@@ -142,9 +149,9 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 		//row listener - when we receive row from DB
 		TableViewLoanHistory.getSelectionModel().selectedIndexProperty().addListener(new RowSelectListener());
 		}
-		 private void getHistoryOfLoans() {
-			 TableViewLoanHistory.setItems(getLoanDetails());
-	}
+//		 private void getHistoryOfLoans() {
+//			 TableViewLoanHistory.setItems(getLoanDetails());
+//	}
 		private class RowSelectListener implements ChangeListener {
 				@Override
 				public void changed(ObservableValue arg0, Object arg1, Object arg2) {
