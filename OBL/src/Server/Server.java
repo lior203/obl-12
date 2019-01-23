@@ -317,6 +317,16 @@ public class Server extends AbstractServer
 				e.printStackTrace();
 			}
 			break;
+			
+		case "ReaderCard":
+			try {
+				client.sendToClient(DBController.getInstance().ReaderCards());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+
 		default:
 			break;
 		}

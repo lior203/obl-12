@@ -1054,6 +1054,29 @@ public class DBController {
 		else bookdata.add("all the copies are allready reserved.");
 		return bookdata;	
 	}
+	
+	/**
+	 * Function - ReaderCards, retrieve the card member's details form the DataBase
+	 * @return ArrayList<String> listMember
+	 * @throws SQLException
+	 */
+	public ArrayList<String> ReaderCards () throws SQLException{
+		ArrayList<String> listMember = new ArrayList<String>();
+		PreparedStatement stmt = conn.prepareStatement("SELECT MemberID,PhoneNumber,Email,FirstName,LastName,Status,Notes FROM members");
+		ResultSet rs = stmt.executeQuery();
+		listMember.add("ReaderCard");
+		while(rs.next()) {
+			listMember.add(rs.getString(1));//member ID
+			listMember.add(rs.getString(2));//phone number
+			listMember.add(rs.getString(3));//email
+			listMember.add(rs.getString(4));//first name
+			listMember.add(rs.getString(5));//last name
+			listMember.add(rs.getString(6));//status
+			listMember.add(rs.getString(7));//notes
+		}
+		return listMember;
+	}
+
 
 	private static Connection connectToDatabase() {
 		try 

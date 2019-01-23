@@ -102,5 +102,12 @@ public class CommonController {
 	    		System.out.println("Success");
 		    	return "Success";
 	    }
-	}	    		
+	}	    	
+	
+	public static void ShowReaderCards () {
+		ArrayList<String> ReaderCardsList = new ArrayList<>();
+		ReaderCardsList.add("ReaderCard");
+		Main.client.handleMessageFromClientUI(ReaderCardsList);
+	}
+
 }
