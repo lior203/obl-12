@@ -104,11 +104,7 @@ public class Client extends AbstractClient
 			arrayUser.add(((ArrayList<String>)msg).get(2));//Password
 			arrayUser.add(((ArrayList<String>)msg).get(3));//First Name
 			arrayUser.add(((ArrayList<String>)msg).get(4));//Last Name
-<<<<<<< HEAD
-			arrayUser.add(arrayObject.get(arrayObject.size()-1));//Last Name
-=======
 			arrayUser.add(arrayObject.get(arrayObject.size()-1));
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 			//System.out.println((ArrayList<String>)msg+"inside Client - login");
 			Platform.runLater(()->{
 				//System.out.println(clientUI);
