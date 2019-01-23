@@ -746,10 +746,7 @@ public class DBController {
 		result.add("Logout");
 		//return result;
 	}
-<<<<<<< HEAD
-=======
 
->>>>>>> branch 'master' of https://github.com/lior203/obl-12
 	public static ArrayList<String> isMemberLateOnReturn(ArrayList<String> data) throws SQLException {
 		ArrayList<String> checkMemberReturns = new ArrayList<>();
 		checkMemberReturns.add("Check If Member Is Late On Return");
