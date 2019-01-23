@@ -175,18 +175,30 @@ public class DBController {
 
 
 	public static int RemoveCopy(ArrayList<String> data) throws SQLException{
-		String bookID;
+		String bookID,copyid,memberid;
 		int answer=0;
+		copyid=data.get(1);
 		PreparedStatement getbookid = conn.prepareStatement("SELECT BookID FROM copies WHERE CopyID=?");
-		getbookid.setString(1, data.get(1));
+		getbookid.setString(1, copyid);
 		ResultSet rs = getbookid.executeQuery();
 		if(rs.next()) {
 			bookID=rs.getString(1);
 		}
 		else return 0;
+		
+		PreparedStatement reserved = conn.prepareStatement("SELECT IsActive,MemberID FROM reservations WHERE CopyID=? AND IsActive='true'");
+		reserved.setString(1, copyid);
+		ResultSet rs2 = reserved.executeQuery();
+		if(rs2.next()) {
+			memberid=rs2.getString(2);
+			PreparedStatement delete = conn.prepareStatement("UPDATE reservations SET IsActive='false' where  CopyID=? AND IsActive='true'");
+			delete.setString(1, copyid);
+			delete.executeUpdate();//             add send message to member that his reservation is cancelled
+			//                                   donttttttttt forgeeeetttttttttt  !!!!!!!!!!!!!!!!!!!!!!!!!
+		}
 		String deleteSQL = "DELETE FROM copies WHERE CopyID = ?";
 		PreparedStatement removestmt = conn.prepareStatement(deleteSQL);
-		removestmt.setString(1, data.get(1));
+		removestmt.setString(1, copyid);
 		int res=removestmt.executeUpdate();
 		if (res==1) {
 			answer=updatecopyamount("decrease",bookID);

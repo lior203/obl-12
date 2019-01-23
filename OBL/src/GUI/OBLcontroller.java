@@ -149,9 +149,11 @@ public class OBLcontroller implements Initializable, GuiInterface {
 		switch (msg.get(5)) {
 		case "-1":
 			showFailed("User doesnt exist in the system.");
+			Client.arrayUser.clear();
 			break;
 		case "0":
 			showFailed("The user is already logged into the system!");
+			Client.arrayUser.clear();
 			break;
 		case "1":
 			try {
@@ -169,6 +171,7 @@ public class OBLcontroller implements Initializable, GuiInterface {
 			break;
 		case "3":
 			showFailed("The member already graduated hence he can't login!");
+			Client.arrayUser.clear();
 			break;
 		}
 	}
