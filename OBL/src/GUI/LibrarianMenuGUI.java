@@ -6,10 +6,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import Client.Client;
 import Common.GuiInterface;
-<<<<<<< HEAD
-=======
 import Common.Librarian;
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -68,12 +65,7 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
 	
 
 	public void init() throws IOException {
-<<<<<<< HEAD
 		Main.client.clientUI=this;
-		System.out.println();
-=======
-		Main.client.clientUI= this;
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 		if (Client.arrayUser.get(4).equals("false")) {
 			btnShow_Report.setVisible(false);
 		}
@@ -81,11 +73,7 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
 		leftPane.minWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/Registration.fxml"));
 		rightPane.getChildren().setAll(pane);
-<<<<<<< HEAD
-		lblUser_name.setText(Client.arrayUser.get(2)+" "+Client.arrayUser.get(3));               
-=======
-		lblUser_name.setText(Client.arrayUser.get(2)+" "+Client.arrayUser.get(3)); 		
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
+		lblUser_name.setText(Client.arrayUser.get(2)+" "+Client.arrayUser.get(3));               	
 	}
 
 	public void Logout(ActionEvent event) throws IOException {
@@ -150,29 +138,7 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
 	@Override
 	public void showSuccess(String string) {
 		// TODO Auto-generated method stub
-<<<<<<< HEAD
 		
-	}
-
-	@Override
-	public void display(Object obj) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void showFailed(String message) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void freshStart() {
-		// TODO Auto-generated method stub
-		
-	}
-
-=======
 	}
 
 	@Override
@@ -191,5 +157,4 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
 	public void freshStart() {
 		// TODO Auto-generated method stub
 	}
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 }
