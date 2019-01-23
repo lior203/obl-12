@@ -246,6 +246,10 @@ public class Server extends AbstractServer
 			break;
 		case "Edit":
 			try {
+<<<<<<< HEAD
+=======
+				//				 System.out.println(DBController.getInstance().editBook((ArrayList<String>) msg));
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 				client.sendToClient(DBController.getInstance().editBook((ArrayList<String>) msg));
 			} catch (SQLException | IOException e) {
 				// TODO Auto-generated catch block
@@ -298,6 +302,14 @@ public class Server extends AbstractServer
 			try {
 				DBController.getInstance().viewPersonalHistory((ArrayList<String>) msg);
 			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			break;
+		case "Reserve":
+			try {
+				client.sendToClient(DBController.getInstance().reserveBook((ArrayList<String>) msg));
+			} catch (IOException | SQLException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			break;

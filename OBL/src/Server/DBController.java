@@ -8,14 +8,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.util.Calendar;
 import java.util.Date;
+=======
+
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 import com.mysql.fabric.xmlrpc.base.Data;
 import com.mysql.jdbc.UpdatableResultSet;
 import Client.Client;
 import Common.Book;
 import Common.InventoryBook;
-import jdk.nashorn.internal.ir.LoopNode;
+import GUI.LibrarianMenuGUI;
+import logic.CommonController;
+import sun.awt.windows.ThemeReader;
 
 
 
@@ -59,7 +65,7 @@ public class DBController {
 		rsRegistretion = preparedRegistretion.executeQuery();
 		if ((rsRegistretion.isBeforeFirst()))
 		{
-			return 2;
+			return 0;
 		}
 
 		preparedRegistretion = conn.prepareStatement("SELECT  * FROM librarian WHERE LibrarianID=? ");
@@ -237,7 +243,6 @@ public class DBController {
 		return result;
 	}
 
-	//search book on inventory database
 	public static ArrayList<String> inventoryCheckExistence(ArrayList<String> data) throws SQLException{
 		ArrayList<String> newData = new ArrayList<>();
 		newData.add("InventoryCheckExistense");
@@ -298,7 +303,7 @@ public class DBController {
 		PreparedStatement login;
 		ResultSet rs;
 		//First we search in librarian table if the user is librarian
-		login = conn.prepareStatement("SELECT LibrarianID,Password,FirstName,LastName,IsLoggedIn FROM librarian WHERE LibrarianID=? AND Password=?");
+		login = conn.prepareStatement("SELECT LibrarianID,Password,FirstName,LastName,IsLoggedIn,IsManager FROM librarian WHERE LibrarianID=? AND Password=?");
 		login.setString(1,data.get(1));//LibrarianID
 		login.setString(2,data.get(2));//Password
 		rs = login.executeQuery();
@@ -329,6 +334,7 @@ public class DBController {
 				//System.out.println("librarian connceted");
 			}
 			userDetails.add("1");//Add 1 to the arrayList to identify that the librarian is connected
+			userDetails.add(rs.getString(6));
 			return userDetails;
 		}
 
@@ -382,11 +388,19 @@ public class DBController {
 	public static ArrayList<String> editBook(ArrayList<String> searchData) throws SQLException{
 		int answer;
 		PreparedStatement updatebook=conn.prepareStatement("UPDATE book SET BookName=?,EditionNumber=?,BookGenre=?,PDFLink=?,AuthorsName=?,ShelfLocation=?,Description=?,Wanted=?,PurchaseDate=?,PrintDate=? WHERE BookID=?");
-		for (int i = 1; i <= searchData.size(); i++) {
-			updatebook.setString(i, searchData.get(i));			
-		}
+		updatebook.setString(1, searchData.get(1));	
+		updatebook.setString(2, searchData.get(2));	
+		updatebook.setString(3, searchData.get(3));	
+		updatebook.setString(4, searchData.get(4));	
+		updatebook.setString(5, searchData.get(5));	
+		updatebook.setString(6, searchData.get(6));	
+		updatebook.setString(7, searchData.get(7));	
+		updatebook.setString(8, searchData.get(8));	
+		updatebook.setString(9, searchData.get(9));	
+		updatebook.setString(10, searchData.get(10));	
+		updatebook.setString(11, searchData.get(11));	
 		answer=updatebook.executeUpdate();
-		System.out.println(searchData);
+		searchData.add(Integer.toString(answer));
 		return searchData;
 	}
 
@@ -717,7 +731,11 @@ public class DBController {
 		String		shelfLocation = null;
 		String		returnDate	  = null;
 		String		memberID	  = null;
+<<<<<<< HEAD
 		String		copyID	 	  = null;
+=======
+		String		copyID	  = null;
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 		PreparedStatement ps1 = conn.prepareStatement("SELECT BookID,ShelfLocation FROM book WHERE AuthorsName = ? AND BookName = ?");
 		ps1.setString(1, msg.get(2));
 		ps1.setString(2, msg.get(1));
@@ -741,7 +759,11 @@ public class DBController {
 			java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String currentTime = sdf.format(date);
 			System.out.println(currentTime);
+<<<<<<< HEAD
 			PreparedStatement ps3 = conn.prepareStatement("SELECT ExpectedReturnDate,MemberID,CopyID FROM loanbook WHERE ExpectedReturnDate > ? AND BookID = ? AND IsReturned = ? ORDER BY ExpectedReturnDate LIMIT 1");
+=======
+			PreparedStatement ps3 = conn.prepareStatement("SELECT ExpectedReturnDate,MemberID,CopyID FROM loanbook WHERE ExpectedReturnDate > ? AND BookID = ? ORDER BY ExpectedReturnDate LIMIT 1");
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 			ps3.setString(1, currentTime);
 			ps3.setString(2, bookID);
 			ps3.setString(3, "false");
@@ -801,25 +823,6 @@ public class DBController {
 		result.add("Logout");
 		//return result;
 	}
-
-	//	public static ArrayList<String> isCopyLate(ArrayList<String> data) throws SQLException {
-	//	ArrayList<String> checkCopyLate = new ArrayList<>();
-	//	checkCopyLate.add("Check If Copy Is Late");
-	//	ResultSet rs;
-	//	PreparedStatement ps = conn.prepareStatement("SELECT * FROM delayonreturn WHERE CopyID = ?");
-	//	ps.setString(1, data.get(1));
-	//	rs = ps.executeQuery();
-	//	if (!rs.isBeforeFirst() ) {    
-	//		return checkCopyLate;
-	//	}
-	//	if(rs.next()) {
-	//		checkCopyLate.add(rs.getString(1));
-	//		checkCopyLate.add(rs.getString(2));
-	//		checkCopyLate.add(rs.getString(3));
-	//		checkCopyLate.add(rs.getString(4));
-	//	}
-	//	return checkCopyLate;
-	//}
 
 	public static ArrayList<String> isMemberLateOnReturn(ArrayList<String> data) throws SQLException {
 		ArrayList<String> checkMemberReturns = new ArrayList<>();
@@ -968,6 +971,74 @@ public class DBController {
 		}
 	}
 
+<<<<<<< HEAD
+=======
+	public ArrayList<String> reserveBook(ArrayList<String> bookdata) throws SQLException {
+		int copies,answer,reserveamount;
+		String bookID=bookdata.get(1),currentTime;
+		String copyID = null;
+		System.out.println(bookID);
+		PreparedStatement ps = conn.prepareStatement("SELECT copies FROM book WHERE BookID = ?");
+		ps.setString(1,bookID);
+		ResultSet rs= ps.executeQuery();
+		if(rs.next()) {
+			copies=rs.getInt(1);
+		}
+		else {
+			System.out.println("cannot retrieve copies from book table.");
+			bookdata.add("fail-1");
+			return bookdata;
+		}
+		System.out.println(copies);
+		PreparedStatement ps2 = conn.prepareStatement("SELECT COUNT(*) FROM reservations WHERE BookID=? AND IsActive='true' ");
+		ps2.setString(1,bookID);
+		ResultSet rs1= ps2.executeQuery();
+		if(rs1.next()) {
+			reserveamount=rs1.getInt(1);
+			System.out.println(reserveamount);
+		}
+		else {
+			bookdata.add("all the copies are allready reserved.");
+			return bookdata;
+		}
+
+		if (reserveamount<copies) {
+			currentTime=CommonController.getCurrentTime();
+			PreparedStatement ps3 = conn.prepareStatement("SELECT CopyID FROM loanbook WHERE ExpectedReturnDate > ? AND BookID = ? AND IsReserved='false' ORDER BY ExpectedReturnDate LIMIT 1");
+			ps3.setString(1, currentTime);
+			ps3.setString(2, bookID);
+			ResultSet rs2=ps3.executeQuery();
+			if (rs2.next()) {
+				copyID=rs2.getString(1);
+			}
+			else {
+				bookdata.add("fail-2");
+				return bookdata;
+			}
+			PreparedStatement insert = conn.prepareStatement("insert into reservations values(?,?,?,?,?)");
+			insert.setString(1, copyID);
+			insert.setString(2, null);
+			insert.setString(3, bookdata.get(2));
+			insert.setString(4, bookID);
+			insert.setString(5, "true");
+			answer=insert.executeUpdate();
+			if (answer==1) {
+				bookdata.add("success");
+			}
+			PreparedStatement update = conn.prepareStatement("UPDATE loanbook SET IsReserved = ? WHERE CopyID = ?");
+			update.setString(1, "true");
+			update.setString(2, copyID);
+			answer=update.executeUpdate();
+			if (answer!=1) {
+				bookdata.add("fail-3");
+			}
+		}
+		else bookdata.add("all the copies are allready reserved.");
+		return bookdata;	
+	}
+
+
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 	private static Connection connectToDatabase() {
 		try 
 		{
@@ -987,9 +1058,4 @@ public class DBController {
 		}
 		return null;
 	}
-
-
-
-
-
 }

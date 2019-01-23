@@ -7,6 +7,8 @@ import GUI.RegistrationGUI;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.scene.Parent;
@@ -35,7 +37,7 @@ public class Main extends Application implements GuiInterface {
 		Scene scene = new Scene(root);
 		primaryStage.setTitle("OBL System");
 		primaryStage.setScene(scene);
-		primaryStage.setResizable(false);
+//		primaryStage.setResizable(false);
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 	          public void handle(WindowEvent we) {
 	              System.out.println("Stage is closing");

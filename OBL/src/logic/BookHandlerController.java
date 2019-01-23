@@ -43,6 +43,7 @@ public class BookHandlerController {
 		Main.client.handleMessageFromClientUI(memberData);
 	}
 
+<<<<<<< HEAD
 	public static void reserveBook(String bookID, String memberID , String copyID) {
 	}
 	
@@ -61,5 +62,14 @@ public class BookHandlerController {
 		copyData.add(bookID);
 		copyData.add(memberID);
 		Main.client.handleMessageFromClientUI(copyData);
+=======
+	public static void reserveBook(String bookID, String memberID,String copyID) {
+		ArrayList<String> memberData = new ArrayList<>();
+		memberData.add("Reserve");
+		memberData.add(bookID);
+		memberData.add(memberID);		
+		memberData.add(copyID);		
+		Main.client.handleMessageFromClientUI(memberData);
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 	}
 }

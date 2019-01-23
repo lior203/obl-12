@@ -27,7 +27,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+<<<<<<< HEAD
 import javafx.scene.input.MouseEvent;
+=======
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -149,16 +152,24 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 	@Override
 	public void showSuccess(String string) {
-		// TODO Auto-generated method stub
-
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Confirm");
+		alert.setHeaderText(string);
+		alert.showAndWait();	
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void display(Object obj) 
 	{
+=======
+	public void display(Object obj) {
+		System.out.println(Client.arrayUser);
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 		if (((ArrayList<String>)obj).get(0).equals("SearchBookDetailes"))
 			displayBookDetails((ArrayList<String>)obj);
 		else {
+<<<<<<< HEAD
 
 			ArrayList<String>    		 datalist 			 = 	(ArrayList<String>)obj;
 			int 				 		 numberOfBook  	 	 =  (datalist.size()-4)/8;
@@ -173,8 +184,23 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 			TableColumn<BookPro, String>  authorNameCol		 =  new TableColumn<>("Author name");
 			TableColumn<BookPro, String>  bookGenreCol		 =  new TableColumn<>("Book genre");
 			TableColumn<BookPro, String>  descriptionCol	 =  new TableColumn<>("Description");
+=======
+			System.out.println("jfjfjfjjfjfjf");
+			ArrayList<String>   		 datalist 		 = 	(ArrayList<String>)obj;
+			int 						 numberOfBook    = 	(datalist.size()-4)/2;
+			int 			 			 i				 =	0;
+			int							 j				 =  0;
+			VBox 						 vBox 		  	 = 	new VBox(20);
+			HBox 						 hBox2			 =	new HBox();
+			Label	   					 label			 =	new Label("Search result");
+			Label 				  		 authorNameLabel = 	new Label("Author name");
+			Label 						 bookNameLabel   = 	new Label("Book name");
+			Stage 	   					 primaryStage    = 	new Stage();
+			ScrollPane 				 	 scrollPane      = 	new ScrollPane();
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 
 
+			System.out.println("ooooooooooeeee");
 			primaryStage.initModality(Modality.APPLICATION_MODAL);
 			table.getColumns().addAll(bookNameCol,authorNameCol,bookGenreCol,descriptionCol);
 			table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -183,10 +209,52 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 			bookGenreCol.setCellValueFactory(cellData-> cellData.getValue().getBookGenre());
 			descriptionCol.setCellValueFactory(cellData -> cellData.getValue().getDescription());
 
+<<<<<<< HEAD
+=======
+			System.out.println("ooooooooooooooooooooooooo");
+			bookNameLabel.setPadding(new Insets(0, 120, 0, 0));
+			hBox2.getChildren().addAll(bookNameLabel ,authorNameLabel);
+			hBox2.setPadding(new Insets(0, 0, 0, 20));
+			bookNameLabel.setFont(new Font(18));
+			authorNameLabel.setFont(new Font(18));
+			vBox.getChildren().add(hBox2);
+			System.out.println(i);
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 			while(i<numberOfBook)
 			{
+<<<<<<< HEAD
 				BookPro newBook = new BookPro(datalist.get(j+4), datalist.get(j+5),datalist.get(j+6),datalist.get(j+7));
 				bookList.add(newBook);
+=======
+				Label bookNameInResult = new Label(datalist.get(j+4));
+				Label authorNsmeInResult= new Label(datalist.get(j+5));
+				authorNsmeInResult.setMinWidth(115);
+				bookNameInResult.setFont(new Font(14));
+				authorNsmeInResult.setFont(new Font(14));
+				HBox hBox = new HBox();
+				bookNameInResult.setPadding(new Insets(0, 200, 0, 0));
+				if (Client.arrayUser.size() <= 2)
+				{
+					System.out.println("liorrrrr");
+					hBox.getChildren().addAll(bookNameInResult,authorNsmeInResult);
+					hBox.setPadding(new Insets(0, 0, 0, 20));
+				}
+				else {
+					Button details = new Button("Check details");
+					details.setOnAction(new EventHandler<ActionEvent>() {
+						@Override
+						public void handle(ActionEvent event) {
+							SearchBookController.searchBookDetailes(bookNameInResult.getText(),authorNsmeInResult.getText());		
+						}
+					});
+					details.setMaxSize(90, 30);
+					details.setMinSize(90, 30);
+					details.setFont(new Font(12));
+					hBox.getChildren().addAll(bookNameInResult,authorNsmeInResult,details);
+					hBox.setPadding(new Insets(0, 60, 0, 20));
+				}
+				vBox.getChildren().add(hBox);
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 				i++;
 				j+=8;
 			}
@@ -266,8 +334,7 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 				@Override
 				public void handle(ActionEvent event) {
-					BookHandlerController.reserveBook(detailesData.get(6),detailesData.get(5),detailesData.get(7));
-				}
+					BookHandlerController.reserveBook(detailesData.get(6),Client.arrayUser.get(0),detailesData.get(7));				}
 			});
 			Label  ans2		  = new Label();
 			ans.setText("we don't have copy of " + detailesData.get(1) + " by the author " + detailesData.get(2) + " in the library.");
@@ -286,10 +353,17 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 	@Override
 	public void showFailed(String message) {
+<<<<<<< HEAD
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Message");
 		alert.setHeaderText("No matches results to your search");
 		alert.showAndWait();
+=======
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("error");
+		alert.setHeaderText(message);
+		alert.showAndWait();	
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 	}
 
 	@Override
