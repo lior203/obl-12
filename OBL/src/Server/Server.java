@@ -152,7 +152,7 @@ public class Server extends AbstractServer
 			break;
 		case "SearchMember":
 			try {
-				ArrayList<String>member=new ArrayList<String>();
+				ArrayList<String>member;
 				member=(ArrayList<String>) DBController.getInstance().memberSearch((ArrayList<String>) msg);
 				if (member!=null) {//found an existing member
 					try {
@@ -163,6 +163,7 @@ public class Server extends AbstractServer
 					}	
 				}
 				else {
+					//Could not found any existing member
 					member=new ArrayList<String>();
 					member.add("SearchMember");
 					member.add("NotExist");
@@ -245,7 +246,6 @@ public class Server extends AbstractServer
 			break;
 		case "Edit":
 			try {
-				//				 System.out.println(DBController.getInstance().editBook((ArrayList<String>) msg));
 				client.sendToClient(DBController.getInstance().editBook((ArrayList<String>) msg));
 			} catch (SQLException | IOException e) {
 				// TODO Auto-generated catch block
@@ -256,7 +256,6 @@ public class Server extends AbstractServer
 			ArrayList<String>member=null;
 			ArrayList<String>notify=null;
 			try {
-
 				notify=new ArrayList<String>();
 				notify.add("SearchMember");
 				member=(ArrayList<String>) DBController.getInstance().isMemberExist((ArrayList<String>) msg);
@@ -278,6 +277,22 @@ public class Server extends AbstractServer
 				e.printStackTrace();
 			}
 			break;
+
+		case "Check Copy Wanted Status":
+			try {
+				client.sendToClient(DBController.getInstance().isCopyWanted((ArrayList<String>)msg));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+
+		case "Loan Book":
+			try {
+				client.sendToClient(DBController.getInstance().loanBook((ArrayList<String>)msg));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
 		case "viewPersonalHistory:":
 			try {
 				DBController.getInstance().viewPersonalHistory((ArrayList<String>) msg);
@@ -293,6 +308,7 @@ public class Server extends AbstractServer
 				e.printStackTrace();
 			}
 			break;
+			
 		case "ViewPersonalHistory":
 			try {
 				ArrayList<String>loanDetails;

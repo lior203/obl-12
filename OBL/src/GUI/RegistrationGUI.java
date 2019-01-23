@@ -18,39 +18,39 @@ import logic.RegistrationController;
 
 public class RegistrationGUI implements Initializable, GuiInterface{
 	@FXML
-    private AnchorPane Registration;
+	private AnchorPane Registration;
 
-    @FXML
-    private Button btnSave;
+	@FXML
+	private Button btnSave;
 
-    @FXML
-    private TextField txtPhone_number;
+	@FXML
+	private TextField txtPhone_number;
 
-    @FXML
-    private TextField txtID;
+	@FXML
+	private TextField txtID;
 
-    @FXML
-    private TextField txtLast_name;
+	@FXML
+	private TextField txtLast_name;
 
-    @FXML
-    private TextField txtFirst_name;
+	@FXML
+	private TextField txtFirst_name;
 
-    @FXML
-    private TextField txtEmail;
-    
-    @FXML
-    private TextField txtPassword;
+	@FXML
+	private TextField txtEmail;
 
-    
-    @FXML
-    void onSaveClick(ActionEvent event) {
+	@FXML
+	private TextField txtPassword;
+
+
+	@FXML
+	void onSaveClick(ActionEvent event) {
 		if (checkfields())
 			showFailed("Fill all the dields");
 		else {
-    	RegistrationController.registration(txtPhone_number.getText(),txtID.getText(),txtLast_name.getText(),txtFirst_name.getText(),txtEmail.getText(),txtPassword.getText());
+			RegistrationController.registration(txtPhone_number.getText(),txtID.getText(),txtLast_name.getText(),txtFirst_name.getText(),txtEmail.getText(),txtPassword.getText());
 		}
 
-    }
+	}
 
 
 	private boolean checkfields() {
@@ -82,7 +82,7 @@ public class RegistrationGUI implements Initializable, GuiInterface{
 	@Override
 	public void display(Object obj) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 
@@ -97,8 +97,12 @@ public class RegistrationGUI implements Initializable, GuiInterface{
 
 	@Override
 	public void freshStart() {
-		// TODO Auto-generated method stub
-		
+		txtID.setText("");
+		txtFirst_name.setText("");
+		txtLast_name.setText("");
+		txtEmail.setText("");
+		txtPhone_number.setText("");
+		txtPassword.setText("");	
 	}
 
 

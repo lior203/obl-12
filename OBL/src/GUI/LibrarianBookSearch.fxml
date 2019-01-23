@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="928.0" prefWidth="1232.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LibrarianSearchGUI">
+<AnchorPane prefHeight="928.0" prefWidth="1232.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LibrarianSearchBookGUI">
    <children>
       <ImageView fitHeight="928.0" fitWidth="1254.0" opacity="0.62" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -30,39 +30,39 @@
          <children>
             <HBox fx:id="HBOX1" alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="678.0">
                <children>
-                  <RadioButton fx:id="rdioCopy_number" mnemonicParsing="false" onAction="#ByCopy" text="Copy number:">
+                  <RadioButton fx:id="radio_btn_copy_id" mnemonicParsing="false" onAction="#openAndCloseFields" selected="true" text="Copy id:">
                      <HBox.margin>
                         <Insets left="15.0" />
                      </HBox.margin>
                      <toggleGroup>
-                        <ToggleGroup fx:id="lior" />
+                        <ToggleGroup fx:id="group" />
                      </toggleGroup>
                   </RadioButton>
-                  <TextField fx:id="txtCopy_Number" prefHeight="31.0" prefWidth="181.0">
+                  <TextField fx:id="txtCopy_ID">
                      <HBox.margin>
-                        <Insets left="15.0" />
+                        <Insets left="50.0" />
                      </HBox.margin>
                   </TextField>
                </children>
             </HBox>
             <HBox fx:id="HBOX2" alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="678.0">
                <children>
-                  <RadioButton fx:id="rdioBook_Name" mnemonicParsing="false" onAction="#ByOther" text="Book name:" toggleGroup="$lior">
+                  <RadioButton fx:id="radio_btn_book_name" mnemonicParsing="false" onAction="#openAndCloseFields" text="Book name:" toggleGroup="$group">
                      <HBox.margin>
                         <Insets left="15.0" />
                      </HBox.margin>
                   </RadioButton>
-                  <TextField fx:id="txtBook_Name" prefHeight="31.0" prefWidth="180.0">
+                  <TextField fx:id="txtBook_Name" disable="true">
                      <HBox.margin>
                         <Insets left="30.0" />
                      </HBox.margin>
                   </TextField>
-                  <Label text="Author's name:">
+                  <RadioButton fx:id="radio_btn_authors_name" mnemonicParsing="false" onAction="#openAndCloseFields" text="Author's name:" toggleGroup="$group">
                      <HBox.margin>
-                        <Insets left="30.0" />
+                        <Insets left="60.0" />
                      </HBox.margin>
-                  </Label>
-                  <TextField fx:id="txtAuthor_name">
+                  </RadioButton>
+                  <TextField fx:id="txtAuthor_name" disable="true">
                      <HBox.margin>
                         <Insets left="25.0" />
                      </HBox.margin>
@@ -71,24 +71,24 @@
             </HBox>
             <HBox fx:id="HBOX3" alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="678.0">
                <children>
-                  <Label text="Book theme:">
+                  <RadioButton fx:id="radio_btn_book_theme" mnemonicParsing="false" onAction="#openAndCloseFields" text="Book theme:" toggleGroup="$group">
                      <HBox.margin>
-                        <Insets left="45.0" />
+                        <Insets left="15.0" />
                      </HBox.margin>
-                  </Label>
-                  <TextField fx:id="txtBook_Theme">
+                  </RadioButton>
+                  <TextField fx:id="txtBook_Theme" disable="true">
                      <HBox.margin>
-                        <Insets left="20.0" />
+                        <Insets left="30.0" />
                      </HBox.margin>
                   </TextField>
-                  <Label text="Free text:">
+                  <RadioButton fx:id="radio_btn_free_text" mnemonicParsing="false" onAction="#openAndCloseFields" text="Free text:" toggleGroup="$group">
                      <HBox.margin>
-                        <Insets left="25.0" />
+                        <Insets left="55.0" />
                      </HBox.margin>
-                  </Label>
-                  <TextField fx:id="txtFree_Text">
+                  </RadioButton>
+                  <TextField fx:id="txtFree_Text" disable="true">
                      <HBox.margin>
-                        <Insets left="60.0" />
+                        <Insets left="55.0" />
                      </HBox.margin>
                   </TextField>
                </children>

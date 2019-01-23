@@ -5,8 +5,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import Client.Client;
+import Common.BookPro;
 import Common.GuiInterface;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -20,8 +23,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -141,22 +147,6 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 	}
 
-	public void displayNotFound() 
-	{
-		Stage primaryStage = new Stage();
-		primaryStage.initModality(Modality.APPLICATION_MODAL);
-		FXMLLoader loader = new FXMLLoader();
-		AnchorPane root;
-		try {
-			root = loader.load(getClass().getResource("/GUI/BookNotFound.fxml").openStream());
-			Scene scene = new Scene(root);
-			primaryStage.setScene(scene);
-			primaryStage.showAndWait();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 	@Override
 	public void showSuccess(String string) {
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -166,83 +156,68 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 	}
 
 	@Override
-	public void display(Object obj) {
-		System.out.println(Client.arrayUser);
+	public void display(Object obj) 
+	{
 		if (((ArrayList<String>)obj).get(0).equals("SearchBookDetailes"))
 			displayBookDetails((ArrayList<String>)obj);
 		else {
-			System.out.println("jfjfjfjjfjfjf");
-			ArrayList<String>   		 datalist 		 = 	(ArrayList<String>)obj;
-			int 						 numberOfBook    = 	(datalist.size()-4)/2;
-			int 			 			 i				 =	0;
-			int							 j				 =  0;
-			VBox 						 vBox 		  	 = 	new VBox(20);
-			HBox 						 hBox2			 =	new HBox();
-			Label	   					 label			 =	new Label("Search result");
-			Label 				  		 authorNameLabel = 	new Label("Author name");
-			Label 						 bookNameLabel   = 	new Label("Book name");
-			Stage 	   					 primaryStage    = 	new Stage();
-			ScrollPane 				 	 scrollPane      = 	new ScrollPane();
+			ArrayList<String>    		 datalist 			 = 	(ArrayList<String>)obj;
+			int 				 		 numberOfBook  	 	 =  (datalist.size()-4)/8;
+			int 			 			 i					 =	0;
+			int							 j					 =  0;
+			Label						  searchLab			 =  new Label("Search book result");
+			Stage 				 		  primaryStage 		 =  new Stage();
+			VBox 					 	  root				 =  new VBox(20);
+			ObservableList<BookPro> 	  bookList 			 =  FXCollections.observableArrayList();
+			TableView<BookPro> 			  table				 =  new TableView<BookPro>();
+			TableColumn<BookPro, String>  bookNameCol		 =  new TableColumn<>("Book name");
+			TableColumn<BookPro, String>  authorNameCol		 =  new TableColumn<>("Author name");
+			TableColumn<BookPro, String>  bookGenreCol		 =  new TableColumn<>("Book genre");
+			TableColumn<BookPro, String>  descriptionCol	 =  new TableColumn<>("Description");
 
 
-			System.out.println("ooooooooooeeee");
 			primaryStage.initModality(Modality.APPLICATION_MODAL);
-			primaryStage.setTitle("Search result");
-			scrollPane.setMinHeight(390);
-			scrollPane.setMinWidth(480);
-			scrollPane.setMaxHeight(390);
-			scrollPane.setMaxWidth(480);
-			vBox.setMinHeight(380);
-			vBox.setMinWidth(370);
-			label.setFont(new Font(22));
-			label.setPadding(new Insets(0, 0, 0, 170));
-			vBox.getChildren().add(label);
+			table.getColumns().addAll(bookNameCol,authorNameCol,bookGenreCol,descriptionCol);
+			table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+			bookNameCol.setCellValueFactory(cellData -> cellData.getValue().getBookName());
+			authorNameCol.setCellValueFactory(cellData -> cellData.getValue().getAuthorName());
+			bookGenreCol.setCellValueFactory(cellData-> cellData.getValue().getBookGenre());
+			descriptionCol.setCellValueFactory(cellData -> cellData.getValue().getDescription());
 
-			System.out.println("ooooooooooooooooooooooooo");
-			bookNameLabel.setPadding(new Insets(0, 120, 0, 0));
-			hBox2.getChildren().addAll(bookNameLabel ,authorNameLabel);
-			hBox2.setPadding(new Insets(0, 0, 0, 20));
-			bookNameLabel.setFont(new Font(18));
-			authorNameLabel.setFont(new Font(18));
-			vBox.getChildren().add(hBox2);
-			System.out.println(i);
 			while(i<numberOfBook)
 			{
-				Label bookNameInResult = new Label(datalist.get(j+4));
-				Label authorNsmeInResult= new Label(datalist.get(j+5));
-				authorNsmeInResult.setMinWidth(115);
-				bookNameInResult.setFont(new Font(14));
-				authorNsmeInResult.setFont(new Font(14));
-				HBox hBox = new HBox();
-				bookNameInResult.setPadding(new Insets(0, 200, 0, 0));
-				if (Client.arrayUser.size() <= 2)
-				{
-					System.out.println("liorrrrr");
-					hBox.getChildren().addAll(bookNameInResult,authorNsmeInResult);
-					hBox.setPadding(new Insets(0, 0, 0, 20));
-				}
-				else {
-					Button details = new Button("Check details");
-					details.setOnAction(new EventHandler<ActionEvent>() {
-						@Override
-						public void handle(ActionEvent event) {
-							SearchBookController.searchBookDetailes(bookNameInResult.getText(),authorNsmeInResult.getText());		
-						}
-					});
-					details.setMaxSize(90, 30);
-					details.setMinSize(90, 30);
-					details.setFont(new Font(12));
-					hBox.getChildren().addAll(bookNameInResult,authorNsmeInResult,details);
-					hBox.setPadding(new Insets(0, 60, 0, 20));
-				}
-				vBox.getChildren().add(hBox);
+				BookPro newBook = new BookPro(datalist.get(j+4), datalist.get(j+5),datalist.get(j+6),datalist.get(j+7));
+				bookList.add(newBook);
 				i++;
-				j+=2;
+				j+=8;
 			}
-			scrollPane.setContent(vBox);
-			Scene scene = new Scene(scrollPane);
+
+			Platform.runLater(() -> {	
+				table.setOnMouseClicked(new EventHandler<MouseEvent>() {
+					@Override
+					public void handle(MouseEvent event) {
+						if (Client.arrayUser.size() > 2)
+						{
+							SearchBookController.searchBookDetailes(table.getSelectionModel().getSelectedItem().getBookName().getValue(), table.getSelectionModel().getSelectedItem().getAuthorName().getValue());
+						}
+					}
+
+				});
+			});
+
+			System.out.println(obj);
+			table.setItems(bookList);
+			root.getChildren().addAll(searchLab,table);
+			searchLab.setFont(new Font(20));
+			searchLab.setStyle("-fx-font-weight: bold");
+			searchLab.setPrefWidth(180);
+			searchLab.setPrefHeight(35);
+			primaryStage.setTitle("Search book result");
+			root.setAlignment(Pos.CENTER);
+			root.setPrefWidth(800);
+			root.setPrefHeight(400);
+			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
-			primaryStage.setResizable(false);
 			primaryStage.showAndWait();
 		}
 
@@ -266,12 +241,12 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 		mainVbox.getChildren().add(detailes);
 		mainVbox.setAlignment(Pos.CENTER);
 		primaryStage.setTitle("Detailes result");
-		
+
 		System.out.println(detailesData);
 
 		if (detailesData.get(3).equals("1")) //return the location
 		{
-			ans.setText("The book " + detailesData.get(1) + " of the author " + detailesData.get(2) + " is in shelf " + detailesData.get(4));
+			ans.setText("The book " + detailesData.get(1) + " of the author " + detailesData.get(2) + " is in shelf- " + detailesData.get(4));
 			ans.setFont(new Font("Ariel", 16));
 			mainVbox.getChildren().add(ans);
 		}
@@ -281,8 +256,7 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 				@Override
 				public void handle(ActionEvent event) {
-					BookHandlerController.reserveBook(detailesData.get(6),Client.arrayUser.get(0),detailesData.get(7));
-				}
+					BookHandlerController.reserveBook(detailesData.get(6),Client.arrayUser.get(0),detailesData.get(7));				}
 			});
 			Label  ans2		  = new Label();
 			ans.setText("we don't have copy of " + detailesData.get(1) + " by the author " + detailesData.get(2) + " in the library.");
@@ -301,10 +275,10 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 	@Override
 	public void showFailed(String message) {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("error");
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Message");
 		alert.setHeaderText(message);
-		alert.showAndWait();	
+		alert.showAndWait();
 	}
 
 	@Override

@@ -4,8 +4,9 @@ package GUI;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import Client.Client;
+import Common.GuiInterface;
+import Common.Librarian;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +25,7 @@ import javafx.stage.Stage;
 import logic.Main;
 import logic.RegistrationController;
 
-public class LibrarianMenuGUI implements Initializable{
+public class LibrarianMenuGUI implements Initializable, GuiInterface{
 
 	@FXML
 	private SplitPane mainSplitPane;
@@ -64,12 +65,15 @@ public class LibrarianMenuGUI implements Initializable{
 
 
 	public void init() throws IOException {
+		Main.client.clientUI= this;
+		if (Client.arrayUser.get(4).equals("false")) {
+			btnShow_Report.setVisible(false);
+		}
 		leftPane.maxWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));
 		leftPane.minWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/Registration.fxml"));
 		rightPane.getChildren().setAll(pane);
-		Client.arrayUser.get(1);
-		lblUser_name.setText(Client.arrayUser.get(2)+" "+Client.arrayUser.get(3));               
+		lblUser_name.setText(Client.arrayUser.get(2)+" "+Client.arrayUser.get(3)); 		
 	}
 
 	public void Logout(ActionEvent event) throws IOException {
@@ -99,7 +103,7 @@ public class LibrarianMenuGUI implements Initializable{
 
 	@FXML
 	void SearchBookScreen(ActionEvent event) throws IOException {
-		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/LibrarianSearch.fxml"));
+		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/LibrarianBookSearch.fxml"));
 		rightPane.getChildren().setAll(pane);
 	}
 
@@ -115,6 +119,12 @@ public class LibrarianMenuGUI implements Initializable{
 		rightPane.getChildren().setAll(pane);
 	}
 
+	@FXML
+	void showLoanScreen(ActionEvent event) throws IOException {
+		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/Loan.fxml"));
+		rightPane.getChildren().setAll(pane);
+	}
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {	
 		try {
@@ -125,4 +135,25 @@ public class LibrarianMenuGUI implements Initializable{
 		}	
 	}
 
+	@Override
+	public void showSuccess(String string) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void display(Object obj) {
+		OBLcontroller.librarianStage.close();
+		Main.primary.show();
+	}
+
+	@Override
+	public void showFailed(String message) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void freshStart() {
+		// TODO Auto-generated method stub
+	}
 }
