@@ -277,7 +277,7 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 	public void showFailed(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Message");
-		alert.setHeaderText("No matches results to your search");
+		alert.setHeaderText(message);
 		alert.showAndWait();
 	}
 

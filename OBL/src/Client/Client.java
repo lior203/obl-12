@@ -128,7 +128,7 @@ public class Client extends AbstractClient
 			if (((ArrayList<String>) msg).get(3).equals("-1"))
 			{
 				Platform.runLater(() -> {
-					clientUI.showFailed("not found");
+					clientUI.showFailed("No matches results to your search");
 				});
 			}
 			else if (((ArrayList<String>) msg).get(3).equals("1"))
