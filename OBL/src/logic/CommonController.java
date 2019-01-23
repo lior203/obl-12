@@ -83,4 +83,31 @@ public class CommonController {
 		String currentTime = sdf.format(date);
 		return currentTime;
 	}
+	public static String checkInput(String phoneNumber,String Email,String ID) {
+		System.out.println(Email);
+    	if (phoneNumber.length()!=10){
+    		System.out.println("in phoneNumber error");
+    		return "PhoneError";
+    	}
+    	if (!Email.contains("@")) {
+    		System.out.println("in email error");
+    		return "EmailError";
+		}
+	    if (ID.length()>9){
+    		System.out.println("IDError");
+	    		return "IDError";
+	    }
+	    else
+	    {
+	    		System.out.println("Success");
+		    	return "Success";
+	    }
+	}	    	
+	
+	public static void ShowReaderCards () {
+		ArrayList<String> ReaderCardsList = new ArrayList<>();
+		ReaderCardsList.add("ReaderCard");
+		Main.client.handleMessageFromClientUI(ReaderCardsList);
+	}
+
 }

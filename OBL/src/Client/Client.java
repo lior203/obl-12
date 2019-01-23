@@ -233,6 +233,13 @@ public class Client extends AbstractClient
 				clientUI.display(msg);
 			});
 			break;
+			
+		case "ReaderCard"://show reader card details for read only - tableView
+			Platform.runLater(()->{
+				clientUI.display(msg);
+			});
+			break;
+
 		default:
 			break;
 		}
