@@ -8,12 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.util.ArrayList;
-<<<<<<< HEAD
 import java.util.Calendar;
 import java.util.Date;
-=======
-
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 import com.mysql.fabric.xmlrpc.base.Data;
 import com.mysql.jdbc.UpdatableResultSet;
 import Client.Client;
@@ -731,16 +727,12 @@ public class DBController {
 		String		shelfLocation = null;
 		String		returnDate	  = null;
 		String		memberID	  = null;
-<<<<<<< HEAD
 		String		copyID	 	  = null;
-=======
-		String		copyID	  = null;
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
+		
 		PreparedStatement ps1 = conn.prepareStatement("SELECT BookID,ShelfLocation FROM book WHERE AuthorsName = ? AND BookName = ?");
 		ps1.setString(1, msg.get(2));
 		ps1.setString(2, msg.get(1));
 		rs1 = ps1.executeQuery();
-		System.out.println("111111111111111111111111111111111");
 		while(rs1.next()) {
 			bookID =rs1.getString(1);
 			System.out.println("1111111111111111111"+ bookID);
@@ -759,11 +751,8 @@ public class DBController {
 			java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String currentTime = sdf.format(date);
 			System.out.println(currentTime);
-<<<<<<< HEAD
 			PreparedStatement ps3 = conn.prepareStatement("SELECT ExpectedReturnDate,MemberID,CopyID FROM loanbook WHERE ExpectedReturnDate > ? AND BookID = ? AND IsReturned = ? ORDER BY ExpectedReturnDate LIMIT 1");
-=======
-			PreparedStatement ps3 = conn.prepareStatement("SELECT ExpectedReturnDate,MemberID,CopyID FROM loanbook WHERE ExpectedReturnDate > ? AND BookID = ? ORDER BY ExpectedReturnDate LIMIT 1");
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
+			
 			ps3.setString(1, currentTime);
 			ps3.setString(2, bookID);
 			ps3.setString(3, "false");
@@ -883,7 +872,6 @@ public class DBController {
 		ps.setString(3, member.get(1));
 		ps.executeUpdate();
 	}
-<<<<<<< HEAD
 
 	public static ArrayList<String> isCopyWanted(ArrayList<String> data) throws SQLException {
 		ArrayList<String> checkCopyWantedStatus = new ArrayList<>();
@@ -959,10 +947,7 @@ public class DBController {
 		return loanBook;
 	}
 
-	public void viewPersonalHistory(ArrayList<String> searchData) throws SQLException {
-=======
 	public Object viewPersonalHistory(ArrayList<String> searchData) throws SQLException {
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 		PreparedStatement searchLoan;
 		PreparedStatement searchBookName;
 		ResultSet rsLoan;
@@ -987,8 +972,6 @@ public class DBController {
 		return loanDetails;
 	}
 
-<<<<<<< HEAD
-=======
 	public ArrayList<String> reserveBook(ArrayList<String> bookdata) throws SQLException {
 		int copies,answer,reserveamount;
 		String bookID=bookdata.get(1),currentTime;
@@ -1053,8 +1036,6 @@ public class DBController {
 		return bookdata;	
 	}
 
-
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 	private static Connection connectToDatabase() {
 		try 
 		{

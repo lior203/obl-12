@@ -213,15 +213,12 @@ public class Client extends AbstractClient
 				clientUI.display(msg);
 			});
 			break;
-<<<<<<< HEAD
 		case "Check Copy Wanted Status":
 			clientUI.display((ArrayList<String>)msg);
 			break;
 		case "Loan Book":
 			clientUI.display((ArrayList<String>)msg);
 			break;
-
-=======
 		case "Reserve":
 			Platform.runLater(()->{
 				if (arrayObject.get(arrayObject.size()-1).equals("success"))
@@ -230,15 +227,11 @@ public class Client extends AbstractClient
 					clientUI.showFailed("cannot order, all the copies allready reserved.");
 			});
 			break;
-<<<<<<< HEAD
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
-=======
 		case "ViewPersonalHistory":
 			Platform.runLater(()->{
 				clientUI.display(msg);
 			});
 			break;
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 		default:
 			break;
 		}

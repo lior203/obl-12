@@ -10,7 +10,7 @@ public class BookHandlerController {
 		copyData.add(copyID);
 		Main.client.handleMessageFromClientUI(copyData);
 	}
-	
+
 	public static void isCopyExist(String copyID) throws Exception {	
 		if(copyID.length() == 0) {
 			throw new Exception("Copy ID field can't be empty");
@@ -20,7 +20,7 @@ public class BookHandlerController {
 		copyData.add(copyID);
 		Main.client.handleMessageFromClientUI(copyData);
 	}
-	
+
 	public static void returnBook(String copyID, String status) {	
 		ArrayList<String> memberData = new ArrayList<>();
 		memberData.add("Return Book");
@@ -28,14 +28,14 @@ public class BookHandlerController {
 		memberData.add(status);
 		Main.client.handleMessageFromClientUI(memberData);
 	}
-	
-//	public static void isCopyLate(String copyID) {	
-//		ArrayList<String> copyData = new ArrayList<>();
-//		copyData.add("Check If Copy Is Late");
-//		copyData.add(copyID);
-//		Main.client.handleMessageFromClientUI(copyData);
-//	}
-	
+
+	//	public static void isCopyLate(String copyID) {	
+	//		ArrayList<String> copyData = new ArrayList<>();
+	//		copyData.add("Check If Copy Is Late");
+	//		copyData.add(copyID);
+	//		Main.client.handleMessageFromClientUI(copyData);
+	//	}
+
 	public static void isMemberLateOnReturn(String memberID) {	
 		ArrayList<String> memberData = new ArrayList<>();
 		memberData.add("Check If Member Is Late On Return");
@@ -43,17 +43,13 @@ public class BookHandlerController {
 		Main.client.handleMessageFromClientUI(memberData);
 	}
 
-<<<<<<< HEAD
-	public static void reserveBook(String bookID, String memberID , String copyID) {
-	}
-	
 	public static void isCopyWanted(String bookID) {	
 		ArrayList<String> bookData = new ArrayList<>();
 		bookData.add("Check Copy Wanted Status");
 		bookData.add(bookID);
 		Main.client.handleMessageFromClientUI(bookData);
 	}
-	
+
 	public static void loanBook(String copyID,String bookStatus,String bookID,String memberID) {	
 		ArrayList<String> copyData = new ArrayList<>();
 		copyData.add("Loan Book");
@@ -62,7 +58,8 @@ public class BookHandlerController {
 		copyData.add(bookID);
 		copyData.add(memberID);
 		Main.client.handleMessageFromClientUI(copyData);
-=======
+	}
+
 	public static void reserveBook(String bookID, String memberID,String copyID) {
 		ArrayList<String> memberData = new ArrayList<>();
 		memberData.add("Reserve");
@@ -70,6 +67,5 @@ public class BookHandlerController {
 		memberData.add(memberID);		
 		memberData.add(copyID);		
 		Main.client.handleMessageFromClientUI(memberData);
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 	}
 }

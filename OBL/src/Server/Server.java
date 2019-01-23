@@ -246,10 +246,6 @@ public class Server extends AbstractServer
 			break;
 		case "Edit":
 			try {
-<<<<<<< HEAD
-=======
-				//				 System.out.println(DBController.getInstance().editBook((ArrayList<String>) msg));
->>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 				client.sendToClient(DBController.getInstance().editBook((ArrayList<String>) msg));
 			} catch (SQLException | IOException e) {
 				// TODO Auto-generated catch block
@@ -260,7 +256,6 @@ public class Server extends AbstractServer
 			ArrayList<String>member=null;
 			ArrayList<String>notify=null;
 			try {
-
 				notify=new ArrayList<String>();
 				notify.add("SearchMember");
 				member=(ArrayList<String>) DBController.getInstance().isMemberExist((ArrayList<String>) msg);
@@ -313,6 +308,7 @@ public class Server extends AbstractServer
 				e.printStackTrace();
 			}
 			break;
+			
 		case "ViewPersonalHistory":
 			try {
 				ArrayList<String>loanDetails;
