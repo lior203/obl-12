@@ -101,7 +101,7 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 		//set up the columns
 		BookName = new TableColumn<>("Book name");
 		CopyID = new TableColumn<>("Copy ID");
-		LoanDate = new TableColumn<>("Loan date");
+		LoanDate = new TableColumn<>("Loan Date");
 		//set up size
 		BookName.setMinWidth(200);
 		CopyID.setMinWidth(200);
@@ -115,7 +115,7 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 
 		BookName.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("bookName"));
 		CopyID.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("copyID"));
-		LoanDate.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("loanDate"));
+		LoanDate.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("LoanDate"));
 		//load data into tableView
 		CommonController.viewPersonalHistory(memberID);
 		
