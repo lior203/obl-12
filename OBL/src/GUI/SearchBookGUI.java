@@ -15,12 +15,14 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -157,8 +159,10 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 	@Override
 	public void showSuccess(String string) {
-		// TODO Auto-generated method stub
-
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Confirm");
+		alert.setHeaderText(string);
+		alert.showAndWait();	
 	}
 
 	@Override
@@ -277,7 +281,7 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 				@Override
 				public void handle(ActionEvent event) {
-					BookHandlerController.reserveBook(detailesData.get(6),detailesData.get(5));
+					BookHandlerController.reserveBook(detailesData.get(6),Client.arrayUser.get(0),detailesData.get(7));
 				}
 			});
 			Label  ans2		  = new Label();
@@ -297,12 +301,10 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 	@Override
 	public void showFailed(String message) {
-		if (message.equals("not found"))
-		{
-			Platform.runLater(() -> {
-				displayNotFound();
-			});
-		}
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("error");
+		alert.setHeaderText(message);
+		alert.showAndWait();	
 	}
 
 	@Override

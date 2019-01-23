@@ -195,7 +195,7 @@ public class Server extends AbstractServer
 				e.printStackTrace();
 			}
 			break;
-			case "Logout":
+		case "Logout":
 			try {
 				System.out.println("inside server - logout");
 				System.out.println(msg);
@@ -206,14 +206,14 @@ public class Server extends AbstractServer
 				e.printStackTrace();
 			}
 			break;
-			case "Check If Member Is Late On Return":
+		case "Check If Member Is Late On Return":
 			try {
 				client.sendToClient(DBController.getInstance().isMemberLateOnReturn((ArrayList<String>)msg));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			break;
-			case "Change Member Status":
+		case "Change Member Status":
 			try {
 				client.sendToClient(DBController.getInstance().changeMemberStatus((ArrayList<String>)msg));
 			} catch (Exception e) {
@@ -221,17 +221,17 @@ public class Server extends AbstractServer
 			}
 			break;
 		case "MemberUpdateMemberDetails":
-			 try {
+			try {
 				DBController.getInstance().MemberUpdateMemberDetails((ArrayList<String>) msg);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			 break;
+			break;
 		case "CheckLibrarianManager":
 			ArrayList<String> librarianData=null;
 			try {
-				 librarianData=DBController.getInstance().CheckLibrarianManager((ArrayList<String>) msg);
+				librarianData=DBController.getInstance().CheckLibrarianManager((ArrayList<String>) msg);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -244,14 +244,14 @@ public class Server extends AbstractServer
 			}
 			break;
 		case "Edit":
-			 try {
-				 System.out.println(DBController.getInstance().editBook((ArrayList<String>) msg));
-//				client.sendToClient(DBController.getInstance().editBook((ArrayList<String>) msg));
-			} catch (SQLException e) {
+			try {
+				//				 System.out.println(DBController.getInstance().editBook((ArrayList<String>) msg));
+				client.sendToClient(DBController.getInstance().editBook((ArrayList<String>) msg));
+			} catch (SQLException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			 break;
+			break;
 		case "librarianUpdateMember":
 			ArrayList<String>member=null;
 			ArrayList<String>notify=null;
@@ -282,6 +282,14 @@ public class Server extends AbstractServer
 			try {
 				DBController.getInstance().viewPersonalHistory((ArrayList<String>) msg);
 			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			break;
+		case "Reserve":
+			try {
+				client.sendToClient(DBController.getInstance().reserveBook((ArrayList<String>) msg));
+			} catch (IOException | SQLException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			break;

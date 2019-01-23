@@ -13,6 +13,9 @@ import com.mysql.jdbc.UpdatableResultSet;
 import Client.Client;
 import Common.Book;
 import Common.InventoryBook;
+import GUI.LibrarianMenuGUI;
+import logic.CommonController;
+import sun.awt.windows.ThemeReader;
 
 
 
@@ -231,27 +234,7 @@ public class DBController {
 		result.add("1");
 		return result;
 	}
-	//		ArrayList<String> data=new ArrayList<String>();
-	//		ArrayList<String> data1=new ArrayList<String>();
-	//		String BookName=null;
-	//		String AuthorsName=null;
-	//		data1=isCopyExist(msg);// return all the details of copy
-	//		PreparedStatement getbookdetails = conn.prepareStatement("SELECT BookName,AuthorsName FROM book WHERE BookID=? ");
-	//		getbookdetails.setString(1, data1.get(5));
-	//		ResultSet rs = getbookdetails.executeQuery();
-	//		if(rs.next()) {
-	//			BookName=rs.getString(1);
-	//			AuthorsName=rs.getString(2);
-	//		}
-	//		data.add("checkExistenceByCopy");
-	//		data.add(1, BookName);
-	//		data.add(2,AuthorsName);
-	//		data1.clear();
-	//		data1= inventoryCheckExistence(data);
-	//		return data1;
-	//	}
 
-	//search book on inventory database
 	public static ArrayList<String> inventoryCheckExistence(ArrayList<String> data) throws SQLException{
 		ArrayList<String> newData = new ArrayList<>();
 		newData.add("InventoryCheckExistense");
@@ -312,7 +295,7 @@ public class DBController {
 		PreparedStatement login;
 		ResultSet rs;
 		//First we search in librarian table if the user is librarian
-		login = conn.prepareStatement("SELECT LibrarianID,Password,FirstName,LastName,IsLoggedIn FROM librarian WHERE LibrarianID=? AND Password=?");
+		login = conn.prepareStatement("SELECT LibrarianID,Password,FirstName,LastName,IsLoggedIn,IsManager FROM librarian WHERE LibrarianID=? AND Password=?");
 		login.setString(1,data.get(1));//LibrarianID
 		login.setString(2,data.get(2));//Password
 		rs = login.executeQuery();
@@ -343,6 +326,7 @@ public class DBController {
 				//System.out.println("librarian connceted");
 			}
 			userDetails.add("1");//Add 1 to the arrayList to identify that the librarian is connected
+			userDetails.add(rs.getString(6));
 			return userDetails;
 		}
 
@@ -396,11 +380,19 @@ public class DBController {
 	public static ArrayList<String> editBook(ArrayList<String> searchData) throws SQLException{
 		int answer;
 		PreparedStatement updatebook=conn.prepareStatement("UPDATE book SET BookName=?,EditionNumber=?,BookGenre=?,PDFLink=?,AuthorsName=?,ShelfLocation=?,Description=?,Wanted=?,PurchaseDate=?,PrintDate=? WHERE BookID=?");
-		for (int i = 1; i <= searchData.size(); i++) {
-			updatebook.setString(i, searchData.get(i));			
-		}
+		updatebook.setString(1, searchData.get(1));	
+		updatebook.setString(2, searchData.get(2));	
+		updatebook.setString(3, searchData.get(3));	
+		updatebook.setString(4, searchData.get(4));	
+		updatebook.setString(5, searchData.get(5));	
+		updatebook.setString(6, searchData.get(6));	
+		updatebook.setString(7, searchData.get(7));	
+		updatebook.setString(8, searchData.get(8));	
+		updatebook.setString(9, searchData.get(9));	
+		updatebook.setString(10, searchData.get(10));	
+		updatebook.setString(11, searchData.get(11));	
 		answer=updatebook.executeUpdate();
-		System.out.println(answer);
+		searchData.add(Integer.toString(answer));
 		return searchData;
 	}
 
@@ -672,6 +664,7 @@ public class DBController {
 		String		shelfLocation = null;
 		String		returnDate	  = null;
 		String		memberID	  = null;
+		String		copyID	  = null;
 		PreparedStatement ps1 = conn.prepareStatement("SELECT BookID,ShelfLocation FROM book WHERE AuthorsName = ? AND BookName = ?");
 		ps1.setString(1, msg.get(2));
 		ps1.setString(2, msg.get(1));
@@ -695,13 +688,14 @@ public class DBController {
 			java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String currentTime = sdf.format(date);
 			System.out.println(currentTime);
-			PreparedStatement ps3 = conn.prepareStatement("SELECT ExpectedReturnDate,MemberID FROM loanbook WHERE ExpectedReturnDate > ? AND BookID = ? ORDER BY ExpectedReturnDate LIMIT 1");
+			PreparedStatement ps3 = conn.prepareStatement("SELECT ExpectedReturnDate,MemberID,CopyID FROM loanbook WHERE ExpectedReturnDate > ? AND BookID = ? ORDER BY ExpectedReturnDate LIMIT 1");
 			ps3.setString(1, currentTime);
 			ps3.setString(2, bookID);
 			rs3 = ps3.executeQuery();
 			while(rs3.next()) {
 				returnDate = rs3.getString(1);
 				memberID = rs3.getString(2);
+				copyID = rs3.getString(3);
 				System.out.println("2222222222222222222" + returnDate);
 				System.out.println("2222222222222222222" + memberID);
 			}
@@ -709,6 +703,7 @@ public class DBController {
 			msg.add(returnDate);
 			msg.add(memberID);
 			msg.add(bookID);
+			msg.add(copyID);
 		}
 		else {
 			System.out.println("7777777777");
@@ -823,6 +818,71 @@ public class DBController {
 			//return searchData; 		
 		}
 	}
+
+	public ArrayList<String> reserveBook(ArrayList<String> bookdata) throws SQLException {
+		int copies,answer,reserveamount;
+		String bookID=bookdata.get(1),currentTime;
+		String copyID = null;
+		System.out.println(bookID);
+		PreparedStatement ps = conn.prepareStatement("SELECT copies FROM book WHERE BookID = ?");
+		ps.setString(1,bookID);
+		ResultSet rs= ps.executeQuery();
+		if(rs.next()) {
+			copies=rs.getInt(1);
+		}
+		else {
+			System.out.println("cannot retrieve copies from book table.");
+			bookdata.add("fail-1");
+			return bookdata;
+		}
+		System.out.println(copies);
+		PreparedStatement ps2 = conn.prepareStatement("SELECT COUNT(*) FROM reservations WHERE BookID=? AND IsActive='true' ");
+		ps2.setString(1,bookID);
+		ResultSet rs1= ps2.executeQuery();
+		if(rs1.next()) {
+			reserveamount=rs1.getInt(1);
+			System.out.println(reserveamount);
+		}
+		else {
+			bookdata.add("all the copies are allready reserved.");
+			return bookdata;
+		}
+
+		if (reserveamount<copies) {
+			currentTime=CommonController.getCurrentTime();
+			PreparedStatement ps3 = conn.prepareStatement("SELECT CopyID FROM loanbook WHERE ExpectedReturnDate > ? AND BookID = ? AND IsReserved='false' ORDER BY ExpectedReturnDate LIMIT 1");
+			ps3.setString(1, currentTime);
+			ps3.setString(2, bookID);
+			ResultSet rs2=ps3.executeQuery();
+			if (rs2.next()) {
+				copyID=rs2.getString(1);
+			}
+			else {
+				bookdata.add("fail-2");
+				return bookdata;
+			}
+			PreparedStatement insert = conn.prepareStatement("insert into reservations values(?,?,?,?,?)");
+			insert.setString(1, copyID);
+			insert.setString(2, null);
+			insert.setString(3, bookdata.get(2));
+			insert.setString(4, bookID);
+			insert.setString(5, "true");
+			answer=insert.executeUpdate();
+			if (answer==1) {
+				bookdata.add("success");
+			}
+			PreparedStatement update = conn.prepareStatement("UPDATE loanbook SET IsReserved = ? WHERE CopyID = ?");
+			update.setString(1, "true");
+			update.setString(2, copyID);
+			answer=update.executeUpdate();
+			if (answer!=1) {
+				bookdata.add("fail-3");
+			}
+		}
+		else bookdata.add("all the copies are allready reserved.");
+		return bookdata;	
+	}
+
 
 	private static Connection connectToDatabase() {
 		try 

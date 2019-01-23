@@ -62,10 +62,14 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
 
 	@FXML
 	private ImageView asd;
-
+	
 
 	public void init() throws IOException {
 		Main.client.clientUI=this;
+		System.out.println();
+		if (Client.arrayUser.get(4).equals("false")) {
+			btnShow_Report.setVisible(false);
+		}
 		leftPane.maxWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));
 		leftPane.minWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/Registration.fxml"));

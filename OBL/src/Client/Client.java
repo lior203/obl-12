@@ -91,8 +91,7 @@ public class Client extends AbstractClient
 		case "InventoryCheckExistense":
 			if (((ArrayList<String>) msg).get(arrayObject.size()-1).equals("not exist")) {
 				Platform.runLater(()->{
-					clientUI.showFailed("book not exist. \n pls fill the missing details to add the book.");
-					clientUI.freshStart();
+					clientUI.showFailed("book doesn't exist in the library.");
 				});
 			}
 			else
@@ -108,9 +107,9 @@ public class Client extends AbstractClient
 			//System.out.println((ArrayList<String>)msg+"inside Client - login");
 			Platform.runLater(()->{
 				//System.out.println(clientUI);
+				System.out.println("lior");
 				clientUI.display((ArrayList<String>) msg);
 			});
-
 			break;
 		case "SearchMember":
 			if (((ArrayList<String>) msg).get(1).equals("NotExist")) {
@@ -217,13 +216,29 @@ public class Client extends AbstractClient
 			clientUI.display((ArrayList<String>)msg);			
 			break;
 		case "Edit":
-			Platform.runLater(()->{
-				clientUI.showSuccess("details updated successfully in the system");
-			});
+			if (arrayObject.get(arrayObject.size()-1).equals("1")) {
+				Platform.runLater(()->{
+					clientUI.showSuccess("details updated successfully in the system.");
+					clientUI.freshStart();
+				});
+			}
+			else {
+				Platform.runLater(()->{
+					clientUI.showFailed("book not updated in the system correctly.");
+				});
+			}
 			break;
 		case "SearchBookDetailes":
 			Platform.runLater(()->{
 				clientUI.display(msg);
+			});
+			break;
+		case "Reserve":
+			Platform.runLater(()->{
+				if (arrayObject.get(arrayObject.size()-1).equals("success"))
+					 clientUI.showSuccess("resrve successed.");
+				else 
+					clientUI.showFailed("cannot order, all the copies allready reserved.");
 			});
 			break;
 		default:
