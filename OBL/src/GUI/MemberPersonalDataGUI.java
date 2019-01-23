@@ -1,6 +1,5 @@
 package GUI;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -11,15 +10,11 @@ import Client.Client;
 import Common.GuiInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Stage;
 import logic.CommonController;
 import logic.Main;
 import logic.RegistrationController;
@@ -64,18 +59,9 @@ public class MemberPersonalDataGUI implements Initializable,GuiInterface{
 		    
 	    }
 	    @FXML
-	    void viewPersonalHistory(ActionEvent event) throws IOException {
-	    	//Load page of loan history
-	    	Parent parent=FXMLLoader.load(getClass().getResource("/GUI/HistoryOfLoanTableView.fxml"));
-	    	Scene scene=new Scene(parent);
-	    	Stage stage=new Stage();
-	    	stage.setScene(scene);
-	    	stage.setMaxHeight(578);
-	    	stage.setMinHeight(578);
-	    	stage.setMinWidth(845);
-	    	stage.setMaxWidth(845);
-	    	stage.show();
-	    	}
+	    void viewPersonalHistory(ActionEvent event) {
+	    	CommonController.viewPersonalHistory(member);
+	    }
 	    Common.Member member;// object of Member details
 		@Override
 		public void showSuccess(String string) {

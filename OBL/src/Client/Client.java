@@ -241,11 +241,6 @@ public class Client extends AbstractClient
 					clientUI.showFailed("cannot order, all the copies allready reserved.");
 			});
 			break;
-		case "ViewPersonalHistory":
-			Platform.runLater(()->{
-				clientUI.display(msg);
-			});
-			break;
 		default:
 			break;
 		}
