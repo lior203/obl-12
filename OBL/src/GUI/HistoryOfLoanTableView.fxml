@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="AnchorPane" prefHeight="578.0" prefWidth="845.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.HistoryOfLoanViewGUI">
+   <children>
+      <Label layoutX="264.0" layoutY="48.0" text="History of loans by member">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <TableView fx:id="TableViewLoanHistory" layoutX="26.0" layoutY="114.0" prefHeight="390.0" prefWidth="793.0">
+         <columns>
+            <TableColumn fx:id="BookName" prefWidth="179.20000916719437" text="Book name" />
+            <TableColumn fx:id="CopyID" prefWidth="228.7999725341797" text="Copy ID" />
+            <TableColumn fx:id="LoanDate" prefWidth="251.20001220703125" text="Loan Date" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

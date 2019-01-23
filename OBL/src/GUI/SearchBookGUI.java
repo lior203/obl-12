@@ -15,12 +15,14 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -157,16 +159,19 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 	@Override
 	public void showSuccess(String string) {
-		// TODO Auto-generated method stub
-
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Confirm");
+		alert.setHeaderText(string);
+		alert.showAndWait();	
 	}
 
 	@Override
 	public void display(Object obj) {
+		System.out.println(Client.arrayUser);
 		if (((ArrayList<String>)obj).get(0).equals("SearchBookDetailes"))
 			displayBookDetails((ArrayList<String>)obj);
 		else {
-
+			System.out.println("jfjfjfjjfjfjf");
 			ArrayList<String>   		 datalist 		 = 	(ArrayList<String>)obj;
 			int 						 numberOfBook    = 	(datalist.size()-4)/2;
 			int 			 			 i				 =	0;
@@ -180,6 +185,7 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 			ScrollPane 				 	 scrollPane      = 	new ScrollPane();
 
 
+			System.out.println("ooooooooooeeee");
 			primaryStage.initModality(Modality.APPLICATION_MODAL);
 			primaryStage.setTitle("Search result");
 			scrollPane.setMinHeight(390);
@@ -192,13 +198,14 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 			label.setPadding(new Insets(0, 0, 0, 170));
 			vBox.getChildren().add(label);
 
-
+			System.out.println("ooooooooooooooooooooooooo");
 			bookNameLabel.setPadding(new Insets(0, 120, 0, 0));
 			hBox2.getChildren().addAll(bookNameLabel ,authorNameLabel);
 			hBox2.setPadding(new Insets(0, 0, 0, 20));
 			bookNameLabel.setFont(new Font(18));
 			authorNameLabel.setFont(new Font(18));
 			vBox.getChildren().add(hBox2);
+			System.out.println(i);
 			while(i<numberOfBook)
 			{
 				Label bookNameInResult = new Label(datalist.get(j+4));
@@ -210,6 +217,7 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 				bookNameInResult.setPadding(new Insets(0, 200, 0, 0));
 				if (Client.arrayUser.size() <= 2)
 				{
+					System.out.println("liorrrrr");
 					hBox.getChildren().addAll(bookNameInResult,authorNsmeInResult);
 					hBox.setPadding(new Insets(0, 0, 0, 20));
 				}
@@ -273,7 +281,7 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 				@Override
 				public void handle(ActionEvent event) {
-					BookHandlerController.reserveBook(detailesData.get(6),detailesData.get(5));
+					BookHandlerController.reserveBook(detailesData.get(6),Client.arrayUser.get(0),detailesData.get(7));
 				}
 			});
 			Label  ans2		  = new Label();
@@ -293,12 +301,10 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 	@Override
 	public void showFailed(String message) {
-		if (message.equals("not found"))
-		{
-			Platform.runLater(() -> {
-				displayNotFound();
-			});
-		}
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("error");
+		alert.setHeaderText(message);
+		alert.showAndWait();	
 	}
 
 	@Override

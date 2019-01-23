@@ -69,9 +69,18 @@ public class CommonController {
 		return datearray;
 	}
 
-	public static void viewPersonalHistory(Member member) {
-		ArrayList<String> memberData = new ArrayList<>();
-		memberData.add("ViewPersonalHisotry");
-		memberData.add(member.getId());
+	public static void viewPersonalHistory(String memberID) {
+			ArrayList<String> memberData = new ArrayList<>();
+			memberData.add("ViewPersonalHistory");
+			memberData.add(memberID);
+			System.out.println(memberID);
+			Main.client.handleMessageFromClientUI(memberData);
+	}
+	
+	public static String getCurrentTime() {
+		java.util.Date date= new java.util.Date();
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String currentTime = sdf.format(date);
+		return currentTime;
 	}
 }

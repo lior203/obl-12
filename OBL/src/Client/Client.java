@@ -14,11 +14,11 @@ import Common.GuiInterface;
 import Common.InventoryBook;
 import GUI.InventoryAddGUI;
 import GUI.InventoryRemoveGUI;
-import GUI.MemberPersonalDataGUI;
 import GUI.OBLcontroller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import logic.InventoryController;
+import logic.Main;
 import logic.RegistrationController;
 
 
@@ -74,7 +74,7 @@ public class Client extends AbstractClient
 					clientUI.freshStart();
 				}
 				else 
-					clientUI.showFailed("Add failed");
+					clientUI.showFailed("Add failed.");
 			});
 			break;
 		case "RemoveCopy":
@@ -91,8 +91,7 @@ public class Client extends AbstractClient
 		case "InventoryCheckExistense":
 			if (((ArrayList<String>) msg).get(arrayObject.size()-1).equals("not exist")) {
 				Platform.runLater(()->{
-					clientUI.showFailed("book not exist. pls fill the missing details to add the book.");
-					clientUI.freshStart();
+					clientUI.showFailed("book doesn't exist in the library.");
 				});
 			}
 			else
@@ -108,9 +107,9 @@ public class Client extends AbstractClient
 			//System.out.println((ArrayList<String>)msg+"inside Client - login");
 			Platform.runLater(()->{
 				//System.out.println(clientUI);
+				System.out.println("lior");
 				clientUI.display((ArrayList<String>) msg);
 			});
-
 			break;
 		case "SearchMember":
 			if (((ArrayList<String>) msg).get(1).equals("NotExist")) {
@@ -120,8 +119,7 @@ public class Client extends AbstractClient
 			}
 			else
 			{
-				Platform.runLater(() -> {	
-					System.out.println(clientUI);
+				Platform.runLater(() -> {					
 					clientUI.display((ArrayList<String>) msg);
 				});
 			}
@@ -174,23 +172,16 @@ public class Client extends AbstractClient
 			}
 			break;
 		case "Registration":
+			System.out.println(msg);
 			if(((ArrayList<String>)msg).get(7).equals("0"))
 			{
 				Platform.runLater(() -> {
-					clientUI.showFailed("Some user have this ID");
+					clientUI.showFailed("Some user have this ID or this phone number");
 				});
-
 			}
-			else  if (((ArrayList<String>)msg).get(7).equals("1"))
-			{
+			else {
 				Platform.runLater(() -> {
 					clientUI.showSuccess("The user have been added successfully");
-				});
-			}
-			else if (((ArrayList<String>)msg).get(7).equals("2"))
-			{
-				Platform.runLater(() -> {
-					clientUI.showSuccess("Some user have this phone number");
 				});
 			}
 			break;
@@ -200,7 +191,10 @@ public class Client extends AbstractClient
 					clientUI.showSuccess("Copy Added successfuly.   copy id is: "+((ArrayList<String>) msg).get(arrayObject.size()-2).toString());
 				});
 			}else
-				clientUI.showFailed("failed to add copy");
+				Platform.runLater(()->{
+					clientUI.showFailed("failed to add copy");
+				});
+
 			break;
 		case "checkExistenceByCopy":
 			Platform.runLater(()->{
@@ -210,9 +204,11 @@ public class Client extends AbstractClient
 					clientUI.showFailed("copy not exist.");
 			});
 			break;
+
 		case "Check If Member Is Late On Return":
 			clientUI.display((ArrayList<String>)msg);
 			break;
+
 		case "Change Member Status":
 			clientUI.display((ArrayList<String>)msg);
 			break;
@@ -220,16 +216,36 @@ public class Client extends AbstractClient
 			clientUI.display((ArrayList<String>)msg);			
 			break;
 		case "Edit":
-			Platform.runLater(()->{
-				clientUI.showSuccess("details updated successfully in the system");
-			});
+			if (arrayObject.get(arrayObject.size()-1).equals("1")) {
+				Platform.runLater(()->{
+					clientUI.showSuccess("details updated successfully in the system.");
+					clientUI.freshStart();
+				});
+			}
+			else {
+				Platform.runLater(()->{
+					clientUI.showFailed("book not updated in the system correctly.");
+				});
+			}
 			break;
 		case "SearchBookDetailes":
 			Platform.runLater(()->{
 				clientUI.display(msg);
 			});
 			break;
-
+		case "Reserve":
+			Platform.runLater(()->{
+				if (arrayObject.get(arrayObject.size()-1).equals("success"))
+					 clientUI.showSuccess("resrve successed.");
+				else 
+					clientUI.showFailed("cannot order, all the copies allready reserved.");
+			});
+			break;
+		case "ViewPersonalHistory":
+			Platform.runLater(()->{
+				clientUI.display(msg);
+			});
+			break;
 		default:
 			break;
 		}
