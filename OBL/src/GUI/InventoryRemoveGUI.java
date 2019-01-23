@@ -12,7 +12,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
@@ -58,27 +57,11 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 
 	@FXML
 	private TextArea txtDescription;
-	
-	@FXML
-	private CheckBox CHBOX_YES;
 
 	@FXML
-	private CheckBox CHBOX_NO;
+	private TextField txtWanted;
 
-	String wanted;
 
-	@FXML
-	void WANTED_YES(ActionEvent event) {
-			CHBOX_NO.setSelected(false);
-			wanted="true";
-	}
-	
-	@FXML
-	void WANTED_NO(ActionEvent event) {
-			CHBOX_YES.setSelected(false);
-			wanted="false";
-	}
-	
 	@FXML
 	void RemoveCopy(ActionEvent event) {
 		InventoryController.RemoveCopy(txtCatalog_Number.getText());
@@ -107,8 +90,7 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 		this.txtPurchase_Date.setDisable(choice);
 		this.txtShelf_Location.setDisable(choice);
 		this.txtDescription.setDisable(choice);
-		this.CHBOX_NO.setDisable(choice);
-		this.CHBOX_YES.setDisable(choice);
+		this.txtWanted.setDisable(choice);
 		this.btnRemove.setDisable(choice);
 	}
 
@@ -124,11 +106,7 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 		System.out.println(((ArrayList<String>) msg));
 		this.txtBook_Name.setText(((ArrayList<String>) msg).get(2));
 		this.txtCopies.setText(((ArrayList<String>) msg).get(3));
-		wanted=((ArrayList<String>) msg).get(4);
-		if (wanted.equals("true")) {
-			CHBOX_YES.setSelected(true);
-		}
-		else CHBOX_NO.setSelected(true);
+		this.txtWanted.setText(((ArrayList<String>) msg).get(4));
 		this.txtAuthor.setText(((ArrayList<String>) msg).get(5));
 		this.txtEdition.setText(((ArrayList<String>) msg).get(6));
 		this.txtPrint_Date.setText(((ArrayList<String>) msg).get(7));
@@ -162,8 +140,7 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 	public void freshStart() {
 		this.txtBook_Name.clear();
 		this.txtCopies.clear();
-		CHBOX_NO.setSelected(false);
-		CHBOX_YES.setSelected(false);
+		this.txtWanted.clear();
 		this.txtAuthor.clear();
 		this.txtEdition.clear();
 		this.txtPrint_Date.clear();

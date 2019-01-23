@@ -18,7 +18,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -40,9 +39,7 @@ import logic.RegistrationController;
 import sun.reflect.generics.tree.DoubleSignature;
 
 public class OBLcontroller implements Initializable, GuiInterface {
-	@FXML
-	private AnchorPane anchorpane;
-	
+
 	@FXML
 	private ImageView imag;
 
@@ -152,15 +149,12 @@ public class OBLcontroller implements Initializable, GuiInterface {
 		switch (msg.get(5)) {
 		case "-1":
 			showFailed("User doesnt exist in the system.");
-			Client.arrayUser.clear();
 			break;
 		case "0":
 			showFailed("The user is already logged into the system!");
-			Client.arrayUser.clear();
 			break;
 		case "1":
 			try {
-				Client.arrayUser.add(((ArrayList<String>)msg).get(6));//is manager(true/false)
 				openLibrarianMenuScreen();
 			} catch (IOException e1) {
 				e1.printStackTrace();
@@ -175,7 +169,6 @@ public class OBLcontroller implements Initializable, GuiInterface {
 			break;
 		case "3":
 			showFailed("The member already graduated hence he can't login!");
-			Client.arrayUser.clear();
 			break;
 		}
 	}

@@ -74,11 +74,4 @@ public class CommonController {
 		memberData.add("ViewPersonalHisotry");
 		memberData.add(member.getId());
 	}
-	
-	public static String getCurrentTime() {
-		java.util.Date date= new java.util.Date();
-		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String currentTime = sdf.format(date);
-		return currentTime;
-	}
 }
