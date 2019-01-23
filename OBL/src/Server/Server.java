@@ -306,19 +306,27 @@ public class Server extends AbstractServer
 			try {
 				ArrayList<String>loanDetails;
 				loanDetails=(ArrayList<String>) DBController.getInstance().viewPersonalHistory((ArrayList<String>) msg);
-				if ((loanDetails.get(1).equals("NotExist"))==false) {
 					try {
 						client.sendToClient(loanDetails);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-				}
 
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 			break;
+			
+		case "ReaderCard":
+			try {
+				client.sendToClient(DBController.getInstance().ReaderCards());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+
 		default:
 			break;
 		}

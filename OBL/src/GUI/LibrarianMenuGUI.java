@@ -115,7 +115,7 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
 
 	@FXML
 	void ShowReportScreen(ActionEvent event) throws IOException {
-		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/ReaderCard.fxml"));
+		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/StatisticReports.fxml"));
 		rightPane.getChildren().setAll(pane);
 	}
 

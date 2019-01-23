@@ -17,7 +17,7 @@
          <columns>
             <TableColumn fx:id="BookName" prefWidth="179.20000916719437" text="Book name" />
             <TableColumn fx:id="CopyID" prefWidth="228.7999725341797" text="Copy ID" />
-            <TableColumn fx:id="LoanDate" prefWidth="251.20001220703125" text="Loan Date" />
+            <TableColumn fx:id="LoanDate" prefWidth="251.20001220703125" text="Loan date" />
          </columns>
       </TableView>
    </children>

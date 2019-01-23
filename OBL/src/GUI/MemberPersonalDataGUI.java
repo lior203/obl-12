@@ -46,19 +46,17 @@ public class MemberPersonalDataGUI implements Initializable,GuiInterface{
 	    private Button btnSave;
 	    @FXML
 	    void updateMemberDetails(ActionEvent event) {
-		    	boolean t=true;
-		    	if (txtPhone_Number.getText().length()==10){
-			    	if (txtEmail.getText().contains("@")){
+		    	String ans=CommonController.checkInput(txtPhone_Number.getText(),txtEmail.getText(),txtID.getText());
+		    	if (ans.equals("EmailError")) {
+		    		showFailed("Wrong Email, please enter new parameters");
+				}
+		    	else if (ans.equals("PhoneError")) {
+		    		showFailed("Wrong phone number, please enter new parameters");
+				}
+		    	else {
 		    		RegistrationController.updateMemberDetails(txtID.getText(),txtPhone_Number.getText(), txtEmail.getText());
 		    		showSuccess("Details updated successfully");
-			    	}
-			    	else 
-			    		showFailed("Wrong Email, please enter new parameters");
-			    }
-		    	else 
-		    		showFailed("Wrong phone number, please enter new parameters");
-		    	
-		    
+		    	}
 	    }
 	    @FXML
 	    void viewPersonalHistory(ActionEvent event) throws IOException {

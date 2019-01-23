@@ -1,5 +1,6 @@
 package GUI;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -10,7 +11,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -19,12 +23,18 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 import logic.CommonController;
 import logic.Main;
 import logic.RegistrationController;
 
 public class MemberCardGUI implements Initializable,GuiInterface{
-
+	public static String memberIDHistory=null;
+    String isManager;
+	ObservableList<String> list;
+	boolean update=false;
+    @FXML
+    private ComboBox cmbStatus;
     @FXML
     private TextField txtMember_ID;
 
@@ -52,10 +62,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
     @FXML
     private Button btnSave;
 
-    @FXML
-    private ComboBox cmbStatus;
-	ObservableList<String> list;
-	boolean update=false;
+
     @FXML
     void searchMember(KeyEvent event) {
     	if (event.getCode()==KeyCode.ENTER) {
@@ -67,7 +74,21 @@ public class MemberCardGUI implements Initializable,GuiInterface{
     	update=true;
     	CommonController.librarianUpdateMember(cmbStatus.getValue().toString(),txtMember_ID.getText(),txtArea_Notes.getText(),isManager);
     }
-    String isManager;
+    @FXML
+    void viewPersonalHistory(ActionEvent event) throws IOException {
+    	//Load page of loan history
+    	memberIDHistory=txtMember_ID.getText();
+    	Parent parent=FXMLLoader.load(getClass().getResource("/GUI/HistoryOfLoanTableView.fxml"));
+    	Scene scene=new Scene(parent);
+    	Stage stage=new Stage();
+    	stage.setScene(scene);
+    	stage.setMaxHeight(578);
+    	stage.setMinHeight(578);
+    	stage.setMinWidth(845);
+    	stage.setMaxWidth(845);
+    	stage.show();
+    }
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Client.clientUI=this;
@@ -127,6 +148,8 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		txtEmail.setDisable(true);
 		cmbStatus.setDisable(true);
 		txtArea_Notes.setDisable(false);
+		btnHistory.setDisable(false);
+		btnLates_Lostbook.setDisable(false);
 	}
 	private void setEditableLibrarianManager() {
 		txtFirst_Name.setEditable(false);
@@ -138,6 +161,8 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		txtArea_Notes.setDisable(false);
 		btnSave.setDisable(false);//librarian cannot edit details
 		cmbStatus.setDisable(false);
+		btnHistory.setDisable(false);
+		btnLates_Lostbook.setDisable(false);
 	}
 	private void setCardMember(ArrayList<String> memberData) {
 		txtMember_ID.setEditable(false);
