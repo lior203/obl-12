@@ -3,9 +3,6 @@ package GUI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import org.w3c.dom.css.Counter;
-
 import Client.Client;
 import Common.GuiInterface;
 import Common.Member;
@@ -66,7 +63,7 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 	//			}
 	//		}
 	//	}
-
+	
 	@FXML
 	void copyKeyPressed(KeyEvent event) {
 		if (event.getCode()==KeyCode.ENTER) {
@@ -85,7 +82,7 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 				BookHandlerController.returnBook(txtCopy_ID.getText(),memb.getStatus());
 			}
 			else {
-				
+
 				if(txtCopy_ID.getText().equals(memb.getFreezedOn())) {
 					BookHandlerController.isMemberLateOnReturn(memb.getId());
 				}
@@ -96,11 +93,10 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 		}
 		else {
 			Platform.runLater(() -> {
-				showFailed("You changed the Copy ID field, to continue click enter in Copy ID field");
+				showFailed("You changed the Copy ID field, to continue reclick enter in Copy ID field");
 				btnReturn.setDisable(true);
 			});
 		}
-		btnReturn.setDisable(true);
 	}
 
 
@@ -120,35 +116,56 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 			break;
 
 		case "Check Copy Loan Status":
-			txtMember_ID.setText(msg.get(4));
-			try {
-				CommonController.checkMemberExistence(msg.get(4));
-			} catch (Exception e1) {
-				e1.printStackTrace();
+			if(((ArrayList<String>)msg).size() == 1) {
+				Platform.runLater(() -> {
+					showFailed("Copy isn't loan yet");
+				});
 			}
-
+			else {
+				txtMember_ID.setText(msg.get(4));
+				try {
+					CommonController.checkMemberExistence(msg.get(4));
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
 			break;
 
 		case "Check Copy ID Existence":
-			try {
-				txtBook_Name.setText(msg.get(2));
-				txtReturn_Date.setText(msg.get(5));
-				BookHandlerController.isCopyLoaned(txtCopy_ID.getText());
-			} catch (Exception e) {
-				e.printStackTrace();
+			if(((ArrayList<String>)msg).size() == 1) {
+				Platform.runLater(() -> {
+					showFailed("Copy doesn't exist");
+				});
+			}
+			else {
+				try {
+					txtBook_Name.setText(msg.get(2));
+					txtReturn_Date.setText(msg.get(5));
+					BookHandlerController.isCopyLoaned(txtCopy_ID.getText());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 			break;
 
 		case "Return Book":
-			txtReturn_Date.setText(msg.get(1));
-			Platform.runLater(() -> {
-				if(oldStatus.equals(memb.getStatus())) {
-					showSuccess("Copy of the book " + txtBook_Name.getText() + " returned successfully");
-				}
-				else {
-					showSuccess("Copy of the book " + txtBook_Name.getText() + " returned successfully and the member status is now " + memb.getStatus());
-				}
-			});
+			if(((ArrayList<String>)msg).size() == 1) {
+				Platform.runLater(() -> {
+					showFailed("Book return was unsuccessful!");
+				});
+			}
+			else {
+				txtReturn_Date.setText(msg.get(1));
+				Platform.runLater(() -> {
+					if(oldStatus.equals(memb.getStatus())) {
+						showSuccess("Copy of the book " + txtBook_Name.getText() + " returned successfully");
+					}
+					else {
+						showSuccess("Copy of the book " + txtBook_Name.getText() + " returned successfully and the member status is now " + memb.getStatus());
+					}
+				});
+				freshStart();
+			}
 			break;
 
 		case "Check If Member Is Late On Return":
@@ -169,12 +186,12 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 
 		case "Change Member Status":
 			Platform.runLater(() -> {
-			if(msg.size() == 1) {
+				if(msg.size() == 1) {
 					showFailed("Failed to change member status");
-			}
-			else {
-				memb.setStatus(msg.get(1));
-			}
+				}
+				else {
+					memb.setStatus(msg.get(1));
+				}
 			});
 			break;
 
@@ -185,38 +202,41 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 
 	@Override
 	public void showFailed(String message) {
-		freshStart();
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error");
-		alert.setHeaderText("An error occurred");
-		alert.setContentText(message);
-		alert.showAndWait();
-		
+		Platform.runLater(() -> {
+			freshStart();
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("An error occurred");
+			alert.setContentText(message);
+			alert.showAndWait();
+		});
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Main.client.clientUI = this;
-
 	}
 
 	@Override
 	public void showSuccess(String message) {
+		Platform.runLater(() -> {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Success");
 		alert.setHeaderText("An successful operation");
 		alert.setContentText(message);
 		alert.showAndWait();
+		});
 	}
 
 	@Override
 	public void freshStart() {
-		txtMember_ID.setText("");
-		txtMember_Status.setText("");
-		txtFirst_Name.setText("");
-		txtLast_name.setText("");
-		txtReturn_Date.setText("");
-		txtBook_Name.setText("");
+		txtCopy_ID.clear();
+		txtMember_ID.clear();
+		txtMember_Status.clear();
+		txtFirst_Name.clear();
+		txtLast_name.clear();
+		txtReturn_Date.clear();
+		txtBook_Name.clear();
 		btnReturn.setDisable(true);		
 	}
 }

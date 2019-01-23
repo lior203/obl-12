@@ -104,7 +104,11 @@ public class Client extends AbstractClient
 			arrayUser.add(((ArrayList<String>)msg).get(2));//Password
 			arrayUser.add(((ArrayList<String>)msg).get(3));//First Name
 			arrayUser.add(((ArrayList<String>)msg).get(4));//Last Name
+<<<<<<< HEAD
 			arrayUser.add(arrayObject.get(arrayObject.size()-1));//Last Name
+=======
+			arrayUser.add(arrayObject.get(arrayObject.size()-1));
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 			//System.out.println((ArrayList<String>)msg+"inside Client - login");
 			Platform.runLater(()->{
 				//System.out.println(clientUI);
@@ -129,7 +133,7 @@ public class Client extends AbstractClient
 			if (((ArrayList<String>) msg).get(3).equals("-1"))
 			{
 				Platform.runLater(() -> {
-					clientUI.showFailed("not found");
+					clientUI.showFailed("No matches results to your search");
 				});
 			}
 			else if (((ArrayList<String>) msg).get(3).equals("1"))
@@ -143,34 +147,13 @@ public class Client extends AbstractClient
 			clientUI.display((ArrayList<String>)msg);
 			break;
 		case "Check Copy Loan Status":
-			if(((ArrayList<String>)msg).size() == 1) {
-				Platform.runLater(() -> {
-					clientUI.showFailed("Copy isn't loan yet");
-				});
-			}
-			else {
-				clientUI.display((ArrayList<String>)msg);
-			}
+			clientUI.display((ArrayList<String>)msg);
 			break;
 		case "Check Copy ID Existence":
-			if(((ArrayList<String>)msg).size() == 1) {
-				Platform.runLater(() -> {
-					clientUI.showFailed("Copy doesn't exist");
-				});
-			}
-			else {
-				clientUI.display((ArrayList<String>)msg);
-			}
+			clientUI.display((ArrayList<String>)msg);
 			break;
 		case "Return Book":
-			if(((ArrayList<String>)msg).size() == 1) {
-				Platform.runLater(() -> {
-					clientUI.showFailed("Book return was unsuccessful!");
-				});
-			}
-			else {
-				clientUI.display((ArrayList<String>)msg);
-			}
+			clientUI.display((ArrayList<String>)msg);
 			break;
 		case "Registration":
 			System.out.println(msg);
@@ -183,6 +166,7 @@ public class Client extends AbstractClient
 			else {
 				Platform.runLater(() -> {
 					clientUI.showSuccess("The user have been added successfully");
+					clientUI.freshStart();
 				});
 			}
 			break;
@@ -233,6 +217,12 @@ public class Client extends AbstractClient
 			Platform.runLater(()->{
 				clientUI.display(msg);
 			});
+			break;
+		case "Check Copy Wanted Status":
+			clientUI.display((ArrayList<String>)msg);
+			break;
+		case "Loan Book":
+			clientUI.display((ArrayList<String>)msg);
 			break;
 		case "Reserve":
 			Platform.runLater(()->{

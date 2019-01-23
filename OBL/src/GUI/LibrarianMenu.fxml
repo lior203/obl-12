@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane fx:id="mainSplitPane" dividerPositions="0.18550531914893617" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="928.0" prefWidth="1506.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LibrarianMenuGUI">
+<SplitPane fx:id="mainSplitPane" dividerPositions="0.18550531914893617" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="928.0" prefWidth="1506.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LibrarianMenuGUI">
   <items>
       <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" prefHeight="572.0" prefWidth="233.0">
          <children>
@@ -26,6 +26,11 @@
                      </font>
                   </Button>
                   <Button fx:id="btnSearchBook" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#SearchBookScreen" prefHeight="85.0" prefWidth="348.0" text="Search book">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnInventory1" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#showLoanScreen" prefHeight="85.0" prefWidth="349.0" text="Loan book">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

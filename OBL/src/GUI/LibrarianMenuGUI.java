@@ -4,9 +4,12 @@ package GUI;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import Client.Client;
 import Common.GuiInterface;
+<<<<<<< HEAD
+=======
+import Common.Librarian;
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -65,8 +68,12 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
 	
 
 	public void init() throws IOException {
+<<<<<<< HEAD
 		Main.client.clientUI=this;
 		System.out.println();
+=======
+		Main.client.clientUI= this;
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 		if (Client.arrayUser.get(4).equals("false")) {
 			btnShow_Report.setVisible(false);
 		}
@@ -74,7 +81,11 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
 		leftPane.minWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/Registration.fxml"));
 		rightPane.getChildren().setAll(pane);
+<<<<<<< HEAD
 		lblUser_name.setText(Client.arrayUser.get(2)+" "+Client.arrayUser.get(3));               
+=======
+		lblUser_name.setText(Client.arrayUser.get(2)+" "+Client.arrayUser.get(3)); 		
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 	}
 
 	public void Logout(ActionEvent event) throws IOException {
@@ -104,7 +115,7 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
 
 	@FXML
 	void SearchBookScreen(ActionEvent event) throws IOException {
-		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/LibrarianSearch.fxml"));
+		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/LibrarianBookSearch.fxml"));
 		rightPane.getChildren().setAll(pane);
 	}
 
@@ -117,6 +128,12 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
 	@FXML
 	void ShowReportScreen(ActionEvent event) throws IOException {
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/ReaderCard.fxml"));
+		rightPane.getChildren().setAll(pane);
+	}
+
+	@FXML
+	void showLoanScreen(ActionEvent event) throws IOException {
+		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/Loan.fxml"));
 		rightPane.getChildren().setAll(pane);
 	}
 
@@ -133,6 +150,7 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
 	@Override
 	public void showSuccess(String string) {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
 		
 	}
 
@@ -154,4 +172,24 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
 		
 	}
 
+=======
+	}
+
+	@Override
+	public void display(Object obj) {
+		OBLcontroller.librarianStage.close();
+		Main.primary.show();
+	}
+
+	@Override
+	public void showFailed(String message) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void freshStart() {
+		// TODO Auto-generated method stub
+	}
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 }
