@@ -50,16 +50,8 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 	Stage window;
 	VBox vBox;
 	String memberID;
-//	public ObservableList<LoanDetails> getLoanDetails(){
-////		ObservableList<LoanDetails> loanDetails=FXCollections.observableArrayList();
-////		LoanDetails l1=new LoanDetails("Harry Potter","1-1","1.1.19");
-////		LoanDetails l2=new LoanDetails("Sod","2-1","1.1.19");
-////		LoanDetails l3=new LoanDetails("Da-vinci-code","3-1","1.1.19");
-////		loanDetails.addAll(l1);
-////		loanDetails.addAll(l2);
-////		loanDetails.addAll(l3);
-////		return loanDetails;
-//	}
+	String memberFirstName;
+	String memberLastName;	
 	@Override
 	public void showSuccess(String string) {
 		// TODO Auto-generated method stub
