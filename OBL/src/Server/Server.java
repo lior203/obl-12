@@ -293,13 +293,6 @@ public class Server extends AbstractServer
 				e.printStackTrace();
 			}
 			break;
-		case "viewPersonalHistory:":
-			try {
-				DBController.getInstance().viewPersonalHistory((ArrayList<String>) msg);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			break;
 		case "Reserve":
 			try {
 				client.sendToClient(DBController.getInstance().reserveBook((ArrayList<String>) msg));
