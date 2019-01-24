@@ -964,7 +964,7 @@ public class DBController {
 		//PreparedStatement searchBookName;
 		ResultSet rsLoan;
 		//ResultSet rsBook;
-		searchLoan = conn.prepareStatement("SELECT CopyID,LoanDate,BookName,ActualReturnDate FROM loanbook WHERE MemberID=? ");
+		searchLoan = conn.prepareStatement("SELECT CopyID,LoanDate,BookName,ActualReturnDate FROM loanbook WHERE MemberID=? ORDER BY ActualReturnDate DESC");
 		//searchBookName = conn.prepareStatement("SELECT BookName FROM book WHERE BookID=? ");
 		ArrayList<String> loanDetails = new ArrayList<String>();
 		searchLoan.setString(1,searchData.get(1));
