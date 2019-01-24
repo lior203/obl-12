@@ -189,7 +189,7 @@ public class DBController {
 			bookID=rs.getString(1);
 		}
 		else return 0;
-		
+
 		PreparedStatement reserved = conn.prepareStatement("SELECT IsActive,MemberID FROM reservations WHERE CopyID=? AND IsActive='true'");
 		reserved.setString(1, copyid);
 		ResultSet rs2 = reserved.executeQuery();
@@ -750,7 +750,7 @@ public class DBController {
 		String		returnDate	  = null;
 		String		memberID	  = null;
 		String		copyID	 	  = null;
-		
+
 		PreparedStatement ps1 = conn.prepareStatement("SELECT BookID,ShelfLocation FROM book WHERE AuthorsName = ? AND BookName = ?");
 		ps1.setString(1, msg.get(2));
 		ps1.setString(2, msg.get(1));
@@ -774,7 +774,7 @@ public class DBController {
 			String currentTime = sdf.format(date);
 			System.out.println(currentTime);
 			PreparedStatement ps3 = conn.prepareStatement("SELECT ExpectedReturnDate,MemberID,CopyID FROM loanbook WHERE ExpectedReturnDate > ? AND BookID = ? AND IsReturned = ? ORDER BY ExpectedReturnDate LIMIT 1");
-			
+
 			ps3.setString(1, currentTime);
 			ps3.setString(2, bookID);
 			ps3.setString(3, "false");
@@ -1005,8 +1005,23 @@ public class DBController {
 	public ArrayList<String> reserveBook(ArrayList<String> bookdata) throws SQLException {
 		int copies,answer,reserveamount;
 		String bookID=bookdata.get(1),currentTime;
-		String copyID = null;
+		String copyID = null,Status;
 		System.out.println(bookID);
+
+		PreparedStatement checkIfFroze = conn.prepareStatement("SELECT Status FROM members WHERE MemberID = ?");
+		checkIfFroze.setString(1,bookdata.get(2));
+		ResultSet rs4= checkIfFroze.executeQuery();
+		if(rs4.next()) {
+			Status=rs4.getString(1);
+			if (!Status.equals("Active")) {
+				bookdata.add("your account is 'Frozen'. you can't reserve the book.");
+				return bookdata;
+			}
+		}
+		else {
+			bookdata.add("fail-1");
+			return bookdata;
+			}
 		PreparedStatement ps = conn.prepareStatement("SELECT copies FROM book WHERE BookID = ?");
 		ps.setString(1,bookID);
 		ResultSet rs= ps.executeQuery();
@@ -1065,7 +1080,7 @@ public class DBController {
 		else bookdata.add("all the copies are allready reserved.");
 		return bookdata;	
 	}
-	
+
 	/**
 	 * Function - ReaderCards, retrieve the card member's details form the DataBase
 	 * @return ArrayList<String> listMember
@@ -1087,25 +1102,25 @@ public class DBController {
 		}
 		return listMember;
 	}
-	
-//	public ArrayList<String> changeMemberToGraduated(ArrayList<String> data) throws SQLException {
-//		ResultSet rs;
-//		PreparedStatement ps = conn.prepareStatement("UPDATE members SET IsGraduated = ? WHERE MemberID = ?");
-//		ps.setString(1, "true");
-//		ps.setString(2, data.get(?)); // ? == memberID
-//		if(ps.executeUpdate() == 0) {
-//			//error
-//		}
-//		
-//		PreparedStatement ps1 = conn.prepareStatement("INSERT into graduatedstudent values(?,?,?)");
-//		ps1.setString(1, x); // x == memberID
-//		ps1.setString(2, y); // y == First Name
-//		ps1.setString(3, z); // z == Last Name
-//		if(ps1.executeUpdate() == 0) {
-//			//error
-//		}
-//		return null;
-//	}
+
+	//	public ArrayList<String> changeMemberToGraduated(ArrayList<String> data) throws SQLException {
+	//		ResultSet rs;
+	//		PreparedStatement ps = conn.prepareStatement("UPDATE members SET IsGraduated = ? WHERE MemberID = ?");
+	//		ps.setString(1, "true");
+	//		ps.setString(2, data.get(?)); // ? == memberID
+	//		if(ps.executeUpdate() == 0) {
+	//			//error
+	//		}
+	//		
+	//		PreparedStatement ps1 = conn.prepareStatement("INSERT into graduatedstudent values(?,?,?)");
+	//		ps1.setString(1, x); // x == memberID
+	//		ps1.setString(2, y); // y == First Name
+	//		ps1.setString(3, z); // z == Last Name
+	//		if(ps1.executeUpdate() == 0) {
+	//			//error
+	//		}
+	//		return null;
+	//	}
 
 
 	private static Connection connectToDatabase() {

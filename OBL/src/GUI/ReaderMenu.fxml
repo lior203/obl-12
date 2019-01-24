@@ -15,22 +15,22 @@
          <children>
             <VBox layoutY="228.0" prefHeight="725.0" prefWidth="275.0" AnchorPane.bottomAnchor="-27.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="228.0">
                <children>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#PersonalDataScreen" prefHeight="79.0" prefWidth="349.0" text="Personal Data">
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#PersonalDataScreen" prefHeight="79.0" prefWidth="349.0" text="Personal Data">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#OrderBookScreen" prefHeight="85.0" prefWidth="351.0" text="Order Book">
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#SearchScreen" prefHeight="85.0" prefWidth="348.0" text="Search/Reserve  book">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#SearchScreen" prefHeight="85.0" prefWidth="348.0" text="Search book">
+                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="85.0" prefWidth="347.0" text="History Activities">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="85.0" prefWidth="347.0" text="History Activities">
+                  <Button mnemonicParsing="false" onAction="#ExtendLoanScreen" prefHeight="85.0" prefWidth="347.0" text="EXTEND LOAN PERIOD">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
