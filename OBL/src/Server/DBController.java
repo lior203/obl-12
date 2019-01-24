@@ -633,6 +633,7 @@ public class DBController {
 			checkCopyLoanStatus.add(rs.getString(6));
 			checkCopyLoanStatus.add(rs.getString(7));
 			checkCopyLoanStatus.add(rs.getString(8));
+			checkCopyLoanStatus.add(rs.getString(9));
 		}
 		return checkCopyLoanStatus;
 	}
@@ -663,6 +664,7 @@ public class DBController {
 		String currentTime = sdf.format(dt);
 		ArrayList<String> returnBook = new ArrayList<>();
 		returnBook.add("Return Book");
+		ResultSet rs;
 		PreparedStatement ps = conn.prepareStatement("UPDATE copies SET isLoaned = ?, ActualReturnDate = ? WHERE CopyID = ?");
 		ps.setString(1, "false");
 		ps.setString(2, currentTime);
@@ -672,13 +674,21 @@ public class DBController {
 		ps1.setString(2, currentTime);
 		ps1.setString(3, data.get(1));
 		ps1.setString(4, "false");
-
+		PreparedStatement ps2 = conn.prepareStatement("SELECT COUNT(*) from reservations WHERE CopyID = ? AND CopyReadyForPickUpDate = ? AND IsActive = ?");
+		ps2.setString(1, data.get(1));
+		ps2.setString(2,null);
+		ps2.setString(3, "true");
+		rs = ps2.executeQuery();
+		if(rs.isBeforeFirst()) {
+			PreparedStatement ps22 = conn.prepareStatement("UPDATE reservations SET CopyReadyForPickUpDate = ?");
+			ps22.setString(1, currentTime);
+			ps22.executeUpdate();
+		}
 
 		if(!data.get(2).equals("Active")) {
 			String memberID = null;
 			String copyID = null;
 			String newCopyID = null;
-			ResultSet rs;
 
 			PreparedStatement ps3 = conn.prepareStatement("SELECT MemberID from delayonreturn WHERE CopyID = ?");
 			ps3.setString(1, data.get(1));
@@ -932,7 +942,7 @@ public class DBController {
 		String returnDate = sdf.format(c.getTime());
 		ArrayList<String> loanBook = new ArrayList<>();
 		loanBook.add("Loan Book");
-		PreparedStatement ps = conn.prepareStatement("INSERT loanbook values(?,?,?,?,?,?,?,?)");
+		PreparedStatement ps = conn.prepareStatement("INSERT loanbook values(?,?,?,?,?,?,?,?,?)");
 		ps.setString(1, data.get(1));
 		ps.setString(2, returnDate);
 		ps.setString(3, null);
@@ -941,6 +951,7 @@ public class DBController {
 		ps.setString(6,currentTime);
 		ps.setString(7,"false");
 		ps.setString(8,"false");
+		ps.setString(9, data.get(5));
 		if(ps.executeUpdate() == 0) {
 			return loanBook;
 		}
@@ -1076,6 +1087,25 @@ public class DBController {
 		}
 		return listMember;
 	}
+	
+//	public ArrayList<String> changeMemberToGraduated(ArrayList<String> data) throws SQLException {
+//		ResultSet rs;
+//		PreparedStatement ps = conn.prepareStatement("UPDATE members SET IsGraduated = ? WHERE MemberID = ?");
+//		ps.setString(1, "true");
+//		ps.setString(2, data.get(?)); // ? == memberID
+//		if(ps.executeUpdate() == 0) {
+//			//error
+//		}
+//		
+//		PreparedStatement ps1 = conn.prepareStatement("INSERT into graduatedstudent values(?,?,?)");
+//		ps1.setString(1, x); // x == memberID
+//		ps1.setString(2, y); // y == First Name
+//		ps1.setString(3, z); // z == Last Name
+//		if(ps1.executeUpdate() == 0) {
+//			//error
+//		}
+//		return null;
+//	}
 
 
 	private static Connection connectToDatabase() {
