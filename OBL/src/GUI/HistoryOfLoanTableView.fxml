@@ -6,18 +6,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="AnchorPane" prefHeight="578.0" prefWidth="845.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.HistoryOfLoanViewGUI">
+<AnchorPane fx:id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="631.0" prefWidth="895.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.HistoryOfLoanViewGUI">
    <children>
-      <Label layoutX="264.0" layoutY="48.0" text="History of loans by member" underline="true">
+      <Label layoutX="290.0" layoutY="51.0" text="History of loans by member">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <TableView fx:id="TableViewLoanHistory" layoutX="26.0" layoutY="114.0" prefHeight="390.0" prefWidth="793.0">
+      <TableView fx:id="TableViewLoanHistory" layoutX="11.0" layoutY="107.0" prefHeight="450.0" prefWidth="876.0">
          <columns>
-            <TableColumn fx:id="BookName" prefWidth="179.20000916719437" text="Book name" />
-            <TableColumn fx:id="CopyID" prefWidth="228.7999725341797" text="Copy ID" />
-            <TableColumn fx:id="LoanDate" prefWidth="251.20001220703125" text="Loan date" />
+            <TableColumn fx:id="BookName" prefWidth="197.59996032714844" text="Book name" />
+            <TableColumn fx:id="CopyID" prefWidth="106.4000244140625" text="Copy ID" />
+            <TableColumn fx:id="LoanDate" prefWidth="144.79998779296875" text="Loan date" />
+            <TableColumn fx:id="ActualReturnDate" prefWidth="218.40008544921875" text="Actual return date" />
          </columns>
       </TableView>
    </children>

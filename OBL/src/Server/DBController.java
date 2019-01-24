@@ -972,11 +972,11 @@ public class DBController {
 
 	public Object viewPersonalHistory(ArrayList<String> searchData) throws SQLException {
 		PreparedStatement searchLoan;
-		PreparedStatement searchBookName;
+		//PreparedStatement searchBookName;
 		ResultSet rsLoan;
-		ResultSet rsBook;
-		searchLoan = conn.prepareStatement("SELECT CopyID,LoanDate,BookID FROM loanbook WHERE MemberID=? ");
-		searchBookName = conn.prepareStatement("SELECT BookName FROM book WHERE BookID=? ");
+		//ResultSet rsBook;
+		searchLoan = conn.prepareStatement("SELECT CopyID,LoanDate,BookName,ActualReturnDate FROM loanbook WHERE MemberID=? ORDER BY ActualReturnDate DESC");
+		//searchBookName = conn.prepareStatement("SELECT BookName FROM book WHERE BookID=? ");
 		ArrayList<String> loanDetails = new ArrayList<String>();
 		searchLoan.setString(1,searchData.get(1));
 		rsLoan = searchLoan.executeQuery();
@@ -984,13 +984,15 @@ public class DBController {
 		while(rsLoan.next()) {
 			loanDetails.add(rsLoan.getString(1));//CopyID
 			loanDetails.add(rsLoan.getString(2));//LoanDate
-			ArrayList<String> BookID =new ArrayList<String>();
-			BookID.add(rsLoan.getString(3));//BookID
-			searchBookName.setString(1,BookID.get(0));
-			rsBook = searchBookName.executeQuery();
-			if (rsBook.next()) {
-				loanDetails.add(rsBook.getString(1));//BookName
-			}
+			loanDetails.add(rsLoan.getString(3));//BookID
+			loanDetails.add(rsLoan.getString(4));//ActualReturnDate
+			//ArrayList<String> BookID =new ArrayList<String>();
+			//BookID.add(rsLoan.getString(3));//BookID
+			//searchBookName.setString(1,BookID.get(0));
+			//rsBook = searchBookName.executeQuery();
+//			if (rsBook.next()) {
+//				loanDetails.add(rsBook.getString(1));//BookName
+//			}
 		}
 		if (loanDetails.size()==1) {
 			loanDetails.add("NotExist");
