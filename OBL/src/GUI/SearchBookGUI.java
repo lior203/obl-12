@@ -284,6 +284,9 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Main.client.clientUI = this;
+		if (!Client.arrayUser.isEmpty()) {
+			btnBack.setVisible(false);
+		}
 	}
 
 	@Override
