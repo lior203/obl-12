@@ -62,10 +62,10 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
 
 	@FXML
 	private ImageView asd;
-
+	
 
 	public void init() throws IOException {
-		Main.client.clientUI= this;
+		Main.client.clientUI=this;
 		if (Client.arrayUser.get(4).equals("false")) {
 			btnShow_Report.setVisible(false);
 		}
@@ -73,7 +73,7 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
 		leftPane.minWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/Registration.fxml"));
 		rightPane.getChildren().setAll(pane);
-		lblUser_name.setText(Client.arrayUser.get(2)+" "+Client.arrayUser.get(3)); 		
+		lblUser_name.setText(Client.arrayUser.get(2)+" "+Client.arrayUser.get(3));               	
 	}
 
 	public void Logout(ActionEvent event) throws IOException {
@@ -138,6 +138,7 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
 	@Override
 	public void showSuccess(String string) {
 		// TODO Auto-generated method stub
+		
 	}
 
 	@Override

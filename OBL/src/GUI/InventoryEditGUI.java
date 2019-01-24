@@ -16,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -84,6 +85,15 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 
     @FXML
     private CheckBox CHBOX_NO;
+    
+    @FXML
+    private Label BookID_must;
+    
+    @FXML
+    private Label BookName_must;
+
+    @FXML
+    private Label Author_must;
 	
 	String wanted;
 
@@ -109,6 +119,9 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 	void book_ID(ActionEvent event) {
 		freshStart();
 		txtBook_ID.setDisable(false);
+		BookID_must.setVisible(true);
+		BookName_must.setVisible(false);
+		Author_must.setVisible(false);
 	}
 
 	@FXML
@@ -116,6 +129,9 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 		freshStart();
 		txtBook_Name.setDisable(false);
 		txtAuthors.setDisable(false);
+		BookID_must.setVisible(false);
+		BookName_must.setVisible(true);
+		Author_must.setVisible(true);
 	}
 
 	@FXML
@@ -219,6 +235,8 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 	public void display(Object obj) {
 		Disable(false);
 		txtBook_ID.setDisable(true);
+		txtBook_Name.setDisable(true);
+		txtAuthors.setDisable(true);
 		ArrayList<String> details=(ArrayList<String>)obj;
 		ArrayList<Integer> datearray=new ArrayList<>();
 		datearray=CommonController.convertordate(details.get(7));
@@ -243,6 +261,9 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 		btnSave.setDisable(false);
 		txtAuthors.setText(details.get(5));
 		txtBook_Name.setText(details.get(2));
+		BookID_must.setVisible(false);
+		BookName_must.setVisible(false);
+		Author_must.setVisible(false);
 	}
 
 
@@ -270,6 +291,9 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 		txtDescription.clear();
 		txtAuthors.clear();
 		txtBook_Name.clear();
+		BookID_must.setVisible(false);
+		BookName_must.setVisible(false);
+		Author_must.setVisible(false);
 	}
 
 	@Override

@@ -26,7 +26,7 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </Label>
-            <Label text="Last name::">
+            <Label text="Last name:">
                <font>
                   <Font size="18.0" />
                </font>
@@ -74,5 +74,11 @@
       <TextField fx:id="txtPhone_number" layoutX="246.0" layoutY="312.0" />
       <TextField fx:id="txtEmail" layoutX="246.0" layoutY="360.0" />
       <TextField fx:id="txtPassword" layoutX="246.0" layoutY="408.0" />
+      <Label layoutX="445.0" layoutY="176.0" text="*" textFill="RED" />
+      <Label layoutX="445.0" layoutY="223.0" text="*" textFill="RED" />
+      <Label layoutX="445.0" layoutY="267.0" text="*" textFill="RED" />
+      <Label layoutX="445.0" layoutY="317.0" text="*" textFill="RED" />
+      <Label layoutX="445.0" layoutY="365.0" text="*" textFill="RED" />
+      <Label layoutX="445.0" layoutY="413.0" text="*" textFill="RED" />
    </children>
 </AnchorPane>
