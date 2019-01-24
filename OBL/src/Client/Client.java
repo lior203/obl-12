@@ -69,8 +69,8 @@ public class Client extends AbstractClient
 		switch ((((ArrayList<String>) msg).get(0))) {
 		case "AddBook":
 			Platform.runLater(()->{
-				if (((ArrayList<String>) msg).get(arrayObject.size()-1).equals("1")) {
-					clientUI.showSuccess("Book Added successfull. \n copy id is: "+((ArrayList<String>) msg).get(arrayObject.size()-3).toString());
+				if (arrayObject.get(arrayObject.size()-1).equals("1")) {
+					clientUI.showSuccess("Book Added successfull. \n copy id is: "+arrayObject.get(arrayObject.size()-3).toString());
 					clientUI.freshStart();
 				}
 				else 
@@ -89,31 +89,32 @@ public class Client extends AbstractClient
 			});
 			break;
 		case "InventoryCheckExistense":
-			if (((ArrayList<String>) msg).get(arrayObject.size()-1).equals("not exist")) {
+			if (arrayObject.get(arrayObject.size()-1).equals("not exist")) {
 				Platform.runLater(()->{
 					clientUI.showFailed("book doesn't exist in the library.");
 				});
 			}
 			else
 				Platform.runLater(()->{
-					clientUI.display((ArrayList<String>) msg);
+					clientUI.display(arrayObject);
 				});
 			break;
 		case "Login":
-			arrayUser.add(((ArrayList<String>)msg).get(1));//User ID
-			arrayUser.add(((ArrayList<String>)msg).get(2));//Password
-			arrayUser.add(((ArrayList<String>)msg).get(3));//First Name
-			arrayUser.add(((ArrayList<String>)msg).get(4));//Last Name
+			arrayUser.add(arrayObject.get(1));//User ID
+			arrayUser.add(arrayObject.get(2));//Password
+			arrayUser.add(arrayObject.get(3));//First Name
+			arrayUser.add(arrayObject.get(4));//Last Name
 			arrayUser.add(arrayObject.get(arrayObject.size()-1));
+			System.out.println(arrayUser);
 			//System.out.println((ArrayList<String>)msg+"inside Client - login");
 			Platform.runLater(()->{
 				//System.out.println(clientUI);
 				System.out.println("lior");
-				clientUI.display((ArrayList<String>) msg);
+				clientUI.display(arrayObject);
 			});
 			break;
 		case "SearchMember":
-			if (((ArrayList<String>) msg).get(1).equals("NotExist")) {
+			if (arrayObject.get(1).equals("NotExist")) {
 				Platform.runLater(() -> {					
 					clientUI.showFailed("Member does not exist in the system");
 				});
@@ -121,12 +122,12 @@ public class Client extends AbstractClient
 			else
 			{
 				Platform.runLater(() -> {					
-					clientUI.display((ArrayList<String>) msg);
+					clientUI.display(arrayObject);
 				});
 			}
 			break;
 		case "Search book":
-			if (((ArrayList<String>) msg).get(3).equals("-1"))
+			if (arrayObject.get(3).equals("-1"))
 			{
 				Platform.runLater(() -> {
 					clientUI.showFailed("No matches results to your search");
@@ -233,7 +234,6 @@ public class Client extends AbstractClient
 				clientUI.display(msg);
 			});
 			break;
-			
 		case "ReaderCard"://show reader card details for read only - tableView
 			Platform.runLater(()->{
 				clientUI.display(msg);

@@ -3,7 +3,6 @@ package GUI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import Common.Book;
 import Common.Copy;
 import Common.GuiInterface;
@@ -86,7 +85,7 @@ public class LoanGUI implements Initializable, GuiInterface {
 				showFailed("You changed the Copy ID field, to continue reclick enter in Copy ID field");
 			}
 			else {
-				BookHandlerController.loanBook(returnedCopy.getCopyID(),returnedBook.getWanted(),returnedBook.getBookID(),returnedMember.getId());
+				BookHandlerController.loanBook(returnedCopy.getCopyID(),returnedBook.getWanted(),returnedBook.getBookID(),returnedMember.getId(),returnedBook.getBookName());
 			}
 		}
 	}

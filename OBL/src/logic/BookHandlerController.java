@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class BookHandlerController {
 
-	public static void isCopyLoaned(String copyID) throws Exception {	
+	public static void isCopyLoaned(String copyID) {	
 		ArrayList<String> copyData = new ArrayList<>();
 		copyData.add("Check Copy Loan Status");
 		copyData.add(copyID);
@@ -50,13 +50,14 @@ public class BookHandlerController {
 		Main.client.handleMessageFromClientUI(bookData);
 	}
 
-	public static void loanBook(String copyID,String bookStatus,String bookID,String memberID) {	
+	public static void loanBook(String copyID,String bookStatus,String bookID,String memberID, String bookName) {	
 		ArrayList<String> copyData = new ArrayList<>();
 		copyData.add("Loan Book");
 		copyData.add(copyID);
 		copyData.add(bookStatus);
 		copyData.add(bookID);
 		copyData.add(memberID);
+		copyData.add(bookName);
 		Main.client.handleMessageFromClientUI(copyData);
 	}
 

@@ -1,14 +1,18 @@
-<<<<<<< HEAD
 /Client/
 /Common/
 /GUI/
+/Image/
 /Server/
 /logic/
 /ocsf/
+<<<<<<< HEAD
 =======
 /Server/
 /GUI/
 /logic/
 /Client/
 /Common/
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
+/Image/
+=======
 >>>>>>> branch 'master' of https://github.com/lior203/obl-12.git

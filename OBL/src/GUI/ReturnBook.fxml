@@ -17,14 +17,14 @@
       </Label>
       <Label layoutX="107.0" layoutY="137.0" text="Book name:" />
       <TextField fx:id="txtBook_Name" disable="true" layoutX="205.0" layoutY="132.0" prefHeight="31.0" prefWidth="225.0" />
-      <Label layoutX="470.0" layoutY="141.0" text="Member Status:" />
-      <TextField fx:id="txtFirst_Name" disable="true" layoutX="576.0" layoutY="181.0" prefHeight="31.0" prefWidth="225.0" />
+      <Label layoutX="506.0" layoutY="137.0" text="Member Status:" />
+      <TextField fx:id="txtFirst_Name" disable="true" layoutX="616.0" layoutY="177.0" prefHeight="31.0" prefWidth="225.0" />
       <Label layoutX="107.0" layoutY="94.0" text="Copy ID:" />
       <TextField fx:id="txtCopy_ID" layoutX="205.0" layoutY="89.0" onKeyPressed="#copyKeyPressed" prefHeight="31.0" prefWidth="225.0" promptText="Insert Copy ID and click &quot;Enter&quot;" />
-      <Label layoutX="470.0" layoutY="186.0" text="First name:" />
-      <TextField fx:id="txtMember_Status" disable="true" layoutX="576.0" layoutY="136.0" prefHeight="31.0" prefWidth="225.0" />
-      <Label layoutX="471.0" layoutY="234.0" text="Last name:" />
-      <TextField fx:id="txtLast_name" disable="true" editable="false" layoutX="576.0" layoutY="229.0" prefHeight="31.0" prefWidth="225.0" />
+      <Label layoutX="506.0" layoutY="182.0" text="First name:" />
+      <TextField fx:id="txtMember_Status" disable="true" layoutX="616.0" layoutY="132.0" prefHeight="31.0" prefWidth="225.0" />
+      <Label layoutX="506.0" layoutY="229.0" text="Last name:" />
+      <TextField fx:id="txtLast_name" disable="true" editable="false" layoutX="616.0" layoutY="224.0" prefHeight="31.0" prefWidth="225.0" />
       <Button fx:id="btnReturn" disable="true" layoutX="151.0" layoutY="318.0" mnemonicParsing="false" onAction="#clickReturnButton" text="Return">
          <font>
             <Font name="System Bold" size="24.0" />
@@ -35,9 +35,10 @@
             <Image url="@../../../../Pictures/bookreturn_decal_d.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="470.0" layoutY="98.0" text="Member ID:" />
-      <TextField fx:id="txtMember_ID" disable="true" layoutX="576.0" layoutY="93.0" prefHeight="31.0" prefWidth="225.0" />
+      <Label layoutX="506.0" layoutY="94.0" text="Member ID:" />
+      <TextField fx:id="txtMember_ID" disable="true" layoutX="616.0" layoutY="89.0" prefHeight="31.0" prefWidth="225.0" />
       <Label layoutX="108.0" layoutY="182.0" text="Retun date:" />
       <TextField fx:id="txtReturn_Date" disable="true" layoutX="205.0" layoutY="177.0" prefHeight="31.0" prefWidth="225.0" />
+      <Label layoutX="438.0" layoutY="94.0" text="*" textFill="RED" />
    </children>
 </AnchorPane>
