@@ -4,17 +4,19 @@ public class LoanDetails {
 	private String bookName;
 	private String copyID;
 	private String loanDate;
-
-	public LoanDetails(String bookName, String copyID, String loanDate) {
+	private String actualReturnDate;
+	public LoanDetails(String bookName, String copyID, String loanDate,String actualReturnDate) {
 		super();
 		this.bookName = bookName;
 		this.copyID = copyID;
 		this.loanDate = loanDate;
+		this.actualReturnDate=actualReturnDate;
 	}
 	public LoanDetails() {
 		this.bookName="";
 		this.copyID="";
 		this.loanDate="";
+		this.actualReturnDate="";
 	}
 	public String getBookName() {
 		return bookName;
@@ -33,6 +35,12 @@ public class LoanDetails {
 	}
 	public void setLoanDate(String loanDate) {
 		this.loanDate = loanDate;
+	}
+	public String getActualReturnDate() {
+		return actualReturnDate;
+	}
+	public void setActualReturnDate(String actualReturnDate) {
+		this.actualReturnDate = actualReturnDate;
 	}
 	
 }
