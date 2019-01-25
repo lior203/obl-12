@@ -3,27 +3,28 @@ package logic;
 import java.util.ArrayList;
 
 import Common.Member;
+import javafx.scene.control.TableColumnBase;
 
 public class CommonController {
-	
+
 	private static final int ID_SIZE = 9;
 
-	
+
 	public static void checkMemberExistence(String memberID) throws Exception {
 		if(memberID.length() == 0) {
 			throw new Exception("Member ID field can't be empty");
 		}	
-		
+
 		if(memberID.length() != ID_SIZE) {
 			throw new Exception("Wrong ID size");
 		}
-		
+
 		ArrayList<String> checkMemberExistence = new ArrayList<>();
 		checkMemberExistence.add("Check Member Existence");
 		checkMemberExistence.add(memberID);
 		Main.client.handleMessageFromClientUI(checkMemberExistence);
 	}
-	
+
 	public static void changeMemberStatus(String memberID, String status) {
 		ArrayList<String> memberData = new ArrayList<>();
 		memberData.add("Change Member Status");
@@ -47,7 +48,7 @@ public class CommonController {
 		memberData.add(isManager);
 		Main.client.handleMessageFromClientUI(memberData);
 	}
-	
+
 	/**
 	 * get string of date and return arraylist of integer that contains the date as integer
 	 * @param date-
@@ -70,13 +71,13 @@ public class CommonController {
 	}
 
 	public static void viewPersonalHistory(String memberID) {
-			ArrayList<String> memberData = new ArrayList<>();
-			memberData.add("ViewPersonalHistory");
-			memberData.add(memberID);
-			System.out.println(memberID);
-			Main.client.handleMessageFromClientUI(memberData);
+		ArrayList<String> memberData = new ArrayList<>();
+		memberData.add("ViewPersonalHistory");
+		memberData.add(memberID);
+		System.out.println(memberID);
+		Main.client.handleMessageFromClientUI(memberData);
 	}
-	
+
 	public static String getCurrentTime() {
 		java.util.Date date= new java.util.Date();
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -85,29 +86,54 @@ public class CommonController {
 	}
 	public static String checkInput(String phoneNumber,String Email,String ID) {
 		System.out.println(Email);
-    	if (phoneNumber.length()!=10){
-    		System.out.println("in phoneNumber error");
-    		return "PhoneError";
-    	}
-    	if (!Email.contains("@")) {
-    		System.out.println("in email error");
-    		return "EmailError";
+		if (phoneNumber.length()!=10){
+			System.out.println("in phoneNumber error");
+			return "PhoneError";
 		}
-	    if (ID.length()>9){
-    		System.out.println("IDError");
-	    		return "IDError";
-	    }
-	    else
-	    {
-	    		System.out.println("Success");
-		    	return "Success";
-	    }
+		if (!Email.contains("@")) {
+			System.out.println("in email error");
+			return "EmailError";
+		}
+		if (ID.length()>9){
+			System.out.println("IDError");
+			return "IDError";
+		}
+		else
+		{
+			System.out.println("Success");
+			return "Success";
+		}
 	}	    	
-	
+
 	public static void ShowReaderCards () {
 		ArrayList<String> ReaderCardsList = new ArrayList<>();
 		ReaderCardsList.add("ReaderCard");
 		Main.client.handleMessageFromClientUI(ReaderCardsList);
+	}
+
+	public static String checkRegistrationInput(String phoneNumber,String email,String ID,String password) {
+		if (phoneNumber.length()!=10){
+			return "The phone number isn't included 10 digits";
+		}
+		if (!email.contains("@")) {
+			return "The email isn't included @";
+		}
+		if (ID.length()>9){
+			return "IDError";
+		}
+		if (password.length()<6) {
+			return "The password isn't included 6 characters";
+		}
+		else
+		{
+			return "Success";
+		}
+	}
+	public static <S,T> void setColumnWidth(TableColumnBase<S,T> col,double minWidth,double prefWidth, double maxWidth)
+	{
+		col.setMinWidth(minWidth);
+		col.setPrefWidth(prefWidth);
+		col.setMaxWidth(maxWidth);
 	}
 
 }

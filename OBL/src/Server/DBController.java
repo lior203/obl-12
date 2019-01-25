@@ -415,13 +415,15 @@ public class DBController {
 
 	public static ArrayList<String> searchBook(ArrayList<String> searchData) throws SQLException
 	{
+		System.out.println(searchData);
+		System.out.println(searchData.get(2));
 		PreparedStatement searchBook;
 		ResultSet rsBook;
 		String bookID = null;
 		switch (searchData.get(1)) {
 		case "Book Name":
-			searchBook = conn.prepareStatement("SELECT BookName,AuthorsName,BookGenre,Description,BookID,Copies,Wanted,ShelfLocation FROM book WHERE BookName=? ");
-			searchBook.setString(1,searchData.get(2));
+			searchBook = conn.prepareStatement("SELECT BookName,AuthorsName,BookGenre,Description,BookID,Copies,Wanted,ShelfLocation FROM book WHERE BookName LIKE'%"+searchData.get(2)+"%'");
+		//	searchBook.setString(1,searchData.get(2));
 			rsBook = searchBook.executeQuery();
 			if (!(rsBook.isBeforeFirst()))
 			{
@@ -444,8 +446,8 @@ public class DBController {
 				return searchData;
 			}
 		case "Authors Name":
-			searchBook = conn.prepareStatement("SELECT BookName,AuthorsName,BookGenre,Description,BookID,Copies,Wanted,ShelfLocation FROM book WHERE AuthorsName=? ");
-			searchBook.setString(1,searchData.get(2));
+			searchBook = conn.prepareStatement("SELECT BookName,AuthorsName,BookGenre,Description,BookID,Copies,Wanted,ShelfLocation FROM book WHERE AuthorsName LIKE '%"+searchData.get(2)+"%'");
+		//	searchBook.setString(1,searchData.get(2));
 			rsBook = searchBook.executeQuery();
 			if (!(rsBook.isBeforeFirst()))
 			{
@@ -468,8 +470,8 @@ public class DBController {
 				return searchData;
 			}
 		case "Book Theme":
-			searchBook = conn.prepareStatement("SELECT BookName,AuthorsName,BookGenre,Description,BookID,Copies,Wanted,ShelfLocation FROM book WHERE BookGenre=? ");
-			searchBook.setString(1,searchData.get(2));
+			searchBook = conn.prepareStatement("SELECT BookName,AuthorsName,BookGenre,Description,BookID,Copies,Wanted,ShelfLocation FROM book WHERE BookGenre LIKE '%"+searchData.get(2)+"%'");
+		//	searchBook.setString(1,searchData.get(2));
 			rsBook = searchBook.executeQuery();
 			if (!(rsBook.isBeforeFirst()))
 			{
@@ -492,8 +494,8 @@ public class DBController {
 				return searchData;
 			}	
 		case "Free text":
-			searchBook = conn.prepareStatement("SELECT BookName,AuthorsName,BookGenre,Description,BookID,Copies,Wanted,ShelfLocation FROM book WHERE Description=? ");
-			searchBook.setString(1,searchData.get(2));
+			searchBook = conn.prepareStatement("SELECT BookName,AuthorsName,BookGenre,Description,BookID,Copies,Wanted,ShelfLocation FROM book WHERE Description LIKE '%"+searchData.get(2)+"%'");
+	//		searchBook.setString(1,searchData.get(2));
 			rsBook = searchBook.executeQuery();
 			if (!(rsBook.isBeforeFirst()))
 			{

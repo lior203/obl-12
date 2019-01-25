@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
+import logic.CommonController;
 import logic.Main;
 import logic.RegistrationController;
 
@@ -44,10 +45,15 @@ public class RegistrationGUI implements Initializable, GuiInterface{
 
 	@FXML
 	void onSaveClick(ActionEvent event) {
+		String ans = CommonController.checkRegistrationInput(txtPhone_number.getText(), txtEmail.getText(), txtID.getText(),txtPassword.getText());
 		if (checkfields())
+		{
 			showFailed("Fill all the dields");
-		else {
-			RegistrationController.registration(txtPhone_number.getText(),txtID.getText(),txtLast_name.getText(),txtFirst_name.getText(),txtEmail.getText(),txtPassword.getText());
+			return;
+		}
+		else if(!(ans.equals("Success")))
+					showFailed(ans);
+		else {	RegistrationController.registration(txtPhone_number.getText(),txtID.getText(),txtLast_name.getText(),txtFirst_name.getText(),txtEmail.getText(),txtPassword.getText());
 		}
 
 	}

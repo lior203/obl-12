@@ -100,6 +100,12 @@ public class MemberMenuGUI implements Initializable,GuiInterface{
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/SearchBook.fxml"));
 		rightPane.getChildren().setAll(pane);
 	}
+	
+    @FXML
+    void extendLoanPeriodScreen(ActionEvent event) throws IOException{
+		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/MemberExtendLoanPeriod.fxml"));
+		rightPane.getChildren().setAll(pane);
+    }
 
 	@Override
 	public void showSuccess(String string) {
