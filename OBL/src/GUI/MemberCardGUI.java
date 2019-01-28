@@ -23,7 +23,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import logic.CommonController;
 import logic.Main;
@@ -31,68 +30,64 @@ import logic.RegistrationController;
 
 public class MemberCardGUI implements Initializable,GuiInterface{
 	public static String memberIDHistory=null;
-	String isManager;
+    String isManager;
 	ObservableList<String> list;
 	boolean update=false;
-	@FXML
-	private ComboBox cmbStatus;
-	@FXML
-	private TextField txtMember_ID;
+    @FXML
+    private ComboBox cmbStatus;
+    @FXML
+    private TextField txtMember_ID;
 
-	@FXML
-	private TextField txtFirst_Name;
+    @FXML
+    private TextField txtFirst_Name;
 
-	@FXML
-	private TextField txtLast_Name;
+    @FXML
+    private TextField txtLast_Name;
 
-	@FXML
-	private TextField txtPhone_Number;
+    @FXML
+    private TextField txtPhone_Number;
 
-	@FXML
-	private TextField txtEmail;
+    @FXML
+    private TextField txtEmail;
 
-	@FXML
-	private Button btnHistory;
+    @FXML
+    private Button btnHistory;
 
-	@FXML
-	private Button btnLates_Lostbook;
+    @FXML
+    private Button btnLates_Lostbook;
 
-	@FXML
-	private TextArea txtArea_Notes;
+    @FXML
+    private TextArea txtArea_Notes;
 
-	@FXML
-	private Button btnSave;
+    @FXML
+    private Button btnSave;
 
-	@FXML
-	void mouse_click(MouseEvent event) {
-		RegistrationController.searchMember(txtMember_ID.getText());
-	}
 
-	@FXML
-	void searchMember(KeyEvent event) {
-		if (event.getCode()==KeyCode.ENTER) {
+    @FXML
+    void searchMember(KeyEvent event) {
+    	if (event.getCode()==KeyCode.ENTER) {
 			RegistrationController.searchMember(txtMember_ID.getText());
 		}
-	}
-	@FXML
-	void librarianUpdateMember(ActionEvent event) {
-		update=true;
-		CommonController.librarianUpdateMember(cmbStatus.getValue().toString(),txtMember_ID.getText(),txtArea_Notes.getText(),isManager);
-	}
-	@FXML
-	void viewPersonalHistory(ActionEvent event) throws IOException {
-		//Load page of loan history
-		memberIDHistory=txtMember_ID.getText();
-		Parent parent=FXMLLoader.load(getClass().getResource("/GUI/HistoryOfLoanTableView.fxml"));
-		Scene scene=new Scene(parent);
-		Stage stage=new Stage();
-		stage.setScene(scene);
-		stage.setMaxHeight(631);
-		stage.setMinHeight(631);
-		stage.setMinWidth(920);
-		stage.setMaxWidth(920);
-		stage.show();
-	}
+    }
+    @FXML
+    void librarianUpdateMember(ActionEvent event) {
+    	update=true;
+    	CommonController.librarianUpdateMember(cmbStatus.getValue().toString(),txtMember_ID.getText(),txtArea_Notes.getText(),isManager);
+    }
+    @FXML
+    void viewPersonalHistory(ActionEvent event) throws IOException {
+    	//Load page of loan history
+    	memberIDHistory=txtMember_ID.getText();
+    	Parent parent=FXMLLoader.load(getClass().getResource("/GUI/HistoryOfLoanTableView.fxml"));
+    	Scene scene=new Scene(parent);
+    	Stage stage=new Stage();
+    	stage.setScene(scene);
+    	stage.setMaxHeight(631);
+    	stage.setMinHeight(631);
+    	stage.setMinWidth(920);
+    	stage.setMaxWidth(920);
+    	stage.show();
+    }
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -123,7 +118,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 				setCardMember(userData);
 			}
 			if (userData.get(1).equals("NotExist")) {
-
+				
 				showFailed("Member does not exist");
 			}
 			else {
@@ -228,5 +223,5 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		txtArea_Notes.setText("");
 		cmbStatus.setValue("");			
 	}
-
+	
 }

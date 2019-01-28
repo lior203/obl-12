@@ -19,8 +19,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
@@ -64,18 +62,7 @@ public class LibrarianSearchBookGUI implements GuiInterface, Initializable{
 	private TextField txtFree_Text;
 
 	@FXML
-	void Enter_click(KeyEvent event) {
-		if (event.getCode() == KeyCode.ENTER){
-			search();
-		}
-	}
-
-	@FXML
 	void SearchBook(ActionEvent event) {
-		search();
-	}
-
-	public void search() {
 		String searchPick;
 		if (group.getSelectedToggle().equals(radio_btn_book_name))
 		{
@@ -103,6 +90,7 @@ public class LibrarianSearchBookGUI implements GuiInterface, Initializable{
 			SearchBookController.searchBook(searchPick, txtCopy_ID.getText());	
 		}
 	}
+
 
 	@FXML
 	void openAndCloseFields(ActionEvent event) 
@@ -186,7 +174,7 @@ public class LibrarianSearchBookGUI implements GuiInterface, Initializable{
 		TableColumn<BookPro, String>  wantedCol			 =  new TableColumn<>("Is wanted");
 		TableColumn<BookPro, String>  shelfLocationCol	 =  new TableColumn<>("Shelf location");
 
-
+		
 		primaryStage.initModality(Modality.APPLICATION_MODAL);
 		table.getColumns().addAll(bookIDCol,bookNameCol,authorNameCol,bookGenreCol,descriptionCol,numberOfCopiesCol,wantedCol,shelfLocationCol);
 		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);

@@ -28,8 +28,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -68,20 +66,7 @@ public class OBLcontroller implements Initializable, GuiInterface {
 	public static Stage searchForReader;
 
 
-	@FXML
-	void Enter_click(KeyEvent event) {
-		if (event.getCode() == KeyCode.ENTER){
-			Main.client.clientUI=this;
-			if(!(txtUserName.getText().isEmpty()==false&&txtPassword.getText().isEmpty()==false))
-				showFailed("Some fields are empty");
-			else {
-				RegistrationController.login(txtUserName.getText(),txtPassword.getText());
-				freshStart();
-			}
-		}
-	}
 
-	@FXML
 	public void login(ActionEvent event) throws IOException {
 		Main.client.clientUI=this;
 		if(!(txtUserName.getText().isEmpty()==false&&txtPassword.getText().isEmpty()==false))
@@ -115,7 +100,6 @@ public class OBLcontroller implements Initializable, GuiInterface {
 			}
 		});
 		memberStage=primaryStage;
-		primaryStage.setResizable(false);
 		primaryStage.show();		
 	}
 
@@ -136,7 +120,6 @@ public class OBLcontroller implements Initializable, GuiInterface {
 		});
 		primaryStage.setScene(scene);	
 		librarianStage=primaryStage;
-		primaryStage.setResizable(false);
 		primaryStage.show();		
 	}
 
@@ -190,9 +173,6 @@ public class OBLcontroller implements Initializable, GuiInterface {
 			showFailed("The member already graduated hence he can't login!");
 			Client.arrayUser.clear();
 			break;
-		case "4":
-			showFailed("Member is Locked, and cant connect to library.");
-			Client.arrayUser.clear();
 		}
 	}
 

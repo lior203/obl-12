@@ -18,7 +18,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import logic.InventoryController;
 
@@ -59,7 +58,7 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 
 	@FXML
 	private TextArea txtDescription;
-
+	
 	@FXML
 	private CheckBox CHBOX_YES;
 
@@ -70,16 +69,16 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 
 	@FXML
 	void WANTED_YES(ActionEvent event) {
-		CHBOX_NO.setSelected(false);
-		wanted="true";
+			CHBOX_NO.setSelected(false);
+			wanted="true";
 	}
-
+	
 	@FXML
 	void WANTED_NO(ActionEvent event) {
-		CHBOX_YES.setSelected(false);
-		wanted="false";
+			CHBOX_YES.setSelected(false);
+			wanted="false";
 	}
-
+	
 	@FXML
 	void RemoveCopy(ActionEvent event) {
 		InventoryController.RemoveCopy(txtCatalog_Number.getText());
@@ -88,20 +87,9 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 	@FXML
 	void PressEnter(KeyEvent event) {
 		if (event.getCode()==KeyCode.ENTER) {
-			if (txtCatalog_Number.getText().isEmpty()) {
-				showFailed("you must fill copy-ID.");
-			}
-			else InventoryController.checkExistenceByCopy(txtCatalog_Number.getText());
+			InventoryController.checkExistenceByCopy(txtCatalog_Number.getText());
 		}
 	}
-
-	@FXML
-	void mouseClick(MouseEvent event) {
-		if (txtCatalog_Number.getText().isEmpty()) {
-			showFailed("you must fill copy-ID.");
-		}
-		else InventoryController.checkExistenceByCopy(txtCatalog_Number.getText());
-	}	
 
 	@FXML
 	void BackToInventory(ActionEvent event) throws IOException {

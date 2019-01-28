@@ -21,11 +21,9 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.image.ImageView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.converter.LocalDateStringConverter;
 import logic.CommonController;
@@ -81,40 +79,34 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 
 	@FXML
 	private TextField txtPdf;
-
-	@FXML
-	private CheckBox CHBOX_YES;
-
-	@FXML
-	private CheckBox CHBOX_NO;
-
-	@FXML
-	private Label BookID_must;
-
-	@FXML
-	private Label BookName_must;
-
-	@FXML
-	private Label Author_must;
 	
 	@FXML
-    private ImageView ImageMouseClick1;
+    private CheckBox CHBOX_YES;
 
     @FXML
-    private ImageView ImageMouseClick2;
+    private CheckBox CHBOX_NO;
+    
+    @FXML
+    private Label BookID_must;
+    
+    @FXML
+    private Label BookName_must;
 
+    @FXML
+    private Label Author_must;
+	
 	String wanted;
 
 	@FXML
 	void WANTED_YES(ActionEvent event) {
-		CHBOX_NO.setSelected(false);
-		wanted="true";
+			CHBOX_NO.setSelected(false);
+			wanted="true";
 	}
-
+	
 	@FXML
 	void WANTED_NO(ActionEvent event) {
-		CHBOX_YES.setSelected(false);
-		wanted="false";
+			CHBOX_YES.setSelected(false);
+			wanted="false";
 	}
 
 	@FXML
@@ -130,8 +122,6 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 		BookID_must.setVisible(true);
 		BookName_must.setVisible(false);
 		Author_must.setVisible(false);
-		ImageMouseClick2.setVisible(true);
-
 	}
 
 	@FXML
@@ -142,27 +132,13 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 		BookID_must.setVisible(false);
 		BookName_must.setVisible(true);
 		Author_must.setVisible(true);
-		ImageMouseClick1.setVisible(true);
-	}
-
-	@FXML
-	void mouseBookFullName(MouseEvent event) {
-		if (txtBook_Name.getText().isEmpty()||txtAuthors.getText().isEmpty()) {
-			showFailed("book name/author is missing.");
-		}
-		else {
-			ArrayList<String> msg=new ArrayList<>();
-			msg.add(txtBook_Name.getText());
-			msg.add(txtAuthors.getText());
-			InventoryController.checkExistence((ArrayList<String>) msg);
-		}
 	}
 
 	@FXML
 	void EnterBook_Name(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER){
 			if (txtBook_Name.getText().isEmpty()||txtAuthors.getText().isEmpty()) {
-				showFailed("book name/author is missing.");
+				showFailed("fill book.");
 			}
 			else {
 				ArrayList<String> msg=new ArrayList<>();
@@ -170,18 +146,6 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 				msg.add(txtAuthors.getText());
 				InventoryController.checkExistence((ArrayList<String>) msg);
 			}
-		}
-	}
-
-	@FXML
-	void mouseBookID(MouseEvent event) {
-		if (txtBook_ID.getText().isEmpty()) {
-			showFailed("fill book ID.");
-		}
-		else {
-			ArrayList<String> msg=new ArrayList<>();
-			msg.add(txtBook_ID.getText());
-			InventoryController.checkExistence((ArrayList<String>) msg);
 		}
 	}
 
@@ -205,16 +169,16 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 			showFailed("Check for empty fields.");
 		else {
 			InventoryController.editCopy(txtBook_Name.getText(),
-					txtEdition.getText(),
-					txtTheme.getText(),
-					txtPdf.getText(),
-					txtAuthors.getText(),
-					txtLocation.getText(),
-					txtDescription.getText(),
-					wanted,
-					txtPurchase_Date.getValue().toString(),
-					txtPrint_date.getValue().toString(),
-					txtBook_ID.getText());
+										txtEdition.getText(),
+										txtTheme.getText(),
+										txtPdf.getText(),
+										txtAuthors.getText(),
+										txtLocation.getText(),
+										txtDescription.getText(),
+										wanted,
+										txtPurchase_Date.getValue().toString(),
+										txtPrint_date.getValue().toString(),
+										txtBook_ID.getText());
 		}
 	}
 
@@ -330,9 +294,6 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 		BookID_must.setVisible(false);
 		BookName_must.setVisible(false);
 		Author_must.setVisible(false);
-		ImageMouseClick1.setVisible(false);
-		ImageMouseClick2.setVisible(false);
-
 	}
 
 	@Override

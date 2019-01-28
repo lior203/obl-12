@@ -17,7 +17,7 @@
             <Image url="file:/C:/Users/lior/Pictures/resources.jpg" />
          </image>
       </ImageView>
-      <Pane fx:id="pane" layoutX="526.0" layoutY="187.0" onKeyPressed="#Enter_click" prefHeight="418.0" prefWidth="327.0" style="-fx-background-color: white; -fx-border-color: black;">
+      <Pane fx:id="pane" layoutX="526.0" layoutY="187.0" prefHeight="418.0" prefWidth="327.0" style="-fx-background-color: white; -fx-border-color: black;">
          <children>
             <Button fx:id="btnLogin" layoutX="98.0" layoutY="136.0" mnemonicParsing="false" onAction="#login" prefHeight="60.0" prefWidth="125.0" text="Login">
                <font>

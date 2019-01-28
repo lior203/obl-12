@@ -11,129 +11,100 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="928.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LoanGUI">
+<AnchorPane prefHeight="790.0" prefWidth="1026.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LoanGUI">
    <children>
-      <ImageView fitHeight="928.0" fitWidth="1232.0" opacity="0.83" pickOnBounds="true">
-         <image>
-            <Image url="@../Image/01-Science-Has-Figured-Out-Why-You-Love-the-Smell-of-Old-Books-1024x683.jpg" />
-         </image></ImageView>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="565.0" layoutY="30.0" prefHeight="52.0" prefWidth="123.0" text="Loan" textAlignment="CENTER" underline="true">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="371.0" layoutY="25.0" prefHeight="46.0" prefWidth="102.0" text="Loan" textAlignment="CENTER" underline="true">
          <font>
-            <Font name="System Bold" size="32.0" />
+            <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <FlowPane layoutX="257.0" layoutY="198.0" prefHeight="286.0" prefWidth="739.0">
+      <FlowPane layoutX="85.0" layoutY="95.0" prefHeight="239.0" prefWidth="711.0">
          <children>
-            <Label text="*" textFill="RED">
-               <padding>
-                  <Insets left="5.0" />
-               </padding>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="128.0" text="Member ID:" textAlignment="CENTER">
                <font>
-                  <Font name="System Bold" size="15.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="115.0" text="Member ID:" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold Italic" size="18.0" />
-               </font>
-            </Label>
-            <TextField fx:id="txt_MemberID" onKeyPressed="#memberKeyPressed" prefHeight="31.0" prefWidth="187.0" promptText="Fill field and click &quot;Enter&quot;">
+            <Region prefHeight="52.0" prefWidth="32.0" />
+            <TextField fx:id="txt_MemberID" onKeyPressed="#memberKeyPressed" prefHeight="31.0" prefWidth="165.0" promptText="Fill field and click &quot;Enter&quot;">
                <FlowPane.margin>
-                  <Insets left="5.0" />
+                  <Insets left="15.0" />
                </FlowPane.margin></TextField>
-            <ImageView fitHeight="29.0" fitWidth="37.0" onMouseClicked="#memberMousePressed" pickOnBounds="true">
-               <image>
-                  <Image url="@../Image/magnifier-icon-01-.jpg" />
-               </image>
-               <FlowPane.margin>
-                  <Insets left="5.0" />
-               </FlowPane.margin>
-            </ImageView>
             <Label text="*" textFill="RED">
                <padding>
                   <Insets left="5.0" />
                </padding>
-               <FlowPane.margin>
-                  <Insets left="20.0" />
-               </FlowPane.margin>
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="83.0" text="Copy ID:" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold Italic" size="18.0" />
-               </font>
-               <FlowPane.margin>
-                  <Insets />
-               </FlowPane.margin>
-            </Label>
-            <TextField fx:id="txt_CopyID" onKeyPressed="#copyKeyPressed" prefHeight="31.0" prefWidth="178.0" promptText="Fill field and click &quot;Enter&quot;">
-               <FlowPane.margin>
-                  <Insets left="30.0" />
-               </FlowPane.margin>
-            </TextField>
-            <ImageView fitHeight="29.0" fitWidth="37.0" onMouseClicked="#copyMousePressed" pickOnBounds="true">
+            <ImageView fitHeight="33.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
-                  <Image url="@../Image/magnifier-icon-01-.jpg" />
+                  <Image url="@../../../../Pictures/Magnifire-512.png" />
                </image>
-               <FlowPane.margin>
-                  <Insets left="5.0" />
-               </FlowPane.margin>
             </ImageView>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="92.0" text="Status:">
-               <FlowPane.margin>
-                  <Insets />
-               </FlowPane.margin>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="103.0" text="Copy ID:" textAlignment="CENTER">
                <font>
-                  <Font name="System Bold Italic" size="18.0" />
+                  <Font size="18.0" />
                </font>
-            </Label>
-            <TextField fx:id="txt_MemberStatus" disable="true" prefHeight="31.0" prefWidth="189.0">
-               <FlowPane.margin>
-                  <Insets left="40.0" />
-               </FlowPane.margin>
-            </TextField>
-            <Region prefHeight="52.0" prefWidth="26.0" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="119.0" text="Book Name:" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold Italic" size="18.0" />
-               </font>
-               <FlowPane.margin>
-                  <Insets left="40.0" />
-               </FlowPane.margin>
-            </Label>
-            <TextField fx:id="txt_BookName" disable="true" prefHeight="31.0" prefWidth="178.0">
-               <FlowPane.margin>
-                  <Insets />
-               </FlowPane.margin>
-            </TextField>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="123.0" text="Full Name:" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold Italic" size="18.0" />
-               </font>
-            </Label>
-            <TextField fx:id="txt_MemberName" disable="true" prefHeight="31.0" prefWidth="184.0">
                <FlowPane.margin>
                   <Insets left="10.0" />
                </FlowPane.margin>
+            </Label>
+            <TextField fx:id="txt_CopyID" onKeyPressed="#copyKeyPressed" prefHeight="31.0" prefWidth="164.0" promptText="Fill field and click &quot;Enter&quot;">
+               <FlowPane.margin>
+                  <Insets left="40.0" />
+               </FlowPane.margin>
+            </TextField>
+            <Label text="*" textFill="RED">
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </Label>
+            <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="149.0" text="Status:">
+               <FlowPane.margin>
+                  <Insets />
+               </FlowPane.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txt_MemberStatus" disable="true" prefHeight="31.0" prefWidth="162.0">
+               <FlowPane.margin>
+                  <Insets />
+               </FlowPane.margin>
+            </TextField>
+            <Region prefHeight="32.0" prefWidth="33.0" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="152.0" text="Book Name:" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txt_BookName" disable="true" prefHeight="31.0" prefWidth="167.0">
+               <FlowPane.margin>
+                  <Insets />
+               </FlowPane.margin>
+            </TextField>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="105.0" text="Full Name:" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txt_MemberName" disable="true" prefHeight="31.0" prefWidth="162.0">
+               <FlowPane.margin>
+                  <Insets left="70.0" />
+               </FlowPane.margin>
             </TextField>
             <Region prefHeight="52.0" prefWidth="61.0" />
-            <Label prefHeight="27.0" prefWidth="109.0" text="Wanted:">
+            <Label prefHeight="27.0" prefWidth="123.0" text="Wanted:">
                <font>
-                  <Font name="System Bold Italic" size="18.0" />
+                  <Font size="18.0" />
                </font>
-               <FlowPane.margin>
-                  <Insets left="20.0" />
-               </FlowPane.margin>
             </Label>
-            <TextField fx:id="txt_BookStatus" disable="true" prefHeight="34.0" prefWidth="176.0" />
+            <TextField fx:id="txt_BookStatus" disable="true" prefHeight="34.0" prefWidth="168.0" />
             <Region prefHeight="52.0" prefWidth="343.0" />
             <Region prefHeight="26.0" prefWidth="684.0" />
             <Region prefHeight="52.0" prefWidth="42.0" />
          </children>
       </FlowPane>
-      <Button fx:id="buttonLoan" disable="true" layoutX="546.0" layoutY="566.0" mnemonicParsing="false" onAction="#clickLoanButton" prefHeight="81.0" prefWidth="162.0" text="Loan">
+      <Button fx:id="buttonLoan" disable="true" layoutX="209.0" layoutY="381.0" mnemonicParsing="false" onAction="#clickLoanButton" prefHeight="81.0" prefWidth="162.0" text="Loan">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>

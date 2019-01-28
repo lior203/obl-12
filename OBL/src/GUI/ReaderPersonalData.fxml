@@ -30,5 +30,6 @@
       </Button>
       <TextField fx:id="txtStatus" disable="true" layoutX="529.0" layoutY="218.0" />
       <Label layoutX="415.0" layoutY="222.0" text="Status:" />
+      <Button fx:id="btnHistory" layoutX="921.0" layoutY="445.0" mnemonicParsing="false" onAction="#viewPersonalHistory" prefHeight="58.0" prefWidth="162.0" text="View history of loan" />
    </children>
 </AnchorPane>

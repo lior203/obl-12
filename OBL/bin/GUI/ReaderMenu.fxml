@@ -25,12 +25,12 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#HistoryActivitiesScreen" prefHeight="85.0" prefWidth="347.0" text="History Activities">
+                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="85.0" prefWidth="347.0" text="History Activities">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#ExtendLoanScreen" prefHeight="85.0" prefWidth="347.0" text="EXTEND LOAN PERIOD">
+                  <Button mnemonicParsing="false" onAction="#ExtendLoanScreen" prefHeight="85.0" prefWidth="347.0" text="EXTEND LOAN PERIOD">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

@@ -15,7 +15,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import logic.BookHandlerController;
 import logic.CommonController;
 import logic.Main;
@@ -60,15 +59,6 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 			}
 		}
 	}
-	
-	@FXML
-    void copyMousePressed(MouseEvent event) {
-		try {
-			BookHandlerController.isCopyExist(txtCopy_ID.getText());
-		} catch (Exception e) {
-			showFailed(e.getMessage());
-		}
-    }
 
 	@FXML
 	void clickReturnButton(ActionEvent event) {
