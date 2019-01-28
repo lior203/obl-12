@@ -27,6 +27,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
@@ -69,8 +70,6 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 	@FXML
 	private Button btnBack;
-	
-	private Stage subStage;
 
 	@FXML
 	void onBackClick(ActionEvent event) throws IOException {
@@ -149,8 +148,7 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Confirm");
 		alert.setHeaderText(string);
-		alert.showAndWait();
-		subStage.close();
+		alert.showAndWait();	
 	}
 
 	@Override
@@ -228,6 +226,16 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 		Label 		 ans  			= new Label();
 		Label		 detailes		= new Label();
 		Scene 		 scene 			= new Scene(mainVbox);
+		Button		 tableOfContent = new Button("Table Of Content");
+		HBox 		 hbox2			= new HBox();
+
+		System.out.println("lior"+detailesData);
+		tableOfContent.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				BookHandlerController.getPDF(detailesData.get(detailesData.size()-3));
+			}
+		});
 
 		primaryStage.initModality(Modality.APPLICATION_MODAL);
 		mainVbox.setMinHeight(390);
@@ -246,7 +254,7 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 		{
 			ans.setText("The book " + detailesData.get(1) + " of the author " + detailesData.get(2) + " is in shelf- " + detailesData.get(5));
 			ans.setFont(new Font("Ariel", 16));
-			mainVbox.getChildren().add(ans);
+			mainVbox.getChildren().addAll(ans,tableOfContent);
 		}
 		else {
 			Button reserveBtn = new Button("Rrserve");
@@ -263,11 +271,11 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 			ans2.setFont(new Font("Ariel", 16));
 			ans.setPadding(new Insets(0, 0, 0, 20));
 			ans2.setPadding(new Insets(0, 0, 0, 20));
-			mainVbox.getChildren().addAll(ans,ans2,reserveBtn);
+			hbox2.getChildren().addAll(reserveBtn,tableOfContent);
+			mainVbox.getChildren().addAll(ans,ans2,hbox2);
 		}
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
-		subStage=primaryStage;
 		primaryStage.showAndWait();
 
 	}
@@ -278,7 +286,6 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 		alert.setTitle("Message");
 		alert.setHeaderText(message);
 		alert.showAndWait();
-		subStage.close();
 	}
 
 	@Override

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="MainPane" prefHeight="928.0" prefWidth="1232.0" style="-fx-background-image: file:///C:/Users/lior/git/repository/obl-12/OBL/Imag/05-72.jpg;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.InventoryAddGUI">
+<AnchorPane fx:id="MainPane" prefHeight="928.0" prefWidth="1232.0" style="-fx-background-image: file:///C:/Users/lior/git/repository/obl-12/OBL/Imag/05-72.jpg;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.InventoryAddGUI">
    <children>
       <Label alignment="CENTER" contentDisplay="TOP" layoutX="309.0" layoutY="29.0" prefHeight="40.0" prefWidth="187.0" text="Inventory-Add" textAlignment="CENTER" underline="true" wrapText="true">
          <font>
@@ -42,7 +42,7 @@
          <font>
             <Font size="21.0" />
          </font></Button>
-      <Button layoutX="364.0" layoutY="368.0" mnemonicParsing="false" text="..." />
+      <Button layoutX="364.0" layoutY="368.0" mnemonicParsing="false" onAction="#pdf" text="..." />
       <Label layoutX="83.0" layoutY="373.0" text="Table of Contents:" />
       <TextField fx:id="txtTable_Of_Content" disable="true" layoutX="209.0" layoutY="368.0" prefHeight="31.0" prefWidth="158.0" />
       <Label layoutX="83.0" layoutY="414.0" text="Wanted:" />

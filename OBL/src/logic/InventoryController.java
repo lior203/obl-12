@@ -1,18 +1,5 @@
 package logic;
-
-import java.io.IOException;
 import java.util.ArrayList;
-
-import Client.Client;
-import GUI.InventoryAddGUI;
-import GUI.InventoryRemoveGUI;
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 public class InventoryController {
 

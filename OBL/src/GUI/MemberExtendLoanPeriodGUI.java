@@ -101,5 +101,4 @@ public class MemberExtendLoanPeriodGUI implements Initializable, GuiInterface {
 		LoanController.getCurrentLoans(Client.arrayUser.get(1));
 		System.out.println("after get loans");
 	}
-
 }

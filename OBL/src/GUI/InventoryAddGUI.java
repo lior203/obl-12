@@ -1,5 +1,6 @@
 package GUI;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -7,7 +8,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import Client.Client;
 import Common.GuiInterface;
 import javafx.application.Platform;
@@ -25,10 +25,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.converter.LocalDateStringConverter;
 import javafx.util.converter.LocalDateTimeStringConverter;
+import logic.BookHandlerController;
 import logic.CommonController;
 import logic.InventoryController;
 import logic.Main;
@@ -37,6 +39,8 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 	public static String Location;
 	public static String bookname;
 	public static String bookid;
+	public static File PDF;
+
 	@FXML
 	private AnchorPane MainPane;
 
@@ -93,17 +97,26 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 	String wanted;
+	public static String nextBookID;
+
+	@FXML
+	public void pdf(ActionEvent event) {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open Resource File");
+		PDF=fileChooser.showOpenDialog(OBLcontroller.librarianStage);
+		txtTable_Of_Content.setText(PDF.getName());
+	}
 
 	@FXML
 	void WANTED_YES(ActionEvent event) {
-			CHBOX_NO.setSelected(false);
-			wanted="true";
+		CHBOX_NO.setSelected(false);
+		wanted="true";
 	}
-	
+
 	@FXML
 	void WANTED_NO(ActionEvent event) {
-			CHBOX_YES.setSelected(false);
-			wanted="false";
+		CHBOX_YES.setSelected(false);
+		wanted="false";
 	}
 
 	@FXML
@@ -117,6 +130,7 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 			showFailed("Fill all the dields");
 		else {
 			InventoryController.addBook(txtBook_Name.getText(), txtEdition.getText(), txtTheme.getText(), txtAuthor.getText(), txtPrint_Date.getValue().toString(),txtCopies.getText(),txtPurchase_Date.getValue().toString(),txtShelf_Location.getText(),wanted,txtDescription.getText());
+			BookHandlerController.sendPdf(PDF, nextBookID);
 		}
 	}
 
@@ -171,8 +185,8 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 			return true;
 		if ((CHBOX_NO.isSelected()==false&&CHBOX_YES.isSelected()==false))
 			return true;
-//		if ((btnAdd.getText().isEmpty()))
-//			return true;
+		//		if ((btnAdd.getText().isEmpty()))
+		//			return true;
 		return false;
 	}
 
@@ -186,7 +200,10 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Confirm");
 		alert.setHeaderText(string);
-		alert.showAndWait();	
+		alert.showAndWait();
+		if (PDF==null)
+			System.out.println("pdf problem");	
+		else BookHandlerController.sendPdf(PDF, nextBookID);
 	}
 
 	@Override
