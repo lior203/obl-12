@@ -189,7 +189,7 @@ public class DBController {
 			bookID=rs.getString(1);
 		}
 		else return 0;
-		
+
 		PreparedStatement reserved = conn.prepareStatement("SELECT IsActive,MemberID FROM reservations WHERE CopyID=? AND IsActive='true'");
 		reserved.setString(1, copyid);
 		ResultSet rs2 = reserved.executeQuery();
@@ -423,7 +423,7 @@ public class DBController {
 		switch (searchData.get(1)) {
 		case "Book Name":
 			searchBook = conn.prepareStatement("SELECT BookName,AuthorsName,BookGenre,Description,BookID,Copies,Wanted,ShelfLocation FROM book WHERE BookName LIKE'%"+searchData.get(2)+"%'");
-		//	searchBook.setString(1,searchData.get(2));
+			//	searchBook.setString(1,searchData.get(2));
 			rsBook = searchBook.executeQuery();
 			if (!(rsBook.isBeforeFirst()))
 			{
@@ -447,7 +447,7 @@ public class DBController {
 			}
 		case "Authors Name":
 			searchBook = conn.prepareStatement("SELECT BookName,AuthorsName,BookGenre,Description,BookID,Copies,Wanted,ShelfLocation FROM book WHERE AuthorsName LIKE '%"+searchData.get(2)+"%'");
-		//	searchBook.setString(1,searchData.get(2));
+			//	searchBook.setString(1,searchData.get(2));
 			rsBook = searchBook.executeQuery();
 			if (!(rsBook.isBeforeFirst()))
 			{
@@ -471,7 +471,7 @@ public class DBController {
 			}
 		case "Book Theme":
 			searchBook = conn.prepareStatement("SELECT BookName,AuthorsName,BookGenre,Description,BookID,Copies,Wanted,ShelfLocation FROM book WHERE BookGenre LIKE '%"+searchData.get(2)+"%'");
-		//	searchBook.setString(1,searchData.get(2));
+			//	searchBook.setString(1,searchData.get(2));
 			rsBook = searchBook.executeQuery();
 			if (!(rsBook.isBeforeFirst()))
 			{
@@ -495,7 +495,7 @@ public class DBController {
 			}	
 		case "Free text":
 			searchBook = conn.prepareStatement("SELECT BookName,AuthorsName,BookGenre,Description,BookID,Copies,Wanted,ShelfLocation FROM book WHERE Description LIKE '%"+searchData.get(2)+"%'");
-	//		searchBook.setString(1,searchData.get(2));
+			//		searchBook.setString(1,searchData.get(2));
 			rsBook = searchBook.executeQuery();
 			if (!(rsBook.isBeforeFirst()))
 			{
@@ -752,7 +752,7 @@ public class DBController {
 		String		returnDate	  = null;
 		String		memberID	  = null;
 		String		copyID	 	  = null;
-		
+
 		PreparedStatement ps1 = conn.prepareStatement("SELECT BookID,ShelfLocation FROM book WHERE AuthorsName = ? AND BookName = ?");
 		ps1.setString(1, msg.get(2));
 		ps1.setString(2, msg.get(1));
@@ -768,15 +768,14 @@ public class DBController {
 		ps2.setString(2, "false");
 		rs2 = ps2.executeQuery();
 
-		if (!(rs2.isBeforeFirst()) ) // all the copies in loan
+		if (!(rs2.isBeforeFirst()) ) // all the copies are loan
 		{
-			System.out.println("33333333333333");
 			java.util.Date date= new java.util.Date();
 			java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String currentTime = sdf.format(date);
 			System.out.println(currentTime);
 			PreparedStatement ps3 = conn.prepareStatement("SELECT ExpectedReturnDate,MemberID,CopyID FROM loanbook WHERE ExpectedReturnDate > ? AND BookID = ? AND IsReturned = ? ORDER BY ExpectedReturnDate LIMIT 1");
-			
+
 			ps3.setString(1, currentTime);
 			ps3.setString(2, bookID);
 			ps3.setString(3, "false");
@@ -992,9 +991,9 @@ public class DBController {
 			//BookID.add(rsLoan.getString(3));//BookID
 			//searchBookName.setString(1,BookID.get(0));
 			//rsBook = searchBookName.executeQuery();
-//			if (rsBook.next()) {
-//				loanDetails.add(rsBook.getString(1));//BookName
-//			}
+			//			if (rsBook.next()) {
+			//				loanDetails.add(rsBook.getString(1));//BookName
+			//			}
 		}
 		if (loanDetails.size()==1) {
 			loanDetails.add("NotExist");
@@ -1069,7 +1068,7 @@ public class DBController {
 		else bookdata.add("all the copies are allready reserved.");
 		return bookdata;	
 	}
-	
+
 	/**
 	 * Function - ReaderCards, retrieve the card member's details form the DataBase
 	 * @return ArrayList<String> listMember
@@ -1091,25 +1090,53 @@ public class DBController {
 		}
 		return listMember;
 	}
-	
-//	public ArrayList<String> changeMemberToGraduated(ArrayList<String> data) throws SQLException {
-//		ResultSet rs;
-//		PreparedStatement ps = conn.prepareStatement("UPDATE members SET IsGraduated = ? WHERE MemberID = ?");
-//		ps.setString(1, "true");
-//		ps.setString(2, data.get(?)); // ? == memberID
-//		if(ps.executeUpdate() == 0) {
-//			//error
-//		}
-//		
-//		PreparedStatement ps1 = conn.prepareStatement("INSERT into graduatedstudent values(?,?,?)");
-//		ps1.setString(1, x); // x == memberID
-//		ps1.setString(2, y); // y == First Name
-//		ps1.setString(3, z); // z == Last Name
-//		if(ps1.executeUpdate() == 0) {
-//			//error
-//		}
-//		return null;
-//	}
+
+	//	public ArrayList<String> changeMemberToGraduated(ArrayList<String> data) throws SQLException {
+	//		ResultSet rs;
+	//		PreparedStatement ps = conn.prepareStatement("UPDATE members SET IsGraduated = ? WHERE MemberID = ?");
+	//		ps.setString(1, "true");
+	//		ps.setString(2, data.get(?)); // ? == memberID
+	//		if(ps.executeUpdate() == 0) {
+	//			//error
+	//		}
+	//		
+	//		PreparedStatement ps1 = conn.prepareStatement("INSERT into graduatedstudent values(?,?,?)");
+	//		ps1.setString(1, x); // x == memberID
+	//		ps1.setString(2, y); // y == First Name
+	//		ps1.setString(3, z); // z == Last Name
+	//		if(ps1.executeUpdate() == 0) {
+	//			//error
+	//		}
+	//		return null;
+	//	}
+
+	public ArrayList<String> getCurrentLoans(ArrayList<String> searchData) throws SQLException {
+		PreparedStatement searchLoan,searchAuthorName;
+		ResultSet rsLoan,rsAuthorName;
+		searchLoan = conn.prepareStatement("SELECT CopyID,BookName,LoanDate,ActualReturnDate,BookID FROM loanbook WHERE MemberID=? AND IsReturned = 'false' ORDER BY ActualReturnDate DESC");
+		searchLoan.setString(1,searchData.get(1));
+		rsLoan = searchLoan.executeQuery();
+		ArrayList<String> currentLoans = new ArrayList<>();
+		currentLoans.add("CurrentLoans");
+
+		while(rsLoan.next()) {
+			searchAuthorName = conn.prepareStatement("SELECT AuthorsName FROM book WHERE BookID=?");
+			searchAuthorName.setString(1,rsLoan.getString(5));
+			rsAuthorName = searchAuthorName.executeQuery();
+
+			currentLoans.add(rsLoan.getString(1));//CopyID
+			currentLoans.add(rsLoan.getString(2));//BookName
+			while(rsAuthorName.next())
+				currentLoans.add(rsAuthorName.getString(1));//AuthorsName
+			currentLoans.add(rsLoan.getString(3));//LoanDate
+			currentLoans.add(rsLoan.getString(4));//ActualReturnDate	
+		}
+
+		if (currentLoans.size()==1) {
+			currentLoans.add("NotExist");
+		}
+		return currentLoans;
+	}
 
 
 	private static Connection connectToDatabase() {

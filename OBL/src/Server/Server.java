@@ -234,7 +234,6 @@ public class Server extends AbstractServer
 			try {
 				librarianData=DBController.getInstance().CheckLibrarianManager((ArrayList<String>) msg);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			try {
@@ -301,28 +300,38 @@ public class Server extends AbstractServer
 				e.printStackTrace();
 			}
 			break;
-			
+
 		case "ViewPersonalHistory":
 			try {
 				ArrayList<String>loanDetails;
 				loanDetails=(ArrayList<String>) DBController.getInstance().viewPersonalHistory((ArrayList<String>) msg);
-					try {
-						client.sendToClient(loanDetails);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+				try {
+					client.sendToClient(loanDetails);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 			break;
-			
+
 		case "ReaderCard":
 			try {
 				client.sendToClient(DBController.getInstance().ReaderCards());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+
+		case "CurrentLoans":
+			ArrayList<String> currentLoans = new ArrayList<>();
+			try {
+				currentLoans = DBController.getInstance().getCurrentLoans(arrayObject);
+				client.sendToClient(currentLoans);
+			} catch (SQLException | IOException e) {
 				e.printStackTrace();
 			}
 			break;
@@ -362,9 +371,6 @@ public class Server extends AbstractServer
 	 * @param args[0] The port number to listen on.  Defaults to 5555 
 	 *          if no argument is entered.
 	 */
-
-
-
 	public static void main(String[] args) 
 	{
 		int port = 0; //Port to listen on
@@ -390,6 +396,3 @@ public class Server extends AbstractServer
 
 	}
 }
-
-//My Methods
-

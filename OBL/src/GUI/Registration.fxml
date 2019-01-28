@@ -79,6 +79,6 @@
       <Label layoutX="445.0" layoutY="267.0" text="*" textFill="RED" />
       <Label layoutX="445.0" layoutY="317.0" text="*" textFill="RED" />
       <Label layoutX="445.0" layoutY="365.0" text="*" textFill="RED" />
-      <Label layoutX="445.0" layoutY="413.0" text="*" textFill="RED" />
+      <Label layoutX="445.0" layoutY="413.0" text="*   (Contains at least 6 characters)" textFill="RED" />
    </children>
 </AnchorPane>

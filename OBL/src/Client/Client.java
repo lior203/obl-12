@@ -224,7 +224,7 @@ public class Client extends AbstractClient
 		case "Reserve":
 			Platform.runLater(()->{
 				if (arrayObject.get(arrayObject.size()-1).equals("success"))
-					 clientUI.showSuccess("resrve successed.");
+					clientUI.showSuccess("resrve successed.");
 				else 
 					clientUI.showFailed("cannot order, all the copies allready reserved.");
 			});
@@ -235,6 +235,11 @@ public class Client extends AbstractClient
 			});
 			break;
 		case "ReaderCard"://show reader card details for read only - tableView
+			Platform.runLater(()->{
+				clientUI.display(msg);
+			});
+			break;
+		case "CurrentLoans":
 			Platform.runLater(()->{
 				clientUI.display(msg);
 			});

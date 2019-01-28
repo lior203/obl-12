@@ -1,7 +1,5 @@
 package Common;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -27,8 +25,9 @@ public class BookPro {
 		this.numberOfCopies = new SimpleStringProperty(numberOfCopies);
 	}
 
-	public BookPro(String bookName, String authorName,String bookGenre,String description)
+	public BookPro(String bookID,String bookName, String authorName,String bookGenre,String description)
 	{
+		this.bookID = new SimpleStringProperty(bookID);
 		this.bookName = new SimpleStringProperty(bookName);
 		this.authorName = new SimpleStringProperty(authorName);
 		this.bookGenre = new SimpleStringProperty(bookGenre);

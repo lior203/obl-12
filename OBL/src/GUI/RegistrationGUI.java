@@ -1,9 +1,7 @@
 package GUI;
 
-
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import Common.GuiInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +16,11 @@ import logic.Main;
 import logic.RegistrationController;
 
 public class RegistrationGUI implements Initializable, GuiInterface{
+	/**
+	 * this class is made to give the system the functionality to register members to the library.
+	 * the method of this class check the input from the user(librarian) first and then transfer the input
+	 * to the controller for the continuing of the process.
+	 */
 	@FXML
 	private AnchorPane Registration;
 
@@ -42,7 +45,13 @@ public class RegistrationGUI implements Initializable, GuiInterface{
 	@FXML
 	private TextField txtPassword;
 
-
+	/**
+	 * this method get all the input from the user for registration.
+	 * the method first check if all the fields are full with the method checkfields and after check if some
+	 * of the input is valid (email,id,password,phone number) with method checkRegistrationInput.
+	 * if all the test end with success the input go ahead to the RegistrationController.
+	 * @param event - event from click on save
+	 */
 	@FXML
 	void onSaveClick(ActionEvent event) {
 		String ans = CommonController.checkRegistrationInput(txtPhone_number.getText(), txtEmail.getText(), txtID.getText(),txtPassword.getText());
@@ -58,7 +67,10 @@ public class RegistrationGUI implements Initializable, GuiInterface{
 
 	}
 
-
+	/**
+	 * this method check if all the fields in the screen are full
+	 * @return true if yes, false else.
+	 */
 	private boolean checkfields() {
 		if ((txtEmail.getText()).equals(""))
 			return true;
@@ -75,7 +87,10 @@ public class RegistrationGUI implements Initializable, GuiInterface{
 		return false;
 	}
 
-
+	/**
+	 * this method show information pop-up on the screen with given message
+	 * @param string- the message that shown in the pop-up.
+	 */
 	@Override
 	public void showSuccess(String string) {
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -84,14 +99,17 @@ public class RegistrationGUI implements Initializable, GuiInterface{
 		alert.showAndWait();	
 	}
 
-
+	/**
+	 *  not used method(must implement because the implementation of GuiInterface)
+	 */
 	@Override
 	public void display(Object obj) {
-		// TODO Auto-generated method stub
-
 	}
 
-
+	/**
+	 * this method show error pop-up on the screen with given message
+	 * @param string- the message that shown in the pop-up.
+	 */
 	@Override
 	public void showFailed(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
@@ -100,7 +118,9 @@ public class RegistrationGUI implements Initializable, GuiInterface{
 		alert.showAndWait();	
 	}
 
-
+	/**
+	 * this method clean up the fields on the screen.
+	 */
 	@Override
 	public void freshStart() {
 		txtID.setText("");
@@ -111,10 +131,11 @@ public class RegistrationGUI implements Initializable, GuiInterface{
 		txtPassword.setText("");	
 	}
 
-
+	/**
+	 * this method set the variable of the GuiInterface in the client to this.
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Main.client.clientUI=this;	
 	}
-
 }
