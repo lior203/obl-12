@@ -59,6 +59,9 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
 
 	@FXML
 	private Label lblUser_name;
+
+	@FXML
+	private ImageView asd;
 	
 
 	public void init() throws IOException {

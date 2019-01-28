@@ -28,8 +28,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -75,19 +73,6 @@ public class OBLcontroller implements Initializable, GuiInterface {
 			freshStart();
 		}
 
-	}
-
-	@FXML
-	void EnterPress(KeyEvent event) {
-		if (event.getCode() == KeyCode.ENTER){
-			Main.client.clientUI=this;
-			if(!(txtUserName.getText().isEmpty()==false&&txtPassword.getText().isEmpty()==false))
-				showFailed("Some fields are empty");
-			else {
-				RegistrationController.login(txtUserName.getText(),txtPassword.getText());
-				freshStart();
-			}
-		}
 	}
 
 
