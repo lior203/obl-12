@@ -4,19 +4,17 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Reflection?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Registration" minHeight="0.0" minWidth="0.0" prefHeight="928.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.RegistrationGUI">
+<AnchorPane fx:id="Registration" minHeight="0.0" minWidth="0.0" onKeyPressed="#Enter_click" prefHeight="928.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.RegistrationGUI">
    <children>
-      <Label alignment="CENTER" layoutX="565.0" layoutY="26.0" text="Registration" textAlignment="CENTER" underline="true">
-         <font>
-            <Font name="System Bold" size="23.0" />
-         </font>
-      </Label>
-      <Button fx:id="btnSave" layoutX="846.0" layoutY="596.0" mnemonicParsing="false" onAction="#onSaveClick" prefHeight="79.0" prefWidth="150.0" text="Save" />
-      <VBox layoutX="90.0" layoutY="171.0" prefHeight="377.0" prefWidth="133.0">
+      <Button fx:id="btnSave" layoutX="880.0" layoutY="373.0" mnemonicParsing="false" onAction="#onSaveClick" prefHeight="79.0" prefWidth="150.0" text="Save" />
+      <VBox layoutX="382.0" layoutY="240.0" prefHeight="377.0" prefWidth="133.0">
          <children>
             <Label text="First name:">
                <font>
@@ -68,17 +66,30 @@
             </Label>
          </children>
       </VBox>
-      <TextField fx:id="txtFirst_name" layoutX="246.0" layoutY="171.0" />
-      <TextField fx:id="txtLast_name" layoutX="246.0" layoutY="218.0" />
-      <TextField fx:id="txtID" layoutX="246.0" layoutY="262.0" />
-      <TextField fx:id="txtPhone_number" layoutX="246.0" layoutY="312.0" />
-      <TextField fx:id="txtEmail" layoutX="246.0" layoutY="360.0" />
-      <TextField fx:id="txtPassword" layoutX="246.0" layoutY="408.0" />
-      <Label layoutX="445.0" layoutY="176.0" text="*" textFill="RED" />
-      <Label layoutX="445.0" layoutY="223.0" text="*" textFill="RED" />
-      <Label layoutX="445.0" layoutY="267.0" text="*" textFill="RED" />
-      <Label layoutX="445.0" layoutY="317.0" text="*" textFill="RED" />
-      <Label layoutX="445.0" layoutY="365.0" text="*" textFill="RED" />
-      <Label layoutX="445.0" layoutY="413.0" text="*" textFill="RED" />
+      <TextField fx:id="txtFirst_name" layoutX="538.0" layoutY="240.0" />
+      <TextField fx:id="txtLast_name" layoutX="538.0" layoutY="287.0" />
+      <TextField fx:id="txtID" layoutX="538.0" layoutY="331.0" />
+      <TextField fx:id="txtPhone_number" layoutX="538.0" layoutY="381.0" />
+      <TextField fx:id="txtEmail" layoutX="538.0" layoutY="429.0" />
+      <TextField fx:id="txtPassword" layoutX="538.0" layoutY="477.0" />
+      <Label layoutX="737.0" layoutY="245.0" text="*" textFill="RED" />
+      <Label layoutX="737.0" layoutY="292.0" text="*" textFill="RED" />
+      <Label layoutX="737.0" layoutY="336.0" text="*" textFill="RED" />
+      <Label layoutX="737.0" layoutY="386.0" text="*" textFill="RED" />
+      <Label layoutX="737.0" layoutY="434.0" text="*" textFill="RED" />
+      <Label layoutX="737.0" layoutY="482.0" text="*" textFill="RED" />
+      <ImageView fitHeight="101.0" fitWidth="254.0" layoutX="492.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Image/thumb.jpg" />
+         </image>
+         <effect>
+            <Reflection />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="213.0" fitWidth="216.0" layoutX="525.0" layoutY="617.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Image/Registration.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

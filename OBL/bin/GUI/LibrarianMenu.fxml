@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane fx:id="mainSplitPane" dividerPositions="0.18550531914893617" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="928.0" prefWidth="1506.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LibrarianMenuGUI">
+<SplitPane fx:id="mainSplitPane" dividerPositions="0.18550531914893617" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="920.0" prefWidth="1506.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LibrarianMenuGUI">
   <items>
       <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" prefHeight="572.0" prefWidth="233.0">
          <children>
@@ -45,7 +45,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnShow_Report" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#ShowReportScreen" prefHeight="91.0" prefWidth="275.0" text="Show Report">
+                  <Button fx:id="btnShow_Report" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#ShowReportScreen" prefHeight="91.0" prefWidth="289.0" text="Show Report">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -58,7 +58,10 @@
                </font>
             </Label>
             <Button fx:id="btnLog_out" layoutX="185.0" layoutY="16.0" mnemonicParsing="false" onAction="#Logout" text="Log-out" />
-            <Label fx:id="lblUser_name" layoutX="81.0" layoutY="21.0" text="Label" />
+            <Label fx:id="lblUser_name" layoutX="81.0" layoutY="21.0" text="Label">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></Label>
             <ImageView fx:id="asd" fitHeight="46.0" fitWidth="46.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="file:/C:/Users/lior/Pictures/585e4be1cb11b227491c3398.png" />
@@ -66,6 +69,6 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="rightPane" prefHeight="928.0" prefWidth="1232.0" />
+      <AnchorPane fx:id="rightPane" />
   </items>
 </SplitPane>

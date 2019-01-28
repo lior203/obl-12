@@ -32,7 +32,6 @@ import logic.Main;
 
 public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 
-//liorrrrrr
     @FXML
     private TableView<LoanDetails> TableViewLoanHistory;
 

@@ -307,6 +307,7 @@ public class DBController {
 
 	public static ArrayList<String>  login(ArrayList<String> data) throws SQLException
 	{
+		String status;
 		ArrayList<String> userDetails = null;
 		PreparedStatement login;
 		ResultSet rs;
@@ -359,11 +360,15 @@ public class DBController {
 				userDetails.add(rs.getString(4));//Add Password
 				userDetails.add(rs.getString(5));//Add FirstName
 				userDetails.add(rs.getString(6));//Add LastName
-
+				status=rs.getString(7);
 				//////////////////Check if user (member) is connected from another device
 
+				if (status.equals("Locked")) {
+					userDetails.add("4");
+					return userDetails;
+				}
 				if(rs.getString(10).equals("true")) { 
-					//System.out.println("librarian is already connceted from another device");
+					//librarian is already connceted from another device
 					userDetails.add("0");//Add 0 to the arrayList to identify that the member is already connected
 					return userDetails;
 				}
@@ -990,9 +995,9 @@ public class DBController {
 			//BookID.add(rsLoan.getString(3));//BookID
 			//searchBookName.setString(1,BookID.get(0));
 			//rsBook = searchBookName.executeQuery();
-//			if (rsBook.next()) {
-//				loanDetails.add(rsBook.getString(1));//BookName
-//			}
+			//			if (rsBook.next()) {
+			//				loanDetails.add(rsBook.getString(1));//BookName
+			//			}
 		}
 		if (loanDetails.size()==1) {
 			loanDetails.add("NotExist");
@@ -1023,7 +1028,7 @@ public class DBController {
 		else {
 			bookdata.add("fail-1");
 			return bookdata;
-			}
+		}
 		PreparedStatement ps = conn.prepareStatement("SELECT copies FROM book WHERE BookID = ?");
 		ps.setString(1,bookID);
 		ResultSet rs= ps.executeQuery();

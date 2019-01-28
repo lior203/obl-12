@@ -11,6 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import logic.Main;
@@ -44,14 +46,24 @@ public class RegistrationGUI implements Initializable, GuiInterface{
 
 	@FXML
 	void onSaveClick(ActionEvent event) {
+		func();
+
+	}
+
+	@FXML
+	void Enter_click(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER){
+			func();
+		}
+	}
+
+	public void func() {
 		if (checkfields())
 			showFailed("Fill all the dields");
 		else {
 			RegistrationController.registration(txtPhone_number.getText(),txtID.getText(),txtLast_name.getText(),txtFirst_name.getText(),txtEmail.getText(),txtPassword.getText());
 		}
-
 	}
-
 
 	private boolean checkfields() {
 		if ((txtEmail.getText()).equals(""))

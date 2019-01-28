@@ -1,5 +1,6 @@
 package GUI;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -20,15 +21,18 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.converter.LocalDateStringConverter;
 import javafx.util.converter.LocalDateTimeStringConverter;
+import logic.BookHandlerController;
 import logic.CommonController;
 import logic.InventoryController;
 import logic.Main;
@@ -37,6 +41,7 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 	public static String Location;
 	public static String bookname;
 	public static String bookid;
+	public static File PDF;
 	@FXML
 	private AnchorPane MainPane;
 
@@ -91,19 +96,31 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 	@FXML
 	private CheckBox CHBOX_NO;
 
+	@FXML
+	private Button browse;
+
+	public static String nextBookID;
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 	String wanted;
 
 	@FXML
-	void WANTED_YES(ActionEvent event) {
-			CHBOX_NO.setSelected(false);
-			wanted="true";
+	public void pdf(ActionEvent event) {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open Resource File");
+		PDF=fileChooser.showOpenDialog(OBLcontroller.librarianStage);
+		txtTable_Of_Content.setText(PDF.getName());
 	}
-	
+
+	@FXML
+	void WANTED_YES(ActionEvent event) {
+		CHBOX_NO.setSelected(false);
+		wanted="true";
+	}
+
 	@FXML
 	void WANTED_NO(ActionEvent event) {
-			CHBOX_YES.setSelected(false);
-			wanted="false";
+		CHBOX_YES.setSelected(false);
+		wanted="false";
 	}
 
 	@FXML
@@ -131,6 +148,7 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		btnAdd.setDisable(status);
 		CHBOX_NO.setDisable(status);
 		CHBOX_YES.setDisable(status);
+		browse.setDisable(status);
 	}
 
 	@FXML
@@ -141,6 +159,23 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 
 	@FXML
 	void CheckExistense(ActionEvent event) {
+		if (txtBook_Name.getText().isEmpty()||txtAuthor.getText().isEmpty()) {
+			showFailed("fill the missing fields.");
+			txtBook_Name.setEditable(true);
+			txtAuthor.setEditable(true);
+		}
+		else{
+			ArrayList<String> msg=new ArrayList<>();
+			msg.add(txtBook_Name.getText());
+			msg.add(txtAuthor.getText());
+			InventoryController.checkExistence((ArrayList<String>) msg);
+			Enablefields(false);
+			btnCopy.setDisable(true);
+		}
+	}
+
+	@FXML
+	void enterPress(KeyEvent event) {
 		if (txtBook_Name.getText().isEmpty()||txtAuthor.getText().isEmpty()) {
 			showFailed("fill the missing fields.");
 			txtBook_Name.setEditable(true);
@@ -171,8 +206,8 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 			return true;
 		if ((CHBOX_NO.isSelected()==false&&CHBOX_YES.isSelected()==false))
 			return true;
-//		if ((btnAdd.getText().isEmpty()))
-//			return true;
+		//		if ((btnAdd.getText().isEmpty()))
+		//			return true;
 		return false;
 	}
 
@@ -186,7 +221,10 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Confirm");
 		alert.setHeaderText(string);
-		alert.showAndWait();	
+		alert.showAndWait();
+		if (PDF==null)
+			System.out.println("pdf problem");	
+		else BookHandlerController.sendPdf(PDF, nextBookID);
 	}
 
 	@Override

@@ -6,66 +6,155 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="MainPane" prefHeight="928.0" prefWidth="1232.0" style="-fx-background-image: file:///C:/Users/lior/git/repository/obl-12/OBL/Imag/05-72.jpg;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.InventoryAddGUI">
+<AnchorPane fx:id="MainPane" prefHeight="928.0" prefWidth="1232.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.InventoryAddGUI">
    <children>
-      <Label alignment="CENTER" contentDisplay="TOP" layoutX="309.0" layoutY="29.0" prefHeight="40.0" prefWidth="187.0" text="Inventory-Add" textAlignment="CENTER" underline="true" wrapText="true">
+      <ImageView fitHeight="928.0" fitWidth="1242.0" opacity="0.47" pickOnBounds="true">
+         <image>
+            <Image url="@../../../../../../Pictures/1_Cbj_BcK5ePD4Mc4TK4sfvQ.jpeg" />
+         </image>
+         <effect>
+            <GaussianBlur />
+         </effect>
+      </ImageView>
+      <Label alignment="CENTER" contentDisplay="TOP" layoutX="512.0" layoutY="24.0" prefHeight="45.0" prefWidth="255.0" text="Inventory-Add" textAlignment="CENTER" underline="true" wrapText="true">
          <font>
-            <Font name="System Bold" size="24.0" />
+            <Font name="System Bold" size="32.0" />
          </font>
       </Label>
-      <Button fx:id="btnAdd" disable="true" layoutX="449.0" layoutY="497.0" mnemonicParsing="false" onAction="#AddBook" prefHeight="81.0" prefWidth="124.0" text="Add">
+      <Button fx:id="btnAdd" disable="true" layoutX="305.0" layoutY="496.0" mnemonicParsing="false" onAction="#AddBook" prefHeight="81.0" prefWidth="211.0" text="Add New Book">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Button>
-      <Label layoutX="83.0" layoutY="135.0" text="Book name:" />
-      <TextField fx:id="txtBook_Name" layoutX="207.0" layoutY="131.0" />
-      <TextField fx:id="txtAuthor" layoutX="575.0" layoutY="131.0" prefHeight="31.0" prefWidth="218.0" />
-      <TextField fx:id="txtEdition" disable="true" layoutX="207.0" layoutY="179.0" />
-      <Label layoutX="83.0" layoutY="183.0" text="Edition:" />
-      <TextField fx:id="txtTheme" disable="true" layoutX="207.0" layoutY="225.0" />
-      <Label layoutX="83.0" layoutY="229.0" text="Theme:" />
-      <Label layoutX="458.0" layoutY="136.0" text="Author:" />
-      <Label layoutX="458.0" layoutY="184.0" text="Print date:" />
-      <TextField fx:id="txtCatlog_Number" disable="true" layoutX="575.0" layoutY="225.0" prefHeight="31.0" prefWidth="218.0" />
-      <Label layoutX="458.0" layoutY="230.0" text="Catalog number:" />
-      <Label layoutX="83.0" layoutY="276.0" text="Copies:" />
-      <TextField fx:id="txtCopies" disable="true" layoutX="207.0" layoutY="272.0" />
-      <Label layoutX="458.0" layoutY="277.0" text="purchase date:" />
-      <TextField fx:id="txtShelf_Location" disable="true" layoutX="207.0" layoutY="321.0" />
-      <Label layoutX="83.0" layoutY="325.0" text="Shelf location:" />
-      <Label layoutX="458.0" layoutY="326.0" text="Desciption:" />
-      <TextArea fx:id="txtDescription" disable="true" layoutX="575.0" layoutY="320.0" prefHeight="81.0" prefWidth="218.0" />
-      <Button layoutX="730.0" layoutY="515.0" mnemonicParsing="false" onAction="#BackToInventory" prefHeight="45.0" prefWidth="85.0" text="Back">
+      <Label layoutX="193.0" layoutY="134.0" text="Book name:">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font></Label>
+      <TextField fx:id="txtBook_Name" layoutX="317.0" layoutY="130.0" />
+      <TextField fx:id="txtAuthor" layoutX="685.0" layoutY="130.0" onKeyPressed="#enterPress" prefHeight="31.0" prefWidth="218.0" />
+      <TextField fx:id="txtEdition" disable="true" layoutX="682.0" layoutY="177.0" prefHeight="31.0" prefWidth="218.0" />
+      <Label layoutX="568.0" layoutY="182.0" text="Edition:">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font></Label>
+      <TextField fx:id="txtTheme" disable="true" layoutX="317.0" layoutY="224.0" />
+      <Label layoutX="193.0" layoutY="228.0" text="Theme:">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font></Label>
+      <Label layoutX="568.0" layoutY="135.0" text="Author:">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font></Label>
+      <Label layoutX="571.0" layoutY="229.0" text="Print date:">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font></Label>
+      <TextField fx:id="txtCatlog_Number" disable="true" layoutX="317.0" layoutY="177.0" prefHeight="31.0" prefWidth="187.0" />
+      <Label layoutX="193.0" layoutY="182.0" text="Book ID:">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Label layoutX="193.0" layoutY="275.0" text="Copies:">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font></Label>
+      <TextField fx:id="txtCopies" disable="true" layoutX="317.0" layoutY="271.0" />
+      <Label layoutX="568.0" layoutY="276.0" text="purchase date:">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font></Label>
+      <TextField fx:id="txtShelf_Location" disable="true" layoutX="317.0" layoutY="320.0" />
+      <Label layoutX="193.0" layoutY="324.0" text="Shelf location:">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font></Label>
+      <Label layoutX="568.0" layoutY="325.0" text="Desciption:">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font></Label>
+      <TextArea fx:id="txtDescription" disable="true" layoutX="685.0" layoutY="319.0" prefHeight="81.0" prefWidth="218.0" />
+      <Button layoutX="597.0" layoutY="684.0" mnemonicParsing="false" onAction="#BackToInventory" prefHeight="45.0" prefWidth="85.0" text="Back">
          <font>
             <Font size="21.0" />
          </font></Button>
-      <Button layoutX="364.0" layoutY="368.0" mnemonicParsing="false" text="..." />
-      <Label layoutX="83.0" layoutY="373.0" text="Table of Contents:" />
-      <TextField fx:id="txtTable_Of_Content" disable="true" layoutX="209.0" layoutY="368.0" prefHeight="31.0" prefWidth="158.0" />
-      <Label layoutX="83.0" layoutY="414.0" text="Wanted:" />
-      <Button layoutX="829.0" layoutY="126.0" mnemonicParsing="false" onAction="#CheckExistense" prefHeight="61.0" prefWidth="137.0" text="Check exsitens" />
-      <Button fx:id="btnCopy" disable="true" layoutX="230.0" layoutY="497.0" mnemonicParsing="false" onAction="#AddCopy" prefHeight="81.0" prefWidth="150.0" text="Add Copy">
+      <Button fx:id="browse" disable="true" layoutX="474.0" layoutY="367.0" mnemonicParsing="false" onAction="#pdf" text="..." />
+      <Label layoutX="193.0" layoutY="372.0" text="Table of Contents:">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font></Label>
+      <TextField fx:id="txtTable_Of_Content" disable="true" layoutX="319.0" layoutY="367.0" prefHeight="31.0" prefWidth="158.0" />
+      <Label layoutX="193.0" layoutY="413.0" text="Wanted:">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font></Label>
+      <Button layoutX="939.0" layoutY="131.0" mnemonicParsing="false" onAction="#CheckExistense" prefHeight="61.0" prefWidth="137.0" text="Check exsitens">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font></Button>
+      <Button fx:id="btnCopy" disable="true" layoutX="768.0" layoutY="496.0" mnemonicParsing="false" onAction="#AddCopy" prefHeight="81.0" prefWidth="177.0" text="Add Copy">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Button>
-      <DatePicker fx:id="txtPurchase_Date" disable="true" layoutX="575.0" layoutY="272.0" />
-      <DatePicker fx:id="txtPrint_Date" disable="true" layoutX="575.0" layoutY="179.0" />
-      <CheckBox fx:id="CHBOX_YES" disable="true" layoutX="222.0" layoutY="420.0" mnemonicParsing="false" onAction="#WANTED_YES" text="YES" />
-      <CheckBox fx:id="CHBOX_NO" disable="true" layoutX="316.0" layoutY="420.0" mnemonicParsing="false" onAction="#WANTED_NO" text="NO" />
-      <Label layoutX="403.0" layoutY="135.0" text="*" textFill="RED" />
-      <Label layoutX="403.0" layoutY="183.0" text="*" textFill="RED" />
-      <Label layoutX="403.0" layoutY="230.0" text="*" textFill="RED" />
-      <Label layoutX="403.0" layoutY="276.0" text="*" textFill="RED" />
-      <Label layoutX="403.0" layoutY="326.0" text="*" textFill="RED" />
-      <Label layoutX="403.0" layoutY="373.0" text="*" textFill="RED" />
-      <Label layoutX="403.0" layoutY="420.0" text="*" textFill="RED" />
-      <Label layoutX="800.0" layoutY="135.0" text="*" textFill="RED" />
-      <Label layoutX="800.0" layoutY="183.0" text="*" textFill="RED" />
-      <Label layoutX="800.0" layoutY="276.0" text="*" textFill="RED" />
-      <Label layoutX="800.0" layoutY="326.0" text="*" textFill="RED" />
+      <DatePicker fx:id="txtPurchase_Date" disable="true" layoutX="685.0" layoutY="271.0" />
+      <DatePicker fx:id="txtPrint_Date" disable="true" layoutX="685.0" layoutY="224.0" />
+      <CheckBox fx:id="CHBOX_YES" disable="true" layoutX="332.0" layoutY="419.0" mnemonicParsing="false" onAction="#WANTED_YES" text="YES">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></CheckBox>
+      <CheckBox fx:id="CHBOX_NO" disable="true" layoutX="426.0" layoutY="419.0" mnemonicParsing="false" onAction="#WANTED_NO" text="NO">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></CheckBox>
+      <Label layoutX="172.0" layoutY="134.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Label>
+      <Label layoutX="552.0" layoutY="226.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font></Label>
+      <Label layoutX="172.0" layoutY="229.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Label>
+      <Label layoutX="172.0" layoutY="275.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Label>
+      <Label layoutX="172.0" layoutY="325.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Label>
+      <Label layoutX="172.0" layoutY="372.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Label>
+      <Label layoutX="172.0" layoutY="419.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Label>
+      <Label layoutX="552.0" layoutY="132.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font></Label>
+      <Label layoutX="552.0" layoutY="179.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font></Label>
+      <Label layoutX="552.0" layoutY="273.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font></Label>
+      <Label layoutX="552.0" layoutY="322.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font></Label>
    </children>
 </AnchorPane>

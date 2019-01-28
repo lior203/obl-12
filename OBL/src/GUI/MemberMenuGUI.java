@@ -79,8 +79,9 @@ public class MemberMenuGUI implements Initializable,GuiInterface{
 	}
 
 	@FXML
-	void HistoryActivitiesScreen(ActionEvent event) {
-
+	void HistoryActivitiesScreen(ActionEvent event) throws IOException {
+		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/ActivitiesHistory.fxml"));
+		rightPane.getChildren().setAll(pane);
 	}
 
 	@FXML

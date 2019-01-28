@@ -38,8 +38,7 @@ public class MemberPersonalDataGUI implements Initializable,GuiInterface{
 
 	    @FXML
 	    private TextField txtEmail;
-	    @FXML
-	    private Button btnHistory;
+	   
 	    @FXML
 	    private TextField txtStatus;
 	    @FXML
@@ -58,19 +57,7 @@ public class MemberPersonalDataGUI implements Initializable,GuiInterface{
 		    		showSuccess("Details updated successfully");
 		    	}
 	    }
-	    @FXML
-	    void viewPersonalHistory(ActionEvent event) throws IOException {
-	    	//Load page of loan history
-	    	Parent parent=FXMLLoader.load(getClass().getResource("/GUI/HistoryOfLoanTableView.fxml"));
-	    	Scene scene=new Scene(parent);
-	    	Stage stage=new Stage();
-	    	stage.setScene(scene);
-	    	stage.setMaxHeight(631);
-	    	stage.setMinHeight(631);
-	    	stage.setMinWidth(920);
-	    	stage.setMaxWidth(920);
-	    	stage.show();
-	    	}
+	   
 	    Common.Member member;// object of Member details
 		@Override
 		public void showSuccess(String string) {

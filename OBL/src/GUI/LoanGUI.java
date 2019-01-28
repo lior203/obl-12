@@ -17,6 +17,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import logic.BookHandlerController;
 import logic.CommonController;
 import logic.Main;
@@ -62,6 +63,16 @@ public class LoanGUI implements Initializable, GuiInterface {
 	}
 
 	@FXML
+	void memberMousePressed(MouseEvent event) {
+		try {
+			CommonController.checkMemberExistence(txt_MemberID.getText());
+		} catch (Exception e) {
+			clearMemberFields();
+			showFailed(e.getMessage());
+		}
+	}
+
+	@FXML
 	void copyKeyPressed(KeyEvent event) {
 		if (event.getCode()==KeyCode.ENTER) {
 			try {
@@ -72,6 +83,18 @@ public class LoanGUI implements Initializable, GuiInterface {
 			}
 		}
 	}
+
+	@FXML
+	void copyMousePressed(MouseEvent event) {
+		try {
+			BookHandlerController.isCopyExist(txt_CopyID.getText());
+		} catch (Exception e) {
+			clearCopyFields();
+			showFailed(e.getMessage());
+		}
+	}
+
+
 
 	@FXML
 	void clickLoanButton(ActionEvent event) {

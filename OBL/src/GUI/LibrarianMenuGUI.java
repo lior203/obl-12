@@ -72,6 +72,12 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
 		leftPane.maxWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));
 		leftPane.minWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/Registration.fxml"));
+		pane.setMinHeight(rightPane.getHeight());
+		pane.setMaxHeight(rightPane.getHeight());
+		pane.setMinWidth(rightPane.getWidth());
+		pane.setMaxWidth(rightPane.getMaxWidth());
+		pane.setLayoutX(rightPane.getLayoutX());
+		pane.setLayoutY(rightPane.getLayoutY());
 		rightPane.getChildren().setAll(pane);
 		lblUser_name.setText(Client.arrayUser.get(2)+" "+Client.arrayUser.get(3));               	
 	}
@@ -86,42 +92,84 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
 	@FXML
 	void InventoryScreen(ActionEvent event) throws IOException {
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/Inventory.fxml"));
+		pane.setMinHeight(rightPane.getHeight());
+		pane.setMaxHeight(rightPane.getHeight());
+		pane.setMinWidth(rightPane.getWidth());
+		pane.setMaxWidth(rightPane.getMaxWidth());
+		pane.setLayoutX(rightPane.getLayoutX());
+		pane.setLayoutY(rightPane.getLayoutY());
 		rightPane.getChildren().setAll(pane);
 	}
 
 	@FXML
 	void RegistrationScreen(ActionEvent event) throws IOException {
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/Registration.fxml"));
+		pane.setMinHeight(rightPane.getHeight());
+		pane.setMaxHeight(rightPane.getHeight());
+		pane.setMinWidth(rightPane.getWidth());
+		pane.setMaxWidth(rightPane.getMaxWidth());
+		pane.setLayoutX(rightPane.getLayoutX());
+		pane.setLayoutY(rightPane.getLayoutY());
 		rightPane.getChildren().setAll(pane);
 	}
 
 	@FXML
 	void ReturnBookScreen(ActionEvent event) throws IOException {
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/ReturnBook.fxml"));
+		pane.setMinHeight(rightPane.getHeight());
+		pane.setMaxHeight(rightPane.getHeight());
+		pane.setMinWidth(rightPane.getWidth());
+		pane.setMaxWidth(rightPane.getMaxWidth());
+		pane.setLayoutX(rightPane.getLayoutX());
+		pane.setLayoutY(rightPane.getLayoutY());
 		rightPane.getChildren().setAll(pane);
 	}
 
 	@FXML
 	void SearchBookScreen(ActionEvent event) throws IOException {
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/LibrarianBookSearch.fxml"));
+		pane.setMinHeight(rightPane.getHeight());
+		pane.setMaxHeight(rightPane.getHeight());
+		pane.setMinWidth(rightPane.getWidth());
+		pane.setMaxWidth(rightPane.getMaxWidth());
+		pane.setLayoutX(rightPane.getLayoutX());
+		pane.setLayoutY(rightPane.getLayoutY());
 		rightPane.getChildren().setAll(pane);
 	}
 
 	@FXML
 	void SearchReaderScreen(ActionEvent event) throws IOException {
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/ReaderCard.fxml"));
+		pane.setMinHeight(rightPane.getHeight());
+		pane.setMaxHeight(rightPane.getHeight());
+		pane.setMinWidth(rightPane.getWidth());
+		pane.setMaxWidth(rightPane.getMaxWidth());
+		pane.setLayoutX(rightPane.getLayoutX());
+		pane.setLayoutY(rightPane.getLayoutY());
 		rightPane.getChildren().setAll(pane);
 	}
 
 	@FXML
 	void ShowReportScreen(ActionEvent event) throws IOException {
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/StatisticReports.fxml"));
+		pane.setMinHeight(rightPane.getHeight());
+		pane.setMaxHeight(rightPane.getHeight());
+		pane.setMinWidth(rightPane.getWidth());
+		pane.setMaxWidth(rightPane.getMaxWidth());
+		pane.setLayoutX(rightPane.getLayoutX());
+		pane.setLayoutY(rightPane.getLayoutY());
 		rightPane.getChildren().setAll(pane);
 	}
 
 	@FXML
 	void showLoanScreen(ActionEvent event) throws IOException {
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/Loan.fxml"));
+		pane.setMinHeight(rightPane.getHeight());
+		pane.setMaxHeight(rightPane.getHeight());
+		pane.setMinWidth(rightPane.getWidth());
+		pane.setMaxWidth(rightPane.getMaxWidth());
+		pane.setLayoutX(rightPane.getLayoutX());
+		pane.setLayoutY(rightPane.getLayoutY());
 		rightPane.getChildren().setAll(pane);
 	}
 
