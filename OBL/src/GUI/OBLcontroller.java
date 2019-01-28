@@ -41,9 +41,6 @@ import sun.reflect.generics.tree.DoubleSignature;
 public class OBLcontroller implements Initializable, GuiInterface {
 
 	@FXML
-	private ImageView imag;
-
-	@FXML
 	private Pane pane;
 
 	@FXML
