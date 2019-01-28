@@ -28,40 +28,40 @@ import logic.RegistrationController;
 public class LibrarianMenuGUI implements Initializable, GuiInterface{
 
 	@FXML
-	private SplitPane mainSplitPane;
+    private SplitPane mainSplitPane;
 
-	@FXML
-	private AnchorPane leftPane;
+    @FXML
+    private AnchorPane leftPane;
 
-	@FXML
-	private AnchorPane rightPane;
+    @FXML
+    private Button btnRegistration;
 
-	@FXML
-	private Button btnRegistration;
+    @FXML
+    private Button btnSearchReader;
 
-	@FXML
-	private Button btnSearchReader;
+    @FXML
+    private Button btnSearchBook;
 
-	@FXML
-	private Button btnSearchBook;
+    @FXML
+    private Button btn_LoanBook;
 
-	@FXML
-	private Button btnReturnBook;
+    @FXML
+    private Button btnReturnBook;
 
-	@FXML
-	private Button btnInventory;
+    @FXML
+    private Button btnInventory;
 
-	@FXML
-	private Button btnLog_out;
+    @FXML
+    private Button btnShow_Report;
 
-	@FXML
-	private Button btnShow_Report;
+    @FXML
+    private Button btnLog_out;
 
-	@FXML
-	private Label lblUser_name;
+    @FXML
+    private Label lblUser_name;
 
-	@FXML
-	private ImageView asd;
+    @FXML
+    private AnchorPane rightPane;
 	
 
 	public void init() throws IOException {
