@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import Client.Client;
 import Common.GuiInterface;
 import javafx.collections.FXCollections;
@@ -30,70 +29,118 @@ import logic.RegistrationController;
 
 public class MemberCardGUI implements Initializable,GuiInterface{
 	public static String memberIDHistory=null;
-    String isManager;
+	public static String memberFirstName=null;
+	public static String memberLastName=null;
+	String isManager;
 	ObservableList<String> list;
 	boolean update=false;
-    @FXML
-    private ComboBox cmbStatus;
-    @FXML
-    private TextField txtMember_ID;
+	private  String memberStatus=null;
+	@FXML
+	private ComboBox cmbStatus;
+	@FXML
+	private TextField txtMember_ID;
 
-    @FXML
-    private TextField txtFirst_Name;
+	@FXML
+	private TextField txtFirst_Name;
 
-    @FXML
-    private TextField txtLast_Name;
+	@FXML
+	private TextField txtLast_Name;
 
-    @FXML
-    private TextField txtPhone_Number;
+	@FXML
+	private TextField txtPhone_Number;
 
-    @FXML
-    private TextField txtEmail;
+	@FXML
+	private TextField txtEmail;
 
-    @FXML
-    private Button btnHistory;
+	@FXML
+	private Button btnHistory;
 
-    @FXML
-    private Button btnLates_Lostbook;
+	@FXML
+	private Button btnLates_Lostbook;
 
-    @FXML
-    private TextArea txtArea_Notes;
+	@FXML
+	private TextArea txtArea_Notes;
 
-    @FXML
-    private Button btnSave;
+	@FXML
+	private Button btnSave;
 
 
-    @FXML
-    void searchMember(KeyEvent event) {
-    	if (event.getCode()==KeyCode.ENTER) {
+	@FXML
+	private Button btnStatus;
+
+	@FXML
+	void getDelayandLostBooks(ActionEvent event) throws IOException {
+		//load table view that present the late and lost book by member
+		memberIDHistory=txtMember_ID.getText();
+		memberFirstName=txtFirst_Name.getText();
+		memberLastName=txtLast_Name.getText();
+		Parent parent=FXMLLoader.load(getClass().getResource("/GUI/DelayandLostTableView.fxml"));
+		Scene scene=new Scene(parent);
+		Stage stage=new Stage();
+		stage.setScene(scene);
+		stage.setMaxHeight(639);
+		stage.setMinHeight(639);
+		stage.setMinWidth(922);
+		stage.setMaxWidth(922);
+		stage.show();
+	}
+	@FXML
+	void getStatusHistory(ActionEvent event) throws IOException {
+		//load table view that present the the member status
+		memberIDHistory=txtMember_ID.getText();
+		memberFirstName=txtFirst_Name.getText();
+		memberLastName=txtLast_Name.getText();
+		Parent parent=FXMLLoader.load(getClass().getResource("/GUI/MemberStatusHistory.fxml"));
+		Scene scene=new Scene(parent);
+		Stage stage=new Stage();
+		stage.setScene(scene);
+		stage.setMaxHeight(571);
+		stage.setMinHeight(571);
+		stage.setMinWidth(806);
+		stage.setMaxWidth(806);
+		stage.show();
+	}
+	@FXML
+	void searchMember(KeyEvent event) {
+		if (event.getCode()==KeyCode.ENTER) {
 			RegistrationController.searchMember(txtMember_ID.getText());
 		}
-    }
-    @FXML
-    void librarianUpdateMember(ActionEvent event) {
-    	update=true;
-    	CommonController.librarianUpdateMember(cmbStatus.getValue().toString(),txtMember_ID.getText(),txtArea_Notes.getText(),isManager);
-    }
-    @FXML
-    void viewPersonalHistory(ActionEvent event) throws IOException {
-    	//Load page of loan history
-    	memberIDHistory=txtMember_ID.getText();
-    	Parent parent=FXMLLoader.load(getClass().getResource("/GUI/HistoryOfLoanTableView.fxml"));
-    	Scene scene=new Scene(parent);
-    	Stage stage=new Stage();
-    	stage.setScene(scene);
-    	stage.setMaxHeight(631);
-    	stage.setMinHeight(631);
-    	stage.setMinWidth(920);
-    	stage.setMaxWidth(920);
-    	stage.show();
-    }
+	}
+	@FXML
+	void librarianUpdateMember(ActionEvent event) {
+		update=true;
+		if (!memberStatus.equals(cmbStatus.getValue().toString())) {
+			CommonController.librarianUpdateMember(cmbStatus.getValue().toString(),txtMember_ID.getText(),txtArea_Notes.getText(),isManager,true,memberStatus);//should be true			
+			System.out.println("Status changed to "+cmbStatus.getValue().toString()+" now in display");
+		}
+		else
+		{
+			CommonController.librarianUpdateMember(cmbStatus.getValue().toString(),txtMember_ID.getText(),txtArea_Notes.getText(),isManager,false," ");//should be false			
+		}
+	}
+	@FXML
+	void viewPersonalHistory(ActionEvent event) throws IOException {
+		//Load page of loan history
+		memberIDHistory=txtMember_ID.getText();
+		memberFirstName=txtFirst_Name.getText();
+		memberLastName=txtLast_Name.getText();
+		Parent parent=FXMLLoader.load(getClass().getResource("/GUI/HistoryOfLoanTableView.fxml"));
+		Scene scene=new Scene(parent);
+		Stage stage=new Stage();
+		stage.setScene(scene);
+		stage.setMaxHeight(628);
+		stage.setMinHeight(628);
+		stage.setMinWidth(916);
+		stage.setMaxWidth(916);
+		stage.show();
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Client.clientUI=this;
 		setMsStatusComboBox();
 		CommonController.checkManager(Client.arrayUser.get(0));
+
 	}
 
 	@Override
@@ -118,12 +165,14 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 				setCardMember(userData);
 			}
 			if (userData.get(1).equals("NotExist")) {
-				
+
 				showFailed("Member does not exist");
 			}
 			else {
 				if (update) {
-					showSuccess("Member updated successfully");
+					showSuccess("The member "+txtFirst_Name.getText()+" "+txtLast_Name.getText()+" Details updated successfully");
+					memberStatus=cmbStatus.getValue().toString();
+
 				}
 			}
 			if (isManager.equals("true")) {
@@ -150,6 +199,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		txtArea_Notes.setDisable(false);
 		btnHistory.setDisable(false);
 		btnLates_Lostbook.setDisable(false);
+		btnStatus.setDisable(false);
 	}
 	private void setEditableLibrarianManager() {
 		txtFirst_Name.setEditable(false);
@@ -163,6 +213,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		cmbStatus.setDisable(false);
 		btnHistory.setDisable(false);
 		btnLates_Lostbook.setDisable(false);
+		btnStatus.setDisable(false);
 	}
 	private void setCardMember(ArrayList<String> memberData) {
 		txtMember_ID.setEditable(false);
@@ -172,6 +223,9 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		txtEmail.setText(memberData.get(3));
 		cmbStatus.setValue(memberData.get(7));
 		txtArea_Notes.setText(memberData.get(8));
+		memberStatus=cmbStatus.getValue().toString();
+		System.out.println(memberStatus+" member status in card reader");
+
 
 	}
 
@@ -223,5 +277,11 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		txtArea_Notes.setText("");
 		cmbStatus.setValue("");			
 	}
-	
+	public String getMemberStatus() {
+		return memberStatus;
+	}
+	public void setMemberStatus(String memberStatus) {
+		this.memberStatus = memberStatus;
+	}
+
 }

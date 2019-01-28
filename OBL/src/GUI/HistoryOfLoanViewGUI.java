@@ -23,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -32,6 +33,7 @@ import logic.Main;
 
 public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 
+//liorrrrrr
     @FXML
     private TableView<LoanDetails> TableViewLoanHistory;
 
@@ -46,67 +48,84 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
     private TableColumn<LoanDetails, String> LoanDate;
     @FXML
     private AnchorPane rootPane;
+    @FXML
+    private Label memberDetails;
 	Stage window;
 	VBox vBox;
-	String memberID;
-	String memberFirstName;
-	String memberLastName;	
+	String memberID;	
 	@Override
 	public void showSuccess(String string) {
-		// TODO Auto-generated method stub
-		
+		Alert alert=new Alert(AlertType.INFORMATION);
+		alert.setTitle("Success");
+		alert.setHeaderText(string);
+		alert.showAndWait();			
 	}
 	@Override
 	public void display(Object obj) {
+
 		int numberOfColumns=4;
 		int nonRelevantString=1;
 		ArrayList<String> loanList = (ArrayList<String>)obj;
 		System.out.println(loanList.toString()+"in historyGUI");
-		if (loanList.get(1).equals("NotExist")) {
-			showFailed("There is no loan history for this member");
+		if (loanList.get(0).equals("SearchMember")) {
+			showSuccess("The member "+memberDetails.getText()+" details updated successfully");
 		}
 		else {
-			
-			TableViewLoanHistory.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); //resize the columns to the table view
-			//set up the columns
-			BookName = new TableColumn<>("Book name");
-			CopyID = new TableColumn<>("Copy ID");
-			LoanDate = new TableColumn<>("Loan Date");
-			ActualReturnDate = new TableColumn<>("Actual return date");
+			if (loanList.get(1).equals("NotExist")) {
+				showFailed("The member "+memberDetails.getText()+ " did not loan any book yet. we are waiting!");
+			}
+			else {
+				
+				TableViewLoanHistory.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); //resize the columns to the table view
+				//set up the columns
+				BookName = new TableColumn<>("Book name");
+				CopyID = new TableColumn<>("Copy ID");
+				LoanDate = new TableColumn<>("Loan Date");
+				ActualReturnDate = new TableColumn<>("Actual return date");
 
-			//set up size
-			BookName.setMinWidth(200);
-			CopyID.setMinWidth(200);
-			LoanDate.setMinWidth(200);
-			ActualReturnDate.setMinWidth(200);
-			//set up order descending
-			BookName.setSortType(TableColumn.SortType.DESCENDING);
-			CopyID.setSortType(TableColumn.SortType.DESCENDING);
-			LoanDate.setSortType(TableColumn.SortType.DESCENDING);
-			ActualReturnDate.setSortType(TableColumn.SortType.DESCENDING);
-			//Set upSet property
-			TableViewLoanHistory.getColumns().setAll(BookName,CopyID,LoanDate,ActualReturnDate);//attach the columns to the table view (personTable)
-			BookName.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("bookName"));
-			CopyID.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("copyID"));
-			LoanDate.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("LoanDate"));
-			ActualReturnDate.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("ActualReturnDate"));
+				//set up size
+				BookName.setMinWidth(200);
+				CopyID.setMinWidth(200);
+				LoanDate.setMinWidth(200);
+				ActualReturnDate.setMinWidth(200);
+				//set up order descending
+				BookName.setSortType(TableColumn.SortType.DESCENDING);
+				CopyID.setSortType(TableColumn.SortType.DESCENDING);
+				LoanDate.setSortType(TableColumn.SortType.DESCENDING);
+				ActualReturnDate.setSortType(TableColumn.SortType.DESCENDING);
+				//Set upSet property
+				TableViewLoanHistory.getColumns().setAll(BookName,CopyID,LoanDate,ActualReturnDate);//attach the columns to the table view (personTable)
+				BookName.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("bookName"));
+				CopyID.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("copyID"));
+				LoanDate.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("LoanDate"));
+				ActualReturnDate.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("ActualReturnDate"));
 
-			
-			ObservableList<LoanDetails> loanDetails=FXCollections.observableArrayList();
-			int loanRowSize = (loanList.size()-nonRelevantString)/numberOfColumns;
-			int rowCounter=0, arrayJump=1;
-			ArrayList<LoanDetails> list2 = null;
-			 LoanDetails loanTemp;
-			 while(rowCounter<loanRowSize) {
-				 loanTemp = new LoanDetails(loanList.get(arrayJump+2), loanList.get(arrayJump), loanList.get(arrayJump+1),loanList.get(arrayJump+3));//create a new object by LoanDetails
-				 
-				 //j+2 Book name ; //j CopyID ; //J+1 Loan Date
-				 rowCounter++;
-				 arrayJump+=4;
-				 loanDetails.add(loanTemp);
-			 }
-			 TableViewLoanHistory.setItems(loanDetails);
+				
+				ObservableList<LoanDetails> loanDetails=FXCollections.observableArrayList();
+				int loanRowSize = (loanList.size()-nonRelevantString)/numberOfColumns;
+				int rowCounter=0, arrayJump=1;
+				ArrayList<LoanDetails> list2 = null;
+				 LoanDetails loanTemp;
+				 while(rowCounter<loanRowSize) {
+					 if (loanList.get(arrayJump+3)==null) {
+						 loanTemp = new LoanDetails(loanList.get(arrayJump+2), loanList.get(arrayJump), loanList.get(arrayJump+1),"The book is still borrowed");//create a new object by LoanDetails
+					}
+					 else
+					 {
+						 loanTemp = new LoanDetails(loanList.get(arrayJump+2), loanList.get(arrayJump), loanList.get(arrayJump+1),loanList.get(arrayJump+3));//create a new object by LoanDetails
+						 TableViewLoanHistory.getRowFactory();
+						 
+					 }
+					 //j+2 Book name ; //j CopyID ; //J+1 Loan Date
+					 rowCounter++;
+					 arrayJump+=4;
+					 loanDetails.add(loanTemp);
+					 
+				 }
+				 TableViewLoanHistory.setItems(loanDetails);
+			}			
 		}
+
 
 
 	}
@@ -127,10 +146,14 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 		Main.client.clientUI=this;
 		if (MemberCardGUI.memberIDHistory!=null) {
 			memberID=MemberCardGUI.memberIDHistory;
+			memberDetails.setText(MemberCardGUI.memberFirstName+" "+MemberCardGUI.memberLastName);
 			MemberCardGUI.memberIDHistory=null;
+			MemberCardGUI.memberFirstName=null;
+			MemberCardGUI.memberLastName=null;
 		}
 		else {
 			memberID=Main.client.arrayUser.get(0);//get ID by arrayUser
+			memberDetails.setText(Main.client.arrayUser.get(2)+" "+Main.client.arrayUser.get(3));
 		}
 		
 

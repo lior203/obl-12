@@ -355,6 +355,26 @@ public class Server extends AbstractServer
 					e.printStackTrace();
 				}
 				break;
+			case "getDelayandLostBooks":
+				ArrayList<String>listData;
+				try {
+					listData=DBController.getInstance().getDelayandLostBooks((ArrayList<String>) msg);
+						client.sendToClient(listData);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+			case "getStatusHistory":
+				ArrayList<String>listmemberStatusData;
+				try {
+					listmemberStatusData=DBController.getInstance().getStatusHistory((ArrayList<String>) msg);
+						client.sendToClient(listmemberStatusData);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
 
 			default:
 				break;

@@ -173,6 +173,10 @@ public class OBLcontroller implements Initializable, GuiInterface {
 			showFailed("The member already graduated hence he can't login!");
 			Client.arrayUser.clear();
 			break;
+		case "4":
+			showFailed("The member is locked, and can't connect to the library.");
+			Client.arrayUser.clear();
+			break;
 		}
 	}
 

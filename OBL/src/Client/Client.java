@@ -37,7 +37,7 @@ public class Client extends AbstractClient
 	public static GuiInterface clientUI;
 	public static  ArrayList<String> arrayUser=new ArrayList<String>();
 
-
+//liorrrrrrrr
 	public Client(String host, int port,GuiInterface clientUI) {
 		super(host, port);
 		this.clientUI=clientUI;
@@ -247,6 +247,17 @@ public class Client extends AbstractClient
 				});
 				break;
 			case "CurrentLoans":
+				Platform.runLater(()->{
+					clientUI.display(msg);
+				});
+				break;
+			case "getDelayandLostBooks":
+				ArrayList<String>listData;
+				Platform.runLater(()->{
+					clientUI.display(msg);
+				});
+				break;
+			case "getStatusHistory":
 				Platform.runLater(()->{
 					clientUI.display(msg);
 				});

@@ -39,14 +39,31 @@ public class CommonController {
 		Main.client.handleMessageFromClientUI(librarianData);
 	}
 
-	public static void librarianUpdateMember(String status, String ID, String notes, String isManager) {
+	public static void librarianUpdateMember(String status, String ID, String notes, String isManager, boolean changeStatus,String prevStatus) {
 		ArrayList<String> memberData = new ArrayList<>();
-		memberData.add("librarianUpdateMember");
-		memberData.add(ID);
-		memberData.add(status);
-		memberData.add(notes);
-		memberData.add(isManager);
-		Main.client.handleMessageFromClientUI(memberData);
+		if (changeStatus) {
+			//if the librarian changed the status of the member 
+			memberData.add("librarianUpdateMember");
+			memberData.add(ID);
+			memberData.add(status);
+			memberData.add(notes);
+			memberData.add("true");
+			memberData.add(prevStatus);
+        	System.out.println("Status changed to "+status+" now in common controller");
+
+			Main.client.handleMessageFromClientUI(memberData);			
+		}
+		else {
+			//if the librarian DID NOT changed the status of the member 
+			memberData.add("librarianUpdateMember");
+			memberData.add(ID);
+			memberData.add(status);
+			memberData.add(notes);
+			memberData.add("false");
+			Main.client.handleMessageFromClientUI(memberData);
+			
+		}
+
 	}
 
 	/**
@@ -135,5 +152,18 @@ public class CommonController {
 		col.setPrefWidth(prefWidth);
 		col.setMaxWidth(maxWidth);
 	}
+	public static void getDelayandLostBooks(String memberID) {
+		ArrayList<String> memberData = new ArrayList<>();
+		memberData.add("getDelayandLostBooks");
+		memberData.add(memberID);
+		Main.client.handleMessageFromClientUI(memberData);		
+	}
 
+	public static void getStatusHistory(String memberID) {
+		ArrayList<String> memberData = new ArrayList<>();
+		memberData.add("getStatusHistory");
+		memberData.add(memberID);
+		System.out.println("getStatusHistory-now in common controller");
+		Main.client.handleMessageFromClientUI(memberData);
+	}
 }

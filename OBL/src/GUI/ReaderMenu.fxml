@@ -20,17 +20,12 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#OrderBookScreen" prefHeight="85.0" prefWidth="349.0" text="Order Book">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#SearchScreen" prefHeight="85.0" prefWidth="349.0" text="Search/Extend book">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#SearchScreen" prefHeight="85.0" prefWidth="349.0" text="Search book">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="85.0" prefWidth="349.0" text="History Activities">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#HistoryActivities" prefHeight="85.0" prefWidth="349.0" text="History Activities">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

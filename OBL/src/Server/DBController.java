@@ -896,11 +896,23 @@ public class DBController {
 	}
 	public void librarianUpdateMember(ArrayList<String> member) throws SQLException {
 		PreparedStatement ps;
+		PreparedStatement UpdateStatus;
 		ps = conn.prepareStatement("UPDATE members SET Status = ?, Notes = ? WHERE MemberID = ?");
 		ps.setString(1, member.get(2));
 		ps.setString(2, member.get(3));
 		ps.setString(3, member.get(1));
 		ps.executeUpdate();
+		if (member.get(4).equals("true")) {
+			java.util.Date dt = new java.util.Date();
+			java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String currentTime = sdf.format(dt);
+			 UpdateStatus = conn.prepareStatement("INSERT memberstatus values(?,?,?,?)");
+			 UpdateStatus.setString(1, member.get(1));//memberID
+			 UpdateStatus.setString(2, member.get(5));//prev status
+			 UpdateStatus.setString(3, member.get(2));//current status
+			 UpdateStatus.setString(4,currentTime);
+			 UpdateStatus.executeUpdate();
+		}
 	}
 
 	public static ArrayList<String> isCopyWanted(ArrayList<String> data) throws SQLException {
@@ -1145,6 +1157,52 @@ public class DBController {
 		return currentLoans;
 	}
 
+	public ArrayList<String> getDelayandLostBooks(ArrayList<String> msg) throws SQLException {
+		PreparedStatement searchData;
+		ResultSet rsData;
+		searchData = conn.prepareStatement("SELECT CopyID,IsLostedOrDelayed,CopyName FROM delayonreturn WHERE MemberID=? ");
+		ArrayList<String> dataDetails = new ArrayList<String>();
+		searchData.setString(1,msg.get(1));
+		rsData = searchData.executeQuery();
+		dataDetails.add("getDelayandLostBooks");
+		while(rsData.next()) {
+			dataDetails.add(rsData.getString(1));//CopyID
+			dataDetails.add(rsData.getString(2));//IsLostOrDelayed
+			dataDetails.add(rsData.getString(3));//BookID
+		}
+		if (dataDetails.size()==1) {
+			dataDetails.add("NotExist");
+			System.out.println("Member not exist");
+			return dataDetails;
+		}
+		else {
+			return dataDetails;
+		}
+	}
+
+	public ArrayList<String> getStatusHistory(ArrayList<String> msg) throws SQLException {
+		PreparedStatement searchData;
+		ResultSet rsData;
+		searchData = conn.prepareStatement("SELECT PreviousStatus,CurrentStatus,ExecutionDate FROM memberstatus WHERE MemberID=? ");
+		ArrayList<String> dataDetails = new ArrayList<String>();
+		searchData.setString(1,msg.get(1));
+		rsData = searchData.executeQuery();
+		dataDetails.add("getStatusHistory");
+		while(rsData.next()) {
+			dataDetails.add(rsData.getString(1));//PreviousStatus
+			dataDetails.add(rsData.getString(2));//CurrentStatus
+			dataDetails.add(rsData.getString(3));//ExecutionDate
+		}
+		if (dataDetails.size()==1) {
+			dataDetails.add("NotExist");
+			System.out.println("Member status did not changed");
+			return dataDetails;
+		}
+		else {
+			System.out.println(dataDetails);
+			return dataDetails;
+		}
+	}
 
 	private static Connection connectToDatabase() {
 		try 
