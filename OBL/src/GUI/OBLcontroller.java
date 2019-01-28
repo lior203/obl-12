@@ -140,16 +140,16 @@ public class OBLcontroller implements Initializable, GuiInterface {
 		primaryStage.show();		
 	}
 
-	public void searchBook(ActionEvent event) throws IOException {
-		((Node)event.getSource()).getScene().getWindow().hide();
-		Stage primaryStage = new Stage();
-		FXMLLoader loader = new FXMLLoader();
-		AnchorPane root = loader.load(getClass().getResource("/GUI/SearchBook.fxml").openStream());
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		searchForReader=primaryStage;
-		primaryStage.show();
-	}
+//	public void searchBook(ActionEvent event) throws IOException {
+//		((Node)event.getSource()).getScene().getWindow().hide();
+//		Stage primaryStage = new Stage();
+//		FXMLLoader loader = new FXMLLoader();
+//		AnchorPane root = loader.load(getClass().getResource("/GUI/SearchBook.fxml").openStream());
+//		Scene scene = new Scene(root);
+//		primaryStage.setScene(scene);
+//		searchForReader=primaryStage;
+//		primaryStage.show();
+//	}
 
 
 
