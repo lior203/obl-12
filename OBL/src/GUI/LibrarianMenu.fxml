@@ -30,7 +30,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnInventory1" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#showLoanScreen" prefHeight="85.0" prefWidth="349.0" text="Loan book">
+                  <Button fx:id="btn_LoanBook" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#showLoanScreen" prefHeight="85.0" prefWidth="349.0" text="Loan book">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -62,7 +62,7 @@
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></Label>
-            <ImageView fx:id="asd" fitHeight="46.0" fitWidth="46.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="46.0" fitWidth="46.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Image/asd.jpg" />
                </image>
