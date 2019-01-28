@@ -4,23 +4,33 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="Registration" minHeight="0.0" minWidth="0.0" prefHeight="928.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.RegistrationGUI">
    <children>
-      <Label alignment="CENTER" layoutX="565.0" layoutY="26.0" text="Registration" textAlignment="CENTER" underline="true">
+      <ImageView fitHeight="928.0" fitWidth="1232.0" pickOnBounds="true">
+         <image>
+            <Image url="@../Image/Books%201_21.jpg" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="521.0" layoutY="26.0" text="Registration" textAlignment="CENTER" underline="true">
          <font>
-            <Font name="System Bold" size="23.0" />
+            <Font name="System Bold" size="33.0" />
          </font>
       </Label>
-      <Button fx:id="btnSave" layoutX="846.0" layoutY="596.0" mnemonicParsing="false" onAction="#onSaveClick" prefHeight="79.0" prefWidth="150.0" text="Save" />
-      <VBox layoutX="90.0" layoutY="171.0" prefHeight="377.0" prefWidth="133.0">
+      <Button fx:id="btnSave" layoutX="541.0" layoutY="601.0" mnemonicParsing="false" onAction="#onSaveClick" prefHeight="79.0" prefWidth="150.0" text="Save">
+         <font>
+            <Font name="System Bold" size="35.0" />
+         </font></Button>
+      <VBox layoutX="159.0" layoutY="231.0" prefHeight="377.0" prefWidth="150.0">
          <children>
             <Label text="First name:">
                <font>
-                  <Font size="19.0" />
+                  <Font name="System Bold Italic" size="19.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="20.0" />
@@ -28,7 +38,7 @@
             </Label>
             <Label text="Last name:">
                <font>
-                  <Font size="18.0" />
+                  <Font name="System Bold Italic" size="19.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="20.0" />
@@ -36,7 +46,7 @@
             </Label>
             <Label text="ID:">
                <font>
-                  <Font size="18.0" />
+                  <Font name="System Bold Italic" size="19.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="20.0" />
@@ -44,7 +54,7 @@
             </Label>
             <Label text="Phone number:">
                <font>
-                  <Font size="18.0" />
+                  <Font name="System Bold Italic" size="19.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="20.0" />
@@ -52,7 +62,7 @@
             </Label>
             <Label text="Email:">
                <font>
-                  <Font size="18.0" />
+                  <Font name="System Bold Italic" size="19.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="20.0" />
@@ -60,7 +70,7 @@
             </Label>
             <Label text="Password:">
                <font>
-                  <Font size="18.0" />
+                  <Font name="System Bold Italic" size="19.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="20.0" />
@@ -68,17 +78,35 @@
             </Label>
          </children>
       </VBox>
-      <TextField fx:id="txtFirst_name" layoutX="246.0" layoutY="171.0" />
-      <TextField fx:id="txtLast_name" layoutX="246.0" layoutY="218.0" />
-      <TextField fx:id="txtID" layoutX="246.0" layoutY="262.0" />
-      <TextField fx:id="txtPhone_number" layoutX="246.0" layoutY="312.0" />
-      <TextField fx:id="txtEmail" layoutX="246.0" layoutY="360.0" />
-      <TextField fx:id="txtPassword" layoutX="246.0" layoutY="408.0" />
-      <Label layoutX="445.0" layoutY="176.0" text="*" textFill="RED" />
-      <Label layoutX="445.0" layoutY="223.0" text="*" textFill="RED" />
-      <Label layoutX="445.0" layoutY="267.0" text="*" textFill="RED" />
-      <Label layoutX="445.0" layoutY="317.0" text="*" textFill="RED" />
-      <Label layoutX="445.0" layoutY="365.0" text="*" textFill="RED" />
-      <Label layoutX="445.0" layoutY="413.0" text="*   (Contains at least 6 characters)" textFill="RED" />
+      <TextField fx:id="txtFirst_name" layoutX="342.0" layoutY="231.0" />
+      <TextField fx:id="txtLast_name" layoutX="342.0" layoutY="278.0" />
+      <TextField fx:id="txtID" layoutX="342.0" layoutY="322.0" />
+      <TextField fx:id="txtPhone_number" layoutX="342.0" layoutY="372.0" />
+      <TextField fx:id="txtEmail" layoutX="342.0" layoutY="420.0" />
+      <TextField fx:id="txtPassword" layoutX="342.0" layoutY="468.0" />
+      <Label layoutX="539.0" layoutY="231.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Label layoutX="539.0" layoutY="278.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Label layoutX="539.0" layoutY="322.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Label layoutX="539.0" layoutY="372.0" text="*  (Contains exact 10 digits)" textFill="RED">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Label layoutX="539.0" layoutY="420.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Label layoutX="539.0" layoutY="468.0" text="* (Contains at least 6 characters)" textFill="RED">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
    </children>
 </AnchorPane>
