@@ -69,6 +69,8 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 	@FXML
 	private Button btnBack;
+	
+	private Stage subStage;
 
 	@FXML
 	void onBackClick(ActionEvent event) throws IOException {
@@ -147,7 +149,8 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Confirm");
 		alert.setHeaderText(string);
-		alert.showAndWait();	
+		alert.showAndWait();
+		subStage.close();
 	}
 
 	@Override
@@ -264,6 +267,7 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 		}
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
+		subStage=primaryStage;
 		primaryStage.showAndWait();
 
 	}
@@ -274,6 +278,7 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 		alert.setTitle("Message");
 		alert.setHeaderText(message);
 		alert.showAndWait();
+		subStage.close();
 	}
 
 	@Override

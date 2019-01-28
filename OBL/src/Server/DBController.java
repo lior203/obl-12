@@ -1008,8 +1008,23 @@ public class DBController {
 	public ArrayList<String> reserveBook(ArrayList<String> bookdata) throws SQLException {
 		int copies,answer,reserveamount;
 		String bookID=bookdata.get(1),currentTime;
-		String copyID = null;
+		String copyID = null,Status;
 		System.out.println(bookID);
+
+		PreparedStatement checkIfFroze = conn.prepareStatement("SELECT Status FROM members WHERE MemberID = ?");
+		checkIfFroze.setString(1,bookdata.get(2));
+		ResultSet rs4= checkIfFroze.executeQuery();
+		if(rs4.next()) {
+			Status=rs4.getString(1);
+			if (!Status.equals("Active")) {
+				bookdata.add("your account is 'Frozen'. you can't reserve the book.");
+				return bookdata;
+			}
+		}
+		else {
+			bookdata.add("fail-1");
+			return bookdata;
+			}
 		PreparedStatement ps = conn.prepareStatement("SELECT copies FROM book WHERE BookID = ?");
 		ps.setString(1,bookID);
 		ResultSet rs= ps.executeQuery();
@@ -1109,6 +1124,7 @@ public class DBController {
 	//		}
 	//		return null;
 	//	}
+<<<<<<< HEAD
 
 	public ArrayList<String> getCurrentLoans(ArrayList<String> searchData) throws SQLException {
 		PreparedStatement searchLoan,searchAuthorName;
@@ -1137,6 +1153,8 @@ public class DBController {
 		}
 		return currentLoans;
 	}
+=======
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 
 
 	private static Connection connectToDatabase() {

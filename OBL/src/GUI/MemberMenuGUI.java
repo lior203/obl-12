@@ -84,12 +84,6 @@ public class MemberMenuGUI implements Initializable,GuiInterface{
 	}
 
 	@FXML
-	void OrderBookScreen(ActionEvent event) throws IOException {
-		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/Orderbook.fxml"));
-		rightPane.getChildren().setAll(pane);
-	}
-
-	@FXML
 	void PersonalDataScreen(ActionEvent event) throws IOException {
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/ReaderPersonalData.fxml"));
 		rightPane.getChildren().setAll(pane);
@@ -107,6 +101,13 @@ public class MemberMenuGUI implements Initializable,GuiInterface{
 		rightPane.getChildren().setAll(pane);
     }
 
+	
+	@FXML
+    void ExtendLoanScreen(ActionEvent event) {
+//nitay need to link the table view to this method. this method shows the table view of the loan book that the user posses now.
+    }
+	
+	
 	@Override
 	public void showSuccess(String string) {
 		// TODO Auto-generated method stub

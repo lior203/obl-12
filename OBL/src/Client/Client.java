@@ -3,8 +3,6 @@ package Client;
 //This file contains material supporting section 3.7 of the textbook:
 //"Object Oriented Software Engineering" and is issued under the open-source
 //license found at www.lloseng.com 
-
-
 import ocsf.client.*;
 
 import java.io.*;
@@ -133,7 +131,7 @@ public class Client extends AbstractClient
 					clientUI.showFailed("No matches results to your search");
 				});
 			}
-			else if (((ArrayList<String>) msg).get(3).equals("1"))
+			else if (arrayObject.get(3).equals("1"))
 			{
 				Platform.runLater(() -> {
 					clientUI.display(msg);
@@ -141,20 +139,20 @@ public class Client extends AbstractClient
 			}
 			break;
 		case "Check Member Existence":
-			clientUI.display((ArrayList<String>)msg);
+			clientUI.display(arrayObject);
 			break;
 		case "Check Copy Loan Status":
-			clientUI.display((ArrayList<String>)msg);
+			clientUI.display(arrayObject);
 			break;
 		case "Check Copy ID Existence":
-			clientUI.display((ArrayList<String>)msg);
+			clientUI.display(arrayObject);
 			break;
 		case "Return Book":
-			clientUI.display((ArrayList<String>)msg);
+			clientUI.display(arrayObject);
 			break;
 		case "Registration":
 			System.out.println(msg);
-			if(((ArrayList<String>)msg).get(7).equals("0"))
+			if(arrayObject.get(7).equals("0"))
 			{
 				Platform.runLater(() -> {
 					clientUI.showFailed("Some user have this ID or this phone number");
@@ -168,9 +166,9 @@ public class Client extends AbstractClient
 			}
 			break;
 		case "AddCopy":
-			if (((ArrayList<String>) msg).get(arrayObject.size()-1).equals("success")) {
+			if (arrayObject.get(arrayObject.size()-1).equals("success")) {
 				Platform.runLater(()->{
-					clientUI.showSuccess("Copy Added successfuly.   copy id is: "+((ArrayList<String>) msg).get(arrayObject.size()-2).toString());
+					clientUI.showSuccess("Copy Added successfuly.   copy id is: "+arrayObject.get(arrayObject.size()-2).toString());
 				});
 			}else
 				Platform.runLater(()->{
@@ -180,7 +178,7 @@ public class Client extends AbstractClient
 			break;
 		case "checkExistenceByCopy":
 			Platform.runLater(()->{
-				if (((ArrayList<String>) msg).get(arrayObject.size()-1).equals("1"))
+				if (arrayObject.get(arrayObject.size()-1).equals("1"))
 					clientUI.display(msg);
 				else 
 					clientUI.showFailed("copy not exist.");
@@ -188,14 +186,14 @@ public class Client extends AbstractClient
 			break;
 
 		case "Check If Member Is Late On Return":
-			clientUI.display((ArrayList<String>)msg);
+			clientUI.display(arrayObject);
 			break;
 
 		case "Change Member Status":
-			clientUI.display((ArrayList<String>)msg);
+			clientUI.display(arrayObject);
 			break;
 		case "CheckLibrarianManager":
-			clientUI.display((ArrayList<String>)msg);			
+			clientUI.display(arrayObject);			
 			break;
 		case "Edit":
 			if (arrayObject.get(arrayObject.size()-1).equals("1")) {
@@ -216,17 +214,25 @@ public class Client extends AbstractClient
 			});
 			break;
 		case "Check Copy Wanted Status":
-			clientUI.display((ArrayList<String>)msg);
+			clientUI.display(arrayObject);
 			break;
 		case "Loan Book":
-			clientUI.display((ArrayList<String>)msg);
+			clientUI.display(arrayObject);
 			break;
 		case "Reserve":
 			Platform.runLater(()->{
 				if (arrayObject.get(arrayObject.size()-1).equals("success"))
+<<<<<<< HEAD
 					clientUI.showSuccess("resrve successed.");
 				else 
 					clientUI.showFailed("cannot order, all the copies allready reserved.");
+=======
+					 clientUI.showSuccess("resrve successed.");
+				if (arrayObject.get(arrayObject.size()-1).equals("your account is 'Frozen'. you can't reserve the book."))
+					clientUI.showFailed("your account is 'Frozen'. you can't reserve the book.");
+				if (arrayObject.get(arrayObject.size()-1).equals("fail-2"))
+					clientUI.showFailed("cannot order, \n all the copies allready reserved.");
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 			});
 			break;
 		case "ViewPersonalHistory":
