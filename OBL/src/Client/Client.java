@@ -37,7 +37,7 @@ public class Client extends AbstractClient
 	public static GuiInterface clientUI;
 	public static  ArrayList<String> arrayUser=new ArrayList<String>();
 
-
+//liorrrrrrrr
 	public Client(String host, int port,GuiInterface clientUI) {
 		super(host, port);
 		this.clientUI=clientUI;
@@ -251,6 +251,7 @@ public class Client extends AbstractClient
 					clientUI.display(msg);
 				});
 				break;
+<<<<<<< HEAD
 				
 			case "Extend Loan Period By Member"://show reader card details for read only - tableView
 				if(((ArrayList<String>)msg).size() != 3) {
@@ -278,6 +279,20 @@ public class Client extends AbstractClient
 				}
 			break;
 			
+=======
+			case "getDelayandLostBooks":
+				ArrayList<String>listData;
+				Platform.runLater(()->{
+					clientUI.display(msg);
+				});
+				break;
+			case "getStatusHistory":
+				Platform.runLater(()->{
+					clientUI.display(msg);
+				});
+				break;
+
+>>>>>>> branch 'master' of https://github.com/lior203/obl-12.git
 			default:
 				break;
 			}

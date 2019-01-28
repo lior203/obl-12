@@ -51,7 +51,7 @@
             <Font size="19.0" />
          </font></Label>
       <Button fx:id="btnHistory" disable="true" layoutX="518.0" layoutY="300.0" mnemonicParsing="false" onAction="#viewPersonalHistory" text="History of loan" />
-      <Button fx:id="btnLates_Lostbook" disable="true" layoutX="226.0" layoutY="299.0" mnemonicParsing="false" text="Lates/Lost book" />
+      <Button fx:id="btnLates_Lostbook" disable="true" layoutX="226.0" layoutY="299.0" mnemonicParsing="false" onAction="#getDelayandLostBooks" text="Lates/Lost book" />
       <TextArea fx:id="txtArea_Notes" disable="true" layoutX="477.0" layoutY="393.0" prefHeight="217.0" prefWidth="331.0" />
       <Label layoutX="479.0" layoutY="372.0" text="Notes:" />
       <ImageView fitHeight="28.0" fitWidth="27.0" layoutX="456.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true" visible="false">
@@ -66,5 +66,6 @@
       </Button>
       <ComboBox fx:id="cmbStatus" disable="true" layoutX="600.0" layoutY="117.0" prefHeight="31.0" prefWidth="187.0" />
       <Label layoutX="453.0" layoutY="121.0" text="*" textFill="RED" />
+      <Button fx:id="btnStatus" disable="true" layoutX="712.0" layoutY="300.0" mnemonicParsing="false" onAction="#getStatusHistory" text="Status Changes" />
    </children>
 </AnchorPane>
