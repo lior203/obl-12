@@ -46,7 +46,7 @@ import logic.Main;
 
 
 public class SearchBookGUI implements Initializable, GuiInterface{
-// liorrr
+
 	@FXML
 	private RadioButton radio_btn_book_name;
 
